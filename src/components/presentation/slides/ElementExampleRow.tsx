@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { X, Check, AlertCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -7,10 +7,25 @@ interface ElementExampleRowProps {
   bad: string;
   issue: string;
   good: React.ReactNode; // Allow React nodes for highlighting
+  onRevealed?: () => void;
+  onGateUnlock?: () => void; // Alternative prop name for gate system
 }
 
-const ElementExampleRow = ({ context, bad, issue, good }: ElementExampleRowProps) => {
+const ElementExampleRow = ({ context, bad, issue, good, onRevealed, onGateUnlock }: ElementExampleRowProps) => {
   const [isRevealed, setIsRevealed] = useState(false);
+
+  const handleReveal = () => {
+    if (!isRevealed) {
+      setIsRevealed(true);
+    }
+  };
+
+  useEffect(() => {
+    if (isRevealed) {
+      onRevealed?.();
+      onGateUnlock?.();
+    }
+  }, [isRevealed, onRevealed, onGateUnlock]);
 
   return (
     <div className="rounded-xl border bg-card overflow-hidden">
@@ -44,7 +59,7 @@ const ElementExampleRow = ({ context, bad, issue, good }: ElementExampleRowProps
         {/* Good Example - Hover to reveal */}
         <div 
           className="p-4 bg-green-50/50 dark:bg-green-950/20 relative"
-          onMouseEnter={() => setIsRevealed(true)}
+          onMouseEnter={handleReveal}
         >
           <div className="flex items-center gap-2 mb-2">
             <Check className="w-4 h-4 text-green-600" />

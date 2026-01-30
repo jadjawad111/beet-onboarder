@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Checkbox } from "@/components/ui/checkbox";
 
 const qualities = [
@@ -10,12 +10,26 @@ const qualities = [
   "Includes clear implicit or explicit constraints",
 ];
 
-const PromptQualityChecklist = () => {
+interface PromptQualityChecklistProps {
+  onAllChecked?: () => void;
+  onGateUnlock?: () => void;
+}
+
+const PromptQualityChecklist = ({ onAllChecked, onGateUnlock }: PromptQualityChecklistProps) => {
   const [checked, setChecked] = useState<Record<number, boolean>>({});
 
   const handleCheck = (index: number) => {
     setChecked(prev => ({ ...prev, [index]: !prev[index] }));
   };
+
+  const allChecked = qualities.every((_, index) => checked[index]);
+
+  useEffect(() => {
+    if (allChecked) {
+      onAllChecked?.();
+      onGateUnlock?.();
+    }
+  }, [allChecked, onAllChecked, onGateUnlock]);
 
   return (
     <div className="space-y-3">
@@ -32,6 +46,11 @@ const PromptQualityChecklist = () => {
           <span className="text-foreground leading-relaxed">{quality}</span>
         </label>
       ))}
+      {allChecked && (
+        <div className="text-center text-sm text-primary font-medium mt-4">
+          ✓ All items checked — you may continue
+        </div>
+      )}
     </div>
   );
 };

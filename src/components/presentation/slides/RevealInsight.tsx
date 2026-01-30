@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { Eye, EyeOff, Lightbulb } from "lucide-react";
 
@@ -6,15 +6,28 @@ interface RevealInsightProps {
   teaser: string;
   insight: string;
   className?: string;
+  onRevealed?: () => void;
 }
 
-const RevealInsight = ({ teaser, insight, className }: RevealInsightProps) => {
+const RevealInsight = ({ teaser, insight, className, onRevealed }: RevealInsightProps) => {
   const [revealed, setRevealed] = useState(false);
+
+  const handleReveal = () => {
+    if (!revealed) {
+      setRevealed(true);
+    }
+  };
+
+  useEffect(() => {
+    if (revealed && onRevealed) {
+      onRevealed();
+    }
+  }, [revealed, onRevealed]);
 
   return (
     <div className={cn("relative", className)}>
       <button
-        onClick={() => setRevealed(!revealed)}
+        onClick={handleReveal}
         className={cn(
           "w-full text-left p-5 rounded-xl border-2 transition-all duration-300",
           revealed 

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -16,6 +16,8 @@ interface PromptExerciseQuizProps {
   promptExcerpt: string;
   correctAnswers: ElementKey[];
   feedback: Record<ElementKey, ElementFeedback>;
+  onSubmit?: () => void;
+  onGateUnlock?: () => void; // Alternative prop name for gate system
 }
 
 const elementLabels: Record<ElementKey, string> = {
@@ -101,6 +103,8 @@ const PromptExerciseQuiz = ({
   promptExcerpt,
   correctAnswers,
   feedback,
+  onSubmit,
+  onGateUnlock,
 }: PromptExerciseQuizProps) => {
   const [selected, setSelected] = useState<Set<ElementKey>>(new Set());
   const [submitted, setSubmitted] = useState(false);
@@ -119,6 +123,13 @@ const PromptExerciseQuiz = ({
   const handleSubmit = () => {
     setSubmitted(true);
   };
+
+  useEffect(() => {
+    if (submitted) {
+      onSubmit?.();
+      onGateUnlock?.();
+    }
+  }, [submitted, onSubmit, onGateUnlock]);
 
   const isCorrect = (element: ElementKey) => correctAnswers.includes(element);
   const wasSelected = (element: ElementKey) => selected.has(element);

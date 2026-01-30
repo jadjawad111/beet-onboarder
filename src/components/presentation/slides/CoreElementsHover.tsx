@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 
 const elements = [
@@ -12,22 +12,27 @@ const elements = [
 
 interface CoreElementsHoverProps {
   onAllRevealed?: () => void;
+  onGateUnlock?: () => void; // Alternative prop name for gate system
 }
 
-const CoreElementsHover = ({ onAllRevealed }: CoreElementsHoverProps) => {
+const CoreElementsHover = ({ onAllRevealed, onGateUnlock }: CoreElementsHoverProps) => {
   const [revealed, setRevealed] = useState<Set<number>>(new Set());
 
   const handleHover = (id: number) => {
     if (!revealed.has(id)) {
       const newRevealed = new Set(revealed).add(id);
       setRevealed(newRevealed);
-      if (newRevealed.size === elements.length && onAllRevealed) {
-        onAllRevealed();
-      }
     }
   };
 
   const allRevealed = revealed.size === elements.length;
+
+  useEffect(() => {
+    if (allRevealed) {
+      onAllRevealed?.();
+      onGateUnlock?.();
+    }
+  }, [allRevealed, onAllRevealed, onGateUnlock]);
 
   return (
     <div className="space-y-4">

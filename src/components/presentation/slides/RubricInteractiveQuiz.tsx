@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
@@ -44,6 +44,8 @@ interface RubricInteractiveQuizProps {
   deliverableUrl: string;
   deliverableTitle: string;
   criteria: CriterionData[];
+  onComplete?: () => void;
+  onGateUnlock?: () => void;
 }
 
 const errorTypeLabels: Record<ErrorType, string> = {
@@ -79,6 +81,8 @@ const RubricInteractiveQuiz = ({
   deliverableUrl,
   deliverableTitle,
   criteria,
+  onComplete,
+  onGateUnlock,
 }: RubricInteractiveQuizProps) => {
   const [answers, setAnswers] = useState<Record<number, CriterionAnswer>>(() => {
     const initial: Record<number, CriterionAnswer> = {};
@@ -139,6 +143,15 @@ const RubricInteractiveQuiz = ({
   const isCriterionSubmitted = (criterionId: number): boolean => {
     return submitted || submittedCriteria.has(criterionId);
   };
+
+  // Trigger onComplete/onGateUnlock when submitted or all criteria submitted individually
+  useEffect(() => {
+    const allSubmittedIndividually = criteria.every(c => submittedCriteria.has(c.id));
+    if (submitted || allSubmittedIndividually) {
+      onComplete?.();
+      onGateUnlock?.();
+    }
+  }, [submitted, submittedCriteria, criteria, onComplete, onGateUnlock]);
 
   const getScore = (criterion: CriterionData, answer: CriterionAnswer): "full" | "partial" | "none" => {
     const userSaysError = answer.hasError === "yes";
@@ -229,7 +242,7 @@ const RubricInteractiveQuiz = ({
               <p className="font-semibold text-foreground mb-1">Instructions</p>
               <p className="text-muted-foreground">
                 For each criterion: select <strong>No</strong> or <strong>Yes</strong> for errors. 
-                If yes, choose the error type. Submit all answers at the bottom when ready.
+                If yes, choose the error type. You can check individual criteria or submit all at once.
               </p>
             </div>
           </div>

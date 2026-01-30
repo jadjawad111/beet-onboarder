@@ -1,6 +1,6 @@
-import { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
-import { ChevronLeft, ChevronRight, X, Check, ChevronDown } from "lucide-react";
+import { ChevronLeft, ChevronRight, X, Check, ChevronDown, Lock } from "lucide-react";
 import { cn } from "@/lib/utils";
 import beetIcon from "@/assets/beet-icon.png";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
@@ -11,6 +11,7 @@ export interface Slide {
   section?: string; // Main section this slide belongs to
   title?: string;
   parentId?: string; // For nested slides under another slide
+  gated?: boolean; // Whether this slide requires completion before continuing
 }
 
 interface PresentationLayoutProps {
@@ -34,11 +35,24 @@ const PresentationLayout = ({
   const [isComplete, setIsComplete] = useState(false);
   const [slideDirection, setSlideDirection] = useState<'next' | 'prev'>('next');
   const [visitedSlides, setVisitedSlides] = useState<Set<number>>(new Set([0]));
+  const [unlockedSlides, setUnlockedSlides] = useState<Set<string>>(new Set());
 
   const totalSlides = slides.length;
   const isFirstSlide = currentSlide === 0;
   const isLastSlide = currentSlide === totalSlides - 1;
   const progress = ((currentSlide + 1) / totalSlides) * 100;
+
+  const currentSlideData = slides[currentSlide];
+  const isCurrentSlideGated = currentSlideData?.gated ?? false;
+  const isCurrentSlideUnlocked = unlockedSlides.has(currentSlideData?.id ?? '');
+  const canContinue = !isCurrentSlideGated || isCurrentSlideUnlocked;
+
+  // Function to unlock the current slide (passed to children)
+  const unlockCurrentSlide = useCallback(() => {
+    if (currentSlideData?.id) {
+      setUnlockedSlides(prev => new Set(prev).add(currentSlideData.id));
+    }
+  }, [currentSlideData?.id]);
 
   // Track visited slides
   useEffect(() => {
@@ -58,6 +72,8 @@ const PresentationLayout = ({
   }, [isTransitioning, totalSlides]);
 
   const handleNext = useCallback(() => {
+    if (!canContinue) return;
+    
     if (isLastSlide) {
       // Trigger completion animation
       setIsComplete(true);
@@ -70,7 +86,7 @@ const PresentationLayout = ({
     } else {
       goToSlide(currentSlide + 1, 'next');
     }
-  }, [isLastSlide, currentSlide, goToSlide, onComplete, navigate, exitPath]);
+  }, [isLastSlide, currentSlide, goToSlide, onComplete, navigate, exitPath, canContinue]);
 
   const handlePrev = useCallback(() => {
     goToSlide(currentSlide - 1, 'prev');
@@ -97,6 +113,24 @@ const PresentationLayout = ({
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [handleNext, handlePrev]);
+
+  // Clone children and inject unlockCurrentSlide prop
+  const slideContent = useMemo(() => {
+    const content = currentSlideData?.content;
+    if (!content || typeof content !== 'object' || !('type' in content)) {
+      return content;
+    }
+    
+    // If it's a React element, clone it with the unlock callback
+    try {
+      const element = content as React.ReactElement;
+      return React.cloneElement(element, {
+        onGateUnlock: unlockCurrentSlide,
+      } as any);
+    } catch {
+      return content;
+    }
+  }, [currentSlideData?.content, unlockCurrentSlide]);
 
   // Completion overlay
   if (isComplete) {
@@ -378,6 +412,12 @@ const PresentationLayout = ({
                 {slides[currentSlide].section}
               </span>
             )}
+            {isCurrentSlideGated && !isCurrentSlideUnlocked && (
+              <span className="px-2 py-1 rounded-full bg-amber-500/10 text-xs font-medium text-amber-600 flex items-center gap-1">
+                <Lock className="w-3 h-3" />
+                Complete to continue
+              </span>
+            )}
           </div>
           
           {/* Back button (visible when not on first slide) */}
@@ -396,7 +436,7 @@ const PresentationLayout = ({
         <main className="flex-1 flex flex-col px-8 md:px-16 lg:px-24 pt-12 pb-24 overflow-y-auto">
           <div className="flex-1 flex items-center justify-center min-h-0">
             <div 
-              key={slides[currentSlide]?.id}
+              key={currentSlideData?.id}
               className={cn(
                 "w-full max-w-4xl my-auto transition-all duration-250 ease-out",
                 isTransitioning && slideDirection === 'next' && "opacity-0 translate-x-12",
@@ -404,7 +444,7 @@ const PresentationLayout = ({
                 !isTransitioning && "opacity-100 translate-x-0"
               )}
             >
-              {slides[currentSlide]?.content}
+              {slideContent}
             </div>
           </div>
         </main>
@@ -430,16 +470,27 @@ const PresentationLayout = ({
             {/* Continue button (prominent) */}
             <button
               onClick={handleNext}
-              disabled={isTransitioning}
+              disabled={isTransitioning || !canContinue}
               className={cn(
-                "flex items-center gap-2 px-8 py-3 text-base font-semibold rounded-xl transition-all shadow-lg hover:shadow-xl",
+                "flex items-center gap-2 px-8 py-3 text-base font-semibold rounded-xl transition-all shadow-lg",
+                !canContinue && "opacity-50 cursor-not-allowed",
+                canContinue && "hover:shadow-xl",
                 isLastSlide 
                   ? "bg-gradient-to-r from-primary to-secondary text-primary-foreground hover:opacity-90" 
                   : "bg-primary text-primary-foreground hover:bg-primary/90"
               )}
             >
-              {isLastSlide ? "Complete Course" : "Continue"}
-              <ChevronRight className="w-5 h-5" />
+              {!canContinue ? (
+                <>
+                  <Lock className="w-4 h-4" />
+                  Complete Activity
+                </>
+              ) : isLastSlide ? (
+                "Complete Course"
+              ) : (
+                "Continue"
+              )}
+              {canContinue && <ChevronRight className="w-5 h-5" />}
             </button>
 
             {/* Spacer for symmetry */}

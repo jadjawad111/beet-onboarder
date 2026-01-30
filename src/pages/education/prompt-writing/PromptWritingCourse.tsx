@@ -138,6 +138,7 @@ const slides: Slide[] = [
     id: "prompt-what-is-good",
     section: "Prompt Writing",
     title: "What is a good prompt?",
+    gated: true,
     content: (
       <ContentSlide title='What is a "good" prompt really?' layout="left">
         <div className="space-y-4">
@@ -203,6 +204,7 @@ const slides: Slide[] = [
     id: "prompt-6-elements",
     section: "Prompt Writing",
     title: "The 6 core elements",
+    gated: true,
     content: (
       <ContentSlide title='The 6 core elements of a "good" prompt' layout="left">
         <div className="space-y-6">
@@ -719,6 +721,7 @@ const slides: Slide[] = [
     section: "Prompt Writing",
     title: "Exercise #1",
     parentId: "prompt-quiz-intro",
+    gated: true,
     content: (
       <PromptExerciseQuiz
         key="prompt-quiz-1"
@@ -764,6 +767,7 @@ The goal is to help improve how the team responds to customer concerns and incre
     section: "Prompt Writing",
     title: "Exercise #2",
     parentId: "prompt-quiz-intro",
+    gated: true,
     content: (
       <PromptExerciseQuiz
         key="prompt-quiz-2"
@@ -811,6 +815,7 @@ Submit both documents when complete.`}
     section: "Prompt Writing",
     title: "Exercise #3",
     parentId: "prompt-quiz-intro",
+    gated: true,
     content: (
       <PromptExerciseQuiz
         key="prompt-quiz-3"
@@ -1950,6 +1955,7 @@ This analysis will be stored on the concierge laptop as a Word file and will be 
     section: "Rubrics",
     title: "Exercise #1",
     parentId: "rubric-quiz-intro",
+    gated: true,
     content: (
       <ContentSlide title="" layout="left">
         <RubricInteractiveQuiz

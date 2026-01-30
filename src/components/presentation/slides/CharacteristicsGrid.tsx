@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { Check, ChevronRight } from "lucide-react";
 
@@ -11,9 +11,10 @@ interface Characteristic {
 interface CharacteristicsGridProps {
   characteristics: Characteristic[];
   instruction?: string;
+  onAllRevealed?: () => void;
 }
 
-const CharacteristicsGrid = ({ characteristics, instruction }: CharacteristicsGridProps) => {
+const CharacteristicsGrid = ({ characteristics, instruction, onAllRevealed }: CharacteristicsGridProps) => {
   const [revealed, setRevealed] = useState<Set<number>>(new Set());
 
   const toggleReveal = (index: number) => {
@@ -29,6 +30,12 @@ const CharacteristicsGrid = ({ characteristics, instruction }: CharacteristicsGr
   };
 
   const allRevealed = revealed.size === characteristics.length;
+
+  useEffect(() => {
+    if (allRevealed && onAllRevealed) {
+      onAllRevealed();
+    }
+  }, [allRevealed, onAllRevealed]);
 
   return (
     <div className="space-y-4">
@@ -88,7 +95,7 @@ const CharacteristicsGrid = ({ characteristics, instruction }: CharacteristicsGr
       {allRevealed && (
         <div className="mt-4 p-3 rounded-lg bg-green-500/10 border border-green-500/20 text-center">
           <p className="text-sm text-green-600 dark:text-green-400 font-medium">
-            ✓ All Cards Revealed!
+            ✓ All Cards Revealed — you may continue
           </p>
         </div>
       )}
