@@ -1,0 +1,417 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;450;500;600;700;800&display=swap');
+
+@layer base {
+  :root {
+    /* ═══════════════════════════════════════════════════════════════
+       HANDSHAKE AI — CALM PREMIUM DOCUMENTATION SYSTEM
+       ═══════════════════════════════════════════════════════════════ */
+    
+    /* Page & Surface */
+    --background: 220 14% 97%;        /* #F7F8FA - soft tinted background */
+    --foreground: 222 47% 11%;        /* #0f172a - rich dark text */
+    
+    --card: 0 0% 100%;                /* #FFFFFF - pure white cards */
+    --card-foreground: 222 47% 11%;
+    
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
+
+    /* Primary: Cyan #01CDD5 (slightly refined) */
+    --primary: 182 99% 42%;
+    --primary-foreground: 0 0% 100%;
+
+    /* Secondary: Lime #D3FB52 (used sparingly) */
+    --secondary: 74 95% 65%;
+    --secondary-foreground: 222 47% 11%;
+
+    /* Muted */
+    --muted: 220 14% 94%;
+    --muted-foreground: 220 20% 30%;  /* Darker muted text for better readability */
+
+    /* Accent (for selections, highlights) */
+    --accent: 182 99% 95%;
+    --accent-foreground: 182 99% 30%;
+
+    /* Semantic Colors (muted tints, not full saturation) */
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+    
+    --success: 142 71% 45%;
+    --success-foreground: 0 0% 100%;
+    
+    --warning: 38 92% 50%;
+    --warning-foreground: 38 92% 20%;
+    
+    --info: 182 99% 42%;
+    --info-foreground: 182 99% 20%;
+
+    /* Borders */
+    --border: 220 13% 90%;            /* #E6E8EC */
+    --input: 220 13% 90%;
+    --ring: 182 99% 42%;
+
+    /* Radius System (consistent) */
+    --radius: 0.625rem;               /* 10px - small controls */
+    --radius-md: 0.875rem;            /* 14px - cards/callouts */
+    --radius-lg: 1.25rem;             /* 20px - large surfaces */
+    --radius-full: 9999px;            /* pills/chips */
+
+    /* Beet Brand Color - Deep Plum #7A2048 */
+    --beet: 338 58% 30%;
+    --beet-foreground: 0 0% 100%;
+    --beet-light: 338 40% 96%;
+
+    /* Sidebar (dark theme) */
+    --sidebar-background: 192 80% 8%;
+    --sidebar-foreground: 220 14% 90%;
+    --sidebar-primary: 182 80% 45%;
+    --sidebar-primary-foreground: 192 80% 8%;
+    --sidebar-accent: 192 40% 14%;
+    --sidebar-accent-foreground: 220 14% 90%;
+    --sidebar-border: 192 40% 16%;
+    --sidebar-ring: 182 80% 45%;
+
+    /* Shadows (subtle, consistent) */
+    --shadow-1: 0 1px 2px rgba(16,24,40,0.06), 0 1px 1px rgba(16,24,40,0.04);
+    --shadow-2: 0 6px 18px rgba(16,24,40,0.10), 0 2px 6px rgba(16,24,40,0.06);
+    --shadow-focus: 0 0 0 3px hsl(182 99% 42% / 0.35);
+
+    /* Transitions */
+    --transition: 160ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+
+  .dark {
+    --background: 222 47% 6%;
+    --foreground: 220 14% 95%;
+
+    --card: 222 40% 10%;
+    --card-foreground: 220 14% 95%;
+
+    --popover: 222 40% 10%;
+    --popover-foreground: 220 14% 95%;
+
+    --primary: 182 90% 48%;
+    --primary-foreground: 222 47% 6%;
+
+    --secondary: 74 90% 55%;
+    --secondary-foreground: 222 47% 6%;
+
+    --muted: 222 30% 15%;
+    --muted-foreground: 220 14% 60%;
+
+    --accent: 182 60% 20%;
+    --accent-foreground: 182 90% 70%;
+
+    --destructive: 0 62% 50%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 222 30% 18%;
+    --input: 222 30% 18%;
+    --ring: 182 90% 48%;
+
+    --sidebar-background: 222 47% 5%;
+    --sidebar-foreground: 220 14% 90%;
+    --sidebar-primary: 182 90% 48%;
+    --sidebar-primary-foreground: 222 47% 6%;
+    --sidebar-accent: 222 30% 12%;
+    --sidebar-accent-foreground: 220 14% 90%;
+    --sidebar-border: 222 30% 15%;
+    --sidebar-ring: 182 90% 48%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  }
+
+  /* Typography Scale */
+  h1 {
+    @apply text-4xl font-bold tracking-tight leading-tight;
+    /* 36px/44px, weight 700 */
+  }
+  
+  h2 {
+    @apply text-2xl font-semibold tracking-tight leading-snug;
+    /* 22px/30px, weight 650 */
+  }
+  
+  h3 {
+    @apply text-lg font-semibold leading-snug;
+  }
+
+  p, li {
+    @apply text-base leading-relaxed;
+    /* 16px/24px, weight 450 */
+  }
+}
+
+@layer components {
+  /* ═══════════════════════════════════════════════════════════════
+     CARD SYSTEM
+     ═══════════════════════════════════════════════════════════════ */
+  .card-surface {
+    @apply bg-card border border-border;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-1);
+  }
+
+  .card-interactive {
+    @apply card-surface cursor-pointer;
+    transition: transform var(--transition), 
+                box-shadow var(--transition), 
+                border-color var(--transition);
+  }
+
+  .card-interactive:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-2);
+    border-color: hsl(var(--primary) / 0.25);
+  }
+
+  .card-interactive:active {
+    transform: translateY(0);
+    box-shadow: var(--shadow-1);
+  }
+
+  .card-interactive:focus-visible {
+    outline: none;
+    box-shadow: var(--shadow-focus);
+  }
+
+  /* ═══════════════════════════════════════════════════════════════
+     CALLOUT SYSTEM (unified anatomy)
+     ═══════════════════════════════════════════════════════════════ */
+  .callout {
+    @apply flex gap-3 items-start p-4;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border);
+  }
+
+  .callout-info {
+    background: hsl(var(--primary) / 0.06);
+    border-color: hsl(var(--primary) / 0.15);
+    border-left: 4px solid hsl(var(--primary));
+  }
+
+  .callout-success {
+    background: hsl(var(--success) / 0.06);
+    border-color: hsl(var(--success) / 0.15);
+    border-left: 4px solid hsl(var(--success));
+  }
+
+  .callout-warning {
+    background: hsl(var(--warning) / 0.08);
+    border-color: hsl(var(--warning) / 0.18);
+    border-left: 4px solid hsl(var(--warning));
+  }
+
+  .callout-danger {
+    background: hsl(var(--destructive) / 0.06);
+    border-color: hsl(var(--destructive) / 0.15);
+    border-left: 4px solid hsl(var(--destructive));
+  }
+
+  .callout-beet {
+    background: hsl(var(--beet-light));
+    border-color: hsl(var(--beet) / 0.20);
+    border-left: 4px solid hsl(var(--beet));
+  }
+
+  /* ═══════════════════════════════════════════════════════════════
+     NAV & SIDEBAR
+     ═══════════════════════════════════════════════════════════════ */
+  .nav-link {
+    @apply flex items-center gap-3 px-3 py-2 text-sm transition-all;
+    border-radius: var(--radius);
+    color: hsl(var(--sidebar-foreground));
+    transition: background var(--transition), color var(--transition);
+  }
+
+  .nav-link:hover {
+    background: rgba(255, 255, 255, 0.06);
+  }
+
+  .nav-link-active {
+    background: hsl(var(--sidebar-primary) / 0.18);
+    color: hsl(var(--sidebar-primary));
+    font-weight: 500;
+    position: relative;
+  }
+
+  .nav-link-active::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 3px;
+    height: 60%;
+    background: hsl(var(--sidebar-primary));
+    border-radius: 0 2px 2px 0;
+  }
+
+  /* ═══════════════════════════════════════════════════════════════
+     INTERACTIVE ROWS (checklists, accordions, step cards)
+     ═══════════════════════════════════════════════════════════════ */
+  .interactive-row {
+    @apply flex items-center gap-4 px-4 py-3 cursor-pointer;
+    border-radius: var(--radius);
+    transition: background var(--transition), 
+                transform var(--transition);
+  }
+
+  .interactive-row:hover {
+    background: hsl(var(--muted) / 0.5);
+  }
+
+  .interactive-row:active {
+    transform: scale(0.995);
+  }
+
+  /* ═══════════════════════════════════════════════════════════════
+     BUTTONS
+     ═══════════════════════════════════════════════════════════════ */
+  .btn-ghost {
+    @apply px-4 py-2 font-medium text-sm rounded-[var(--radius)];
+    transition: background var(--transition), 
+                transform var(--transition),
+                box-shadow var(--transition);
+  }
+
+  .btn-ghost:hover {
+    background: hsl(var(--muted));
+    box-shadow: var(--shadow-1);
+  }
+
+  .btn-ghost:active {
+    transform: translateY(0);
+    box-shadow: none;
+  }
+
+  /* ═══════════════════════════════════════════════════════════════
+     PROGRESS BADGE SYSTEM
+     ═══════════════════════════════════════════════════════════════ */
+  .progress-badge {
+    @apply text-xs font-medium px-2 py-0.5;
+    border-radius: var(--radius-full);
+  }
+
+  .progress-not-started {
+    @apply bg-muted text-muted-foreground;
+  }
+
+  .progress-in-progress {
+    background: hsl(var(--warning) / 0.12);
+    color: hsl(var(--warning));
+  }
+
+  .progress-complete {
+    background: hsl(var(--success) / 0.12);
+    color: hsl(var(--success));
+  }
+
+  /* ═══════════════════════════════════════════════════════════════
+     MODULE CARDS
+     ═══════════════════════════════════════════════════════════════ */
+  .module-card {
+    @apply card-interactive p-6;
+  }
+}
+
+@layer utilities {
+  /* Text utilities */
+  .text-muted {
+    @apply text-muted-foreground;
+    font-size: 0.875rem;
+    line-height: 1.4;
+  }
+
+  .text-caption {
+    font-size: 0.75rem;
+    line-height: 1.33;
+    @apply text-muted-foreground;
+  }
+
+  /* Reading comfort */
+  .prose-reading {
+    max-width: 65ch;
+    line-height: 1.75;
+  }
+
+  /* Focus ring */
+  .focus-ring {
+    @apply focus-visible:outline-none;
+    transition: box-shadow var(--transition);
+  }
+
+  .focus-ring:focus-visible {
+    box-shadow: var(--shadow-focus);
+  }
+
+  /* Hover lift */
+  .hover-lift {
+    transition: transform var(--transition), box-shadow var(--transition);
+  }
+
+  .hover-lift:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-2);
+  }
+
+  /* 3D Flip animations for term cards */
+  .perspective-1000 {
+    perspective: 1000px;
+  }
+
+  .transform-style-3d {
+    transform-style: preserve-3d;
+  }
+
+  .backface-hidden {
+    backface-visibility: hidden;
+  }
+
+  .rotate-y-180 {
+    transform: rotateY(180deg);
+  }
+
+  /* Section transitions */
+  .section-transition {
+    transition: all var(--transition);
+  }
+
+  /* Gradient text - ensure fallback color for accessibility */
+  .gradient-text {
+    @apply bg-clip-text;
+    color: hsl(var(--primary));
+    background-image: linear-gradient(135deg, hsl(182 99% 32%), hsl(74 95% 45%));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* Beet confetti animation */
+  @keyframes beet-fall {
+    0% {
+      transform: translateY(-100px) rotate(0deg);
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(100vh) rotate(var(--rotation, 360deg));
+      opacity: 0;
+    }
+  }
+
+  .animate-beet-fall {
+    animation: beet-fall 3s ease-in forwards;
+  }
+}
