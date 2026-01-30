@@ -8,8 +8,6 @@ import {
   AlertTriangle, 
   FileText, 
   ExternalLink,
-  ChevronDown,
-  ChevronUp,
   Trophy,
   Target,
   Send
@@ -94,8 +92,6 @@ const RubricInteractiveQuiz = ({
   // Track which criteria have been submitted (individually or via submit all)
   const [submittedCriteria, setSubmittedCriteria] = useState<Set<number>>(new Set());
   const [allSubmitted, setAllSubmitted] = useState(false);
-  const [showPrompt, setShowPrompt] = useState(false);
-  const [showDeliverable, setShowDeliverable] = useState(false);
 
   const handleHasErrorChange = (criterionId: number, value: "yes" | "no") => {
     if (submittedCriteria.has(criterionId)) return;
@@ -239,62 +235,45 @@ const RubricInteractiveQuiz = ({
         </CardContent>
       </Card>
 
-      {/* Collapsible Prompt */}
+      {/* Prompt */}
       <Card>
-        <button
-          onClick={() => setShowPrompt(!showPrompt)}
-          className="w-full p-3 flex items-center justify-between hover:bg-muted/50 transition-colors rounded-t-lg"
-        >
-          <div className="flex items-center gap-2">
+        <CardContent className="p-4">
+          <div className="flex items-center gap-2 mb-3">
             <FileText className="w-4 h-4 text-muted-foreground" />
             <span className="font-medium text-sm">Prompt</span>
           </div>
-          {showPrompt ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
-        </button>
-        {showPrompt && (
-          <CardContent className="pt-0 pb-4 px-4">
-            <div className="bg-muted/50 rounded-lg p-3 text-sm leading-relaxed whitespace-pre-wrap border">
-              {prompt}
-            </div>
-          </CardContent>
-        )}
+          <div className="bg-muted/50 rounded-lg p-3 text-sm leading-relaxed whitespace-pre-wrap border max-h-[200px] overflow-y-auto">
+            {prompt}
+          </div>
+        </CardContent>
       </Card>
 
-      {/* Collapsible Deliverable */}
+      {/* Deliverable */}
       <Card>
-        <button
-          onClick={() => setShowDeliverable(!showDeliverable)}
-          className="w-full p-3 flex items-center justify-between hover:bg-muted/50 transition-colors rounded-t-lg"
-        >
-          <div className="flex items-center gap-2">
-            <FileText className="w-4 h-4 text-muted-foreground" />
-            <span className="font-medium text-sm">Deliverable</span>
-          </div>
-          <div className="flex items-center gap-2">
+        <CardContent className="p-4">
+          <div className="flex items-center justify-between mb-3">
+            <div className="flex items-center gap-2">
+              <FileText className="w-4 h-4 text-muted-foreground" />
+              <span className="font-medium text-sm">Deliverable</span>
+            </div>
             <a
               href={deliverableUrl}
               target="_blank"
               rel="noopener noreferrer"
-              onClick={(e) => e.stopPropagation()}
               className="text-xs text-primary hover:underline flex items-center gap-1"
             >
-              Open <ExternalLink className="w-3 h-3" />
+              Open in new tab <ExternalLink className="w-3 h-3" />
             </a>
-            {showDeliverable ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
           </div>
-        </button>
-        {showDeliverable && (
-          <CardContent className="pt-0 pb-4 px-4">
-            <div className="rounded-lg overflow-hidden border bg-white">
-              <iframe
-                src={embedUrl}
-                className="w-full h-[400px]"
-                allow="autoplay"
-                title={deliverableTitle}
-              />
-            </div>
-          </CardContent>
-        )}
+          <div className="rounded-lg overflow-hidden border bg-white">
+            <iframe
+              src={embedUrl}
+              className="w-full h-[350px]"
+              allow="autoplay"
+              title={deliverableTitle}
+            />
+          </div>
+        </CardContent>
       </Card>
 
       {/* Progress indicator */}
