@@ -12,10 +12,11 @@ import {
   Layers,
   Scale,
   CheckSquare,
+  GraduationCap,
   type LucideIcon
 } from "lucide-react";
 import { cn } from "@/lib/utils";
-import ContentHeader from "@/components/layout/ContentHeader";
+import beetIcon from "@/assets/beet-icon.png";
 
 interface Module {
   id: string;
@@ -27,15 +28,19 @@ interface Module {
 interface Track {
   id: string;
   label: string;
+  description: string;
   modules: Module[];
   to: string;
+  coursePath: string;
 }
 
 const tracks: Track[] = [
   {
     id: "prompt-writing",
     label: "Prompt Writing",
+    description: "Learn to craft prompts that challenge AI and expose knowledge gaps.",
     to: "/education/prompt-writing",
+    coursePath: "/education/prompt-writing/course",
     modules: [
       { id: "module-1", label: "Module 1: Fundamentals", to: "/education/prompt-writing/module-1", icon: Lightbulb },
       { id: "module-2", label: "Module 2: Advanced", to: "/education/prompt-writing/module-2", icon: Puzzle },
@@ -45,7 +50,9 @@ const tracks: Track[] = [
   {
     id: "rubrics",
     label: "Rubrics Creation",
+    description: "Master the art of building evaluation criteria for AI responses.",
     to: "/education/rubrics",
+    coursePath: "/education/rubrics/course",
     modules: [
       { id: "module-1", label: "Module 1: Introduction", to: "/education/rubrics/module-1", icon: BookOpen },
       { id: "module-2", label: "Module 2: Categories", to: "/education/rubrics/module-2", icon: Layers },
@@ -74,8 +81,8 @@ const EducationLayout = () => {
   const isInTrack = (track: Track) => location.pathname.startsWith(track.to);
   const isOverview = location.pathname === "/education";
   const isTrackOverview = (track: Track) => location.pathname === track.to;
-  const currentTrack = tracks.find(t => isTrackOverview(t));
-  const isAnyTrackOverview = !!currentTrack;
+  const currentTrack = tracks.find(t => location.pathname.startsWith(t.to));
+  const isInsideTrack = !!currentTrack && !isOverview;
   
   const getTrackProgress = (track: Track) => {
     const completed = track.modules.filter(m => 
@@ -84,17 +91,105 @@ const EducationLayout = () => {
     return Math.round((completed / track.modules.length) * 100);
   };
 
+  // Simple overview page - no sidebar
+  if (isOverview) {
+    return (
+      <div className="min-h-screen">
+        {/* Hero Banner */}
+        <div className="relative overflow-hidden bg-gradient-to-br from-primary via-primary/90 to-secondary/70 px-8 py-16 lg:py-20">
+          {/* Bouncing beet */}
+          <div className="absolute top-8 right-16 opacity-25">
+            <img src={beetIcon} alt="" className="w-20 h-20 animate-bounce-slow" />
+          </div>
+          <div className="absolute bottom-8 right-1/3 opacity-15 hidden lg:block">
+            <img src={beetIcon} alt="" className="w-14 h-14 animate-bounce-slow" style={{ animationDelay: '0.7s' }} />
+          </div>
+
+          <div className="relative z-10 max-w-3xl">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/20 text-white text-sm font-medium mb-6">
+              <GraduationCap className="w-4 h-4" />
+              Training Required
+            </div>
+            <h1 className="text-4xl md:text-5xl font-bold text-white tracking-tight mb-4">
+              Educational Modules
+            </h1>
+            <p className="text-lg text-white/90 max-w-xl">
+              Complete both tracks to qualify for the assessment. Each course covers essential skills for Project Beet 2.0.
+            </p>
+          </div>
+        </div>
+
+        {/* Track Cards */}
+        <div className="px-8 py-12">
+          <div className="grid md:grid-cols-2 gap-6 max-w-4xl">
+            {tracks.map((track) => {
+              const progress = getTrackProgress(track);
+              
+              return (
+                <div
+                  key={track.id}
+                  className="p-6 rounded-2xl border border-border bg-card"
+                >
+                  {/* Header */}
+                  <div className="flex items-center justify-between mb-4">
+                    <span className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
+                      {track.modules.length} Modules
+                    </span>
+                    {progress > 0 && (
+                      <span className="text-sm font-medium text-primary">{progress}% complete</span>
+                    )}
+                  </div>
+                  
+                  {/* Title & Description */}
+                  <h3 className="text-xl font-semibold text-foreground mb-2">
+                    {track.label}
+                  </h3>
+                  <p className="text-muted-foreground text-sm mb-6">
+                    {track.description}
+                  </p>
+                  
+                  {/* Progress Bar */}
+                  {progress > 0 && (
+                    <div className="h-2 bg-muted rounded-full overflow-hidden mb-6">
+                      <div 
+                        className="h-full bg-primary rounded-full"
+                        style={{ width: `${progress}%` }}
+                      />
+                    </div>
+                  )}
+                  
+                  {/* Start Course Button */}
+                  <Link
+                    to={track.coursePath}
+                    className="inline-flex items-center justify-center gap-2 w-full px-6 py-3 bg-primary text-primary-foreground rounded-xl font-semibold text-sm hover:bg-primary/90 transition-colors"
+                  >
+                    <PlayCircle className="w-5 h-5" />
+                    {progress > 0 ? "Continue Course" : "Start Course"}
+                  </Link>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // Inside a track - show sidebar
   return (
     <div className="min-h-screen flex">
       {/* Sub Navigation */}
       <aside className="w-72 border-r border-border bg-card flex-shrink-0">
         <div className="sticky top-0">
-          {/* Resume Button */}
+          {/* Back to Overview */}
           <div className="p-4 border-b border-border">
-            <button className="w-full flex items-center justify-center gap-2 px-4 py-2.5 bg-primary text-primary-foreground rounded-lg font-medium text-sm hover:bg-primary/90 transition-colors">
-              <PlayCircle className="w-4 h-4" />
-              Resume Learning
-            </button>
+            <Link 
+              to="/education"
+              className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
+            >
+              <ChevronRight className="w-4 h-4 rotate-180" />
+              Back to Courses
+            </Link>
           </div>
 
           {/* Track List */}
@@ -176,47 +271,9 @@ const EducationLayout = () => {
 
       {/* Content Area */}
       <div className="flex-1 flex flex-col">
-        <ContentHeader 
-          title={isOverview ? "Educational Modules" : ""}
-          subtitle={isOverview ? "Complete both tracks to qualify for assessment" : undefined}
-        />
-
         {/* Content */}
         <div className="flex-1 p-6 lg:p-8">
-          {isOverview ? (
-            /* Main Education Overview - Show all tracks */
-            <div className="max-w-4xl">
-              <div className="grid md:grid-cols-2 gap-6">
-                {tracks.map((track) => {
-                  const progress = getTrackProgress(track);
-                  
-                  return (
-                    <Link
-                      key={track.id}
-                      to={track.to}
-                      className="group p-6 rounded-2xl border border-border bg-card hover:border-primary/30 transition-all"
-                    >
-                      <div className="flex items-center justify-between mb-4">
-                        <span className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
-                          {track.modules.length} Modules
-                        </span>
-                        <span className="text-sm font-medium text-primary">{progress}%</span>
-                      </div>
-                      <h3 className="text-xl font-semibold text-foreground mb-2 group-hover:text-primary transition-colors">
-                        {track.label}
-                      </h3>
-                      <div className="h-2 bg-muted rounded-full overflow-hidden">
-                        <div 
-                          className="h-full bg-primary rounded-full"
-                          style={{ width: `${progress}%` }}
-                        />
-                      </div>
-                    </Link>
-                  );
-                })}
-              </div>
-            </div>
-          ) : isAnyTrackOverview && currentTrack ? (
+          {currentTrack && isTrackOverview(currentTrack) ? (
             /* Track Overview - Show modules in this track */
             <div className="max-w-4xl">
               <div className="mb-8">
@@ -225,6 +282,15 @@ const EducationLayout = () => {
                   Complete all {currentTrack.modules.length} modules to finish this track.
                 </p>
               </div>
+              
+              {/* Start Course Button */}
+              <Link
+                to={currentTrack.coursePath}
+                className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground rounded-xl font-semibold text-sm hover:bg-primary/90 transition-colors mb-8"
+              >
+                <PlayCircle className="w-5 h-5" />
+                Start Full Course
+              </Link>
               
               <div className="space-y-4">
                 {currentTrack.modules.map((module, index) => {
