@@ -694,6 +694,7 @@ const slides: Slide[] = [
     parentId: "prompt-quiz-intro",
     content: (
       <PromptExerciseQuiz
+        key="prompt-quiz-1"
         exerciseNumber={1}
         promptExcerpt={`You are responsible for 🟢leading a bridal sales team🟢 at a 🟢bridal store🟢.
 The team has been struggling with handling customer objections and hesitations during the bridalwear purchasing process.
@@ -738,6 +739,7 @@ The goal is to help improve how the team responds to customer concerns and incre
     parentId: "prompt-quiz-intro",
     content: (
       <PromptExerciseQuiz
+        key="prompt-quiz-2"
         exerciseNumber={2}
         promptExcerpt={`You are a 🟢Retail Sales Manager🟢 responsible for leading your store through 🔴Black Friday🔴.
 The store is located in the 🟢UK🟢, and this event is one of the most important trading periods of the year.
@@ -784,6 +786,7 @@ Submit both documents when complete.`}
     parentId: "prompt-quiz-intro",
     content: (
       <PromptExerciseQuiz
+        key="prompt-quiz-3"
         exerciseNumber={3}
         promptExcerpt={`You are a 🟢Mechanical Engineer🟢 working at a small aerospace firm designing an experimental wing assembly for a next-generation aircraft.
 
