@@ -377,16 +377,18 @@ const PresentationLayout = ({
         </header>
 
         {/* Slide content */}
-        <main className="flex-1 flex items-center justify-center px-8 md:px-16 lg:px-24 py-12 overflow-y-auto">
-          <div 
-            className={cn(
-              "w-full max-w-4xl transition-all duration-250 ease-out",
-              isTransitioning && slideDirection === 'next' && "opacity-0 translate-x-12",
-              isTransitioning && slideDirection === 'prev' && "opacity-0 -translate-x-12",
-              !isTransitioning && "opacity-100 translate-x-0"
-            )}
-          >
-            {slides[currentSlide]?.content}
+        <main className="flex-1 flex flex-col px-8 md:px-16 lg:px-24 py-12 overflow-y-auto">
+          <div className="flex-1 flex items-center justify-center min-h-0">
+            <div 
+              className={cn(
+                "w-full max-w-4xl my-auto transition-all duration-250 ease-out",
+                isTransitioning && slideDirection === 'next' && "opacity-0 translate-x-12",
+                isTransitioning && slideDirection === 'prev' && "opacity-0 -translate-x-12",
+                !isTransitioning && "opacity-100 translate-x-0"
+              )}
+            >
+              {slides[currentSlide]?.content}
+            </div>
           </div>
         </main>
 
