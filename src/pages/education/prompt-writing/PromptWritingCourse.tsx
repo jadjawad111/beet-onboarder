@@ -1068,7 +1068,7 @@ This analysis will be stored on the concierge laptop as a Word file and will be 
     section: "Rubrics",
     title: "What makes a good rubric",
     content: (
-      <ContentSlide title="Intuition on what a good rubric is" layout="left">
+      <ContentSlide title="What does a good rubric really mean?" layout="left">
         <div className="space-y-6">
           <p>
             A good rubric has <strong className="text-foreground">coverage</strong> and includes everything it needs to include.
