@@ -57,11 +57,13 @@ const App = () => (
               <Route index element={null} />
               
               {/* Prompt Writing Track */}
+              <Route path="prompt-writing" element={null} />
               <Route path="prompt-writing/module-1" element={<PromptWritingModule1 />} />
               <Route path="prompt-writing/module-2" element={<PromptWritingModule2 />} />
               <Route path="prompt-writing/module-3" element={<PromptWritingModule3 />} />
               
               {/* Rubrics Track */}
+              <Route path="rubrics" element={null} />
               <Route path="rubrics/module-1" element={<RubricsModule1 />} />
               <Route path="rubrics/module-2" element={<RubricsModule2 />} />
               <Route path="rubrics/module-3" element={<RubricsModule3 />} />
