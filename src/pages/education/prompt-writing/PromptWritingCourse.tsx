@@ -928,7 +928,7 @@ This report will be used to brief the design team and guide future optimization 
       <SectionDividerSlide 
         moduleNumber={4}
         title="Rubrics"
-        subtitle="Creating effective evaluation criteria"
+        subtitle="Learning how to effectively build good Rubric Criterion"
         topics={[
           "What rubrics are and why they matter",
           "How to structure evaluation criteria",
