@@ -113,30 +113,70 @@ const ProjectInfoLayout = () => {
         />
 
         {/* Scrollable Content with all sections */}
-        <div className="flex-1 p-6 lg:p-8">
-          <div className="max-w-3xl space-y-16">
+        <div className="flex-1 p-6 lg:p-10">
+          <div className="max-w-5xl space-y-0">
             {/* Welcome Section */}
-            <section id="welcome" className="scroll-mt-8">
+            <section id="welcome" className="scroll-mt-8 pb-16">
               <WelcomePage />
             </section>
             
+            {/* Section Divider */}
+            <div className="relative py-8">
+              <div className="absolute inset-0 flex items-center">
+                <div className="w-full h-px bg-gradient-to-r from-transparent via-border to-transparent" />
+              </div>
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="w-2 h-2 rounded-full bg-primary/30" />
+              </div>
+            </div>
+            
             {/* Access Section */}
-            <section id="access" className="scroll-mt-8">
+            <section id="access" className="scroll-mt-8 py-16">
               <AccessPage />
             </section>
             
+            {/* Section Divider */}
+            <div className="relative py-8">
+              <div className="absolute inset-0 flex items-center">
+                <div className="w-full h-px bg-gradient-to-r from-transparent via-border to-transparent" />
+              </div>
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="w-2 h-2 rounded-full bg-primary/30" />
+              </div>
+            </div>
+            
             {/* Workflow Section */}
-            <section id="workflow" className="scroll-mt-8">
+            <section id="workflow" className="scroll-mt-8 py-16">
               <WorkflowPage />
             </section>
             
+            {/* Section Divider */}
+            <div className="relative py-8">
+              <div className="absolute inset-0 flex items-center">
+                <div className="w-full h-px bg-gradient-to-r from-transparent via-border to-transparent" />
+              </div>
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="w-2 h-2 rounded-full bg-primary/30" />
+              </div>
+            </div>
+            
             {/* Tools Section */}
-            <section id="tools" className="scroll-mt-8">
+            <section id="tools" className="scroll-mt-8 py-16">
               <ToolsPage />
             </section>
             
+            {/* Section Divider */}
+            <div className="relative py-8">
+              <div className="absolute inset-0 flex items-center">
+                <div className="w-full h-px bg-gradient-to-r from-transparent via-border to-transparent" />
+              </div>
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="w-2 h-2 rounded-full bg-primary/30" />
+              </div>
+            </div>
+            
             {/* FAQs Section */}
-            <section id="faqs" className="scroll-mt-8">
+            <section id="faqs" className="scroll-mt-8 pt-16 pb-8">
               <FAQsPage />
             </section>
           </div>
