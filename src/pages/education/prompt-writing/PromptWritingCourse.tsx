@@ -1068,21 +1068,49 @@ This analysis will be stored on the concierge laptop as a Word file and will be 
     section: "Rubrics",
     title: "What makes a good rubric",
     content: (
-      <ContentSlide title="What does a good rubric really mean?" layout="left">
+      <ContentSlide title="A good rubric defines correct evaluation at the system level" layout="left">
         <div className="space-y-6">
-          <p>
-            A good rubric has <strong className="text-foreground">coverage</strong> and includes everything it needs to include.
+          <p className="text-muted-foreground mb-2">
+            Click each to learn more:
           </p>
-          <p>
-            It is <strong className="text-foreground">not overly prescriptive</strong> and does not penalize a response for doing something slightly different if it is still correct.
-          </p>
-          <p>
-            It captures <strong className="text-foreground">nuanced taste and expertise</strong> of the profession, which is often hard to evaluate in isolation.
-          </p>
-          <RevealInsight
-            teaser="The ultimate test of a good rubric..."
-            insight="The goal of these rubrics is such that if ten people were to evaluate the same output ten times, they would all come out the same."
+          <CharacteristicsGrid
+            characteristics={[
+              {
+                title: "Coverage",
+                description: "A good rubric has coverage and includes everything it needs to include to evaluate the task meaningfully.",
+              },
+              {
+                title: "Professional Judgment",
+                description: "It captures the nuanced taste and expertise of the profession, which is often hard to evaluate in isolation.",
+              },
+              {
+                title: "Evaluator Consistency",
+                description: "The goal of these rubrics is such that if ten people were to evaluate the same output ten times, they would all come out the same.",
+              },
+            ]}
           />
+          
+          {/* Questions box */}
+          <div className="mt-6 p-5 rounded-xl border-2 border-amber-500/30 bg-amber-500/5">
+            <div className="flex items-start gap-3">
+              <div className="w-10 h-10 rounded-full bg-amber-500/20 flex items-center justify-center flex-shrink-0">
+                <span className="text-xl">💡</span>
+              </div>
+              <div>
+                <p className="font-semibold text-foreground mb-3">Questions to ask yourself</p>
+                <ul className="space-y-2 text-sm text-muted-foreground">
+                  <li>• Does the set of criteria I've created cover all explicit asks of the prompt?</li>
+                  <li>• Would an ideal response score highly on all criteria?</li>
+                  <li>• Are there any gaps in what I'm measuring?</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          
+          {/* Transition text */}
+          <p className="text-sm text-muted-foreground italic pt-4 border-t border-border">
+            These help us understand what a good rubric looks like at the macro level. But what makes a Rubric Criterion good? More next →
+          </p>
         </div>
       </ContentSlide>
     ),
@@ -1092,7 +1120,7 @@ This analysis will be stored on the concierge laptop as a Word file and will be 
     section: "Rubrics",
     title: "What makes a good criterion",
     content: (
-      <ContentSlide title="What does a good Rubric generally mean?" layout="left">
+      <ContentSlide title="What does a good Rubric Criterion really mean?" layout="left">
         <div className="space-y-4">
           <p className="mb-4">
             Each criterion in your rubric should meet these four characteristics. <span className="text-muted-foreground">Click each to learn more:</span>
@@ -1100,20 +1128,20 @@ This analysis will be stored on the concierge laptop as a Word file and will be 
           <CharacteristicsGrid
             characteristics={[
               {
-                title: "Not Stacked",
-                description: "Multiple criteria bundled together without clear weighting will not return consistent results.",
+                title: "Atomic / Not Stacked",
+                description: "Each criterion should measure one specific aspect of the deliverable at a time. Do not bundle multiple requirements into a single check.",
+              },
+              {
+                title: "Self-contained",
+                description: "The evaluator only sees the deliverable and the criterion. Any required context must be included directly in the criterion.",
+              },
+              {
+                title: "Unambiguous",
+                description: "Criteria should be written in plain, direct language and interpreted in only one way, with minimal room for subjective judgment.",
               },
               {
                 title: "Programmatically Verifiable",
-                description: "AI labs need automated ways of evaluating at scale. The criterion must be checkable by code or AI.",
-              },
-              {
-                title: "Consistently Evaluable",
-                description: "An AI model serving as an evaluator should consistently return the same answer against that criterion.",
-              },
-              {
-                title: "Self-Contained",
-                description: "When a criterion requires access to input files or external context, the judge model will not have access to that context.",
+                description: "Criteria must be written so they can be evaluated consistently at scale, including by automated evaluators.",
               },
             ]}
           />
