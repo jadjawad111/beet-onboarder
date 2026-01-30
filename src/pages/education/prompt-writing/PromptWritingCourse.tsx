@@ -19,6 +19,7 @@ import CriterionErrorQuiz from "@/components/presentation/slides/CriterionErrorQ
 import RubricLevelQuiz from "@/components/presentation/slides/RubricLevelQuiz";
 import RubricInteractiveQuiz from "@/components/presentation/slides/RubricInteractiveQuiz";
 import { exercise1Prompt, exercise1DeliverableUrl, exercise1Criteria } from "@/data/rubricQuizExercise1";
+import { exercise2Prompt, exercise2DeliverableUrl, exercise2Criteria } from "@/data/rubricQuizExercise2";
 import { Card, CardContent } from "@/components/ui/card";
 import { Lightbulb, Target, ClipboardCheck } from "lucide-react";
 
@@ -1828,6 +1829,23 @@ This analysis will be stored on the concierge laptop as a Word file and will be 
           deliverableUrl={exercise1DeliverableUrl}
           deliverableTitle="Real Estate Buyer Brochure"
           criteria={exercise1Criteria}
+        />
+      </ContentSlide>
+    ),
+  },
+  {
+    id: "rubric-quiz-exercise-2",
+    section: "Rubrics",
+    title: "Exercise #2",
+    parentId: "rubric-quiz-intro",
+    content: (
+      <ContentSlide title="" layout="left">
+        <RubricInteractiveQuiz
+          exerciseNumber={2}
+          prompt={exercise2Prompt}
+          deliverableUrl={exercise2DeliverableUrl}
+          deliverableTitle="School-based Residential Buyer Report"
+          criteria={exercise2Criteria}
         />
       </ContentSlide>
     ),
