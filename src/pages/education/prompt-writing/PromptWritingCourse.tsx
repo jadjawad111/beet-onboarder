@@ -8,40 +8,25 @@ import {
 } from "@/components/presentation";
 import type { Slide } from "@/components/presentation/PresentationLayout";
 
-// All slides for the entire Prompt Writing track
+// All slides for the Project Beet 2.0 Training Course
 const slides: Slide[] = [
   // ═══════════════════════════════════════════════════════════════
-  // INTRO / TITLE
+  // SECTION 1: Overview of Project Beet
   // ═══════════════════════════════════════════════════════════════
   {
-    id: "title",
+    id: "overview-welcome",
+    section: "Overview of Project Beet",
     title: "Welcome",
     content: (
       <TitleSlide 
-        title="Prompt Writing"
-        subtitle="Master the art of crafting professional AI prompts"
-      />
-    ),
-  },
-  
-  // ═══════════════════════════════════════════════════════════════
-  // MODULE 1: The Knowledge Work Gap
-  // ═══════════════════════════════════════════════════════════════
-  {
-    id: "m1-intro",
-    module: 1,
-    title: "Module 1: Introduction",
-    content: (
-      <SectionDividerSlide 
-        moduleNumber={1}
-        title="The Knowledge Work Gap"
-        subtitle="Why AI struggles with complex professional tasks"
+        title="Project Beet 2.0"
+        subtitle="Master prompt writing and rubrics creation"
       />
     ),
   },
   {
-    id: "m1-problem",
-    module: 1,
+    id: "overview-problem",
+    section: "Overview of Project Beet",
     title: "The Problem",
     content: (
       <ContentSlide title="The Problem">
@@ -57,8 +42,8 @@ const slides: Slide[] = [
     ),
   },
   {
-    id: "m1-what-is-knowledge-work",
-    module: 1,
+    id: "overview-knowledge-work",
+    section: "Overview of Project Beet",
     title: "What is Knowledge Work?",
     content: (
       <BulletSlide 
@@ -74,8 +59,8 @@ const slides: Slide[] = [
     ),
   },
   {
-    id: "m1-ai-gap",
-    module: 1,
+    id: "overview-ai-gap",
+    section: "Overview of Project Beet",
     title: "The AI Gap",
     content: (
       <QuoteSlide 
@@ -85,12 +70,12 @@ const slides: Slide[] = [
     ),
   },
   {
-    id: "m1-your-role",
-    module: 1,
+    id: "overview-your-role",
+    section: "Overview of Project Beet",
     title: "Your Role",
     content: (
       <BulletSlide 
-        title="Your Role as a Prompt Writer"
+        title="Your Role"
         bullets={[
           "Create realistic scenarios that challenge AI",
           "Identify where models currently fall short",
@@ -103,24 +88,24 @@ const slides: Slide[] = [
   },
 
   // ═══════════════════════════════════════════════════════════════
-  // MODULE 2: Unpacking Beet 2.0
+  // SECTION 2: Prompt Writing
   // ═══════════════════════════════════════════════════════════════
   {
-    id: "m2-intro",
-    module: 2,
-    title: "Module 2: Introduction",
+    id: "prompt-intro",
+    section: "Prompt Writing",
+    title: "Introduction",
     content: (
       <SectionDividerSlide 
         moduleNumber={2}
-        title="Unpacking Beet 2.0"
+        title="Prompt Writing"
         subtitle="The 7 core attributes of a quality prompt"
       />
     ),
   },
   {
-    id: "m2-attributes-overview",
-    module: 2,
-    title: "Core Attributes Overview",
+    id: "prompt-attributes-overview",
+    section: "Prompt Writing",
+    title: "Core Attributes",
     content: (
       <ContentSlide title="The 7 Core Attributes">
         <p className="mb-6">
@@ -134,8 +119,8 @@ const slides: Slide[] = [
     ),
   },
   {
-    id: "m2-attr-1-2",
-    module: 2,
+    id: "prompt-attr-1-2",
+    section: "Prompt Writing",
     title: "Attributes 1-2",
     content: (
       <BulletSlide 
@@ -149,8 +134,8 @@ const slides: Slide[] = [
     ),
   },
   {
-    id: "m2-attr-3-4",
-    module: 2,
+    id: "prompt-attr-3-4",
+    section: "Prompt Writing",
     title: "Attributes 3-4",
     content: (
       <BulletSlide 
@@ -164,8 +149,8 @@ const slides: Slide[] = [
     ),
   },
   {
-    id: "m2-attr-5-6-7",
-    module: 2,
+    id: "prompt-attr-5-6-7",
+    section: "Prompt Writing",
     title: "Attributes 5-7",
     content: (
       <BulletSlide 
@@ -180,8 +165,8 @@ const slides: Slide[] = [
     ),
   },
   {
-    id: "m2-failure-modes",
-    module: 2,
+    id: "prompt-failure-modes",
+    section: "Prompt Writing",
     title: "Model Failure Modes",
     content: (
       <ContentSlide title="Model Failure Modes">
@@ -203,25 +188,9 @@ const slides: Slide[] = [
       </ContentSlide>
     ),
   },
-
-  // ═══════════════════════════════════════════════════════════════
-  // MODULE 3: The Prompt Checklist
-  // ═══════════════════════════════════════════════════════════════
   {
-    id: "m3-intro",
-    module: 3,
-    title: "Module 3: Introduction",
-    content: (
-      <SectionDividerSlide 
-        moduleNumber={3}
-        title="The Prompt Checklist"
-        subtitle="Validate every prompt before submission"
-      />
-    ),
-  },
-  {
-    id: "m3-why-checklist",
-    module: 3,
+    id: "prompt-checklist-why",
+    section: "Prompt Writing",
     title: "Why a Checklist?",
     content: (
       <QuoteSlide 
@@ -231,8 +200,8 @@ const slides: Slide[] = [
     ),
   },
   {
-    id: "m3-checklist-part1",
-    module: 3,
+    id: "prompt-checklist-before",
+    section: "Prompt Writing",
     title: "Before You Write",
     content: (
       <BulletSlide 
@@ -248,8 +217,8 @@ const slides: Slide[] = [
     ),
   },
   {
-    id: "m3-checklist-part2",
-    module: 3,
+    id: "prompt-checklist-during",
+    section: "Prompt Writing",
     title: "As You Write",
     content: (
       <BulletSlide 
@@ -265,8 +234,8 @@ const slides: Slide[] = [
     ),
   },
   {
-    id: "m3-checklist-part3",
-    module: 3,
+    id: "prompt-checklist-submit",
+    section: "Prompt Writing",
     title: "Before You Submit",
     content: (
       <BulletSlide 
@@ -281,14 +250,81 @@ const slides: Slide[] = [
       />
     ),
   },
+
+  // ═══════════════════════════════════════════════════════════════
+  // SECTION 3: "Bronze" Response
+  // ═══════════════════════════════════════════════════════════════
+  {
+    id: "bronze-intro",
+    section: '"Bronze" Response',
+    title: "Introduction",
+    content: (
+      <SectionDividerSlide 
+        moduleNumber={3}
+        title='"Bronze" Response'
+        subtitle="Understanding response quality tiers"
+      />
+    ),
+  },
+  {
+    id: "bronze-placeholder",
+    section: '"Bronze" Response',
+    title: "Coming Soon",
+    content: (
+      <ContentSlide title="Bronze Response Content">
+        <p className="mb-6">
+          Content for the Bronze Response section will be added here.
+        </p>
+        <p className="text-muted-foreground">
+          This section will cover quality tiers and response evaluation.
+        </p>
+      </ContentSlide>
+    ),
+  },
+
+  // ═══════════════════════════════════════════════════════════════
+  // SECTION 4: Rubrics
+  // ═══════════════════════════════════════════════════════════════
+  {
+    id: "rubrics-intro",
+    section: "Rubrics",
+    title: "Introduction",
+    content: (
+      <SectionDividerSlide 
+        moduleNumber={4}
+        title="Rubrics"
+        subtitle="Creating effective evaluation criteria"
+      />
+    ),
+  },
+  {
+    id: "rubrics-placeholder",
+    section: "Rubrics",
+    title: "Coming Soon",
+    content: (
+      <ContentSlide title="Rubrics Content">
+        <p className="mb-6">
+          Content for the Rubrics section will be added here.
+        </p>
+        <p className="text-muted-foreground">
+          This section will cover how to create and apply rubrics.
+        </p>
+      </ContentSlide>
+    ),
+  },
+
+  // ═══════════════════════════════════════════════════════════════
+  // COMPLETION
+  // ═══════════════════════════════════════════════════════════════
   {
     id: "final",
+    section: "Rubrics",
     title: "Complete!",
     content: (
       <ContentSlide title="You're Ready!">
         <p className="mb-6">
-          You now have the foundation to write prompts that challenge AI 
-          and contribute to meaningful model improvements.
+          You now have the foundation to write prompts and create rubrics that 
+          challenge AI and contribute to meaningful model improvements.
         </p>
         <p className="text-primary font-semibold">
           Go create something that matters.
