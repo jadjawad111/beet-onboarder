@@ -266,6 +266,380 @@ const slides: Slide[] = [
       </ContentSlide>
     ),
   },
+  {
+    id: "element-2-professional-role",
+    section: "Prompt Writing",
+    title: "Element #2 — Professional Role & Context",
+    parentId: "prompt-6-elements",
+    content: (
+      <ContentSlide title="Element #2 — Professional Role & Context" layout="left">
+        <div className="space-y-6">
+          {/* Definition Card */}
+          <Card>
+            <CardContent className="p-5">
+              <div className="flex gap-4">
+                <div className="flex-shrink-0 w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+                  <Target className="w-5 h-5 text-primary" />
+                </div>
+                <div>
+                  <p className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Definition</p>
+                  <p className="text-foreground">
+                    The prompt assigns a specific professional persona with skin in the game. It defines the hierarchy, the audience, and the stakes of the task.
+                  </p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Why It Matters Card */}
+          <Card>
+            <CardContent className="p-5">
+              <div className="flex gap-4">
+                <div className="flex-shrink-0 w-10 h-10 rounded-full bg-amber-100 dark:bg-amber-950 flex items-center justify-center">
+                  <Lightbulb className="w-5 h-5 text-amber-600" />
+                </div>
+                <div>
+                  <p className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Why it matters</p>
+                  <p className="mb-3 text-foreground">
+                    The professional role tells the model what standard to meet (for example, a Senior VP analyzes risk differently than a Junior Assistant).
+                  </p>
+                  <p className="text-sm text-muted-foreground">
+                    Context mirrors how real professional tasks are communicated. The model must demonstrate judgment by identifying what information is relevant and what can be ignored.
+                  </p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Examples Section */}
+          <div>
+            <p className="text-xs uppercase tracking-wide text-muted-foreground mb-4">Examples</p>
+            <div className="space-y-4">
+              <ElementExampleRow
+                context="Pharma / Clinical"
+                bad="You are an AI assistant helping with drug data."
+                issue="No role, no seniority, no stakes, and no indication of how the output will be used."
+                good="You are a Clinical Pharmacology Lead at a biopharmaceutical sponsor. The program team requires an interim PK/PD review to prepare for an internal governance meeting."
+              />
+              <ElementExampleRow
+                context="Concierge"
+                bad="Plan a trip to Istanbul for a rich client."
+                issue="Client expectations, standards, and constraints are undefined."
+                good="You are the Chief of Staff for an ultra-high net worth individual who exited his last venture for over $1 billion. You need to ensure every moment of the trip is handled with white glove service."
+              />
+              <ElementExampleRow
+                context="Audio Engineering"
+                bad="Mix this song so it sounds good."
+                issue='"Sounds good" is subjective and does not establish professional standards.'
+                good="You are a mixing engineer working with a film studio on a diegetic song in a major motion picture. The director has requested aggressive, clearly audible T-Pain–style auto-tune."
+              />
+              <ElementExampleRow
+                context="Government Administration"
+                bad="Summarize these articles about AI in government."
+                issue="The audience, purpose, and decision context are unclear."
+                good="You are an Administrative Operations Lead in a government department. There is a strategic goal to expand automation. Create a scan to guide strategic planning."
+              />
+            </div>
+          </div>
+        </div>
+      </ContentSlide>
+    ),
+  },
+  {
+    id: "element-3-realistic",
+    section: "Prompt Writing",
+    title: "Element #3 — Realistic & NOT Contrived",
+    parentId: "prompt-6-elements",
+    content: (
+      <ContentSlide title="Element #3 — Realistic & NOT Contrived" layout="left">
+        <div className="space-y-6">
+          {/* Definition Card */}
+          <Card>
+            <CardContent className="p-5">
+              <div className="flex gap-4">
+                <div className="flex-shrink-0 w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+                  <Target className="w-5 h-5 text-primary" />
+                </div>
+                <div>
+                  <p className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Definition</p>
+                  <p className="text-foreground">
+                    The prompt mimics the messy, dense, and unpolished nature of real-world artifacts such as emails, memos, and Slack messages. It avoids "AI-speak."
+                  </p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Why It Matters Card */}
+          <Card>
+            <CardContent className="p-5">
+              <div className="flex gap-4">
+                <div className="flex-shrink-0 w-10 h-10 rounded-full bg-amber-100 dark:bg-amber-950 flex items-center justify-center">
+                  <Lightbulb className="w-5 h-5 text-amber-600" />
+                </div>
+                <div>
+                  <p className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Why it matters</p>
+                  <p className="mb-3 text-foreground">
+                    We are training models to replace or assist workers in reality, not in a lab.
+                  </p>
+                  <p className="text-sm text-muted-foreground">
+                    Real work does not come with perfectly nested bullet points, artificial scaffolding, or instructional hints.
+                  </p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Examples Section */}
+          <div>
+            <p className="text-xs uppercase tracking-wide text-muted-foreground mb-4">Examples</p>
+            <div className="space-y-4">
+              <ElementExampleRow
+                context="Finance / Salary"
+                bad="Please calculate the following: (E.g. Salary) (E.g. Taxes) Please format as a table."
+                issue="This structure does not resemble real professional inputs."
+                good="Apollo Braun profile: Annual salary $99,604.08. Started working June 1. 12% of net pay directed to investment. Create an Excel spreadsheet…"
+              />
+              <ElementExampleRow
+                context="Legal"
+                bad="Translate this modeling contract into a recipe for cookies to explain it to me."
+                issue="Contrived and unrelated to how legal work is actually performed."
+                good="Please provide a professionally written, clear, and concise email to your client, no longer than 600 words, addressing issues she should look out for."
+              />
+              <ElementExampleRow
+                context="Engineering"
+                bad="Task: Look at the file. Step 1: Make a 3D model. Step 2: Make a list."
+                issue="Over-structured and artificial."
+                good="Your biggest client has sent a 2D drawing. Your job is to (a) create a 3D part and (b) select the fastener that fits exactly."
+              />
+            </div>
+          </div>
+        </div>
+      </ContentSlide>
+    ),
+  },
+  {
+    id: "element-4-timelessness",
+    section: "Prompt Writing",
+    title: "Element #4 — Timelessness",
+    parentId: "prompt-6-elements",
+    content: (
+      <ContentSlide title="Element #4 — Timelessness (Relative Dating)" layout="left">
+        <div className="space-y-6">
+          {/* Definition Card */}
+          <Card>
+            <CardContent className="p-5">
+              <div className="flex gap-4">
+                <div className="flex-shrink-0 w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+                  <Target className="w-5 h-5 text-primary" />
+                </div>
+                <div>
+                  <p className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Definition</p>
+                  <p className="text-foreground">
+                    The prompt establishes a "current date" within the scenario logic rather than relying on real-world calendar dates or current events that will age out.
+                  </p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Why It Matters Card */}
+          <Card>
+            <CardContent className="p-5">
+              <div className="flex gap-4">
+                <div className="flex-shrink-0 w-10 h-10 rounded-full bg-amber-100 dark:bg-amber-950 flex items-center justify-center">
+                  <Lightbulb className="w-5 h-5 text-amber-600" />
+                </div>
+                <div>
+                  <p className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Why it matters</p>
+                  <p className="mb-3 text-foreground">
+                    If a prompt says "Today is Tuesday," it may be false when the model is tested in the future.
+                  </p>
+                  <p className="text-sm text-muted-foreground">
+                    Prompts must anchor time explicitly within the scenario.
+                  </p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Examples Section */}
+          <div>
+            <p className="text-xs uppercase tracking-wide text-muted-foreground mb-4">Examples</p>
+            <div className="space-y-4">
+              <ElementExampleRow
+                context="Retail Planning"
+                bad="Plan the sales for next month (October 2023)."
+                issue="Relies on a real-world date that will become outdated."
+                good="It is September 2024. You have been tasked with leading the 2024 Black Friday event. Create an eight-week preparation plan."
+              />
+              <ElementExampleRow
+                context="Real Estate"
+                bad="Find houses for sale right now."
+                issue='"Right now" has no fixed meaning.'
+                good="It is June 24, 2025. Select homes to show this weekend. The buyers are only in town for two days."
+              />
+              <ElementExampleRow
+                context="Concierge"
+                bad="Plan a trip for next summer."
+                issue="Time reference is ambiguous and unstable."
+                good="The first day is June 1. Day 2 is June 2. Day 3 is June 3, the wedding day."
+              />
+            </div>
+          </div>
+        </div>
+      </ContentSlide>
+    ),
+  },
+  {
+    id: "element-5-clear-asks",
+    section: "Prompt Writing",
+    title: "Element #5 — Clear Asks",
+    parentId: "prompt-6-elements",
+    content: (
+      <ContentSlide title="Element #5 — Clear Asks" layout="left">
+        <div className="space-y-6">
+          {/* Definition Card */}
+          <Card>
+            <CardContent className="p-5">
+              <div className="flex gap-4">
+                <div className="flex-shrink-0 w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+                  <Target className="w-5 h-5 text-primary" />
+                </div>
+                <div>
+                  <p className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Definition</p>
+                  <p className="text-foreground">
+                    Clear asks explicitly define the output format, audience, and quality bar. The model should not have to guess whether the output is a PDF, CSV, or Python script.
+                  </p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Why It Matters Card */}
+          <Card>
+            <CardContent className="p-5">
+              <div className="flex gap-4">
+                <div className="flex-shrink-0 w-10 h-10 rounded-full bg-amber-100 dark:bg-amber-950 flex items-center justify-center">
+                  <Lightbulb className="w-5 h-5 text-amber-600" />
+                </div>
+                <div>
+                  <p className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Why it matters</p>
+                  <p className="mb-3 text-foreground">
+                    The format is often part of the work.
+                  </p>
+                  <p className="text-sm text-muted-foreground">
+                    A Python script is useless to a CEO who asked for a PowerPoint.
+                  </p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Examples Section */}
+          <div>
+            <p className="text-xs uppercase tracking-wide text-muted-foreground mb-4">Examples</p>
+            <div className="space-y-4">
+              <ElementExampleRow
+                context="Data Analysis"
+                bad="Give me the data."
+                issue="The format and intended use are undefined."
+                good="Create an Excel workbook named SemiETF_PolicyRisk.xlsx with exactly five tabs, in exactly this order: Holdings_Clean, Exposure_By_Region…"
+              />
+              <ElementExampleRow
+                context="Design / CAD"
+                bad="Make a 3D file."
+                issue="File type, naming conventions, and downstream usage are unclear."
+                good="Save the output as a STEP file named coverplate.step. List the number, radius, and length in a separate Excel file."
+              />
+              <ElementExampleRow
+                context="Marketing"
+                bad="Make a presentation."
+                issue="Audience and success criteria are undefined."
+                good="Design a modern PDF presentation deck (approximately 15–18 slides). Each slide should focus on a core service category."
+              />
+            </div>
+          </div>
+        </div>
+      </ContentSlide>
+    ),
+  },
+  {
+    id: "element-6-clear-constraints",
+    section: "Prompt Writing",
+    title: "Element #6 — Clear Constraints",
+    parentId: "prompt-6-elements",
+    content: (
+      <ContentSlide title="Element #6 — Clear Constraints" layout="left">
+        <div className="space-y-6">
+          {/* Definition Card */}
+          <Card>
+            <CardContent className="p-5">
+              <div className="flex gap-4">
+                <div className="flex-shrink-0 w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+                  <Target className="w-5 h-5 text-primary" />
+                </div>
+                <div>
+                  <p className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Definition</p>
+                  <p className="text-foreground">
+                    Clear constraints explicitly define must-nots, resource limitations, and style rules. These are the guardrails that make the task meaningfully difficult.
+                  </p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Why It Matters Card */}
+          <Card>
+            <CardContent className="p-5">
+              <div className="flex gap-4">
+                <div className="flex-shrink-0 w-10 h-10 rounded-full bg-amber-100 dark:bg-amber-950 flex items-center justify-center">
+                  <Lightbulb className="w-5 h-5 text-amber-600" />
+                </div>
+                <div>
+                  <p className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Why it matters</p>
+                  <p className="text-foreground">
+                    Constraints force the model to trade off between competing goals such as speed vs. accuracy or brevity vs. completeness.
+                  </p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Examples Section */}
+          <div>
+            <p className="text-xs uppercase tracking-wide text-muted-foreground mb-4">Examples</p>
+            <div className="space-y-4">
+              <ElementExampleRow
+                context="Finance"
+                bad="Make a spreadsheet for the investment."
+                issue="No validation or calculation constraints are defined."
+                good="The tables should be dynamic with no hardcoded cells. If a number cannot be traced to the spreadsheet output, it must not be stated."
+              />
+              <ElementExampleRow
+                context="Nurse Scheduling"
+                bad="Schedule the surgeries."
+                issue="No competing priorities or real-world constraints."
+                good="The hospital prioritizes trauma readiness, maximizes weekday utilization, and the ER has mentioned a potential mass casualty event."
+              />
+              <ElementExampleRow
+                context="Audio"
+                bad="Auto-tune the vocals."
+                issue="Creative direction and constraints are missing."
+                good="The director has requested an aggressive and clearly audible auto-tune effect, similar to T-Pain."
+              />
+              <ElementExampleRow
+                context="Inventory"
+                bad="Order more stock."
+                issue="Budget and channel constraints are absent."
+                good="Do not plan receipts under $10k per month in stores or under $6k per month in e-commerce."
+              />
+            </div>
+          </div>
+        </div>
+      </ContentSlide>
+    ),
+  },
 
   // ═══════════════════════════════════════════════════════════════
   // SECTION 3: "Bronze" Response
