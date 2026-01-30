@@ -17,7 +17,7 @@ Use a reputable online source for information relating to the school (e.g., www.
 
 The goal for these reports is to provide quantitative information on the schools to help the buyers choose which elementary school they want their children to attend, and identify potential home acquisition targets.`;
 
-export const exercise2DeliverableUrl = "https://drive.google.com/drive/folders/1zeiK_p04JPPJlJED9ZkBbajGm8iDiI1R";
+export const exercise2DeliverableUrl = "https://drive.google.com/file/d/1CR29fHDOJSLY24ZpzXMR8FOw4Bve2S3i/view?usp=sharing";
 
 export const exercise2Criteria: CriterionData[] = [
   {
