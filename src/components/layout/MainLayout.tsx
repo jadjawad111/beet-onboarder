@@ -1,27 +1,20 @@
-import { useState } from "react";
-import { Outlet } from "react-router-dom";
-import Header from "./Header";
-import Sidebar from "./Sidebar";
-import HelpPanel from "@/components/HelpPanel";
+import { Outlet, useLocation } from "react-router-dom";
 
 const MainLayout = () => {
-  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const location = useLocation();
+  const isHomePage = location.pathname === "/";
 
+  // Home page renders its own full layout
+  if (isHomePage) {
+    return <Outlet />;
+  }
+
+  // Other pages get a simple centered layout
   return (
-    <div className="flex min-h-screen w-full">
-      <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
-      
-      <div className="flex flex-1 flex-col min-h-screen overflow-hidden text-primary-foreground bg-primary-foreground">
-        <Header onMenuClick={() => setSidebarOpen(true)} />
-        
-        <main className="flex-1 overflow-y-auto relative">
-          <div className="container max-w-4xl py-8 px-4 lg:px-8 animate-fade-in">
-            <Outlet />
-          </div>
-        </main>
-      </div>
-
-      <HelpPanel />
+    <div className="min-h-screen bg-background">
+      <main className="max-w-3xl mx-auto px-6 py-8">
+        <Outlet />
+      </main>
     </div>
   );
 };
