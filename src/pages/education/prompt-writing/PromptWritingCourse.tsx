@@ -1760,19 +1760,19 @@ This analysis will be stored on the concierge laptop as a Word file and will be 
     title: "Rubrics Are Iterative",
     content: (
       <ContentSlide title="Rubrics Are Iterative: Dogfooding Them" layout="left">
-        <div className="space-y-8">
+        <div className="space-y-6">
           {/* Block 1: Core Idea */}
-          <section>
-            <h2 className="text-xl font-bold mb-3">Core Idea</h2>
+          <div className="bg-muted/30 border-l-4 border-border rounded-r-lg p-5">
+            <p className="text-xs uppercase tracking-wider text-muted-foreground mb-2">Core Idea</p>
             <p>
               Great rubrics are almost never written correctly on the first attempt. They improve through iteration, by pressure-testing them against multiple responses and observing how they behave in practice.
             </p>
-          </section>
+          </div>
 
           {/* Block 2: Why Iteration → What to Dogfood */}
-          <section className="space-y-6">
+          <div className="bg-muted/30 border-l-4 border-border rounded-r-lg p-5 space-y-6">
             <div>
-              <h2 className="text-xl font-bold mb-3">Why Iteration is Necessary</h2>
+              <p className="text-xs uppercase tracking-wider text-muted-foreground mb-2">Why Iteration is Necessary</p>
               <p className="mb-3">
                 Very rarely will you develop a great rubric on the first try. Common early issues include:
               </p>
@@ -1788,7 +1788,7 @@ This analysis will be stored on the concierge laptop as a Word file and will be 
             </div>
 
             <div>
-              <h2 className="text-xl font-bold mb-3">What "Dogfooding" Means in This Context</h2>
+              <p className="text-xs uppercase tracking-wider text-muted-foreground mb-2">What "Dogfooding" Means in This Context</p>
               <p className="mb-3">
                 Dogfooding a rubric means using it the same way it will be used in training. You generate multiple responses to the same prompt and apply your rubric to all of them, including:
               </p>
@@ -1803,7 +1803,7 @@ This analysis will be stored on the concierge laptop as a Word file and will be 
             </div>
 
             <div>
-              <h2 className="text-xl font-bold mb-3">What the Goal of Dogfooding Is</h2>
+              <p className="text-xs uppercase tracking-wider text-muted-foreground mb-2">What the Goal of Dogfooding Is</p>
               <p className="mb-3">
                 The goal of dogfooding is to confirm that:
               </p>
@@ -1819,7 +1819,7 @@ This analysis will be stored on the concierge laptop as a Word file and will be 
             </div>
 
             <div>
-              <h2 className="text-xl font-bold mb-3">What to Dogfood</h2>
+              <p className="text-xs uppercase tracking-wider text-muted-foreground mb-2">What to Dogfood</p>
               <p className="mb-3">
                 There are two levels of dogfooding:
               </p>
@@ -1832,19 +1832,16 @@ This analysis will be stored on the concierge laptop as a Word file and will be 
                 Ask: Does this criterion behave consistently across responses? Does it return the same judgment when applied repeatedly? Does it accidentally depend on context the judge model cannot see?
               </p>
             </div>
-          </section>
-
-          {/* Divider */}
-          <hr className="border-border" />
+          </div>
 
           {/* Block 3: How to Dogfood */}
-          <section>
-            <h2 className="text-xl font-bold mb-3">How to Dogfood a Rubric Criterion</h2>
+          <div className="bg-muted/30 border-l-4 border-border rounded-r-lg p-5">
+            <p className="text-xs uppercase tracking-wider text-muted-foreground mb-2">How to Dogfood a Rubric Criterion</p>
             <p className="mb-4">
               When pressure-testing individual criteria, use a combination of:
             </p>
             
-            <div className="space-y-4">
+            <div className="space-y-3">
               <div>
                 <p className="font-medium">Multiple Response Sampling</p>
                 <p className="text-muted-foreground">Review responses from different models and styles.</p>
@@ -1869,15 +1866,15 @@ This analysis will be stored on the concierge laptop as a Word file and will be 
             <p className="mt-4">
               Criteria that show high variance or unexpected behavior should be rewritten or removed.
             </p>
-          </section>
+          </div>
 
           {/* Block 4: Key Takeaway */}
-          <section>
-            <h2 className="text-xl font-bold mb-3">Key Takeaway</h2>
+          <div className="bg-muted/30 border-l-4 border-border rounded-r-lg p-5">
+            <p className="text-xs uppercase tracking-wider text-muted-foreground mb-2">Key Takeaway</p>
             <p>
               A rubric is not a static artifact. It is a tool that improves through use. Dogfooding helps ensure your rubric is robust, generalizable, and aligned with how models will actually be trained.
             </p>
-          </section>
+          </div>
         </div>
       </ContentSlide>
     ),
