@@ -1760,80 +1760,123 @@ This analysis will be stored on the concierge laptop as a Word file and will be 
     title: "Rubrics Are Iterative",
     content: (
       <ContentSlide title="Rubrics Are Iterative: Dogfooding Them" layout="left">
-        <div className="space-y-5">
-          <div className="rounded-lg border bg-muted/30 p-4">
-            <p className="text-xs uppercase tracking-wider text-muted-foreground mb-2">Core Idea</p>
-            <p className="text-sm">
+        <div className="space-y-6">
+          {/* Core Idea */}
+          <div>
+            <h3 className="font-semibold text-lg mb-2">Core Idea</h3>
+            <p>
               Great rubrics are almost never written correctly on the first attempt. They improve through iteration, by pressure-testing them against multiple responses and observing how they behave in practice.
             </p>
           </div>
 
-          <div className="rounded-lg border bg-muted/30 p-4">
-            <p className="text-xs uppercase tracking-wider text-muted-foreground mb-2">Why Iteration is Necessary</p>
-            <p className="text-sm mb-3">Common early issues include:</p>
-            <ul className="space-y-1.5 text-sm text-muted-foreground">
-              <li>• Overfitting the rubric to the original Bronze response</li>
-              <li>• Anchoring on the first model output you happened to see</li>
-              <li>• Missing failure modes that only appear in other responses</li>
-              <li>• Overweighting or underweighting criteria unintentionally</li>
+          {/* Why Iteration is Necessary */}
+          <div>
+            <h3 className="font-semibold text-lg mb-2">Why Iteration is Necessary</h3>
+            <p className="mb-3">
+              Very rarely will you develop a great rubric on the first try. Common early issues include:
+            </p>
+            <ul className="list-disc list-inside space-y-1 ml-4 text-muted-foreground">
+              <li>Overfitting the rubric to the original Bronze response</li>
+              <li>Liking or anchoring on the specific model response you happened to see first</li>
+              <li>Missing important failure modes that only appear in other responses</li>
+              <li>Overweighting or underweighting certain criteria unintentionally</li>
             </ul>
-          </div>
-
-          <div className="rounded-lg border bg-muted/30 p-4">
-            <p className="text-xs uppercase tracking-wider text-muted-foreground mb-2">What "Dogfooding" Means</p>
-            <p className="text-sm">
-              Dogfooding = using your rubric the same way it will be used in training. Generate multiple responses (strong, weak, intentionally flawed) and apply your rubric to all of them.
+            <p className="mt-3">
+              If you were to evaluate additional responses, you would often want to add new criteria, remove unnecessary criteria, or adjust weights to better reflect real-world importance.
             </p>
           </div>
 
-          <div className="rounded-lg border bg-muted/30 p-4">
-            <p className="text-xs uppercase tracking-wider text-muted-foreground mb-2">The Goal</p>
-            <p className="text-sm mb-3">Confirm that:</p>
-            <ul className="space-y-1.5 text-sm text-muted-foreground">
-              <li>• The rubric is generalizable across styles and structures</li>
-              <li>• Good responses consistently score well</li>
-              <li>• Bad responses consistently score poorly</li>
+          {/* What Dogfooding Means */}
+          <div>
+            <h3 className="font-semibold text-lg mb-2">What "Dogfooding" Means in This Context</h3>
+            <p className="mb-3">
+              Dogfooding a rubric means using it the same way it will be used in training. You generate multiple responses to the same prompt and apply your rubric to all of them, including:
+            </p>
+            <ul className="list-disc list-inside space-y-1 ml-4 text-muted-foreground">
+              <li>Strong responses</li>
+              <li>Weak responses</li>
+              <li>Intentionally flawed responses</li>
             </ul>
-            <p className="text-sm text-muted-foreground mt-3">If the rubric doesn't behave this way, it needs revision.</p>
+            <p className="mt-3">
+              This gives you multiple reference points instead of a single example.
+            </p>
           </div>
 
-          <div className="rounded-lg border bg-muted/30 p-4">
-            <p className="text-xs uppercase tracking-wider text-muted-foreground mb-3">Two Levels of Dogfooding</p>
-            <div className="grid md:grid-cols-2 gap-4">
+          {/* The Goal */}
+          <div>
+            <h3 className="font-semibold text-lg mb-2">What the Goal of Dogfooding Is</h3>
+            <p className="mb-3">
+              The goal of dogfooding is to confirm that:
+            </p>
+            <ul className="list-disc list-inside space-y-1 ml-4 text-muted-foreground">
+              <li>The rubric is generalizable</li>
+              <li>It behaves as intended across different styles and structures</li>
+              <li>Good responses consistently score well</li>
+              <li>Bad responses consistently score poorly</li>
+            </ul>
+            <p className="mt-3">
+              If the rubric does not behave this way, it needs revision.
+            </p>
+          </div>
+
+          {/* What to Dogfood */}
+          <div>
+            <h3 className="font-semibold text-lg mb-2">What to Dogfood</h3>
+            <p className="mb-3">
+              There are two levels of dogfooding:
+            </p>
+            <p className="mb-3">
+              <strong>1. The Full Rubric</strong><br />
+              Ask: Does the rubric, as a whole, separate good responses from bad ones? Do the top-scoring responses actually look like what you consider "good"? Do clearly bad responses ever score surprisingly high? If yes, the rubric needs adjustment.
+            </p>
+            <p>
+              <strong>2. Individual Criteria</strong><br />
+              Ask: Does this criterion behave consistently across responses? Does it return the same judgment when applied repeatedly? Does it accidentally depend on context the judge model cannot see?
+            </p>
+          </div>
+
+          {/* Divider */}
+          <hr className="border-border" />
+
+          {/* How to Dogfood */}
+          <div>
+            <h3 className="font-semibold text-lg mb-2">How to Dogfood a Rubric Criterion</h3>
+            <p className="mb-4">
+              When pressure-testing individual criteria, use a combination of:
+            </p>
+            
+            <div className="space-y-4">
               <div>
-                <p className="text-sm font-medium mb-2">1. The Full Rubric</p>
-                <ul className="space-y-1.5 text-sm text-muted-foreground">
-                  <li>• Does it separate good from bad responses?</li>
-                  <li>• Do top-scorers actually look "good"?</li>
-                  <li>• Do bad responses ever score high?</li>
-                </ul>
+                <p className="font-medium">Multiple Response Sampling</p>
+                <p className="text-muted-foreground">Review responses from different models and styles.</p>
               </div>
+              
               <div>
-                <p className="text-sm font-medium mb-2">2. Individual Criteria</p>
-                <ul className="space-y-1.5 text-sm text-muted-foreground">
-                  <li>• Does it behave consistently?</li>
-                  <li>• Same judgment when applied repeatedly?</li>
-                  <li>• Depend on context the judge can't see?</li>
-                </ul>
+                <p className="font-medium">pass@10 Style Checks</p>
+                <p className="text-muted-foreground">Apply the criterion across a batch of responses and look for instability.</p>
+              </div>
+              
+              <div>
+                <p className="font-medium">High-Variance Analysis</p>
+                <p className="text-muted-foreground">Identify criteria that flip between true and false unexpectedly.</p>
+              </div>
+              
+              <div>
+                <p className="font-medium">Quality LLM Checks</p>
+                <p className="text-muted-foreground">Verify that criteria are not stacked, ambiguous, or non-self-contained.</p>
               </div>
             </div>
+            
+            <p className="mt-4">
+              Criteria that show high variance or unexpected behavior should be rewritten or removed.
+            </p>
           </div>
 
-          <div className="rounded-lg border bg-muted/30 p-4">
-            <p className="text-xs uppercase tracking-wider text-muted-foreground mb-2">How to Dogfood Criteria</p>
-            <ul className="space-y-1.5 text-sm text-muted-foreground">
-              <li>• Multiple response sampling — review responses from different models and styles</li>
-              <li>• pass@10 style checks — apply the criterion across a batch and look for instability</li>
-              <li>• High-variance analysis — identify criteria that flip between true and false unexpectedly</li>
-              <li>• Quality LLM checks — verify criteria are not stacked, ambiguous, or non-self-contained</li>
-            </ul>
-            <p className="text-sm text-muted-foreground mt-3">Criteria with high variance or unexpected behavior should be rewritten or removed.</p>
-          </div>
-
-          <div className="rounded-lg border bg-muted/30 p-4">
-            <p className="text-xs uppercase tracking-wider text-muted-foreground mb-2">Key Takeaway</p>
-            <p className="text-sm">
-              A rubric is not static — it's a tool that improves through use. Dogfooding ensures your rubric is robust, generalizable, and aligned with how models will actually be trained.
+          {/* Key Takeaway */}
+          <div>
+            <h3 className="font-semibold text-lg mb-2">Key Takeaway</h3>
+            <p>
+              A rubric is not a static artifact. It is a tool that improves through use. Dogfooding helps ensure your rubric is robust, generalizable, and aligned with how models will actually be trained.
             </p>
           </div>
         </div>
