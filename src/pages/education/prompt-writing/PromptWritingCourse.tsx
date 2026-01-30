@@ -1131,6 +1131,459 @@ This analysis will be stored on the concierge laptop as a Word file and will be 
   },
 
   // ═══════════════════════════════════════════════════════════════
+  // RUBRICS: Good Rubric Deep Dives
+  // ═══════════════════════════════════════════════════════════════
+  {
+    id: "rubric-elements-overview",
+    section: "Rubrics",
+    title: "The 3 Rubric Elements",
+    content: (
+      <ContentSlide title="Core elements of a good Rubric" layout="left">
+        <div className="space-y-6">
+          <p className="text-muted-foreground">
+            A well-designed rubric should embody these three core elements. Click each to explore in detail:
+          </p>
+          <div className="grid gap-4">
+            <div className="p-4 rounded-lg border-2 border-border bg-card hover:border-primary/40 transition-colors">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center font-bold text-primary">1</div>
+                <div>
+                  <p className="font-semibold text-foreground">Coverage</p>
+                  <p className="text-sm text-muted-foreground">Includes everything needed to evaluate meaningfully</p>
+                </div>
+              </div>
+            </div>
+            <div className="p-4 rounded-lg border-2 border-border bg-card hover:border-primary/40 transition-colors">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center font-bold text-primary">2</div>
+                <div>
+                  <p className="font-semibold text-foreground">Professional Judgment</p>
+                  <p className="text-sm text-muted-foreground">Captures nuanced expertise of the profession</p>
+                </div>
+              </div>
+            </div>
+            <div className="p-4 rounded-lg border-2 border-border bg-card hover:border-primary/40 transition-colors">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center font-bold text-primary">3</div>
+                <div>
+                  <p className="font-semibold text-foreground">Evaluator Consistency</p>
+                  <p className="text-sm text-muted-foreground">Multiple evaluators reach the same result</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ContentSlide>
+    ),
+  },
+  {
+    id: "rubric-element-coverage",
+    section: "Rubrics",
+    title: "Element #1: Coverage",
+    parentId: "rubric-elements-overview",
+    content: (
+      <ContentSlide title="Coverage" layout="left">
+        <div className="space-y-6">
+          {/* Definition */}
+          <div className="p-4 rounded-lg border bg-card">
+            <div className="flex items-start gap-3">
+              <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                <span className="text-primary">🎯</span>
+              </div>
+              <div>
+                <p className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Definition</p>
+                <p className="text-foreground">A good rubric includes everything needed to evaluate the task meaningfully — no critical aspect should be left unmeasured.</p>
+              </div>
+            </div>
+          </div>
+          
+          {/* Why it matters */}
+          <div className="p-4 rounded-lg border bg-card">
+            <div className="flex items-start gap-3">
+              <div className="w-8 h-8 rounded-full bg-amber-500/10 flex items-center justify-center flex-shrink-0">
+                <span>💡</span>
+              </div>
+              <div>
+                <p className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Why it matters</p>
+                <p className="text-foreground">[Content coming soon - explain why coverage is critical]</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Examples */}
+          <div>
+            <p className="text-xs uppercase tracking-wide text-muted-foreground mb-4">Examples</p>
+            <div className="space-y-4">
+              <ElementExampleRow
+                context="[Context]"
+                bad="[Bad rubric example]"
+                issue="[Why it's bad]"
+                good={<>[Good rubric example with <strong className="text-green-600">key highlights</strong>]</>}
+              />
+            </div>
+          </div>
+        </div>
+      </ContentSlide>
+    ),
+  },
+  {
+    id: "rubric-element-judgment",
+    section: "Rubrics",
+    title: "Element #2: Professional Judgment",
+    parentId: "rubric-elements-overview",
+    content: (
+      <ContentSlide title="Professional Judgment" layout="left">
+        <div className="space-y-6">
+          {/* Definition */}
+          <div className="p-4 rounded-lg border bg-card">
+            <div className="flex items-start gap-3">
+              <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                <span className="text-primary">🎯</span>
+              </div>
+              <div>
+                <p className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Definition</p>
+                <p className="text-foreground">A good rubric captures the nuanced taste and expertise of the profession — the kind of quality that experts recognize but is hard to articulate.</p>
+              </div>
+            </div>
+          </div>
+          
+          {/* Why it matters */}
+          <div className="p-4 rounded-lg border bg-card">
+            <div className="flex items-start gap-3">
+              <div className="w-8 h-8 rounded-full bg-amber-500/10 flex items-center justify-center flex-shrink-0">
+                <span>💡</span>
+              </div>
+              <div>
+                <p className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Why it matters</p>
+                <p className="text-foreground">[Content coming soon - explain why professional judgment matters]</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Examples */}
+          <div>
+            <p className="text-xs uppercase tracking-wide text-muted-foreground mb-4">Examples</p>
+            <div className="space-y-4">
+              <ElementExampleRow
+                context="[Context]"
+                bad="[Bad rubric example]"
+                issue="[Why it's bad]"
+                good={<>[Good rubric example with <strong className="text-green-600">key highlights</strong>]</>}
+              />
+            </div>
+          </div>
+        </div>
+      </ContentSlide>
+    ),
+  },
+  {
+    id: "rubric-element-consistency",
+    section: "Rubrics",
+    title: "Element #3: Evaluator Consistency",
+    parentId: "rubric-elements-overview",
+    content: (
+      <ContentSlide title="Evaluator Consistency" layout="left">
+        <div className="space-y-6">
+          {/* Definition */}
+          <div className="p-4 rounded-lg border bg-card">
+            <div className="flex items-start gap-3">
+              <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                <span className="text-primary">🎯</span>
+              </div>
+              <div>
+                <p className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Definition</p>
+                <p className="text-foreground">If ten people were to evaluate the same output ten times, they would all reach the same result.</p>
+              </div>
+            </div>
+          </div>
+          
+          {/* Why it matters */}
+          <div className="p-4 rounded-lg border bg-card">
+            <div className="flex items-start gap-3">
+              <div className="w-8 h-8 rounded-full bg-amber-500/10 flex items-center justify-center flex-shrink-0">
+                <span>💡</span>
+              </div>
+              <div>
+                <p className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Why it matters</p>
+                <p className="text-foreground">[Content coming soon - explain why consistency matters]</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Examples */}
+          <div>
+            <p className="text-xs uppercase tracking-wide text-muted-foreground mb-4">Examples</p>
+            <div className="space-y-4">
+              <ElementExampleRow
+                context="[Context]"
+                bad="[Bad rubric example]"
+                issue="[Why it's bad]"
+                good={<>[Good rubric example with <strong className="text-green-600">key highlights</strong>]</>}
+              />
+            </div>
+          </div>
+        </div>
+      </ContentSlide>
+    ),
+  },
+
+  // ═══════════════════════════════════════════════════════════════
+  // RUBRICS: Good Criterion Deep Dives
+  // ═══════════════════════════════════════════════════════════════
+  {
+    id: "criterion-elements-overview",
+    section: "Rubrics",
+    title: "The 4 Criterion Elements",
+    content: (
+      <ContentSlide title="Core elements of a good Criterion" layout="left">
+        <div className="space-y-6">
+          <p className="text-muted-foreground">
+            Each individual criterion should meet these four requirements. Click each to explore in detail:
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="p-4 rounded-lg border-2 border-border bg-card hover:border-primary/40 transition-colors">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center font-bold text-primary">1</div>
+                <div>
+                  <p className="font-semibold text-foreground">Not Stacked</p>
+                  <p className="text-sm text-muted-foreground">One thing at a time</p>
+                </div>
+              </div>
+            </div>
+            <div className="p-4 rounded-lg border-2 border-border bg-card hover:border-primary/40 transition-colors">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center font-bold text-primary">2</div>
+                <div>
+                  <p className="font-semibold text-foreground">Programmatically Verifiable</p>
+                  <p className="text-sm text-muted-foreground">Can be automated at scale</p>
+                </div>
+              </div>
+            </div>
+            <div className="p-4 rounded-lg border-2 border-border bg-card hover:border-primary/40 transition-colors">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center font-bold text-primary">3</div>
+                <div>
+                  <p className="font-semibold text-foreground">Consistently Evaluable</p>
+                  <p className="text-sm text-muted-foreground">Same answer every time</p>
+                </div>
+              </div>
+            </div>
+            <div className="p-4 rounded-lg border-2 border-border bg-card hover:border-primary/40 transition-colors">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center font-bold text-primary">4</div>
+                <div>
+                  <p className="font-semibold text-foreground">Self-contained</p>
+                  <p className="text-sm text-muted-foreground">No external context needed</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ContentSlide>
+    ),
+  },
+  {
+    id: "criterion-element-not-stacked",
+    section: "Rubrics",
+    title: "Element #1: Not Stacked",
+    parentId: "criterion-elements-overview",
+    content: (
+      <ContentSlide title="Not Stacked" layout="left">
+        <div className="space-y-6">
+          {/* Definition */}
+          <div className="p-4 rounded-lg border bg-card">
+            <div className="flex items-start gap-3">
+              <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                <span className="text-primary">🎯</span>
+              </div>
+              <div>
+                <p className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Definition</p>
+                <p className="text-foreground">Multiple criteria bundled together without clear weighting will not return consistent results. Each criterion should measure one specific aspect.</p>
+              </div>
+            </div>
+          </div>
+          
+          {/* Why it matters */}
+          <div className="p-4 rounded-lg border bg-card">
+            <div className="flex items-start gap-3">
+              <div className="w-8 h-8 rounded-full bg-amber-500/10 flex items-center justify-center flex-shrink-0">
+                <span>💡</span>
+              </div>
+              <div>
+                <p className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Why it matters</p>
+                <p className="text-foreground">[Content coming soon]</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Examples */}
+          <div>
+            <p className="text-xs uppercase tracking-wide text-muted-foreground mb-4">Examples</p>
+            <div className="space-y-4">
+              <ElementExampleRow
+                context="[Context]"
+                bad="[Bad criterion example]"
+                issue="[Why it's bad]"
+                good={<>[Good criterion example with <strong className="text-green-600">key highlights</strong>]</>}
+              />
+            </div>
+          </div>
+        </div>
+      </ContentSlide>
+    ),
+  },
+  {
+    id: "criterion-element-verifiable",
+    section: "Rubrics",
+    title: "Element #2: Programmatically Verifiable",
+    parentId: "criterion-elements-overview",
+    content: (
+      <ContentSlide title="Programmatically Verifiable" layout="left">
+        <div className="space-y-6">
+          {/* Definition */}
+          <div className="p-4 rounded-lg border bg-card">
+            <div className="flex items-start gap-3">
+              <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                <span className="text-primary">🎯</span>
+              </div>
+              <div>
+                <p className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Definition</p>
+                <p className="text-foreground">AI labs need automated ways of evaluating at scale. Criteria must be written so they can be checked by code or AI.</p>
+              </div>
+            </div>
+          </div>
+          
+          {/* Why it matters */}
+          <div className="p-4 rounded-lg border bg-card">
+            <div className="flex items-start gap-3">
+              <div className="w-8 h-8 rounded-full bg-amber-500/10 flex items-center justify-center flex-shrink-0">
+                <span>💡</span>
+              </div>
+              <div>
+                <p className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Why it matters</p>
+                <p className="text-foreground">[Content coming soon]</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Examples */}
+          <div>
+            <p className="text-xs uppercase tracking-wide text-muted-foreground mb-4">Examples</p>
+            <div className="space-y-4">
+              <ElementExampleRow
+                context="[Context]"
+                bad="[Bad criterion example]"
+                issue="[Why it's bad]"
+                good={<>[Good criterion example with <strong className="text-green-600">key highlights</strong>]</>}
+              />
+            </div>
+          </div>
+        </div>
+      </ContentSlide>
+    ),
+  },
+  {
+    id: "criterion-element-consistent",
+    section: "Rubrics",
+    title: "Element #3: Consistently Evaluable",
+    parentId: "criterion-elements-overview",
+    content: (
+      <ContentSlide title="Consistently Evaluable" layout="left">
+        <div className="space-y-6">
+          {/* Definition */}
+          <div className="p-4 rounded-lg border bg-card">
+            <div className="flex items-start gap-3">
+              <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                <span className="text-primary">🎯</span>
+              </div>
+              <div>
+                <p className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Definition</p>
+                <p className="text-foreground">An AI model serving as an evaluator can consistently return the same answer against that criterion.</p>
+              </div>
+            </div>
+          </div>
+          
+          {/* Why it matters */}
+          <div className="p-4 rounded-lg border bg-card">
+            <div className="flex items-start gap-3">
+              <div className="w-8 h-8 rounded-full bg-amber-500/10 flex items-center justify-center flex-shrink-0">
+                <span>💡</span>
+              </div>
+              <div>
+                <p className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Why it matters</p>
+                <p className="text-foreground">[Content coming soon]</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Examples */}
+          <div>
+            <p className="text-xs uppercase tracking-wide text-muted-foreground mb-4">Examples</p>
+            <div className="space-y-4">
+              <ElementExampleRow
+                context="[Context]"
+                bad="[Bad criterion example]"
+                issue="[Why it's bad]"
+                good={<>[Good criterion example with <strong className="text-green-600">key highlights</strong>]</>}
+              />
+            </div>
+          </div>
+        </div>
+      </ContentSlide>
+    ),
+  },
+  {
+    id: "criterion-element-self-contained",
+    section: "Rubrics",
+    title: "Element #4: Self-contained",
+    parentId: "criterion-elements-overview",
+    content: (
+      <ContentSlide title="Self-contained" layout="left">
+        <div className="space-y-6">
+          {/* Definition */}
+          <div className="p-4 rounded-lg border bg-card">
+            <div className="flex items-start gap-3">
+              <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                <span className="text-primary">🎯</span>
+              </div>
+              <div>
+                <p className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Definition</p>
+                <p className="text-foreground">When the criterion requires access to input files or external context, the judge model will not have access to that context. All necessary info must be in the criterion itself.</p>
+              </div>
+            </div>
+          </div>
+          
+          {/* Why it matters */}
+          <div className="p-4 rounded-lg border bg-card">
+            <div className="flex items-start gap-3">
+              <div className="w-8 h-8 rounded-full bg-amber-500/10 flex items-center justify-center flex-shrink-0">
+                <span>💡</span>
+              </div>
+              <div>
+                <p className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Why it matters</p>
+                <p className="text-foreground">[Content coming soon]</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Examples */}
+          <div>
+            <p className="text-xs uppercase tracking-wide text-muted-foreground mb-4">Examples</p>
+            <div className="space-y-4">
+              <ElementExampleRow
+                context="[Context]"
+                bad="[Bad criterion example]"
+                issue="[Why it's bad]"
+                good={<>[Good criterion example with <strong className="text-green-600">key highlights</strong>]</>}
+              />
+            </div>
+          </div>
+        </div>
+      </ContentSlide>
+    ),
+  },
+
+  // ═══════════════════════════════════════════════════════════════
   // COMPLETION
   // ═══════════════════════════════════════════════════════════════
   {
