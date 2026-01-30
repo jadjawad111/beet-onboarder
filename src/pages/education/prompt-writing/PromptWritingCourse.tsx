@@ -116,18 +116,6 @@ const slides: Slide[] = [
     ),
   },
   {
-    id: "prompt-intuition",
-    section: "Prompt Writing",
-    title: "Why good prompts matter",
-    content: (
-      <ContentSlide title={'Intuition on why "good" prompts matter'} layout="left">
-        <p>
-          Understanding these qualities helps you write prompts that truly challenge and train AI models effectively.
-        </p>
-      </ContentSlide>
-    ),
-  },
-  {
     id: "prompt-why-matter",
     section: "Prompt Writing",
     title: "Why do good prompts matter?",
