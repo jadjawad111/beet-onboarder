@@ -1110,7 +1110,7 @@ This analysis will be stored on the concierge laptop as a Word file and will be 
     title: "The Rubric Judge (Judge Models)",
     content: (
       <ContentSlide title="The Rubric Judge (Judge Models)" layout="left">
-        <div className="space-y-6">
+        <div className="space-y-5">
           <p className="text-muted-foreground">
             Once you have created your rubric, future responses to the prompt will be evaluated using a <strong className="text-foreground">judge model</strong>.
           </p>
@@ -1120,61 +1120,79 @@ This analysis will be stored on the concierge laptop as a Word file and will be 
           
           {/* Three steps */}
           <div className="space-y-4">
-            <div className="flex gap-4">
-              <div className="w-8 h-8 rounded-full bg-primary/10 text-primary flex items-center justify-center font-bold flex-shrink-0">1</div>
+            {/* Step 1 */}
+            <div className="flex items-start gap-3">
+              <span className="w-6 h-6 rounded-full bg-primary text-primary-foreground flex items-center justify-center text-sm font-bold flex-shrink-0">1</span>
               <div className="flex-1">
-                <p className="font-medium text-foreground">Reads one criterion</p>
-                <div className="mt-2 p-3 rounded-lg border bg-card">
-                  <p className="text-xs text-muted-foreground uppercase tracking-wide mb-1">Current Criterion</p>
-                  <p className="text-sm">"The report includes an executive summary section."</p>
+                <p className="font-medium text-foreground mb-2">Reads one criterion</p>
+                <div className="border-l-4 border-primary/40 bg-muted/30 rounded-r-md pl-4 py-3 pr-4">
+                  <p className="text-[10px] text-muted-foreground uppercase tracking-wider mb-1">Current Criterion</p>
+                  <p className="text-sm text-foreground">"The report includes an executive summary section."</p>
                 </div>
               </div>
             </div>
             
-            <div className="flex gap-4">
-              <div className="w-8 h-8 rounded-full bg-primary/10 text-primary flex items-center justify-center font-bold flex-shrink-0">2</div>
+            {/* Step 2 */}
+            <div className="flex items-start gap-3">
+              <span className="w-6 h-6 rounded-full bg-primary text-primary-foreground flex items-center justify-center text-sm font-bold flex-shrink-0">2</span>
               <div className="flex-1">
-                <p className="font-medium text-foreground">Reads the output produced by the prompt (the deliverable)</p>
-                <div className="mt-2 p-3 rounded-lg border bg-card">
-                  <p className="text-xs text-muted-foreground uppercase tracking-wide mb-1">Deliverable</p>
-                  <p className="text-sm">Production Report 2026 — Executive Summary, Key Findings, Recommendations...</p>
+                <p className="font-medium text-foreground mb-2">Reads the output produced by the prompt (the deliverable)</p>
+                <div className="border-l-4 border-secondary/60 bg-muted/30 rounded-r-md pl-4 py-3 pr-4">
+                  <p className="text-[10px] text-muted-foreground uppercase tracking-wider mb-1">Deliverable</p>
+                  <p className="text-sm text-foreground">Production Report 2026 — Executive Summary, Key Findings, Recommendations...</p>
                 </div>
               </div>
             </div>
             
-            <div className="flex gap-4">
-              <div className="w-8 h-8 rounded-full bg-primary/10 text-primary flex items-center justify-center font-bold flex-shrink-0">3</div>
+            {/* Step 3 */}
+            <div className="flex items-start gap-3">
+              <span className="w-6 h-6 rounded-full bg-primary text-primary-foreground flex items-center justify-center text-sm font-bold flex-shrink-0">3</span>
               <div className="flex-1">
-                <p className="font-medium text-foreground">Decides whether the criterion is true or false</p>
-                <div className="mt-2 flex gap-3">
-                  <div className="px-4 py-2 rounded-lg border bg-green-500/10 border-green-500/30">
-                    <p className="text-sm font-medium text-green-600">TRUE</p>
-                    <p className="text-xs text-muted-foreground">Criterion is satisfied</p>
-                  </div>
-                  <div className="px-4 py-2 rounded-lg border bg-red-500/10 border-red-500/30">
-                    <p className="text-sm font-medium text-red-600">FALSE</p>
-                    <p className="text-xs text-muted-foreground">Criterion not met</p>
-                  </div>
+                <p className="font-medium text-foreground mb-2">Decides whether the criterion is true or false</p>
+                <div className="flex gap-2">
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-green-500/10 border border-green-500/30">
+                    <span className="text-sm font-semibold text-green-600">TRUE</span>
+                    <span className="text-xs text-green-600/70">Criterion is satisfied</span>
+                  </span>
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-red-500/10 border border-red-500/30">
+                    <span className="text-sm font-semibold text-red-500">FALSE</span>
+                    <span className="text-xs text-red-500/70">Criterion not met</span>
+                  </span>
                 </div>
               </div>
             </div>
           </div>
           
-          <p className="text-sm text-muted-foreground border-l-2 border-primary/30 pl-4">
-            The judge model repeats these steps for every criterion until it reaches the end of the rubric.
-          </p>
+          <div className="flex items-center gap-2 text-sm text-muted-foreground">
+            <span className="w-5 h-5 rounded-full bg-muted flex items-center justify-center text-xs">↻</span>
+            <span>The judge model repeats these steps for every criterion until it reaches the end of the rubric.</span>
+          </div>
           
           {/* Important Constraint */}
-          <div className="p-4 rounded-lg border bg-card">
-            <p className="font-medium text-foreground mb-3">Important Constraint</p>
-            <p className="text-sm text-muted-foreground mb-3">The judge model evaluates these in <strong className="text-foreground">isolation</strong>:</p>
-            <ul className="space-y-1 text-sm text-muted-foreground">
-              <li>• It does not read <strong className="text-foreground">the prompt</strong></li>
-              <li>• It does not read <strong className="text-foreground">input files</strong></li>
-              <li>• It does not read <strong className="text-foreground">other criteria</strong></li>
-              <li>• It does not have access to <strong className="text-foreground">the Internet</strong></li>
+          <div className="p-4 rounded-lg border bg-muted/20">
+            <p className="font-semibold text-foreground mb-2">Important Constraint</p>
+            <p className="text-sm text-muted-foreground mb-3">
+              The judge model evaluates these in <strong className="text-primary">isolation</strong>:
+            </p>
+            <ul className="space-y-1.5 text-sm text-muted-foreground">
+              <li className="flex items-center gap-2">
+                <span className="text-red-400">•</span>
+                It does not read <strong className="text-foreground">the prompt</strong>
+              </li>
+              <li className="flex items-center gap-2">
+                <span className="text-red-400">•</span>
+                It does not read <strong className="text-foreground">input files</strong>
+              </li>
+              <li className="flex items-center gap-2">
+                <span className="text-red-400">•</span>
+                It does not read <strong className="text-foreground">other criteria</strong>
+              </li>
+              <li className="flex items-center gap-2">
+                <span className="text-red-400">•</span>
+                It does not have access to <strong className="text-foreground">the Internet</strong>
+              </li>
             </ul>
-            <p className="text-xs text-muted-foreground mt-3 pt-3 border-t border-border">
+            <p className="text-xs text-muted-foreground mt-3 pt-3 border-t border-border/50">
               This constraint is extremely important to remember when writing criteria. Understanding it will help you avoid many common errors.
             </p>
           </div>
