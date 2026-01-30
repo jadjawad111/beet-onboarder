@@ -47,7 +47,7 @@ const EducationLayout = () => {
             <div className="p-8 rounded-2xl border border-border bg-card">
               {/* Title & Description */}
               <h3 className="text-2xl font-bold text-foreground mb-2">
-                Project 2.0 Training Course
+                Project Beet 2.0 Training Course
               </h3>
               <p className="text-muted-foreground mb-8">
                 Prompt and Rubrics writing
