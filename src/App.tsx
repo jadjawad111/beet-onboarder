@@ -4,6 +4,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import MainLayout from "@/components/layout/MainLayout";
+import LandingPage from "./pages/LandingPage";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 
@@ -44,8 +45,12 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <Routes>
+          {/* Landing page - full screen, no layout */}
+          <Route path="/" element={<LandingPage />} />
+          
+          {/* Main app with layout */}
           <Route element={<MainLayout />}>
-            <Route path="/" element={<Index />} />
+            <Route path="/home" element={<Index />} />
             
             {/* Project Information Routes */}
             <Route path="/project-info" element={<ProjectInfoLayout />}>
