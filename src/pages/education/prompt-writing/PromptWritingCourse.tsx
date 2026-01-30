@@ -20,70 +20,81 @@ const slides: Slide[] = [
     content: (
       <TitleSlide 
         title="Project Beet 2.0"
-        subtitle="Master prompt writing and rubrics creation"
+        subtitle="Training Course"
       />
     ),
   },
   {
-    id: "overview-problem",
+    id: "overview-goal",
     section: "Overview of Project Beet",
-    title: "The Problem",
+    title: "What is the goal?",
     content: (
-      <ContentSlide title="The Problem">
-        <p className="mb-6">
-          Today's AI models excel at simple tasks but struggle with the nuanced, 
-          context-heavy work that knowledge professionals do every day.
-        </p>
-        <p>
-          Your job is to create prompts that <strong className="text-foreground">expose these gaps</strong> and 
-          help train the next generation of AI.
-        </p>
+      <ContentSlide title="What is the goal of the project?" layout="left">
+        <div className="space-y-6">
+          <p>
+            AI models are good at a lot of things; however, they struggle significantly when completing tasks that resemble professional domains — for instance, trying to create complicated financial reports or complete nuanced tax forms.
+          </p>
+          <p>
+            <strong className="text-foreground">The goal is to produce high-quality training data to help models improve across multiple occupations.</strong>
+          </p>
+        </div>
       </ContentSlide>
     ),
   },
   {
-    id: "overview-knowledge-work",
+    id: "overview-what-you-do",
     section: "Overview of Project Beet",
-    title: "What is Knowledge Work?",
+    title: "What will you do?",
     content: (
-      <BulletSlide 
-        title="What is Knowledge Work?"
-        bullets={[
-          "Tasks requiring expertise, judgment, and critical thinking",
-          "Multi-step problems with competing constraints",
-          "Real-world scenarios with incomplete information",
-          "Decisions that require weighing trade-offs"
-        ]}
-        variant="arrow"
-      />
+      <ContentSlide title="What will you be doing?" layout="left">
+        <div className="space-y-6">
+          <p>
+            You will be designing tasks that you ideally would want your model to do in your job. Task design will be specific to your industry.
+          </p>
+          <p>
+            In order for models to learn from the tasks you create, each task needs:
+          </p>
+          <ul className="list-disc list-inside space-y-2 ml-4">
+            <li><strong className="text-foreground">A prompt / input information</strong> that instructs the model what you want it to do</li>
+            <li><strong className="text-foreground">A rubric</strong> where you are breaking down, in a systematic way, what a good response or output will be</li>
+          </ul>
+        </div>
+      </ContentSlide>
     ),
   },
   {
-    id: "overview-ai-gap",
+    id: "overview-how-it-works",
     section: "Overview of Project Beet",
-    title: "The AI Gap",
+    title: "How AI learns",
     content: (
-      <QuoteSlide 
-        quote="AI doesn't fail on the easy stuff. It fails on the subtle stuff — the things experts take years to master."
-        attribution="Project Beet Philosophy"
-      />
+      <ContentSlide title="How does this work?" layout="left">
+        <div className="space-y-6">
+          <p className="text-sm uppercase tracking-wide text-muted-foreground mb-2">Reinforcement Learning</p>
+          <p>
+            In AI research today, reinforcement learning is how models get trained on this professional world.
+          </p>
+          <p>
+            What the AI lab will do is take your prompt, run a model against the prompt 100 times, score each output against your rubrics, and reward the model when it performs well.
+          </p>
+        </div>
+      </ContentSlide>
     ),
   },
   {
-    id: "overview-your-role",
+    id: "overview-accomplish-goal",
     section: "Overview of Project Beet",
-    title: "Your Role",
+    title: "Your contribution",
     content: (
-      <BulletSlide 
-        title="Your Role"
-        bullets={[
-          "Create realistic scenarios that challenge AI",
-          "Identify where models currently fall short",
-          "Write prompts that require expert-level reasoning",
-          "Help build training data for better AI"
-        ]}
-        variant="check"
-      />
+      <ContentSlide title="How does what you do accomplish the goal?" layout="left">
+        <div className="space-y-6">
+          <p>
+            You will be designing realistic tasks that represent your expertise in your domain.
+          </p>
+          <p>
+            You will be training models by coming up with realistic tasks and thoughtful rubrics that evaluate different responses from models in a more programmatic way.
+          </p>
+        </div>
+      </ContentSlide>
     ),
   },
 
