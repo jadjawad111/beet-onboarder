@@ -71,10 +71,10 @@ const slides: Slide[] = [
         <div className="space-y-6">
           <p className="text-sm uppercase tracking-wide text-muted-foreground mb-2">Reinforcement Learning</p>
           <p>
-            In AI research today, reinforcement learning is how models get trained on this professional world.
+            In AI research today, reinforcement learning is one of the primary ways models are trained to perform well on professional tasks.
           </p>
           <p>
-            What the AI lab will do is take your prompt, run a model against the prompt 100 times, score each output against your rubrics, and reward the model when it performs well.
+            The AI lab takes your prompt, runs models against it multiple times, evaluates the outputs using your rubrics, and uses those evaluations to guide the model toward better performance over time.
           </p>
         </div>
       </ContentSlide>
