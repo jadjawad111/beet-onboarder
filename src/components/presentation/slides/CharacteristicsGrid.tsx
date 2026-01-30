@@ -88,7 +88,7 @@ const CharacteristicsGrid = ({ characteristics, instruction }: CharacteristicsGr
       {allRevealed && (
         <div className="mt-4 p-3 rounded-lg bg-green-500/10 border border-green-500/20 text-center">
           <p className="text-sm text-green-600 dark:text-green-400 font-medium">
-            ✓ All characteristics revealed
+            ✓ All Cards Revealed!
           </p>
         </div>
       )}
