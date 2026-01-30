@@ -4,9 +4,9 @@ const AITrainingProcess = () => {
   return (
     <div className="space-y-4">
       {/* Step 1: Strong Foundations */}
-      <div className="p-4 rounded-xl border bg-green-50/50 dark:bg-green-950/20 border-green-200 dark:border-green-800">
+      <div className="p-4 rounded-xl border bg-card">
         <div className="flex items-center gap-2 mb-2">
-          <span className="w-6 h-6 rounded-full bg-green-500 text-white text-xs font-bold flex items-center justify-center">1</span>
+          <span className="w-6 h-6 rounded-full bg-primary text-primary-foreground text-xs font-bold flex items-center justify-center">1</span>
           <h4 className="font-semibold text-foreground">Strong Foundations</h4>
         </div>
         <p className="text-sm text-muted-foreground mb-4">You have a strong prompt and a strong rubric.</p>
@@ -22,21 +22,21 @@ const AITrainingProcess = () => {
       </div>
 
       {/* Step 2: Mass Generation */}
-      <div className="p-4 rounded-xl border bg-amber-50/50 dark:bg-amber-950/20 border-amber-200 dark:border-amber-800">
+      <div className="p-4 rounded-xl border bg-card">
         <div className="flex items-center gap-2 mb-2">
-          <span className="w-6 h-6 rounded-full bg-amber-500 text-white text-xs font-bold flex items-center justify-center">2</span>
+          <span className="w-6 h-6 rounded-full bg-primary text-primary-foreground text-xs font-bold flex items-center justify-center">2</span>
           <h4 className="font-semibold text-foreground">Mass Generation</h4>
         </div>
         <p className="text-sm text-muted-foreground mb-4">The prompt is given to a model, which generates thousands of responses.</p>
         <div className="flex items-center justify-center gap-3">
-          <div className="w-10 h-10 rounded-lg bg-amber-100 dark:bg-amber-900 flex items-center justify-center">
-            <Zap className="w-5 h-5 text-amber-600" />
+          <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
+            <Zap className="w-5 h-5 text-primary" />
           </div>
           <ArrowRight className="w-5 h-5 text-muted-foreground" />
           <div className="flex gap-1">
             {[1, 2, 3, 4, 5].map((i) => (
-              <div key={i} className="w-8 h-10 rounded bg-amber-100 dark:bg-amber-900 flex items-center justify-center">
-                <FileText className="w-4 h-4 text-amber-600" />
+              <div key={i} className="w-8 h-10 rounded bg-muted flex items-center justify-center">
+                <FileText className="w-4 h-4 text-muted-foreground" />
               </div>
             ))}
           </div>
@@ -45,9 +45,9 @@ const AITrainingProcess = () => {
       </div>
 
       {/* Step 3: Automated Evaluation */}
-      <div className="p-4 rounded-xl border bg-primary/5 border-primary/20">
+      <div className="p-4 rounded-xl border bg-card">
         <div className="flex items-center gap-2 mb-2">
-          <span className="w-6 h-6 rounded-full bg-primary text-white text-xs font-bold flex items-center justify-center">3</span>
+          <span className="w-6 h-6 rounded-full bg-primary text-primary-foreground text-xs font-bold flex items-center justify-center">3</span>
           <h4 className="font-semibold text-foreground">Automated Evaluation</h4>
         </div>
         <p className="text-sm text-muted-foreground mb-4">The judge model evaluates every response using your rubric.</p>
@@ -73,9 +73,9 @@ const AITrainingProcess = () => {
       </div>
 
       {/* Step 4: Scoring */}
-      <div className="p-4 rounded-xl border bg-orange-50/50 dark:bg-orange-950/20 border-orange-200 dark:border-orange-800">
+      <div className="p-4 rounded-xl border bg-card">
         <div className="flex items-center gap-2 mb-2">
-          <span className="w-6 h-6 rounded-full bg-orange-500 text-white text-xs font-bold flex items-center justify-center">4</span>
+          <span className="w-6 h-6 rounded-full bg-primary text-primary-foreground text-xs font-bold flex items-center justify-center">4</span>
           <h4 className="font-semibold text-foreground">Scoring</h4>
         </div>
         <p className="text-sm text-muted-foreground mb-4">The judge model assigns each response a score based on the rubric evaluation.</p>
@@ -100,9 +100,9 @@ const AITrainingProcess = () => {
       </div>
 
       {/* Step 5: Performance Ranking */}
-      <div className="p-4 rounded-xl border bg-purple-50/50 dark:bg-purple-950/20 border-purple-200 dark:border-purple-800">
+      <div className="p-4 rounded-xl border bg-card">
         <div className="flex items-center gap-2 mb-2">
-          <span className="w-6 h-6 rounded-full bg-purple-500 text-white text-xs font-bold flex items-center justify-center">5</span>
+          <span className="w-6 h-6 rounded-full bg-primary text-primary-foreground text-xs font-bold flex items-center justify-center">5</span>
           <h4 className="font-semibold text-foreground">Performance Ranking</h4>
         </div>
         <p className="text-sm text-muted-foreground mb-4">We identify the top-performing and bottom-performing responses.</p>
