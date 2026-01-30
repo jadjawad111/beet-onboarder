@@ -1105,30 +1105,6 @@ This analysis will be stored on the concierge laptop as a Word file and will be 
     ),
   },
   {
-    id: "rubrics-why-matter",
-    section: "Rubrics",
-    title: "Why good rubrics matter",
-    content: (
-      <ContentSlide title="Why good rubrics matter" layout="left">
-        <div className="space-y-6">
-          <p>
-            Rubrics are necessary to evaluate tasks where there is <strong className="text-foreground">not one black-and-white correct answer</strong>.
-          </p>
-          <p>
-            In professional work, there is often more than one good way to produce an output. While in math there is often one right answer, in the real world there are multiple ways to build an LBO model, create a holiday itinerary, or design a farming schedule.
-          </p>
-          <p>
-            In order to evaluate a model doing that work well, <strong className="text-foreground">you need a rubric</strong>.
-          </p>
-          <RevealInsight
-            teaser="Why models cannot improve without good rubrics..."
-            insight="Without good rubrics, you would not have a good way to determine which outputs are good or bad and therefore should be rewarded. Without that reward signal, AI models cannot improve."
-          />
-        </div>
-      </ContentSlide>
-    ),
-  },
-  {
     id: "rubrics-how-used",
     section: "Rubrics",
     title: "How Rubrics Are Used in AI Training",
@@ -1152,6 +1128,30 @@ This analysis will be stored on the concierge laptop as a Word file and will be 
 
           {/* AI Training Process Visualization */}
           <AITrainingProcess />
+        </div>
+      </ContentSlide>
+    ),
+  },
+  {
+    id: "rubrics-why-matter",
+    section: "Rubrics",
+    title: "Why good rubrics matter",
+    content: (
+      <ContentSlide title="Why good rubrics matter" layout="left">
+        <div className="space-y-6">
+          <p>
+            Rubrics are necessary to evaluate tasks where there is <strong className="text-foreground">not one black-and-white correct answer</strong>.
+          </p>
+          <p>
+            In professional work, there is often more than one good way to produce an output. While in math there is often one right answer, in the real world there are multiple ways to build an LBO model, create a holiday itinerary, or design a farming schedule.
+          </p>
+          <p>
+            In order to evaluate a model doing that work well, <strong className="text-foreground">you need a rubric</strong>.
+          </p>
+          <RevealInsight
+            teaser="Why models cannot improve without good rubrics..."
+            insight="Without good rubrics, you would not have a good way to determine which outputs are good or bad and therefore should be rewarded. Without that reward signal, AI models cannot improve."
+          />
         </div>
       </ContentSlide>
     ),
