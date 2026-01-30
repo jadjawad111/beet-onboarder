@@ -6,7 +6,7 @@ interface ElementExampleRowProps {
   context: string;
   bad: string;
   issue: string;
-  good: string;
+  good: React.ReactNode; // Allow React nodes for highlighting
 }
 
 const ElementExampleRow = ({ context, bad, issue, good }: ElementExampleRowProps) => {
