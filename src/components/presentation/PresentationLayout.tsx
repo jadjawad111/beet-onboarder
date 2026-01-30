@@ -10,6 +10,7 @@ export interface Slide {
   content: React.ReactNode;
   section?: string; // Main section this slide belongs to
   title?: string;
+  parentId?: string; // For nested slides under another slide
 }
 
 interface PresentationLayoutProps {
@@ -236,40 +237,95 @@ const PresentationLayout = ({
                           const isVisited = visitedSlides.has(index);
                           const isPast = index < currentSlide;
                           
+                          // Find child slides (nested under this slide)
+                          const childSlides = slides
+                            .map((s, i) => ({ slide: s, index: i }))
+                            .filter(s => s.slide.parentId === slide.id);
+                          const hasChildren = childSlides.length > 0;
+                          const childIsCurrent = childSlides.some(c => c.index === currentSlide);
+                          
+                          // Skip rendering if this slide has a parentId (it will be rendered as a child)
+                          if (slide.parentId) return null;
+                          
                           return (
-                            <button
-                              key={slide.id}
-                              onClick={() => isVisited && goToSlide(index, index > currentSlide ? 'next' : 'prev')}
-                              disabled={!isVisited}
-                              className={cn(
-                                "w-full flex items-center gap-2 px-2 py-1.5 rounded-md transition-all text-left",
-                                isCurrent && "bg-primary/10 text-primary",
-                                !isCurrent && isVisited && "hover:bg-muted cursor-pointer",
-                                !isVisited && "opacity-50 cursor-not-allowed"
-                              )}
-                            >
-                              {/* Step indicator */}
-                              <div className={cn(
-                                "w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-bold flex-shrink-0 transition-colors",
-                                isCurrent && "bg-primary text-primary-foreground",
-                                isPast && !isCurrent && "bg-primary/20 text-primary",
-                                !isPast && !isCurrent && "bg-muted text-muted-foreground"
-                              )}>
-                                {isPast && !isCurrent ? (
-                                  <Check className="w-3 h-3" />
-                                ) : (
-                                  index + 1
+                            <div key={slide.id}>
+                              <button
+                                onClick={() => isVisited && goToSlide(index, index > currentSlide ? 'next' : 'prev')}
+                                disabled={!isVisited}
+                                className={cn(
+                                  "w-full flex items-center gap-2 px-2 py-1.5 rounded-md transition-all text-left",
+                                  (isCurrent || childIsCurrent) && "bg-primary/10 text-primary",
+                                  !isCurrent && !childIsCurrent && isVisited && "hover:bg-muted cursor-pointer",
+                                  !isVisited && "opacity-50 cursor-not-allowed"
                                 )}
-                              </div>
+                              >
+                                {/* Step indicator */}
+                                <div className={cn(
+                                  "w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-bold flex-shrink-0 transition-colors",
+                                  isCurrent && "bg-primary text-primary-foreground",
+                                  isPast && !isCurrent && "bg-primary/20 text-primary",
+                                  !isPast && !isCurrent && "bg-muted text-muted-foreground"
+                                )}>
+                                  {isPast && !isCurrent ? (
+                                    <Check className="w-3 h-3" />
+                                  ) : (
+                                    index + 1
+                                  )}
+                                </div>
+                                
+                                {/* Step title (desktop only) */}
+                                <span className={cn(
+                                  "text-xs truncate hidden lg:block",
+                                  (isCurrent || childIsCurrent) ? "text-primary font-medium" : "text-muted-foreground"
+                                )}>
+                                  {slide.title || `Step ${index + 1}`}
+                                </span>
+                              </button>
                               
-                              {/* Step title (desktop only) */}
-                              <span className={cn(
-                                "text-xs truncate hidden lg:block",
-                                isCurrent ? "text-primary font-medium" : "text-muted-foreground"
-                              )}>
-                                {slide.title || `Step ${index + 1}`}
-                              </span>
-                            </button>
+                              {/* Nested child slides */}
+                              {hasChildren && (
+                                <div className="ml-4 mt-0.5 space-y-0.5 border-l border-border/50 pl-2">
+                                  {childSlides.map(({ slide: childSlide, index: childIndex }) => {
+                                    const isChildCurrent = childIndex === currentSlide;
+                                    const isChildVisited = visitedSlides.has(childIndex);
+                                    const isChildPast = childIndex < currentSlide;
+                                    
+                                    return (
+                                      <button
+                                        key={childSlide.id}
+                                        onClick={() => isChildVisited && goToSlide(childIndex, childIndex > currentSlide ? 'next' : 'prev')}
+                                        disabled={!isChildVisited}
+                                        className={cn(
+                                          "w-full flex items-center gap-2 px-2 py-1 rounded-md transition-all text-left",
+                                          isChildCurrent && "bg-primary/10 text-primary",
+                                          !isChildCurrent && isChildVisited && "hover:bg-muted cursor-pointer",
+                                          !isChildVisited && "opacity-50 cursor-not-allowed"
+                                        )}
+                                      >
+                                        <div className={cn(
+                                          "w-4 h-4 rounded-full flex items-center justify-center text-[9px] font-bold flex-shrink-0 transition-colors",
+                                          isChildCurrent && "bg-primary text-primary-foreground",
+                                          isChildPast && !isChildCurrent && "bg-primary/20 text-primary",
+                                          !isChildPast && !isChildCurrent && "bg-muted text-muted-foreground"
+                                        )}>
+                                          {isChildPast && !isChildCurrent ? (
+                                            <Check className="w-2.5 h-2.5" />
+                                          ) : (
+                                            childIndex + 1
+                                          )}
+                                        </div>
+                                        <span className={cn(
+                                          "text-[11px] truncate hidden lg:block",
+                                          isChildCurrent ? "text-primary font-medium" : "text-muted-foreground"
+                                        )}>
+                                          {childSlide.title || `Step ${childIndex + 1}`}
+                                        </span>
+                                      </button>
+                                    );
+                                  })}
+                                </div>
+                              )}
+                            </div>
                           );
                         })}
                       </div>
