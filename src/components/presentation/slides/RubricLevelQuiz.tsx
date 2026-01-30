@@ -1,8 +1,6 @@
-import { useState } from "react";
-import { AlertTriangle, Search, Wrench, ChevronDown } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { useState, useMemo } from "react";
+import { AlertTriangle, Search, Wrench } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 
 interface RubricLevelQuizProps {
   elementNumber: number;
@@ -39,6 +37,11 @@ const RubricLevelQuiz = ({
 }: RubricLevelQuizProps) => {
   const [isRevealed, setIsRevealed] = useState(false);
 
+  // Randomize order based on element number (seeded for consistency per slide)
+  const showGoodFirst = useMemo(() => {
+    return elementNumber % 2 === 0;
+  }, [elementNumber]);
+
   return (
     <div className="space-y-6">
       {/* Definition Card */}
@@ -74,70 +77,138 @@ const RubricLevelQuiz = ({
         </Card>
       )}
 
-      {/* Bad vs Good Criteria Comparison */}
+      {/* Bad vs Good Criteria Comparison (order randomized) */}
       {badCriteria.length > 0 && (
         <div className="space-y-4">
-          {/* Bad Criteria */}
-          <div className="space-y-2">
-            <p className="text-xs uppercase tracking-wide text-destructive font-medium">
-              Bad Criterion {badCriteria.length > 1 ? "(examples)" : ""}
-            </p>
-            {badCriteria.map((criterion, index) => (
-              <Card key={index} className="border-destructive/20">
-                <CardContent className="p-4">
-                  <div className="flex items-start gap-3">
-                    <div className="flex-1">
-                      <div className="flex items-center gap-2 mb-2">
-                        <p className="text-sm text-foreground">"{criterion.text}"</p>
-                        {criterion.weight !== undefined && (
-                          <span className="px-2 py-0.5 rounded text-xs font-medium bg-muted text-muted-foreground">
-                            Weight: {criterion.weight}
-                          </span>
-                        )}
-                        {criterion.label && (
-                          <span className="px-2 py-0.5 rounded text-xs font-medium bg-muted text-muted-foreground">
-                            {criterion.label}
-                          </span>
-                        )}
+          {showGoodFirst ? (
+            <>
+              {/* Good Criteria First */}
+              <div className="space-y-2">
+                <p className="text-xs uppercase tracking-wide text-green-600 font-medium">
+                  Criterion A {goodCriteria.length > 1 ? "(examples)" : ""}
+                </p>
+                {goodCriteria.map((criterion, index) => (
+                  <Card key={index} className="border-green-500/20">
+                    <CardContent className="p-4">
+                      <div className="flex items-start gap-3">
+                        <div className="flex-1">
+                          <div className="flex items-center gap-2 mb-2">
+                            <p className="text-sm text-foreground">"{criterion.text}"</p>
+                            {criterion.weight !== undefined && (
+                              <span className="px-2 py-0.5 rounded text-xs font-medium bg-green-500/10 text-green-600">
+                                Weight: {criterion.weight}
+                              </span>
+                            )}
+                            {criterion.label && (
+                              <span className="px-2 py-0.5 rounded text-xs font-medium bg-green-500/10 text-green-600">
+                                {criterion.label}
+                              </span>
+                            )}
+                          </div>
+                          <p className="text-xs text-muted-foreground">→ {criterion.explanation}</p>
+                        </div>
                       </div>
-                      <p className="text-xs text-muted-foreground">→ {criterion.explanation}</p>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
 
-          {/* Good Criteria */}
-          <div className="space-y-2">
-            <p className="text-xs uppercase tracking-wide text-green-600 font-medium">
-              Good Criterion {goodCriteria.length > 1 ? "(fixed)" : "(fixed)"}
-            </p>
-            {goodCriteria.map((criterion, index) => (
-              <Card key={index} className="border-green-500/20">
-                <CardContent className="p-4">
-                  <div className="flex items-start gap-3">
-                    <div className="flex-1">
-                      <div className="flex items-center gap-2 mb-2">
-                        <p className="text-sm text-foreground">"{criterion.text}"</p>
-                        {criterion.weight !== undefined && (
-                          <span className="px-2 py-0.5 rounded text-xs font-medium bg-green-500/10 text-green-600">
-                            Weight: {criterion.weight}
-                          </span>
-                        )}
-                        {criterion.label && (
-                          <span className="px-2 py-0.5 rounded text-xs font-medium bg-green-500/10 text-green-600">
-                            {criterion.label}
-                          </span>
-                        )}
+              {/* Bad Criteria Second */}
+              <div className="space-y-2">
+                <p className="text-xs uppercase tracking-wide text-destructive font-medium">
+                  Criterion B {badCriteria.length > 1 ? "(examples)" : ""}
+                </p>
+                {badCriteria.map((criterion, index) => (
+                  <Card key={index} className="border-destructive/20">
+                    <CardContent className="p-4">
+                      <div className="flex items-start gap-3">
+                        <div className="flex-1">
+                          <div className="flex items-center gap-2 mb-2">
+                            <p className="text-sm text-foreground">"{criterion.text}"</p>
+                            {criterion.weight !== undefined && (
+                              <span className="px-2 py-0.5 rounded text-xs font-medium bg-muted text-muted-foreground">
+                                Weight: {criterion.weight}
+                              </span>
+                            )}
+                            {criterion.label && (
+                              <span className="px-2 py-0.5 rounded text-xs font-medium bg-muted text-muted-foreground">
+                                {criterion.label}
+                              </span>
+                            )}
+                          </div>
+                          <p className="text-xs text-muted-foreground">→ {criterion.explanation}</p>
+                        </div>
                       </div>
-                      <p className="text-xs text-muted-foreground">→ {criterion.explanation}</p>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            </>
+          ) : (
+            <>
+              {/* Bad Criteria First */}
+              <div className="space-y-2">
+                <p className="text-xs uppercase tracking-wide text-destructive font-medium">
+                  Criterion A {badCriteria.length > 1 ? "(examples)" : ""}
+                </p>
+                {badCriteria.map((criterion, index) => (
+                  <Card key={index} className="border-destructive/20">
+                    <CardContent className="p-4">
+                      <div className="flex items-start gap-3">
+                        <div className="flex-1">
+                          <div className="flex items-center gap-2 mb-2">
+                            <p className="text-sm text-foreground">"{criterion.text}"</p>
+                            {criterion.weight !== undefined && (
+                              <span className="px-2 py-0.5 rounded text-xs font-medium bg-muted text-muted-foreground">
+                                Weight: {criterion.weight}
+                              </span>
+                            )}
+                            {criterion.label && (
+                              <span className="px-2 py-0.5 rounded text-xs font-medium bg-muted text-muted-foreground">
+                                {criterion.label}
+                              </span>
+                            )}
+                          </div>
+                          <p className="text-xs text-muted-foreground">→ {criterion.explanation}</p>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+
+              {/* Good Criteria Second */}
+              <div className="space-y-2">
+                <p className="text-xs uppercase tracking-wide text-green-600 font-medium">
+                  Criterion B {goodCriteria.length > 1 ? "(examples)" : ""}
+                </p>
+                {goodCriteria.map((criterion, index) => (
+                  <Card key={index} className="border-green-500/20">
+                    <CardContent className="p-4">
+                      <div className="flex items-start gap-3">
+                        <div className="flex-1">
+                          <div className="flex items-center gap-2 mb-2">
+                            <p className="text-sm text-foreground">"{criterion.text}"</p>
+                            {criterion.weight !== undefined && (
+                              <span className="px-2 py-0.5 rounded text-xs font-medium bg-green-500/10 text-green-600">
+                                Weight: {criterion.weight}
+                              </span>
+                            )}
+                            {criterion.label && (
+                              <span className="px-2 py-0.5 rounded text-xs font-medium bg-green-500/10 text-green-600">
+                                {criterion.label}
+                              </span>
+                            )}
+                          </div>
+                          <p className="text-xs text-muted-foreground">→ {criterion.explanation}</p>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            </>
+          )}
         </div>
       )}
 

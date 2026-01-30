@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { CheckCircle2, XCircle, AlertTriangle, Search, Wrench } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Card, CardContent } from "@/components/ui/card";
@@ -32,17 +32,37 @@ const CriterionErrorQuiz = ({
   quickTest,
   howToFix,
 }: CriterionErrorQuizProps) => {
+  // Randomize order based on element number (seeded for consistency per slide)
+  const isSwapped = useMemo(() => {
+    // Use element number to create pseudo-random but consistent swap
+    return elementNumber % 2 === 0;
+  }, [elementNumber]);
+
+  // Map display positions to actual options
+  const displayOptions = useMemo(() => {
+    if (isSwapped) {
+      return {
+        first: { label: "A", text: optionB, actualOption: "B" as const },
+        second: { label: "B", text: optionA, actualOption: "A" as const },
+      };
+    }
+    return {
+      first: { label: "A", text: optionA, actualOption: "A" as const },
+      second: { label: "B", text: optionB, actualOption: "B" as const },
+    };
+  }, [isSwapped, optionA, optionB]);
+
   const [selected, setSelected] = useState<"A" | "B" | null>(null);
   const isRevealed = selected !== null;
 
-  const handleSelect = (option: "A" | "B") => {
+  const handleSelect = (actualOption: "A" | "B") => {
     if (selected) return;
-    setSelected(option);
+    setSelected(actualOption);
   };
 
-  const getOptionState = (option: "A" | "B") => {
+  const getOptionState = (actualOption: "A" | "B") => {
     if (!isRevealed) return "default";
-    if (option === correctOption) return "correct";
+    if (actualOption === correctOption) return "correct";
     return "incorrect";
   };
 
@@ -79,76 +99,76 @@ const CriterionErrorQuiz = ({
         </p>
 
         <div className="grid md:grid-cols-2 gap-4">
-          {/* Option A */}
+          {/* First Option (randomized) */}
           <button
-            onClick={() => handleSelect("A")}
+            onClick={() => handleSelect(displayOptions.first.actualOption)}
             disabled={isRevealed}
             className={cn(
               "rounded-lg border p-5 text-left transition-all",
               !isRevealed && "hover:border-primary hover:bg-muted/50 cursor-pointer",
               isRevealed && "cursor-default",
-              getOptionState("A") === "default" && "border-border bg-card",
-              getOptionState("A") === "correct" && "border-green-500 bg-green-500/5",
-              getOptionState("A") === "incorrect" && "border-destructive bg-destructive/5"
+              getOptionState(displayOptions.first.actualOption) === "default" && "border-border bg-card",
+              getOptionState(displayOptions.first.actualOption) === "correct" && "border-green-500 bg-green-500/5",
+              getOptionState(displayOptions.first.actualOption) === "incorrect" && "border-destructive bg-destructive/5"
             )}
           >
             <div className="flex items-center gap-3 mb-3">
               <div className={cn(
                 "w-8 h-8 rounded-full flex items-center justify-center font-semibold text-sm",
-                getOptionState("A") === "default" && "bg-muted text-muted-foreground",
-                getOptionState("A") === "correct" && "bg-green-500 text-white",
-                getOptionState("A") === "incorrect" && "bg-destructive text-white"
+                getOptionState(displayOptions.first.actualOption) === "default" && "bg-muted text-muted-foreground",
+                getOptionState(displayOptions.first.actualOption) === "correct" && "bg-green-500 text-white",
+                getOptionState(displayOptions.first.actualOption) === "incorrect" && "bg-destructive text-white"
               )}>
-                {getOptionState("A") === "correct" && <CheckCircle2 className="w-4 h-4" />}
-                {getOptionState("A") === "incorrect" && <XCircle className="w-4 h-4" />}
-                {getOptionState("A") === "default" && "A"}
+                {getOptionState(displayOptions.first.actualOption) === "correct" && <CheckCircle2 className="w-4 h-4" />}
+                {getOptionState(displayOptions.first.actualOption) === "incorrect" && <XCircle className="w-4 h-4" />}
+                {getOptionState(displayOptions.first.actualOption) === "default" && displayOptions.first.label}
               </div>
               <span className={cn(
                 "text-sm font-medium",
-                getOptionState("A") === "default" && "text-foreground",
-                getOptionState("A") === "correct" && "text-green-600",
-                getOptionState("A") === "incorrect" && "text-destructive"
+                getOptionState(displayOptions.first.actualOption) === "default" && "text-foreground",
+                getOptionState(displayOptions.first.actualOption) === "correct" && "text-green-600",
+                getOptionState(displayOptions.first.actualOption) === "incorrect" && "text-destructive"
               )}>
-                Option A{isRevealed && (correctOption === "A" ? " — Correct" : " — Incorrect")}
+                Option {displayOptions.first.label}{isRevealed && (displayOptions.first.actualOption === correctOption ? " — Correct" : " — Incorrect")}
               </span>
             </div>
-            <p className="text-sm text-muted-foreground">"{optionA}"</p>
+            <p className="text-sm text-muted-foreground">"{displayOptions.first.text}"</p>
           </button>
 
-          {/* Option B */}
+          {/* Second Option (randomized) */}
           <button
-            onClick={() => handleSelect("B")}
+            onClick={() => handleSelect(displayOptions.second.actualOption)}
             disabled={isRevealed}
             className={cn(
               "rounded-lg border p-5 text-left transition-all",
               !isRevealed && "hover:border-primary hover:bg-muted/50 cursor-pointer",
               isRevealed && "cursor-default",
-              getOptionState("B") === "default" && "border-border bg-card",
-              getOptionState("B") === "correct" && "border-green-500 bg-green-500/5",
-              getOptionState("B") === "incorrect" && "border-destructive bg-destructive/5"
+              getOptionState(displayOptions.second.actualOption) === "default" && "border-border bg-card",
+              getOptionState(displayOptions.second.actualOption) === "correct" && "border-green-500 bg-green-500/5",
+              getOptionState(displayOptions.second.actualOption) === "incorrect" && "border-destructive bg-destructive/5"
             )}
           >
             <div className="flex items-center gap-3 mb-3">
               <div className={cn(
                 "w-8 h-8 rounded-full flex items-center justify-center font-semibold text-sm",
-                getOptionState("B") === "default" && "bg-muted text-muted-foreground",
-                getOptionState("B") === "correct" && "bg-green-500 text-white",
-                getOptionState("B") === "incorrect" && "bg-destructive text-white"
+                getOptionState(displayOptions.second.actualOption) === "default" && "bg-muted text-muted-foreground",
+                getOptionState(displayOptions.second.actualOption) === "correct" && "bg-green-500 text-white",
+                getOptionState(displayOptions.second.actualOption) === "incorrect" && "bg-destructive text-white"
               )}>
-                {getOptionState("B") === "correct" && <CheckCircle2 className="w-4 h-4" />}
-                {getOptionState("B") === "incorrect" && <XCircle className="w-4 h-4" />}
-                {getOptionState("B") === "default" && "B"}
+                {getOptionState(displayOptions.second.actualOption) === "correct" && <CheckCircle2 className="w-4 h-4" />}
+                {getOptionState(displayOptions.second.actualOption) === "incorrect" && <XCircle className="w-4 h-4" />}
+                {getOptionState(displayOptions.second.actualOption) === "default" && displayOptions.second.label}
               </div>
               <span className={cn(
                 "text-sm font-medium",
-                getOptionState("B") === "default" && "text-foreground",
-                getOptionState("B") === "correct" && "text-green-600",
-                getOptionState("B") === "incorrect" && "text-destructive"
+                getOptionState(displayOptions.second.actualOption) === "default" && "text-foreground",
+                getOptionState(displayOptions.second.actualOption) === "correct" && "text-green-600",
+                getOptionState(displayOptions.second.actualOption) === "incorrect" && "text-destructive"
               )}>
-                Option B{isRevealed && (correctOption === "B" ? " — Correct" : " — Incorrect")}
+                Option {displayOptions.second.label}{isRevealed && (displayOptions.second.actualOption === correctOption ? " — Correct" : " — Incorrect")}
               </span>
             </div>
-            <p className="text-sm text-muted-foreground">"{optionB}"</p>
+            <p className="text-sm text-muted-foreground">"{displayOptions.second.text}"</p>
           </button>
         </div>
       </div>
