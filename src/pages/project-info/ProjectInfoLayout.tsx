@@ -179,13 +179,13 @@ const ProjectInfoLayout = () => {
           {/* Nav Items with step indicator line */}
           <nav className="p-2">
             <div className="relative">
-              {/* Vertical progress line */}
-              <div className="absolute left-[22px] top-3 bottom-3 w-0.5 bg-muted rounded-full" />
+              {/* Vertical progress line - positioned through center of dots */}
+              <div className="absolute left-[17px] top-5 bottom-5 w-0.5 bg-muted rounded-full" />
               <div 
-                className="absolute left-[22px] top-3 w-0.5 bg-primary rounded-full transition-all duration-300"
+                className="absolute left-[17px] top-5 w-0.5 bg-primary rounded-full transition-all duration-300"
                 style={{ 
-                  height: `${((activeSectionIndex + 1) / sections.length) * 100}%`,
-                  maxHeight: 'calc(100% - 24px)'
+                  height: `${((activeSectionIndex) / (sections.length - 1)) * 100}%`,
+                  maxHeight: 'calc(100% - 40px)'
                 }}
               />
               
@@ -206,12 +206,12 @@ const ProjectInfoLayout = () => {
                           : "text-muted-foreground hover:bg-muted hover:text-foreground"
                       )}
                     >
-                      {/* Step dot */}
+                      {/* Step dot - line goes through center */}
                       <div className={cn(
-                        "w-2.5 h-2.5 rounded-full border-2 transition-colors flex-shrink-0",
+                        "w-3 h-3 rounded-full border-2 transition-colors flex-shrink-0 bg-background z-10",
                         passed 
-                          ? "bg-primary border-primary" 
-                          : "bg-background border-muted-foreground/30"
+                          ? "border-primary bg-primary" 
+                          : "border-muted-foreground/30"
                       )} />
                       <Icon className="w-4 h-4 flex-shrink-0" />
                       <span className="truncate">{item.label}</span>
