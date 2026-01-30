@@ -10,6 +10,7 @@ import type { Slide } from "@/components/presentation/PresentationLayout";
 import PromptQualityChecklist from "@/components/presentation/slides/PromptQualityChecklist";
 import CoreElementsHover from "@/components/presentation/slides/CoreElementsHover";
 import ElementExampleRow from "@/components/presentation/slides/ElementExampleRow";
+import PromptExerciseQuiz from "@/components/presentation/slides/PromptExerciseQuiz";
 import { Card, CardContent } from "@/components/ui/card";
 import { Lightbulb, Target } from "lucide-react";
 
@@ -658,6 +659,156 @@ const slides: Slide[] = [
           </div>
         </div>
       </ContentSlide>
+    ),
+  },
+
+  // ═══════════════════════════════════════════════════════════════
+  // INTERACTIVE QUIZ: Prompt Evaluation
+  // ═══════════════════════════════════════════════════════════════
+  {
+    id: "prompt-quiz-intro",
+    section: "Prompt Writing",
+    title: "Interactive Quiz",
+    content: (
+      <ContentSlide title="Test Your Knowledge" layout="left">
+        <div className="space-y-6">
+          <p>
+            Now let's put what you've learned into practice. You'll evaluate <strong className="text-foreground">3 prompt excerpts</strong> and identify which of the 6 core elements are problematic.
+          </p>
+          <div className="p-5 rounded-xl border-2 border-primary/30 bg-primary/5">
+            <p className="font-semibold mb-2">How it works:</p>
+            <ul className="list-disc list-inside space-y-2 text-muted-foreground">
+              <li>Read each prompt excerpt carefully</li>
+              <li>Select <strong className="text-foreground">all</strong> the elements that make the prompt problematic</li>
+              <li>Submit to see detailed feedback on each element</li>
+            </ul>
+          </div>
+        </div>
+      </ContentSlide>
+    ),
+  },
+  {
+    id: "prompt-quiz-1",
+    section: "Prompt Writing",
+    title: "Exercise #1",
+    content: (
+      <PromptExerciseQuiz
+        exerciseNumber={1}
+        promptExcerpt={`…A member is staying at a hotel in Napa Valley and has requested a list of wineries nearby that offer tastings.
+
+Create a document with this information and include photos. The goal is to help the member review options easily…`}
+        correctAnswers={["clearAsks", "clearConstraints"]}
+        feedback={{
+          unambiguous: {
+            isIssue: false,
+            explanation: "The task itself is understandable: list wineries nearby that offer tastings. While details are missing, the core ask is not vague in meaning.",
+          },
+          professional: {
+            isIssue: false,
+            explanation: "The excerpt implies a concierge–member relationship, which is realistic and sufficient for setting expectations.",
+          },
+          realistic: {
+            isIssue: false,
+            explanation: "The request resembles a real concierge email and avoids artificial or lab-style phrasing.",
+          },
+          timelessness: {
+            isIssue: false,
+            explanation: "There are no references to real-world \"current\" dates that would age out over time.",
+          },
+          clearAsks: {
+            isIssue: true,
+            explanation: "The excerpt does not specify the output format, length, structure, or required fields. \"Create a document\" is underspecified and leaves the model guessing how the output should be delivered.",
+          },
+          clearConstraints: {
+            isIssue: true,
+            explanation: "There are no constraints around length, formatting, sourcing, or visual requirements. Without constraints, the task lacks guardrails that make it evaluable.",
+          },
+        }}
+      />
+    ),
+  },
+  {
+    id: "prompt-quiz-2",
+    section: "Prompt Writing",
+    title: "Exercise #2",
+    content: (
+      <PromptExerciseQuiz
+        exerciseNumber={2}
+        promptExcerpt={`…You work as a consultant for an art studio.
+
+Review the existing class evaluation form and improve it so the studio can better understand students and improve classes.
+
+Create an updated version that is clearer and more useful…`}
+        correctAnswers={["unambiguous", "clearAsks", "clearConstraints"]}
+        feedback={{
+          unambiguous: {
+            isIssue: true,
+            explanation: "\"Improve it,\" \"clearer,\" and \"more useful\" are subjective without defined criteria. The prompt does not clearly define what success looks like.",
+          },
+          professional: {
+            isIssue: false,
+            explanation: "The role (consultant for an art studio) and business context are clearly defined and realistic.",
+          },
+          realistic: {
+            isIssue: false,
+            explanation: "This resembles a real internal improvement task and uses natural professional language.",
+          },
+          timelessness: {
+            isIssue: false,
+            explanation: "There are no time-dependent references that would age out.",
+          },
+          clearAsks: {
+            isIssue: true,
+            explanation: "The excerpt does not specify output format, structure, or how the revised form should be delivered (Word, Google Form–ready, sections, etc.).",
+          },
+          clearConstraints: {
+            isIssue: true,
+            explanation: "There are no constraints around tone, length, required sections, or implementation limitations, making the task underspecified.",
+          },
+        }}
+      />
+    ),
+  },
+  {
+    id: "prompt-quiz-3",
+    section: "Prompt Writing",
+    title: "Exercise #3",
+    content: (
+      <PromptExerciseQuiz
+        exerciseNumber={3}
+        promptExcerpt={`…Draft a letter of intent for the purchase of a multi-tenant office building in Denver.
+
+The letter should include the key business terms and reflect a competitive offer.
+
+Follow a professional format and save as a Word document…`}
+        correctAnswers={["unambiguous", "timelessness", "clearConstraints"]}
+        feedback={{
+          unambiguous: {
+            isIssue: true,
+            explanation: "\"Key business terms\" and \"competitive offer\" are undefined. Without specifics, the model must guess which terms to include and at what level of detail.",
+          },
+          professional: {
+            isIssue: false,
+            explanation: "The excerpt clearly implies a real estate professional drafting an LOI, which sets an appropriate professional standard.",
+          },
+          realistic: {
+            isIssue: false,
+            explanation: "Drafting an LOI is a realistic, real-world professional task.",
+          },
+          timelessness: {
+            isIssue: true,
+            explanation: "The excerpt does not establish a scenario date or expiration logic, which is critical for LOIs and will cause the prompt to age poorly.",
+          },
+          clearAsks: {
+            isIssue: false,
+            explanation: "The output format (Word document, LOI) is specified at a high level and is appropriate.",
+          },
+          clearConstraints: {
+            isIssue: true,
+            explanation: "There are no constraints around page length, binding vs. non-binding language, expiration timing, or negotiation scope, all of which materially affect the task.",
+          },
+        }}
+      />
     ),
   },
 
