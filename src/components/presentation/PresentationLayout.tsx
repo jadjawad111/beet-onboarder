@@ -24,7 +24,7 @@ const PresentationLayout = ({
   title, 
   presenter = "Project Beet",
   onComplete,
-  exitPath = "/education/prompt-writing"
+  exitPath = "/education"
 }: PresentationLayoutProps) => {
   const navigate = useNavigate();
   const [currentSlide, setCurrentSlide] = useState(0);
