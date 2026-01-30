@@ -109,6 +109,24 @@ const slides: Slide[] = [
   // SECTION 2: Prompt Writing
   // ═══════════════════════════════════════════════════════════════
   {
+    id: "prompt-intro",
+    section: "Prompt Writing",
+    title: "Introduction",
+    content: (
+      <SectionDividerSlide 
+        moduleNumber={2}
+        title="Prompt Writing"
+        subtitle="Crafting effective prompts for professional tasks"
+        topics={[
+          'What makes a prompt "good"',
+          "The 6 core elements of quality prompts",
+          "Deep dive into each element with examples",
+          "Interactive exercises to test your understanding",
+        ]}
+      />
+    ),
+  },
+  {
     id: "prompt-what-is-good",
     section: "Prompt Writing",
     title: "What is a good prompt?",
@@ -838,7 +856,12 @@ This report will be used to brief the design team and guide future optimization 
       <SectionDividerSlide 
         moduleNumber={3}
         title='"Bronze" Response'
-        subtitle="Understanding response quality tiers"
+        subtitle="Your attempt at the actual deliverable"
+        topics={[
+          "What a Bronze response is and why it matters",
+          "What it does NOT need to be",
+          "Real examples of Bronze responses",
+        ]}
       />
     ),
   },
@@ -904,6 +927,11 @@ This report will be used to brief the design team and guide future optimization 
         moduleNumber={4}
         title="Rubrics"
         subtitle="Creating effective evaluation criteria"
+        topics={[
+          "What rubrics are and why they matter",
+          "How to structure evaluation criteria",
+          "Examples of well-designed rubrics",
+        ]}
       />
     ),
   },
