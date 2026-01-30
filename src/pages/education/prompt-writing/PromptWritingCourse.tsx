@@ -1781,7 +1781,7 @@ This analysis will be stored on the concierge laptop as a Word file and will be 
             <ul className="space-y-3">
               <li className="flex gap-3">
                 <span className="flex-shrink-0 w-6 h-6 rounded-full bg-muted flex items-center justify-center text-sm font-medium">1</span>
-                <span>Review a real prompt and its golden deliverable</span>
+                <span>Review a prompt and its deliverable</span>
               </li>
               <li className="flex gap-3">
                 <span className="flex-shrink-0 w-6 h-6 rounded-full bg-muted flex items-center justify-center text-sm font-medium">2</span>
