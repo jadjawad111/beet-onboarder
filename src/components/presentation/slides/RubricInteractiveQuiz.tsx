@@ -1,8 +1,6 @@
 import { useState, useMemo } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
 import { 
   CheckCircle2, 
@@ -13,7 +11,8 @@ import {
   ChevronDown,
   ChevronUp,
   Trophy,
-  Target
+  Target,
+  Send
 } from "lucide-react";
 import {
   Table,
@@ -92,13 +91,14 @@ const RubricInteractiveQuiz = ({
     return initial;
   });
   
-  const [submitted, setSubmitted] = useState(false);
+  // Track which criteria have been submitted (individually or via submit all)
+  const [submittedCriteria, setSubmittedCriteria] = useState<Set<number>>(new Set());
+  const [allSubmitted, setAllSubmitted] = useState(false);
   const [showPrompt, setShowPrompt] = useState(false);
   const [showDeliverable, setShowDeliverable] = useState(false);
-  const [expandedRows, setExpandedRows] = useState<Set<number>>(new Set());
 
   const handleHasErrorChange = (criterionId: number, value: "yes" | "no") => {
-    if (submitted) return;
+    if (submittedCriteria.has(criterionId)) return;
     setAnswers(prev => ({
       ...prev,
       [criterionId]: {
@@ -109,7 +109,7 @@ const RubricInteractiveQuiz = ({
   };
 
   const handleErrorTypeChange = (criterionId: number, value: ErrorType) => {
-    if (submitted) return;
+    if (submittedCriteria.has(criterionId)) return;
     setAnswers(prev => ({
       ...prev,
       [criterionId]: {
@@ -119,33 +119,27 @@ const RubricInteractiveQuiz = ({
     }));
   };
 
-  const toggleRowExpanded = (id: number) => {
-    if (submitted) return;
-    setExpandedRows(prev => {
-      const next = new Set(prev);
-      if (next.has(id)) {
-        next.delete(id);
-      } else {
-        next.add(id);
-      }
-      return next;
-    });
+  const isCriterionAnswered = (criterionId: number): boolean => {
+    const answer = answers[criterionId];
+    if (answer.hasError === null) return false;
+    if (answer.hasError === "yes" && answer.errorType === null) return false;
+    return true;
+  };
+
+  const handleSubmitSingle = (criterionId: number) => {
+    if (!isCriterionAnswered(criterionId)) return;
+    setSubmittedCriteria(prev => new Set([...prev, criterionId]));
   };
 
   const allAnswered = useMemo(() => {
-    return criteria.every(c => {
-      const answer = answers[c.id];
-      if (answer.hasError === null) return false;
-      if (answer.hasError === "yes" && answer.errorType === null) return false;
-      return true;
-    });
+    return criteria.every(c => isCriterionAnswered(c.id));
   }, [answers, criteria]);
 
-  const handleSubmit = () => {
+  const handleSubmitAll = () => {
     if (!allAnswered) return;
-    setSubmitted(true);
-    // Expand all rows to show feedback
-    setExpandedRows(new Set(criteria.map(c => c.id)));
+    const allIds = new Set(criteria.map(c => c.id));
+    setSubmittedCriteria(allIds);
+    setAllSubmitted(true);
   };
 
   const getScore = (criterion: CriterionData, answer: CriterionAnswer): "full" | "partial" | "none" => {
@@ -167,7 +161,7 @@ const RubricInteractiveQuiz = ({
   };
 
   const results = useMemo(() => {
-    if (!submitted) return null;
+    if (!allSubmitted) return null;
     
     let fullCredit = 0;
     let partialCredit = 0;
@@ -206,7 +200,7 @@ const RubricInteractiveQuiz = ({
       mostMissedType: mostMissed ? mostMissed[0] as ErrorType : null,
       mostMissedCount: mostMissed ? mostMissed[1] : 0,
     };
-  }, [submitted, criteria, answers]);
+  }, [allSubmitted, criteria, answers]);
 
   const embedUrl = useMemo(() => {
     const match = deliverableUrl.match(/\/d\/([a-zA-Z0-9_-]+)/);
@@ -216,9 +210,8 @@ const RubricInteractiveQuiz = ({
     return deliverableUrl;
   }, [deliverableUrl]);
 
-  const answeredCount = Object.values(answers).filter(a => 
-    a.hasError !== null && (a.hasError === "no" || a.errorType !== null)
-  ).length;
+  const answeredCount = criteria.filter(c => isCriterionAnswered(c.id)).length;
+  const submittedCount = submittedCriteria.size;
 
   return (
     <div className="space-y-6">
@@ -226,7 +219,7 @@ const RubricInteractiveQuiz = ({
       <div>
         <h2 className="text-2xl font-bold mb-2">Exercise #{exerciseNumber}</h2>
         <p className="text-muted-foreground">
-          Review each rubric criterion and identify any errors.
+          Review each rubric criterion and identify any errors. Submit individually or all at once.
         </p>
       </div>
 
@@ -238,8 +231,8 @@ const RubricInteractiveQuiz = ({
             <div className="text-sm">
               <p className="font-semibold text-foreground mb-1">Instructions</p>
               <p className="text-muted-foreground">
-                For each criterion: select <strong>No Error</strong> or <strong>Has Error</strong>. 
-                If error, choose the type: Ambiguous, Not self-contained, Stacked, Convoluted phrasing, or Process words.
+                For each criterion: select <strong>No</strong> or <strong>Yes</strong> for errors. 
+                If yes, choose the type. Click the submit button per row, or use "Submit All" at the bottom.
               </p>
             </div>
           </div>
@@ -304,6 +297,18 @@ const RubricInteractiveQuiz = ({
         )}
       </Card>
 
+      {/* Progress indicator */}
+      <div className="flex items-center justify-between text-sm">
+        <span className="text-muted-foreground">
+          Progress: <strong>{submittedCount}</strong> / {criteria.length} submitted
+        </span>
+        {answeredCount > submittedCount && (
+          <span className="text-primary">
+            {answeredCount - submittedCount} ready to submit
+          </span>
+        )}
+      </div>
+
       {/* Rubric Criteria Table */}
       <div>
         <h3 className="text-lg font-semibold mb-3">Rubric Criteria</h3>
@@ -312,19 +317,20 @@ const RubricInteractiveQuiz = ({
             <TableHeader>
               <TableRow className="bg-muted/50">
                 <TableHead className="w-12 text-center">#</TableHead>
-                <TableHead className="min-w-[300px]">Criterion</TableHead>
-                <TableHead className="w-20 text-center">Weight</TableHead>
-                <TableHead className="w-40">Category</TableHead>
-                <TableHead className="w-32 text-center">Any Error?</TableHead>
-                <TableHead className="w-44">Error Type</TableHead>
-                {submitted && <TableHead className="w-24 text-center">Result</TableHead>}
+                <TableHead className="min-w-[280px]">Criterion</TableHead>
+                <TableHead className="w-16 text-center">Weight</TableHead>
+                <TableHead className="w-36">Category</TableHead>
+                <TableHead className="w-28 text-center">Error?</TableHead>
+                <TableHead className="w-40">Error Type</TableHead>
+                <TableHead className="w-20 text-center">Submit</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
               {criteria.map((criterion) => {
                 const answer = answers[criterion.id];
-                const score = submitted ? getScore(criterion, answer) : null;
-                const isExpanded = expandedRows.has(criterion.id);
+                const isSubmitted = submittedCriteria.has(criterion.id);
+                const isAnswered = isCriterionAnswered(criterion.id);
+                const score = isSubmitted ? getScore(criterion, answer) : null;
                 
                 return (
                   <>
@@ -332,22 +338,16 @@ const RubricInteractiveQuiz = ({
                       key={criterion.id}
                       className={cn(
                         "transition-colors",
-                        submitted && score === "full" && "bg-green-500/5",
-                        submitted && score === "partial" && "bg-amber-500/5",
-                        submitted && score === "none" && "bg-destructive/5"
+                        isSubmitted && score === "full" && "bg-green-500/5",
+                        isSubmitted && score === "partial" && "bg-amber-500/5",
+                        isSubmitted && score === "none" && "bg-destructive/5"
                       )}
                     >
                       <TableCell className="text-center font-medium text-muted-foreground">
                         {criterion.id}
                       </TableCell>
                       <TableCell>
-                        <button
-                          onClick={() => toggleRowExpanded(criterion.id)}
-                          className="text-left hover:text-primary transition-colors w-full"
-                          disabled={!submitted}
-                        >
-                          <span className="text-sm">{criterion.text}</span>
-                        </button>
+                        <span className="text-sm">{criterion.text}</span>
                       </TableCell>
                       <TableCell className="text-center">
                         <span className="text-sm font-medium">{criterion.weight}</span>
@@ -364,26 +364,26 @@ const RubricInteractiveQuiz = ({
                         <div className="flex justify-center gap-1">
                           <button
                             onClick={() => handleHasErrorChange(criterion.id, "no")}
-                            disabled={submitted}
+                            disabled={isSubmitted}
                             className={cn(
                               "px-2 py-1 text-xs rounded transition-all",
                               answer.hasError === "no" 
                                 ? "bg-green-500 text-white" 
                                 : "bg-muted hover:bg-muted/80 text-muted-foreground",
-                              submitted && "cursor-default"
+                              isSubmitted && "cursor-default opacity-70"
                             )}
                           >
                             No
                           </button>
                           <button
                             onClick={() => handleHasErrorChange(criterion.id, "yes")}
-                            disabled={submitted}
+                            disabled={isSubmitted}
                             className={cn(
                               "px-2 py-1 text-xs rounded transition-all",
                               answer.hasError === "yes" 
                                 ? "bg-destructive text-white" 
                                 : "bg-muted hover:bg-muted/80 text-muted-foreground",
-                              submitted && "cursor-default"
+                              isSubmitted && "cursor-default opacity-70"
                             )}
                           >
                             Yes
@@ -391,17 +391,16 @@ const RubricInteractiveQuiz = ({
                         </div>
                       </TableCell>
                       <TableCell>
-                        {answer.hasError === "yes" && (
+                        {answer.hasError === "yes" && !isSubmitted && (
                           <select
                             value={answer.errorType ?? ""}
                             onChange={(e) => handleErrorTypeChange(criterion.id, e.target.value as ErrorType)}
-                            disabled={submitted}
                             className={cn(
                               "w-full text-xs p-1.5 rounded border bg-background",
                               !answer.errorType && "text-muted-foreground"
                             )}
                           >
-                            <option value="">Select type...</option>
+                            <option value="">Select...</option>
                             {errorTypeOptions.map((type) => (
                               <option key={type} value={type}>
                                 {errorTypeLabels[type]}
@@ -409,56 +408,67 @@ const RubricInteractiveQuiz = ({
                             ))}
                           </select>
                         )}
+                        {answer.hasError === "yes" && isSubmitted && (
+                          <span className="text-xs">{answer.errorType ? errorTypeLabels[answer.errorType] : "—"}</span>
+                        )}
                         {answer.hasError === "no" && (
                           <span className="text-xs text-muted-foreground">—</span>
                         )}
+                        {answer.hasError === null && (
+                          <span className="text-xs text-muted-foreground">—</span>
+                        )}
                       </TableCell>
-                      {submitted && (
-                        <TableCell className="text-center">
-                          {score === "full" && (
-                            <span className="inline-flex items-center gap-1 text-xs text-green-600">
-                              <CheckCircle2 className="w-4 h-4" />
-                            </span>
-                          )}
-                          {score === "partial" && (
-                            <span className="inline-flex items-center gap-1 text-xs text-amber-600">
-                              <AlertTriangle className="w-4 h-4" />
-                            </span>
-                          )}
-                          {score === "none" && (
-                            <span className="inline-flex items-center gap-1 text-xs text-destructive">
-                              <XCircle className="w-4 h-4" />
-                            </span>
-                          )}
-                        </TableCell>
-                      )}
+                      <TableCell className="text-center">
+                        {!isSubmitted && (
+                          <button
+                            onClick={() => handleSubmitSingle(criterion.id)}
+                            disabled={!isAnswered}
+                            className={cn(
+                              "p-1.5 rounded transition-all",
+                              isAnswered 
+                                ? "bg-primary text-primary-foreground hover:bg-primary/90" 
+                                : "bg-muted text-muted-foreground cursor-not-allowed"
+                            )}
+                            title={isAnswered ? "Submit this criterion" : "Complete answer first"}
+                          >
+                            <Send className="w-3.5 h-3.5" />
+                          </button>
+                        )}
+                        {isSubmitted && (
+                          <>
+                            {score === "full" && <CheckCircle2 className="w-5 h-5 text-green-500 mx-auto" />}
+                            {score === "partial" && <AlertTriangle className="w-5 h-5 text-amber-500 mx-auto" />}
+                            {score === "none" && <XCircle className="w-5 h-5 text-destructive mx-auto" />}
+                          </>
+                        )}
+                      </TableCell>
                     </TableRow>
                     
-                    {/* Expanded feedback row */}
-                    {submitted && isExpanded && (
+                    {/* Feedback row (shown after individual submit) */}
+                    {isSubmitted && (
                       <TableRow key={`${criterion.id}-feedback`}>
                         <TableCell colSpan={7} className="bg-muted/30 p-0">
                           <div className={cn(
-                            "p-4 border-l-4",
+                            "p-3 border-l-4",
                             score === "full" && "border-l-green-500",
                             score === "partial" && "border-l-amber-500",
                             score === "none" && "border-l-destructive"
                           )}>
-                            <div className="space-y-2 text-sm">
+                            <div className="space-y-1.5 text-sm">
                               <p className="font-medium">
                                 {criterion.hasError ? (
-                                  <>Correct Answer: <span className="text-destructive">{errorTypeLabels[criterion.errorType!]}</span></>
+                                  <>Correct: <span className="text-destructive">{errorTypeLabels[criterion.errorType!]}</span></>
                                 ) : (
-                                  <span className="text-green-600">No error — this criterion is correct</span>
+                                  <span className="text-green-600">No error — criterion is correct</span>
                                 )}
                               </p>
                               {criterion.explanation && (
-                                <p className="text-muted-foreground">
+                                <p className="text-muted-foreground text-xs">
                                   <strong>Why:</strong> {criterion.explanation}
                                 </p>
                               )}
                               {criterion.howToFix && (
-                                <p className="text-muted-foreground">
+                                <p className="text-muted-foreground text-xs">
                                   <strong>Fix:</strong> {criterion.howToFix}
                                 </p>
                               )}
@@ -475,25 +485,25 @@ const RubricInteractiveQuiz = ({
         </div>
       </div>
 
-      {/* Submit Button */}
-      {!submitted && (
+      {/* Submit All Button */}
+      {!allSubmitted && (
         <div className="sticky bottom-4 bg-background/95 backdrop-blur p-4 rounded-lg border shadow-lg">
           <Button 
-            onClick={handleSubmit} 
+            onClick={handleSubmitAll} 
             size="lg" 
             className="w-full text-lg py-6"
             disabled={!allAnswered}
           >
             {allAnswered 
-              ? "Submit All Answers" 
-              : `Complete all criteria to submit (${answeredCount}/${criteria.length})`
+              ? `Submit All (${criteria.length - submittedCount} remaining)` 
+              : `Complete all criteria to submit all (${answeredCount}/${criteria.length})`
             }
           </Button>
         </div>
       )}
 
       {/* Summary Screen */}
-      {submitted && results && (
+      {allSubmitted && results && (
         <Card className="border-2 border-primary/30">
           <CardContent className="p-6">
             <div className="flex items-center gap-4 mb-6">
@@ -502,7 +512,7 @@ const RubricInteractiveQuiz = ({
               </div>
               <div>
                 <h3 className="text-xl font-bold">Exercise Complete</h3>
-                <p className="text-muted-foreground">Click any row to see detailed feedback</p>
+                <p className="text-muted-foreground">Final Results</p>
               </div>
             </div>
 
@@ -523,7 +533,7 @@ const RubricInteractiveQuiz = ({
 
             <div className="space-y-2 text-sm">
               <div className="flex justify-between py-2 border-b">
-                <span className="text-muted-foreground">Total criteria reviewed</span>
+                <span className="text-muted-foreground">Total criteria</span>
                 <span className="font-medium">{results.total}</span>
               </div>
               <div className="flex justify-between py-2 border-b">
