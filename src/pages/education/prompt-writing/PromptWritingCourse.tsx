@@ -1074,69 +1074,52 @@ This analysis will be stored on the concierge laptop as a Word file and will be 
           <div className="space-y-4">
             <div className="pb-3 border-b border-border">
               <h3 className="text-xl font-bold text-foreground">What makes a good Rubric?</h3>
-              <p className="text-sm text-muted-foreground mt-1">At the system level</p>
+              <p className="text-sm text-muted-foreground mt-1">Click each to learn more:</p>
             </div>
-            <ul className="space-y-4">
-              <li className="flex gap-3">
-                <div className="w-2 h-2 rounded-full bg-primary mt-2 flex-shrink-0" />
-                <div>
-                  <span className="font-semibold text-foreground">Coverage</span>
-                  <span className="text-muted-foreground"> — includes everything needed to evaluate the task meaningfully.</span>
-                </div>
-              </li>
-              <li className="flex gap-3">
-                <div className="w-2 h-2 rounded-full bg-primary mt-2 flex-shrink-0" />
-                <div>
-                  <span className="font-semibold text-foreground">Professional Judgment</span>
-                  <span className="text-muted-foreground"> — captures nuanced taste and expertise that's hard to evaluate in isolation.</span>
-                </div>
-              </li>
-              <li className="flex gap-3">
-                <div className="w-2 h-2 rounded-full bg-primary mt-2 flex-shrink-0" />
-                <div>
-                  <span className="font-semibold text-foreground">Evaluator Consistency</span>
-                  <span className="text-muted-foreground"> — if ten people evaluate the same output, they should all reach the same result.</span>
-                </div>
-              </li>
-            </ul>
+            <CharacteristicsGrid
+              characteristics={[
+                {
+                  title: "Coverage",
+                  description: "A good rubric includes everything needed to evaluate the task meaningfully.",
+                },
+                {
+                  title: "Professional Judgment",
+                  description: "Captures nuanced taste and expertise that's hard to evaluate in isolation.",
+                },
+                {
+                  title: "Evaluator Consistency",
+                  description: "If ten people evaluate the same output, they should all reach the same result.",
+                },
+              ]}
+            />
           </div>
 
           {/* Right: Good Criterion */}
           <div className="space-y-4">
             <div className="pb-3 border-b border-border">
               <h3 className="text-xl font-bold text-foreground">What makes a good Criterion?</h3>
-              <p className="text-sm text-muted-foreground mt-1">At the individual check level</p>
+              <p className="text-sm text-muted-foreground mt-1">Click each to learn more:</p>
             </div>
-            <ul className="space-y-4">
-              <li className="flex gap-3">
-                <div className="w-2 h-2 rounded-full bg-primary mt-2 flex-shrink-0" />
-                <div>
-                  <span className="font-semibold text-foreground">Not Stacked</span>
-                  <span className="text-muted-foreground"> — multiple criteria bundled together without clear weighting will not return consistent results.</span>
-                </div>
-              </li>
-              <li className="flex gap-3">
-                <div className="w-2 h-2 rounded-full bg-primary mt-2 flex-shrink-0" />
-                <div>
-                  <span className="font-semibold text-foreground">Programmatically Verifiable</span>
-                  <span className="text-muted-foreground"> — AI labs need automated ways of evaluating at scale.</span>
-                </div>
-              </li>
-              <li className="flex gap-3">
-                <div className="w-2 h-2 rounded-full bg-primary mt-2 flex-shrink-0" />
-                <div>
-                  <span className="font-semibold text-foreground">Consistently Evaluable</span>
-                  <span className="text-muted-foreground"> — an AI evaluator can return the same answer each time against that criterion.</span>
-                </div>
-              </li>
-              <li className="flex gap-3">
-                <div className="w-2 h-2 rounded-full bg-primary mt-2 flex-shrink-0" />
-                <div>
-                  <span className="font-semibold text-foreground">Self-contained</span>
-                  <span className="text-muted-foreground"> — the judge model won't have access to input files or external context.</span>
-                </div>
-              </li>
-            </ul>
+            <CharacteristicsGrid
+              characteristics={[
+                {
+                  title: "Not Stacked",
+                  description: "Multiple criteria bundled together without clear weighting will not return consistent results.",
+                },
+                {
+                  title: "Programmatically Verifiable",
+                  description: "AI labs need automated ways of evaluating at scale.",
+                },
+                {
+                  title: "Consistently Evaluable",
+                  description: "An AI evaluator can return the same answer each time against that criterion.",
+                },
+                {
+                  title: "Self-contained",
+                  description: "The judge model won't have access to input files or external context.",
+                },
+              ]}
+            />
           </div>
         </div>
         
