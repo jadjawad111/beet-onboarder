@@ -1,4 +1,4 @@
-import { FileText, Zap, CheckCircle, XCircle, ArrowRight, ArrowDown, Lightbulb } from "lucide-react";
+import { FileText, Zap, CheckCircle, XCircle, ArrowRight, ArrowDown, Lightbulb, Target } from "lucide-react";
 
 const AITrainingProcess = () => {
   return (
@@ -187,7 +187,7 @@ const AITrainingProcess = () => {
       <div className="p-4 rounded-xl border bg-primary/5 border-primary/20">
         <div className="flex items-start gap-3">
           <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
-            <span className="text-primary">🎯</span>
+            <Target className="w-4 h-4 text-primary" />
           </div>
           <div>
             <h4 className="font-semibold text-foreground mb-1">Goal</h4>
