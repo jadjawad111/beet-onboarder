@@ -1050,74 +1050,32 @@ This analysis will be stored on the concierge laptop as a Word file and will be 
             <div className="space-y-3">
               {/* Criterion */}
               <div className="p-4 rounded-lg border bg-card">
-                <div className="flex items-start gap-3">
-                  <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
-                    <span className="text-primary">✓</span>
-                  </div>
-                  <div>
-                    <p className="font-semibold text-foreground">Criterion</p>
-                    <p className="text-sm text-muted-foreground">A binary true or false statement that measures something about the expected response.</p>
-                  </div>
-                </div>
+                <p className="font-semibold text-foreground">Criterion</p>
+                <p className="text-sm text-muted-foreground">A binary true or false statement that measures something about the expected response.</p>
               </div>
 
               {/* Weight */}
               <div className="p-4 rounded-lg border bg-card">
-                <div className="flex items-start gap-3">
-                  <div className="w-8 h-8 rounded-full bg-amber-500/10 flex items-center justify-center flex-shrink-0">
-                    <span className="text-amber-600">⚖</span>
-                  </div>
-                  <div>
-                    <p className="font-semibold text-foreground">Weight</p>
-                    <p className="text-sm text-muted-foreground">A score from -100 to 100 that represents how important that criterion is.</p>
-                  </div>
-                </div>
+                <p className="font-semibold text-foreground">Weight</p>
+                <p className="text-sm text-muted-foreground">A score from -100 to 100 that represents how important that criterion is.</p>
               </div>
 
               {/* Category */}
               <div className="p-4 rounded-lg border bg-card">
-                <div className="flex items-start gap-3">
-                  <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
-                    <span className="text-primary">📁</span>
-                  </div>
-                  <div>
-                    <p className="font-semibold text-foreground">Category</p>
-                    <p className="text-sm text-muted-foreground mb-2">What aspect of the deliverable the criterion evaluates.</p>
-                    <div className="flex flex-wrap gap-2">
-                      {["Instruction Following", "Reasoning", "Extraction", "Formatting"].map((cat) => (
-                        <span key={cat} className="px-2 py-1 rounded text-xs bg-primary/10 text-primary font-medium">
-                          {cat}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                </div>
+                <p className="font-semibold text-foreground">Category</p>
+                <p className="text-sm text-muted-foreground">What aspect of the deliverable the criterion evaluates.</p>
               </div>
 
               {/* Rationale */}
               <div className="p-4 rounded-lg border bg-card">
-                <div className="flex items-start gap-3">
-                  <div className="w-8 h-8 rounded-full bg-pink-500/10 flex items-center justify-center flex-shrink-0">
-                    <span className="text-pink-600">💭</span>
-                  </div>
-                  <div>
-                    <p className="font-semibold text-foreground">Rationale</p>
-                    <p className="text-sm text-muted-foreground">Your explanation for why the criterion exists and why it matters to evaluate.</p>
-                  </div>
-                </div>
+                <p className="font-semibold text-foreground">Rationale</p>
+                <p className="text-sm text-muted-foreground">Your explanation for why the criterion exists and why it matters to evaluate.</p>
               </div>
 
               {/* Implicit or Explicit */}
               <div className="p-4 rounded-lg border bg-card">
-                <div className="flex items-start gap-3">
-                  <div className="w-8 h-8 rounded-full bg-purple-500/10 flex items-center justify-center flex-shrink-0">
-                    <span className="text-purple-600">👁</span>
-                  </div>
-                  <div>
-                    <p className="font-semibold text-foreground">Implicit or Explicit</p>
-                    <p className="text-sm text-muted-foreground">Whether the criterion measures something explicitly asked for in the prompt, or something implied that requires expert judgment.</p>
-                  </div>
-                </div>
+                <p className="font-semibold text-foreground">Implicit or Explicit</p>
+                <p className="text-sm text-muted-foreground">Whether the criterion measures something explicitly asked for in the prompt, or something implied that requires expert judgment.</p>
               </div>
             </div>
           </div>
