@@ -11,7 +11,7 @@ const LandingPage = () => {
   const handleGetStarted = () => {
     setIsExiting(true);
     setTimeout(() => {
-      navigate("/project-info");
+      navigate("/home");
     }, 600);
   };
 

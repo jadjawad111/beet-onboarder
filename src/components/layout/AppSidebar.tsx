@@ -1,5 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 import { 
+  Home,
   Briefcase, 
   GraduationCap, 
   Wrench, 
@@ -16,6 +17,12 @@ interface AppSidebarProps {
 }
 
 const primaryNav = [
+  { 
+    id: "home",
+    label: "Home", 
+    icon: Home, 
+    to: "/home" 
+  },
   { 
     id: "project-info",
     label: "Project Information", 
@@ -38,7 +45,10 @@ const secondaryNav = [
 const AppSidebar = ({ collapsed, onToggle }: AppSidebarProps) => {
   const location = useLocation();
   
-  const isActive = (path: string) => location.pathname.startsWith(path);
+  const isActive = (path: string) => {
+    if (path === "/home") return location.pathname === "/home";
+    return location.pathname.startsWith(path);
+  };
 
   return (
     <aside 
