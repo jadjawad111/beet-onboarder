@@ -6,7 +6,8 @@ import {
   Wrench, 
   HelpCircle,
   ChevronLeft,
-  ChevronRight
+  ChevronRight,
+  Bot
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import beetIcon from "@/assets/beet-icon.png";
@@ -34,6 +35,12 @@ const primaryNav = [
     label: "Educational Modules", 
     icon: GraduationCap, 
     to: "/education" 
+  },
+  { 
+    id: "tasking-assistance",
+    label: "Beet Tasking Assistance", 
+    icon: Bot, 
+    to: "/tasking-assistance" 
   },
 ];
 
