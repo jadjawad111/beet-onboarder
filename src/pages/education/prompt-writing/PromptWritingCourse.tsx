@@ -695,34 +695,37 @@ const slides: Slide[] = [
     content: (
       <PromptExerciseQuiz
         exerciseNumber={1}
-        promptExcerpt={`…A member is staying at a hotel in Napa Valley and has requested a list of wineries nearby that offer tastings.
+        promptExcerpt={`You are responsible for 🟢leading a bridal sales team🟢 at a 🟢bridal store🟢.
+The team has been struggling with handling customer objections and hesitations during the bridalwear purchasing process.
 
-Create a document with this information and include photos. The goal is to help the member review options easily…`}
+🔴Create a document🔴 to be used as 🔴a training🔴 on overcoming sales objections for the sales team.
+
+The goal is to help improve how the team responds to customer concerns and increase successful purchases.`}
         correctAnswers={["clearAsks", "clearConstraints"]}
         feedback={{
           unambiguous: {
             isIssue: false,
-            explanation: "The task itself is understandable: list wineries nearby that offer tastings. While details are missing, the core ask is not vague in meaning.",
+            explanation: "The task is understandable: create training to help a sales team overcome objections.",
           },
           professional: {
             isIssue: false,
-            explanation: "The excerpt implies a concierge–member relationship, which is realistic and sufficient for setting expectations.",
+            explanation: "The prompt clearly establishes 🟢leading a bridal sales team🟢 at a 🟢bridal store🟢. This is sufficient role and domain context.",
           },
           realistic: {
             isIssue: false,
-            explanation: "The request resembles a real concierge email and avoids artificial or lab-style phrasing.",
+            explanation: "This resembles a real internal retail training request.",
           },
           timelessness: {
             isIssue: false,
-            explanation: "There are no references to real-world \"current\" dates that would age out over time.",
+            explanation: "This task does not require a time anchor.",
           },
           clearAsks: {
             isIssue: true,
-            explanation: "The excerpt does not specify the output format, length, structure, or required fields. \"Create a document\" is underspecified and leaves the model guessing how the output should be delivered.",
+            explanation: "The phrases 🔴Create a document🔴 and 🔴a training🔴 are underspecified. The prompt does not define format, length, structure, or delivery expectations.",
           },
           clearConstraints: {
             isIssue: true,
-            explanation: "There are no constraints around length, formatting, sourcing, or visual requirements. Without constraints, the task lacks guardrails that make it evaluable.",
+            explanation: "No constraints are provided (length, sections, tone, or success criteria), making the task difficult to evaluate.",
           },
         }}
       />
@@ -736,36 +739,39 @@ Create a document with this information and include photos. The goal is to help 
     content: (
       <PromptExerciseQuiz
         exerciseNumber={2}
-        promptExcerpt={`…You work as a consultant for an art studio.
+        promptExcerpt={`You are a 🟢Retail Sales Manager🟢 responsible for leading your store through 🔴Black Friday🔴.
+The store is located in the 🟢UK🟢, and this event is one of the most important trading periods of the year.
 
-Review the existing class evaluation form and improve it so the studio can better understand students and improve classes.
+Reference materials are attached outlining performance goals and promotional activity.
 
-Create an updated version that is clearer and more useful…`}
-        correctAnswers={["unambiguous", "clearAsks", "clearConstraints"]}
+🔴Create a preparation plan for Black Friday🔴 that outlines objectives and weekly action items.
+Also 🔴create a launch deck🔴 for the sales team to support execution during the event.
+Submit both documents when complete.`}
+        correctAnswers={["timelessness", "clearAsks", "clearConstraints"]}
         feedback={{
           unambiguous: {
-            isIssue: true,
-            explanation: "\"Improve it,\" \"clearer,\" and \"more useful\" are subjective without defined criteria. The prompt does not clearly define what success looks like.",
+            isIssue: false,
+            explanation: "The intent of the task is clear.",
           },
           professional: {
             isIssue: false,
-            explanation: "The role (consultant for an art studio) and business context are clearly defined and realistic.",
+            explanation: "The prompt establishes 🟢Retail Sales Manager🟢 in the 🟢UK🟢 with Black Friday as a critical business event.",
           },
           realistic: {
             isIssue: false,
-            explanation: "This resembles a real internal improvement task and uses natural professional language.",
+            explanation: "This mirrors real retail operations planning.",
           },
           timelessness: {
-            isIssue: false,
-            explanation: "There are no time-dependent references that would age out.",
+            isIssue: true,
+            explanation: "🔴Black Friday🔴 is referenced without anchoring the scenario to a specific year or internal timeline, causing the prompt to age out.",
           },
           clearAsks: {
             isIssue: true,
-            explanation: "The excerpt does not specify output format, structure, or how the revised form should be delivered (Word, Google Form–ready, sections, etc.).",
+            explanation: "🔴Create a preparation plan🔴 and 🔴create a launch deck🔴 do not specify format, length, structure, or audience for each deliverable.",
           },
           clearConstraints: {
             isIssue: true,
-            explanation: "There are no constraints around tone, length, required sections, or implementation limitations, making the task underspecified.",
+            explanation: "There are no constraints around scope, required sections, design rules, or level of detail.",
           },
         }}
       />
@@ -779,36 +785,38 @@ Create an updated version that is clearer and more useful…`}
     content: (
       <PromptExerciseQuiz
         exerciseNumber={3}
-        promptExcerpt={`…Draft a letter of intent for the purchase of a multi-tenant office building in Denver.
+        promptExcerpt={`You are a 🟢Mechanical Engineer🟢 working at a small aerospace firm designing an experimental wing assembly for a next-generation aircraft.
 
-The letter should include the key business terms and reflect a competitive offer.
+To support an 🟢internal design review🟢, create a flow simulation report using the attached CFD simulation results and CAD model.
+Summarize 🔴key performance metrics🔴 and discuss 🔴implications for aerodynamic performance🔴.
+Organize the report clearly and export it for internal use.
 
-Follow a professional format and save as a Word document…`}
-        correctAnswers={["unambiguous", "timelessness", "clearConstraints"]}
+This report will be used to brief the design team and guide future optimization work.`}
+        correctAnswers={["unambiguous", "clearAsks"]}
         feedback={{
           unambiguous: {
             isIssue: true,
-            explanation: "\"Key business terms\" and \"competitive offer\" are undefined. Without specifics, the model must guess which terms to include and at what level of detail.",
+            explanation: "🔴key performance metrics🔴 and 🔴implications for aerodynamic performance🔴 are vague. The prompt does not define which metrics matter or how success is evaluated.",
           },
           professional: {
             isIssue: false,
-            explanation: "The excerpt clearly implies a real estate professional drafting an LOI, which sets an appropriate professional standard.",
+            explanation: "The role and audience are clearly established: 🟢Mechanical Engineer🟢 preparing for an 🟢internal design review🟢.",
           },
           realistic: {
             isIssue: false,
-            explanation: "Drafting an LOI is a realistic, real-world professional task.",
+            explanation: "This reflects a real engineering workflow.",
           },
           timelessness: {
-            isIssue: true,
-            explanation: "The excerpt does not establish a scenario date or expiration logic, which is critical for LOIs and will cause the prompt to age poorly.",
+            isIssue: false,
+            explanation: "The task does not rely on a time anchor.",
           },
           clearAsks: {
-            isIssue: false,
-            explanation: "The output format (Word document, LOI) is specified at a high level and is appropriate.",
+            isIssue: true,
+            explanation: "The prompt does not specify output format (e.g., PDF), required sections, or tabular vs narrative expectations.",
           },
           clearConstraints: {
-            isIssue: true,
-            explanation: "There are no constraints around page length, binding vs. non-binding language, expiration timing, or negotiation scope, all of which materially affect the task.",
+            isIssue: false,
+            explanation: "The issue is lack of clarity, not missing tradeoffs or guardrails.",
           },
         }}
       />
