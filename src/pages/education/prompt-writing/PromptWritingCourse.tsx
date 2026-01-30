@@ -1287,8 +1287,22 @@ This analysis will be stored on the concierge laptop as a Word file and will be 
           <div className="space-y-3">
             <div className="pb-2 border-b border-primary/30">
               <h3 className="text-lg font-bold text-primary">What makes a good Criterion?</h3>
-              <p className="text-xs text-muted-foreground mt-1">Click each to learn more:</p>
             </div>
+            
+            <div className="text-sm text-muted-foreground space-y-2">
+              <p>
+                A good criterion is written such that a judge model will be able to evaluate its output.
+              </p>
+              <p>
+                Each criterion should measure one meaningful aspect of the output, provide enough clarity to judge it reliably, and be structured so it can be programmatically evaluated by a judge model.
+              </p>
+              <p>
+                Because criteria are evaluated automatically and in isolation, they must follow specific rules.
+              </p>
+            </div>
+            
+            <p className="text-xs text-muted-foreground pt-2">Click each to learn more:</p>
+            
             <CharacteristicsGrid
               characteristics={[
                 {
@@ -1306,6 +1320,10 @@ This analysis will be stored on the concierge laptop as a Word file and will be 
                 {
                   title: "Self-contained",
                   description: "A good criterion can be evaluated using only the deliverable itself. The evaluator doesn't have access to input files, so any necessary information must be included directly.",
+                },
+                {
+                  title: "… and more",
+                  description: "There are additional guidelines for writing effective criteria that we'll explore in depth throughout this course.",
                 },
               ]}
             />
