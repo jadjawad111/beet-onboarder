@@ -1312,7 +1312,7 @@ This analysis will be stored on the concierge laptop as a Word file and will be 
           </div>
           
           <p className="text-sm text-muted-foreground italic pt-4 border-t border-border">
-            This gives you intuition for why these matter. Next, we'll deep dive into each with definitions and examples.
+            This section gives you intuition for why these rules matter. Next, we will deep dive into each guideline with concrete definitions, good and bad examples, and common mistakes to avoid when writing criteria.
           </p>
         </div>
       </ContentSlide>
