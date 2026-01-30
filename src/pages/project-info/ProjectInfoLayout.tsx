@@ -225,14 +225,14 @@ const ProjectInfoLayout = () => {
       </aside>
 
       {/* Content Area - All sections stacked */}
-      <div className="flex-1 flex flex-col overflow-hidden">
+      <div className="flex-1 min-h-0">
         <ContentHeader 
           title="Project Information"
           subtitle="Everything you need to get started"
         />
 
         {/* Scrollable Content with all sections */}
-        <div className="flex-1 overflow-y-auto">
+        <div className="pb-16">
           {/* Welcome Section */}
           <AnimatedSection id="welcome" sectionNumber={1} isFirst>
             <WelcomePage />
