@@ -4,7 +4,12 @@ const WorkflowPage = () => {
   return (
     <div className="space-y-8">
       {/* Hero */}
-      <div className="rounded-2xl bg-gradient-to-br from-primary via-primary/90 to-secondary p-8 text-white">
+      <div className="relative rounded-2xl bg-gradient-to-br from-primary via-primary/90 to-secondary p-8 text-white">
+        {/* Section Number */}
+        <div className="absolute -top-3 -left-3 w-8 h-8 rounded-full bg-background border-2 border-primary flex items-center justify-center">
+          <span className="text-sm font-bold text-primary">3</span>
+        </div>
+        
         <div className="flex items-center gap-2 mb-4">
           <span className="px-3 py-1 rounded-full bg-white/20 text-xs font-semibold uppercase tracking-wider">
             Setup Guide
