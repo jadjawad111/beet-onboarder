@@ -1,7 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { ArrowRight, ArrowLeft, Check, AlertTriangle, BookOpen, Target, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import Breadcrumbs from "@/components/Breadcrumbs";
 import BeetProgressTracker from "@/components/prompt-writing/BeetProgressTracker";
 import beetIcon from "@/assets/beet-icon.png";
 
@@ -10,7 +9,6 @@ const Module1 = () => {
 
   return (
     <div className="max-w-4xl mx-auto">
-      <Breadcrumbs />
       
       {/* Progress Tracker */}
       <BeetProgressTracker />
