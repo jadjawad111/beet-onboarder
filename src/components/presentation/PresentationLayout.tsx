@@ -377,7 +377,7 @@ const PresentationLayout = ({
         </header>
 
         {/* Slide content */}
-        <main className="flex-1 flex flex-col px-8 md:px-16 lg:px-24 py-12 overflow-y-auto">
+        <main className="flex-1 flex flex-col px-8 md:px-16 lg:px-24 pt-12 pb-24 overflow-y-auto">
           <div className="flex-1 flex items-center justify-center min-h-0">
             <div 
               className={cn(
