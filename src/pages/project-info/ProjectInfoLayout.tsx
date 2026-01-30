@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { 
   Home,
   KeyRound,
@@ -30,6 +30,58 @@ const sections: NavItem[] = [
   { id: "tools", label: "Tools & Resources", icon: Wrench },
   { id: "faqs", label: "FAQs", icon: HelpCircle },
 ];
+
+// Animated section wrapper with scroll-triggered fade-in
+const AnimatedSection = ({ 
+  id, 
+  children, 
+  isEven 
+}: { 
+  id: string; 
+  children: React.ReactNode; 
+  isEven: boolean;
+}) => {
+  const [isVisible, setIsVisible] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.disconnect(); // Only animate once
+        }
+      },
+      { threshold: 0.1, rootMargin: "-50px" }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <section
+      ref={sectionRef}
+      id={id}
+      className={cn(
+        "scroll-mt-4 transition-all duration-700 ease-out",
+        isEven ? "bg-muted/30" : "bg-background",
+        isVisible 
+          ? "opacity-100 translate-y-0" 
+          : "opacity-0 translate-y-8"
+      )}
+    >
+      <div className="py-12 lg:py-16 px-6 lg:px-10">
+        <div className="max-w-5xl">
+          {children}
+        </div>
+      </div>
+    </section>
+  );
+};
 
 const ProjectInfoLayout = () => {
   const [activeSection, setActiveSection] = useState("welcome");
@@ -145,40 +197,38 @@ const ProjectInfoLayout = () => {
       </aside>
 
       {/* Content Area - All sections stacked */}
-      <div className="flex-1 flex flex-col">
+      <div className="flex-1 flex flex-col overflow-hidden">
         <ContentHeader 
           title="Project Information"
           subtitle="Everything you need to get started"
         />
 
-        {/* Scrollable Content with all sections */}
-        <div className="flex-1 p-6 lg:p-10">
-          <div className="max-w-5xl">
-            {/* Welcome Section */}
-            <section id="welcome" className="scroll-mt-8 pb-20">
-              <WelcomePage />
-            </section>
-            
-            {/* Access Section */}
-            <section id="access" className="scroll-mt-8 pb-20">
-              <AccessPage />
-            </section>
-            
-            {/* Workflow Section */}
-            <section id="workflow" className="scroll-mt-8 pb-20">
-              <WorkflowPage />
-            </section>
-            
-            {/* Tools Section */}
-            <section id="tools" className="scroll-mt-8 pb-20">
-              <ToolsPage />
-            </section>
-            
-            {/* FAQs Section */}
-            <section id="faqs" className="scroll-mt-8 pb-8">
-              <FAQsPage />
-            </section>
-          </div>
+        {/* Scrollable Content with all sections - alternating backgrounds */}
+        <div className="flex-1 overflow-y-auto">
+          {/* Welcome Section */}
+          <AnimatedSection id="welcome" isEven={false}>
+            <WelcomePage />
+          </AnimatedSection>
+          
+          {/* Access Section */}
+          <AnimatedSection id="access" isEven={true}>
+            <AccessPage />
+          </AnimatedSection>
+          
+          {/* Workflow Section */}
+          <AnimatedSection id="workflow" isEven={false}>
+            <WorkflowPage />
+          </AnimatedSection>
+          
+          {/* Tools Section */}
+          <AnimatedSection id="tools" isEven={true}>
+            <ToolsPage />
+          </AnimatedSection>
+          
+          {/* FAQs Section */}
+          <AnimatedSection id="faqs" isEven={false}>
+            <FAQsPage />
+          </AnimatedSection>
         </div>
       </div>
     </div>
