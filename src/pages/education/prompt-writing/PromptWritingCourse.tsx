@@ -1076,18 +1076,6 @@ This analysis will be stored on the concierge laptop as a Word file and will be 
           <p>
             In expert domains, quality depends on multiple dimensions. A response might be factually correct but incomplete, well-written but unsafe, or persuasive but poorly reasoned. That is why evaluation requires <strong className="text-foreground">nuanced, multi-criteria judgment</strong>, similar to how people assess work in real jobs.
           </p>
-          
-          {/* Domain Examples */}
-          <div className="p-4 rounded-lg border bg-primary/5 border-primary/20">
-            <p className="text-sm text-muted-foreground mb-3">You will see this across the domains in this project:</p>
-            <div className="flex flex-wrap gap-2">
-              {["Medicine", "Customer Support", "Law", "Music Production", "Finance", "Computer Science", "Sales"].map((domain) => (
-                <span key={domain} className="px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-medium">
-                  {domain}
-                </span>
-              ))}
-            </div>
-          </div>
 
           <p>
             In these contexts, "good enough" is rarely binary. It is a combination of <strong className="text-foreground">accuracy, completeness, reasoning, clarity, tone, safety, and task fit</strong>.
