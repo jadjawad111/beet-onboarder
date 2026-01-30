@@ -12,6 +12,8 @@ import CoreElementsHover from "@/components/presentation/slides/CoreElementsHove
 import ElementExampleRow from "@/components/presentation/slides/ElementExampleRow";
 import PromptExerciseQuiz from "@/components/presentation/slides/PromptExerciseQuiz";
 import BronzeExamplesSlide from "@/components/presentation/slides/BronzeExamplesSlide";
+import RevealInsight from "@/components/presentation/slides/RevealInsight";
+import CharacteristicsGrid from "@/components/presentation/slides/CharacteristicsGrid";
 import { Card, CardContent } from "@/components/ui/card";
 import { Lightbulb, Target } from "lucide-react";
 
@@ -936,17 +938,107 @@ This report will be used to brief the design team and guide future optimization 
     ),
   },
   {
-    id: "rubrics-placeholder",
+    id: "rubrics-what-is",
     section: "Rubrics",
-    title: "Coming Soon",
+    title: "What is a rubric?",
     content: (
-      <ContentSlide title="Rubrics Content">
-        <p className="mb-6">
-          Content for the Rubrics section will be added here.
-        </p>
-        <p className="text-muted-foreground">
-          This section will cover how to create and apply rubrics.
-        </p>
+      <ContentSlide title="What is a rubric?" layout="left">
+        <div className="space-y-6">
+          <p>
+            <strong className="text-foreground">A rubric is your way of evaluating responses or outputs to the task you designed in a systematic way.</strong>
+          </p>
+          <p>
+            The conceptual goal of a good rubric is to ensure that no satisfactory or good output would fail, but no bad output would pass.
+          </p>
+          <p>
+            Rubrics in this case are much more detailed and specific than rubrics you may be used to, such as those used in a sixth grade class.
+          </p>
+          <p className="text-muted-foreground">
+            They are somewhere between a checklist and a mark scheme for high school essays — closer to a <strong className="text-foreground">checklist-style open-ended mark scheme</strong>. The way they differ from a checklist is primarily that <strong className="text-foreground">weights are included</strong>.
+          </p>
+        </div>
+      </ContentSlide>
+    ),
+  },
+  {
+    id: "rubrics-why-matter",
+    section: "Rubrics",
+    title: "Why rubrics matter",
+    content: (
+      <ContentSlide title="Why good rubrics matter" layout="left">
+        <div className="space-y-6">
+          <p>
+            Rubrics are necessary to evaluate tasks where there is <strong className="text-foreground">not one black-and-white correct answer</strong>.
+          </p>
+          <p>
+            In professional work, there is often more than one good way to produce an output. While in math there is often one right answer, in the real world there are multiple ways to build an LBO model, create a holiday itinerary, or design a farming schedule.
+          </p>
+          <p>
+            In order to evaluate a model doing that work well, <strong className="text-foreground">you need a rubric</strong>.
+          </p>
+          <RevealInsight
+            teaser="Why models cannot improve without good rubrics..."
+            insight="Without good rubrics, you would not have a good way to determine which outputs are good or bad and therefore should be rewarded. Without that reward signal, AI models cannot improve."
+          />
+        </div>
+      </ContentSlide>
+    ),
+  },
+  {
+    id: "rubrics-good-rubric",
+    section: "Rubrics",
+    title: "What makes a good rubric",
+    content: (
+      <ContentSlide title="Intuition on what a good rubric is" layout="left">
+        <div className="space-y-6">
+          <p>
+            A good rubric has <strong className="text-foreground">coverage</strong> and includes everything it needs to include.
+          </p>
+          <p>
+            It is <strong className="text-foreground">not overly prescriptive</strong> and does not penalize a response for doing something slightly different if it is still correct.
+          </p>
+          <p>
+            It captures <strong className="text-foreground">nuanced taste and expertise</strong> of the profession, which is often hard to evaluate in isolation.
+          </p>
+          <RevealInsight
+            teaser="The ultimate test of a good rubric..."
+            insight="The goal of these rubrics is such that if ten people were to evaluate the same output ten times, they would all come out the same."
+          />
+        </div>
+      </ContentSlide>
+    ),
+  },
+  {
+    id: "rubrics-good-criterion",
+    section: "Rubrics",
+    title: "What makes a good criterion",
+    content: (
+      <ContentSlide title="What makes a good rubric criterion?" layout="left">
+        <div className="space-y-4">
+          <p className="mb-4">
+            Each criterion in your rubric should meet these four characteristics. <span className="text-muted-foreground">Click each to learn more:</span>
+          </p>
+          <CharacteristicsGrid
+            characteristics={[
+              {
+                title: "Not Stacked",
+                description: "Multiple criteria bundled together without clear weighting will not return consistent results.",
+              },
+              {
+                title: "Programmatically Verifiable",
+                description: "AI labs need automated ways of evaluating at scale. The criterion must be checkable by code or AI.",
+              },
+              {
+                title: "Consistently Evaluable",
+                description: "An AI model serving as an evaluator should consistently return the same answer against that criterion.",
+              },
+              {
+                title: "Self-Contained",
+                description: "When a criterion requires access to input files or external context, the judge model will not have access to that context.",
+              },
+            ]}
+          />
+        </div>
       </ContentSlide>
     ),
   },
