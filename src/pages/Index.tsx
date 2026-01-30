@@ -1,29 +1,53 @@
 import { Link } from "react-router-dom";
 import { ArrowUpRight, ChevronRight } from "lucide-react";
+import beetIcon from "@/assets/beet-icon.png";
 
 const Index = () => {
   return (
     <div className="min-h-[calc(100vh-3.5rem)]">
-      {/* Hero */}
-      <div className="px-6 lg:px-12 xl:px-20 pt-16 pb-12">
-        <h1 className="text-6xl md:text-7xl lg:text-8xl font-semibold tracking-tight text-foreground">
-          Beet 2.0
-        </h1>
-        <p className="text-lg text-muted-foreground mt-4 max-w-md">
-          Training portal for project onboarding and certification.
-        </p>
+      {/* Hero with gradient banner */}
+      <div className="relative overflow-hidden bg-gradient-to-r from-primary via-primary/90 to-secondary/80 px-6 lg:px-12 xl:px-20 py-16">
+        {/* Bouncing beet */}
+        <div className="absolute top-8 right-12 lg:right-24 opacity-30">
+          <img 
+            src={beetIcon} 
+            alt="" 
+            className="w-20 h-20 lg:w-28 lg:h-28 animate-bounce-slow"
+          />
+        </div>
+        <div className="absolute bottom-4 right-1/3 opacity-20 hidden lg:block">
+          <img 
+            src={beetIcon} 
+            alt="" 
+            className="w-12 h-12 animate-bounce-slow"
+            style={{ animationDelay: '0.5s' }}
+          />
+        </div>
+
+        <div className="relative z-10 max-w-3xl">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/20 backdrop-blur-sm text-white text-sm font-medium mb-6">
+            <span className="w-2 h-2 rounded-full bg-white animate-pulse" />
+            Training Portal
+          </div>
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight mb-4">
+            Beet 2.0
+          </h1>
+          <p className="text-lg text-white/90 max-w-xl">
+            Your complete guide to project onboarding, training modules, and assessment preparation.
+          </p>
+        </div>
       </div>
 
       {/* Main Grid - Two Sections */}
-      <div className="grid lg:grid-cols-2 min-h-[calc(100vh-20rem)]">
+      <div className="grid lg:grid-cols-2 min-h-[calc(100vh-24rem)]">
         
         {/* LEFT: Project Information */}
-        <section className="relative border-t border-r border-border bg-card">
+        <section className="border-r border-border bg-card">
           {/* Section Header */}
           <div className="sticky top-14 bg-card z-10 px-6 lg:px-12 py-6 border-b border-border">
             <div className="flex items-center justify-between">
               <div>
-                <span className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Section 01</span>
+                <span className="text-xs font-medium text-primary uppercase tracking-wider">Section 01</span>
                 <h2 className="text-2xl font-semibold text-foreground mt-1">Project Information</h2>
               </div>
               <span className="text-sm text-muted-foreground">5 resources</span>
@@ -42,11 +66,11 @@ const Index = () => {
               <Link 
                 key={item.to}
                 to={item.to}
-                className="group flex items-center gap-6 px-6 lg:px-12 py-6 hover:bg-muted/50 transition-colors"
+                className="group flex items-center gap-6 px-6 lg:px-12 py-6 hover:bg-accent/50 transition-colors"
               >
-                <span className="text-xs font-medium text-muted-foreground tabular-nums">{item.num}</span>
+                <span className="text-xs font-medium text-primary/60 tabular-nums">{item.num}</span>
                 <div className="flex-1 min-w-0">
-                  <h3 className="font-medium text-foreground group-hover:text-foreground/80 transition-colors">{item.label}</h3>
+                  <h3 className="font-medium text-foreground group-hover:text-primary transition-colors">{item.label}</h3>
                   <p className="text-sm text-muted-foreground mt-0.5 truncate">{item.desc}</p>
                 </div>
                 <ChevronRight className="w-4 h-4 text-muted-foreground opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all flex-shrink-0" />
@@ -56,12 +80,12 @@ const Index = () => {
         </section>
 
         {/* RIGHT: Educational Modules */}
-        <section className="relative border-t border-border bg-background">
+        <section className="bg-background">
           {/* Section Header */}
           <div className="sticky top-14 bg-background z-10 px-6 lg:px-12 py-6 border-b border-border">
             <div className="flex items-center justify-between">
               <div>
-                <span className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Section 02</span>
+                <span className="text-xs font-medium text-primary uppercase tracking-wider">Section 02</span>
                 <h2 className="text-2xl font-semibold text-foreground mt-1">Educational Modules</h2>
               </div>
               <span className="text-sm text-muted-foreground">2 tracks</span>
@@ -75,25 +99,24 @@ const Index = () => {
               to="/education/prompt-writing"
               className="group block"
             >
-              <div className="relative overflow-hidden rounded-2xl border border-border bg-card p-8 hover:border-foreground/20 transition-all hover:shadow-lg">
+              <div className="relative overflow-hidden rounded-2xl border border-border bg-card p-8 hover:border-primary/30 transition-all hover:shadow-lg hover:shadow-primary/5">
                 <div className="flex items-start justify-between">
                   <div>
                     <span className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Track A · 3 Modules</span>
-                    <h3 className="text-2xl font-semibold text-foreground mt-2 mb-3">Prompt Writing</h3>
+                    <h3 className="text-2xl font-semibold text-foreground mt-2 mb-3 group-hover:text-primary transition-colors">Prompt Writing</h3>
                     <p className="text-muted-foreground max-w-sm">
                       Master the craft of writing clear, effective prompts that produce high-quality AI outputs.
                     </p>
                   </div>
-                  <div className="w-10 h-10 rounded-full border border-border flex items-center justify-center group-hover:bg-foreground group-hover:border-foreground transition-colors">
-                    <ArrowUpRight className="w-4 h-4 text-muted-foreground group-hover:text-background transition-colors" />
+                  <div className="w-10 h-10 rounded-full border border-border flex items-center justify-center group-hover:bg-primary group-hover:border-primary transition-colors">
+                    <ArrowUpRight className="w-4 h-4 text-muted-foreground group-hover:text-primary-foreground transition-colors" />
                   </div>
                 </div>
                 
-                {/* Module preview */}
                 <div className="mt-8 pt-6 border-t border-border">
-                  <div className="flex gap-3">
-                    {["Fundamentals", "Advanced Techniques", "Best Practices"].map((mod, i) => (
-                      <span key={i} className="text-xs text-muted-foreground px-3 py-1.5 rounded-full bg-muted">
+                  <div className="flex gap-2 flex-wrap">
+                    {["Fundamentals", "Advanced", "Best Practices"].map((mod) => (
+                      <span key={mod} className="text-xs text-muted-foreground px-3 py-1.5 rounded-full bg-muted">
                         {mod}
                       </span>
                     ))}
@@ -107,25 +130,24 @@ const Index = () => {
               to="/education/rubrics"
               className="group block"
             >
-              <div className="relative overflow-hidden rounded-2xl border border-border bg-card p-8 hover:border-foreground/20 transition-all hover:shadow-lg">
+              <div className="relative overflow-hidden rounded-2xl border border-border bg-card p-8 hover:border-primary/30 transition-all hover:shadow-lg hover:shadow-primary/5">
                 <div className="flex items-start justify-between">
                   <div>
                     <span className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Track B · 4 Modules</span>
-                    <h3 className="text-2xl font-semibold text-foreground mt-2 mb-3">Rubrics Creation</h3>
+                    <h3 className="text-2xl font-semibold text-foreground mt-2 mb-3 group-hover:text-primary transition-colors">Rubrics Creation</h3>
                     <p className="text-muted-foreground max-w-sm">
                       Build comprehensive evaluation frameworks and scoring criteria for quality assessment.
                     </p>
                   </div>
-                  <div className="w-10 h-10 rounded-full border border-border flex items-center justify-center group-hover:bg-foreground group-hover:border-foreground transition-colors">
-                    <ArrowUpRight className="w-4 h-4 text-muted-foreground group-hover:text-background transition-colors" />
+                  <div className="w-10 h-10 rounded-full border border-border flex items-center justify-center group-hover:bg-primary group-hover:border-primary transition-colors">
+                    <ArrowUpRight className="w-4 h-4 text-muted-foreground group-hover:text-primary-foreground transition-colors" />
                   </div>
                 </div>
                 
-                {/* Module preview */}
                 <div className="mt-8 pt-6 border-t border-border">
-                  <div className="flex gap-3 flex-wrap">
-                    {["Introduction", "Categories", "Weights", "Validation"].map((mod, i) => (
-                      <span key={i} className="text-xs text-muted-foreground px-3 py-1.5 rounded-full bg-muted">
+                  <div className="flex gap-2 flex-wrap">
+                    {["Introduction", "Categories", "Weights", "Validation"].map((mod) => (
+                      <span key={mod} className="text-xs text-muted-foreground px-3 py-1.5 rounded-full bg-muted">
                         {mod}
                       </span>
                     ))}
@@ -135,13 +157,13 @@ const Index = () => {
             </Link>
 
             {/* Assessment CTA */}
-            <div className="mt-8 p-6 rounded-xl bg-muted/50 border border-dashed border-border">
+            <div className="p-6 rounded-xl bg-gradient-to-r from-primary/5 to-secondary/5 border border-primary/10">
               <div className="flex items-center justify-between">
                 <div>
                   <h4 className="font-medium text-foreground">Ready for assessment?</h4>
                   <p className="text-sm text-muted-foreground mt-1">Complete both tracks to qualify for the paid certification.</p>
                 </div>
-                <div className="text-xs text-muted-foreground px-3 py-1.5 rounded-full border border-border">
+                <div className="text-xs text-primary font-medium px-3 py-1.5 rounded-full border border-primary/20 bg-primary/5">
                   Coming soon
                 </div>
               </div>

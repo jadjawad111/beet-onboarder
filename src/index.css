@@ -5,80 +5,83 @@
 @layer base {
   :root {
     /* ═══════════════════════════════════════════════════════════════
-       RESTRAINED NEUTRAL SYSTEM
-       70-80% neutrals, color as accent only
+       BEET 2.0 — RELAXED CYAN PALETTE
+       Professional but friendly, with intentional accent use
        ═══════════════════════════════════════════════════════════════ */
     
-    /* Foundation - Neutral palette */
-    --background: 0 0% 98%;           /* Near white */
-    --foreground: 0 0% 9%;            /* Near black */
+    /* Foundation */
+    --background: 180 10% 98%;        /* Slight warm tint */
+    --foreground: 200 25% 10%;        /* Soft dark */
     
-    --card: 0 0% 100%;                /* Pure white */
-    --card-foreground: 0 0% 9%;
+    --card: 0 0% 100%;
+    --card-foreground: 200 25% 10%;
     
     --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 9%;
+    --popover-foreground: 200 25% 10%;
 
-    /* Primary - ONE color, ONE purpose: main actions */
-    --primary: 0 0% 9%;               /* Near black - buttons, key actions */
-    --primary-foreground: 0 0% 98%;
+    /* Primary: Relaxed Cyan */
+    --primary: 180 70% 45%;           /* Softer cyan */
+    --primary-foreground: 0 0% 100%;
 
-    /* Secondary - subtle, supporting */
-    --secondary: 0 0% 96%;
-    --secondary-foreground: 0 0% 9%;
+    /* Secondary: Soft Lime (for accents only) */
+    --secondary: 75 60% 55%;
+    --secondary-foreground: 200 25% 10%;
 
-    /* Muted - backgrounds, subtle text */
-    --muted: 0 0% 94%;
-    --muted-foreground: 0 0% 40%;
+    /* Muted */
+    --muted: 180 8% 94%;
+    --muted-foreground: 200 15% 40%;
 
-    /* Accent - rare emphasis */
-    --accent: 0 0% 94%;
-    --accent-foreground: 0 0% 9%;
+    /* Accent */
+    --accent: 180 50% 94%;
+    --accent-foreground: 180 70% 30%;
 
-    /* Status colors - functional only */
-    --destructive: 0 72% 51%;
+    /* Status colors */
+    --destructive: 0 65% 50%;
     --destructive-foreground: 0 0% 100%;
     
-    --success: 142 71% 45%;
+    --success: 145 60% 42%;
     --success-foreground: 0 0% 100%;
     
-    --warning: 38 92% 50%;
-    --warning-foreground: 0 0% 9%;
+    --warning: 40 90% 50%;
+    --warning-foreground: 40 90% 15%;
 
-    /* Borders - subtle separation */
-    --border: 0 0% 90%;
-    --input: 0 0% 90%;
-    --ring: 0 0% 9%;
+    /* Borders */
+    --border: 180 10% 90%;
+    --input: 180 10% 90%;
+    --ring: 180 70% 45%;
 
-    /* Radius - consistent, subtle */
     --radius: 0.5rem;
+
+    /* Beet brand */
+    --beet: 340 55% 35%;
+    --beet-foreground: 0 0% 100%;
   }
 
   .dark {
-    --background: 0 0% 6%;
-    --foreground: 0 0% 94%;
+    --background: 200 25% 7%;
+    --foreground: 180 10% 94%;
 
-    --card: 0 0% 9%;
-    --card-foreground: 0 0% 94%;
+    --card: 200 20% 10%;
+    --card-foreground: 180 10% 94%;
 
-    --popover: 0 0% 9%;
-    --popover-foreground: 0 0% 94%;
+    --popover: 200 20% 10%;
+    --popover-foreground: 180 10% 94%;
 
-    --primary: 0 0% 94%;
-    --primary-foreground: 0 0% 6%;
+    --primary: 180 65% 50%;
+    --primary-foreground: 200 25% 7%;
 
-    --secondary: 0 0% 12%;
-    --secondary-foreground: 0 0% 94%;
+    --secondary: 75 55% 50%;
+    --secondary-foreground: 200 25% 7%;
 
-    --muted: 0 0% 15%;
-    --muted-foreground: 0 0% 60%;
+    --muted: 200 20% 15%;
+    --muted-foreground: 180 10% 60%;
 
-    --accent: 0 0% 15%;
-    --accent-foreground: 0 0% 94%;
+    --accent: 180 40% 18%;
+    --accent-foreground: 180 65% 70%;
 
-    --border: 0 0% 18%;
-    --input: 0 0% 18%;
-    --ring: 0 0% 94%;
+    --border: 200 20% 18%;
+    --input: 200 20% 18%;
+    --ring: 180 65% 50%;
   }
 }
 
@@ -89,12 +92,11 @@
 
   body {
     @apply bg-background text-foreground antialiased;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   }
 
-  /* Clean typography */
   h1 {
-    @apply text-4xl font-semibold tracking-tight;
+    @apply text-4xl font-bold tracking-tight;
   }
   
   h2 {
@@ -102,7 +104,7 @@
   }
   
   h3 {
-    @apply text-lg font-medium;
+    @apply text-lg font-semibold;
   }
 
   p {
@@ -111,8 +113,16 @@
 }
 
 @layer utilities {
-  /* Hover states - subtle */
-  .hover-bg {
-    @apply transition-colors hover:bg-muted;
+  @keyframes bounce-slow {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-8px);
+    }
+  }
+
+  .animate-bounce-slow {
+    animation: bounce-slow 2.5s ease-in-out infinite;
   }
 }
