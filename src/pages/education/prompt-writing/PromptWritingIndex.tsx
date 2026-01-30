@@ -102,10 +102,10 @@ const PromptWritingIndex = () => {
           
           <div className="flex flex-wrap items-center gap-4">
             <Link
-              to="/education/prompt-writing/module-1"
+              to="/education/prompt-writing/course"
               className="inline-flex items-center gap-3 px-8 py-4 rounded-xl bg-white text-primary font-semibold text-lg hover:bg-white/90 transition-all hover:scale-105 shadow-lg"
             >
-              Start Learning
+              Start Course
               <ArrowRight className="h-5 w-5" />
             </Link>
             
@@ -219,10 +219,10 @@ const PromptWritingIndex = () => {
           </div>
           
           <Link
-            to="/education/prompt-writing/module-1"
+            to="/education/prompt-writing/course"
             className="flex items-center gap-3 px-8 py-4 rounded-xl bg-gradient-to-r from-primary to-primary/80 text-primary-foreground font-semibold text-lg hover:opacity-90 transition-all hover:scale-105 shadow-lg whitespace-nowrap"
           >
-            Begin Module 1
+            Start Course
             <ArrowRight className="h-5 w-5" />
           </Link>
         </div>
