@@ -1,15 +1,33 @@
 import { useState } from "react";
 import { Link, Outlet, useLocation } from "react-router-dom";
-import { CheckCircle2, Circle, ChevronRight, ChevronLeft } from "lucide-react";
+import { 
+  ChevronRight, 
+  ChevronLeft,
+  CheckCircle2,
+  PlayCircle,
+  Home,
+  KeyRound,
+  Route,
+  Wrench,
+  HelpCircle,
+  type LucideIcon
+} from "lucide-react";
 import { cn } from "@/lib/utils";
 import ContentHeader from "@/components/layout/ContentHeader";
 
-const subNavItems = [
-  { id: "welcome", label: "Welcome & Overview", to: "/project-info/welcome" },
-  { id: "access", label: "Access & Setup", to: "/project-info/access" },
-  { id: "workflow", label: "Workflow Guide", to: "/project-info/workflow" },
-  { id: "tools", label: "Tools & Resources", to: "/project-info/tools" },
-  { id: "faqs", label: "FAQs", to: "/project-info/faqs" },
+interface NavItem {
+  id: string;
+  label: string;
+  to: string;
+  icon: LucideIcon;
+}
+
+const subNavItems: NavItem[] = [
+  { id: "welcome", label: "Welcome & Overview", to: "/project-info/welcome", icon: Home },
+  { id: "access", label: "Access & Setup", to: "/project-info/access", icon: KeyRound },
+  { id: "workflow", label: "Workflow Guide", to: "/project-info/workflow", icon: Route },
+  { id: "tools", label: "Tools & Resources", to: "/project-info/tools", icon: Wrench },
+  { id: "faqs", label: "FAQs", to: "/project-info/faqs", icon: HelpCircle },
 ];
 
 const ProjectInfoLayout = () => {
@@ -26,58 +44,57 @@ const ProjectInfoLayout = () => {
   const nextItem = currentIndex < subNavItems.length - 1 ? subNavItems[currentIndex + 1] : null;
   
   const completedCount = completedItems.length;
+  const progress = Math.round((completedCount / subNavItems.length) * 100);
   const isOverview = location.pathname === "/project-info";
 
   return (
     <div className="min-h-screen flex">
-      {/* Sub Navigation */}
-      <aside className="w-64 border-r border-border bg-card flex-shrink-0">
+      {/* Sub Navigation - matches Education sidebar */}
+      <aside className="w-72 border-r border-border bg-card flex-shrink-0">
         <div className="sticky top-0">
-          {/* Progress Header */}
+          {/* Progress Header with bar */}
           <div className="p-4 border-b border-border">
             <div className="flex items-center justify-between mb-2">
               <span className="text-sm font-medium text-foreground">Progress</span>
-              <span className="text-sm text-muted-foreground">{completedCount}/{subNavItems.length}</span>
+              <span className="text-[10px] text-muted-foreground">{progress}%</span>
             </div>
-            <div className="h-2 bg-muted rounded-full overflow-hidden">
+            <div className="h-1 bg-muted rounded-full overflow-hidden">
               <div 
                 className="h-full bg-primary rounded-full transition-all"
-                style={{ width: `${(completedCount / subNavItems.length) * 100}%` }}
+                style={{ width: `${progress}%` }}
               />
             </div>
           </div>
 
           {/* Nav Items */}
           <nav className="p-2">
-            {subNavItems.map((item, index) => {
-              const active = isActive(item.to);
-              const completed = isCompleted(item.id);
-              
-              return (
-                <Link
-                  key={item.id}
-                  to={item.to}
-                  className={cn(
-                    "flex items-center gap-3 px-3 py-3 rounded-lg transition-colors mb-1",
-                    active 
-                      ? "bg-primary/10 text-primary" 
-                      : "text-muted-foreground hover:bg-muted hover:text-foreground"
-                  )}
-                >
-                  {completed ? (
-                    <CheckCircle2 className="w-5 h-5 text-primary flex-shrink-0" />
-                  ) : (
-                    <div className={cn(
-                      "w-5 h-5 rounded-full border-2 flex items-center justify-center text-xs font-medium flex-shrink-0",
-                      active ? "border-primary text-primary" : "border-muted-foreground/30 text-muted-foreground"
-                    )}>
-                      {index + 1}
-                    </div>
-                  )}
-                  <span className="text-sm font-medium">{item.label}</span>
-                </Link>
-              );
-            })}
+            <div className="space-y-1">
+              {subNavItems.map((item) => {
+                const active = isActive(item.to);
+                const completed = isCompleted(item.id);
+                const Icon = item.icon;
+                
+                return (
+                  <Link
+                    key={item.id}
+                    to={item.to}
+                    className={cn(
+                      "flex items-center gap-2 px-3 py-2 rounded-lg transition-colors text-sm",
+                      active 
+                        ? "bg-primary/10 text-primary" 
+                        : "text-muted-foreground hover:bg-muted hover:text-foreground"
+                    )}
+                  >
+                    {completed ? (
+                      <CheckCircle2 className="w-4 h-4 text-primary flex-shrink-0" />
+                    ) : (
+                      <Icon className="w-4 h-4 flex-shrink-0" />
+                    )}
+                    <span className="truncate">{item.label}</span>
+                  </Link>
+                );
+              })}
+            </div>
           </nav>
         </div>
       </aside>
@@ -98,25 +115,29 @@ const ProjectInfoLayout = () => {
                 Each section builds on the last to prepare you for success.
               </p>
               
-              <div className="space-y-3">
-                {subNavItems.map((item, index) => (
-                  <Link
-                    key={item.id}
-                    to={item.to}
-                    className="group flex items-center justify-between p-4 rounded-xl border border-border bg-card hover:border-primary/30 transition-all"
-                  >
-                    <div className="flex items-center gap-4">
-                      <div className={cn(
-                        "w-8 h-8 rounded-lg flex items-center justify-center text-sm font-medium",
-                        isCompleted(item.id) ? "bg-primary/10 text-primary" : "bg-muted text-muted-foreground"
-                      )}>
-                        {isCompleted(item.id) ? <CheckCircle2 className="w-4 h-4" /> : index + 1}
+              <div className="space-y-2">
+                {subNavItems.map((item) => {
+                  const completed = isCompleted(item.id);
+                  const Icon = item.icon;
+                  
+                  return (
+                    <Link
+                      key={item.id}
+                      to={item.to}
+                      className="group flex items-center justify-between p-4 rounded-xl border border-border bg-card hover:border-primary/30 transition-all"
+                    >
+                      <div className="flex items-center gap-4">
+                        {completed ? (
+                          <CheckCircle2 className="w-5 h-5 text-primary flex-shrink-0" />
+                        ) : (
+                          <Icon className="w-5 h-5 text-muted-foreground flex-shrink-0" />
+                        )}
+                        <span className="font-medium text-foreground">{item.label}</span>
                       </div>
-                      <span className="font-medium text-foreground">{item.label}</span>
-                    </div>
-                    <ChevronRight className="w-4 h-4 text-muted-foreground group-hover:translate-x-1 transition-transform" />
-                  </Link>
-                ))}
+                      <ChevronRight className="w-4 h-4 text-muted-foreground group-hover:translate-x-1 transition-transform" />
+                    </Link>
+                  );
+                })}
               </div>
             </div>
           ) : (
