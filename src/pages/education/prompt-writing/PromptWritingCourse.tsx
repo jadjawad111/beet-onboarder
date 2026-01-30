@@ -9,8 +9,9 @@ import {
 import type { Slide } from "@/components/presentation/PresentationLayout";
 import PromptQualityChecklist from "@/components/presentation/slides/PromptQualityChecklist";
 import CoreElementsHover from "@/components/presentation/slides/CoreElementsHover";
-import ComparisonGrid from "@/components/learning/ComparisonGrid";
-import { Lightbulb } from "lucide-react";
+import ElementExampleRow from "@/components/presentation/slides/ElementExampleRow";
+import { Card, CardContent } from "@/components/ui/card";
+import { Lightbulb, Target } from "lucide-react";
 
 // All slides for the Project Beet 2.0 Training Course
 const slides: Slide[] = [
@@ -192,68 +193,74 @@ const slides: Slide[] = [
     id: "element-1-unambiguous",
     section: "Prompt Writing",
     title: "Element #1 — Unambiguous",
+    parentId: "prompt-6-elements",
     content: (
       <ContentSlide title="Element #1 — Unambiguous" layout="left">
         <div className="space-y-6">
-          <div className="space-y-4">
-            <div>
-              <p className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Definition</p>
-              <p>
-                The prompt avoids vague terms and is clear about what needs to be done, while maintaining realism. The task should be specific enough that the model does not need to guess what is being asked.
-              </p>
-            </div>
-            
-            <div className="p-4 rounded-lg border bg-card">
-              <p className="text-xs uppercase tracking-wide text-muted-foreground mb-2">Why it matters</p>
-              <p className="mb-3">
-                In professional domains, <strong className="text-foreground">"interpret it how you want" is a failure.</strong>
-              </p>
-              <p className="text-sm text-muted-foreground">
-                We need to grade these models. If the prompt is vague, we cannot distinguish between:
-              </p>
-              <ul className="list-disc list-inside text-sm text-muted-foreground mt-2 space-y-1 ml-2">
-                <li>a model failure (the model couldn't do the math), and</li>
-                <li>a prompt failure (the ask was never clear)</li>
-              </ul>
-            </div>
-          </div>
+          {/* Definition Card */}
+          <Card>
+            <CardContent className="p-5">
+              <div className="flex gap-4">
+                <div className="flex-shrink-0 w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+                  <Target className="w-5 h-5 text-primary" />
+                </div>
+                <div>
+                  <p className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Definition</p>
+                  <p className="text-foreground">
+                    The prompt avoids vague terms and is clear about what needs to be done, while maintaining realism. The task should be specific enough that the model does not need to guess what is being asked.
+                  </p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
 
+          {/* Why It Matters Card */}
+          <Card>
+            <CardContent className="p-5">
+              <div className="flex gap-4">
+                <div className="flex-shrink-0 w-10 h-10 rounded-full bg-amber-100 dark:bg-amber-950 flex items-center justify-center">
+                  <Lightbulb className="w-5 h-5 text-amber-600" />
+                </div>
+                <div>
+                  <p className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Why it matters</p>
+                  <p className="mb-3 text-foreground">
+                    In professional domains, <strong>"interpret it how you want" is a failure.</strong>
+                  </p>
+                  <p className="text-sm text-muted-foreground mb-2">
+                    We need to grade these models. If the prompt is vague, we cannot distinguish between:
+                  </p>
+                  <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1 ml-2">
+                    <li>a model failure (the model couldn't do the work), and</li>
+                    <li>a prompt failure (the ask was never clear)</li>
+                  </ul>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Examples Section */}
           <div>
-            <p className="text-xs uppercase tracking-wide text-muted-foreground mb-3">Examples</p>
-            <ComparisonGrid 
-              items={[
-                {
-                  context: "Finance",
-                  bad: {
-                    text: "Analyze Verizon's free cash flow using EBIT.",
-                    issue: "Which year? What tax rate should be used? How should CapEx be treated?"
-                  },
-                  good: {
-                    text: "Calculate Unlevered Free Cash Flow using EBIT NOPAT, using the provided 10-K extractions. Assume a tax rate of 28.80%."
-                  }
-                },
-                {
-                  context: "Nurse Scheduling",
-                  bad: {
-                    text: "Create a schedule for the hospital using the attached surgeon requests.",
-                    issue: "What are the hours? Are weekends included?"
-                  },
-                  good: {
-                    text: "Create a Monday–Friday schedule. ORs function 24/7, but surgeons prefer 6am–4pm. The hospital has four dedicated trauma ORs."
-                  }
-                },
-                {
-                  context: "Semiconductor Risk",
-                  bad: {
-                    text: "Analyze the risk of the ETF based on the provided spreadsheets.",
-                    issue: "Is risk volatility? Geopolitical exposure? Supply chain disruption?"
-                  },
-                  good: {
-                    text: "Quantify the ETF's vulnerability to the six scenarios in the 'Policy_Shocks' tab. Report portfolio return impact as a percentage (two decimals)."
-                  }
-                }
-              ]}
-            />
+            <p className="text-xs uppercase tracking-wide text-muted-foreground mb-4">Examples</p>
+            <div className="space-y-4">
+              <ElementExampleRow
+                context="Finance"
+                bad="Analyze Verizon's free cash flow using EBIT."
+                issue="Which year? What tax rate should be used? How should CapEx be treated?"
+                good="Calculate Unlevered Free Cash Flow using EBIT NOPAT, using the provided 10-K extractions. Assume a tax rate of 28.80%."
+              />
+              <ElementExampleRow
+                context="Nurse Scheduling"
+                bad="Create a schedule for the hospital using the attached surgeon requests."
+                issue="What are the hours? Are weekends included?"
+                good="Create a Monday–Friday schedule. ORs function 24/7, but surgeons prefer 6am–4pm. The hospital has four dedicated trauma ORs."
+              />
+              <ElementExampleRow
+                context="Semiconductor Risk"
+                bad="Analyze the risk of the ETF based on the provided spreadsheets."
+                issue="Is risk volatility? Geopolitical exposure? Supply chain disruption?"
+                good="Quantify the ETF's vulnerability to the six scenarios in the 'Policy_Shocks' tab. Report portfolio return impact as a percentage (two decimals)."
+              />
+            </div>
           </div>
         </div>
       </ContentSlide>
