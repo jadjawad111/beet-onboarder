@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { cn } from "@/lib/utils";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, ExternalLink } from "lucide-react";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
 interface BronzeExample {
@@ -8,6 +8,7 @@ interface BronzeExample {
   promptText: string;
   bronzeFileName: string;
   embedUrl: string;
+  viewUrl: string;
 }
 
 const examples: BronzeExample[] = [
@@ -46,6 +47,7 @@ Itinerary details are illustrative only.
 All entities are fictional. Geographies, assumptions, and amounts are illustrative and do not reflect any specific tour.`,
     bronzeFileName: "Sample Music Tour P&L (Excel)",
     embedUrl: "https://docs.google.com/spreadsheets/d/1wgRWXeVhUixB8WZThvNLCcWh6rqc3ooP/preview",
+    viewUrl: "https://docs.google.com/spreadsheets/d/1wgRWXeVhUixB8WZThvNLCcWh6rqc3ooP/edit?usp=sharing",
   },
   {
     id: "example-2",
@@ -60,6 +62,7 @@ In each table, include five columns named "Restaurant Name", "Business Hours", "
 This analysis will be stored on the concierge laptop as a Word file and will be used by concierges to provide Downtown Sarasota restaurant recommendations for the residents of a luxury residential property.`,
     bronzeFileName: "Concierge Restaurant Recommendations (PDF)",
     embedUrl: "https://drive.google.com/file/d/1XY5sz-hIX-Z4eR_F9iEFzKlPRgszfdhE/preview",
+    viewUrl: "https://drive.google.com/file/d/1XY5sz-hIX-Z4eR_F9iEFzKlPRgszfdhE/view?usp=sharing",
   },
 ];
 
@@ -77,63 +80,64 @@ const BronzeExamplesSlide = () => {
   };
 
   return (
-    <div className="w-full">
-      <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-2">
-        Bronze Response Examples
-      </h2>
-      <p className="text-muted-foreground mb-4">
-        For each example, the prompt is shown on the left and the Bronze response is shown on the right.
-      </p>
-
-      {/* Example navigation */}
+    <div className="w-full max-w-6xl mx-auto">
       <div className="flex items-center justify-between mb-4">
-        <div className="flex items-center gap-2">
-          {examples.map((_, idx) => (
-            <button
-              key={idx}
-              onClick={() => setActiveExample(idx)}
-              className={cn(
-                "w-8 h-8 rounded-full text-sm font-semibold transition-all",
-                idx === activeExample
-                  ? "bg-primary text-primary-foreground"
-                  : "bg-muted text-muted-foreground hover:bg-muted/80"
-              )}
-            >
-              {idx + 1}
-            </button>
-          ))}
+        <div>
+          <h2 className="text-2xl md:text-3xl font-bold text-foreground">
+            Bronze Response Examples
+          </h2>
+          <p className="text-muted-foreground text-sm mt-1">
+            Prompt on top, Bronze response below
+          </p>
         </div>
-        <div className="flex items-center gap-2">
-          <button
-            onClick={goToPrev}
-            className="p-2 rounded-lg hover:bg-muted transition-colors"
-            aria-label="Previous example"
-          >
-            <ChevronLeft className="w-5 h-5" />
-          </button>
-          <span className="text-sm text-muted-foreground">
-            Example {activeExample + 1} of {examples.length}
-          </span>
-          <button
-            onClick={goToNext}
-            className="p-2 rounded-lg hover:bg-muted transition-colors"
-            aria-label="Next example"
-          >
-            <ChevronRight className="w-5 h-5" />
-          </button>
+        
+        {/* Example navigation */}
+        <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2">
+            {examples.map((_, idx) => (
+              <button
+                key={idx}
+                onClick={() => setActiveExample(idx)}
+                className={cn(
+                  "w-8 h-8 rounded-full text-sm font-semibold transition-all",
+                  idx === activeExample
+                    ? "bg-primary text-primary-foreground"
+                    : "bg-muted text-muted-foreground hover:bg-muted/80"
+                )}
+              >
+                {idx + 1}
+              </button>
+            ))}
+          </div>
+          <div className="flex items-center gap-1">
+            <button
+              onClick={goToPrev}
+              className="p-2 rounded-lg hover:bg-muted transition-colors"
+              aria-label="Previous example"
+            >
+              <ChevronLeft className="w-5 h-5" />
+            </button>
+            <button
+              onClick={goToNext}
+              className="p-2 rounded-lg hover:bg-muted transition-colors"
+              aria-label="Next example"
+            >
+              <ChevronRight className="w-5 h-5" />
+            </button>
+          </div>
         </div>
       </div>
 
-      {/* Split view: Prompt | Bronze Response */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-        {/* Left: Prompt */}
-        <div className="border rounded-lg bg-card overflow-hidden flex flex-col">
-          <div className="px-4 py-3 border-b bg-muted/30">
+      {/* Stacked vertically */}
+      <div className="space-y-4">
+        {/* Prompt */}
+        <div className="border rounded-lg bg-card overflow-hidden">
+          <div className="px-4 py-2 border-b bg-muted/30">
             <h3 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
               Prompt
             </h3>
           </div>
-          <ScrollArea className="h-[420px]">
+          <ScrollArea className="h-[200px]">
             <div className="p-4">
               <pre className="whitespace-pre-wrap text-sm text-foreground font-sans leading-relaxed">
                 {currentExample.promptText}
@@ -142,17 +146,23 @@ const BronzeExamplesSlide = () => {
           </ScrollArea>
         </div>
 
-        {/* Right: Bronze Response (embedded) */}
-        <div className="border rounded-lg bg-card overflow-hidden flex flex-col">
-          <div className="px-4 py-3 border-b bg-muted/30 flex items-center justify-between">
+        {/* Bronze Response (embedded) */}
+        <div className="border rounded-lg bg-card overflow-hidden">
+          <div className="px-4 py-2 border-b bg-muted/30 flex items-center justify-between">
             <h3 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
               Bronze Response
             </h3>
-            <span className="text-xs text-muted-foreground">
+            <a
+              href={currentExample.viewUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 text-xs text-primary hover:underline"
+            >
               {currentExample.bronzeFileName}
-            </span>
+              <ExternalLink className="w-3 h-3" />
+            </a>
           </div>
-          <div className="h-[420px] bg-muted/5">
+          <div className="h-[400px] bg-muted/5">
             <iframe
               src={currentExample.embedUrl}
               className="w-full h-full border-0"
