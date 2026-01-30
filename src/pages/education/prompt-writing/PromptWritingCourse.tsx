@@ -1080,12 +1080,6 @@ This analysis will be stored on the concierge laptop as a Word file and will be 
           <p>
             In these contexts, "good enough" is rarely binary. It is a combination of <strong className="text-foreground">accuracy, completeness, reasoning, clarity, tone, safety, and task fit</strong>.
           </p>
-
-          <div className="p-4 rounded-lg border-2 border-primary/30 bg-primary/5">
-            <p className="text-foreground font-medium">
-              In this section, you will learn one of the most challenging parts of Project Beet 2.0: how to use rubrics to evaluate complex work consistently.
-            </p>
-          </div>
         </div>
       </ContentSlide>
     ),
