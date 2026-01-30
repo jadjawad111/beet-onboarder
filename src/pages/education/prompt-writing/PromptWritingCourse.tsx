@@ -7,6 +7,7 @@ import {
   SectionDividerSlide 
 } from "@/components/presentation";
 import type { Slide } from "@/components/presentation/PresentationLayout";
+import PromptQualityChecklist from "@/components/presentation/slides/PromptQualityChecklist";
 
 // All slides for the Project Beet 2.0 Training Course
 const slides: Slide[] = [
@@ -102,163 +103,74 @@ const slides: Slide[] = [
   // SECTION 2: Prompt Writing
   // ═══════════════════════════════════════════════════════════════
   {
-    id: "prompt-intro",
+    id: "prompt-what-is-good",
     section: "Prompt Writing",
-    title: "Introduction",
+    title: "What is a good prompt?",
     content: (
-      <SectionDividerSlide 
-        moduleNumber={2}
-        title="Prompt Writing"
-        subtitle="The 7 core attributes of a quality prompt"
-      />
+      <ContentSlide title='What is a "good" prompt really?' layout="left">
+        <div className="space-y-4">
+          <p className="mb-6">A good prompt is one that is:</p>
+          <PromptQualityChecklist />
+        </div>
+      </ContentSlide>
     ),
   },
   {
-    id: "prompt-attributes-overview",
+    id: "prompt-intuition",
     section: "Prompt Writing",
-    title: "Core Attributes",
+    title: "Why good prompts matter",
     content: (
-      <ContentSlide title="The 7 Core Attributes">
-        <p className="mb-6">
-          Every Beet prompt must demonstrate these qualities to effectively 
-          challenge AI and create valuable training data.
-        </p>
+      <ContentSlide title={'Intuition on why "good" prompts matter'} layout="left">
         <p>
-          Master these, and you'll consistently write prompts that matter.
+          Understanding these qualities helps you write prompts that truly challenge and train AI models effectively.
         </p>
       </ContentSlide>
     ),
   },
   {
-    id: "prompt-attr-1-2",
+    id: "prompt-why-matter",
     section: "Prompt Writing",
-    title: "Attributes 1-2",
+    title: "Why do good prompts matter?",
     content: (
-      <BulletSlide 
-        title="Attributes 1-2"
-        bullets={[
-          "Realistic — Based on actual professional scenarios, not contrived examples",
-          "Complex — Multiple steps, constraints, or competing priorities"
-        ]}
-        numbered
-      />
-    ),
-  },
-  {
-    id: "prompt-attr-3-4",
-    section: "Prompt Writing",
-    title: "Attributes 3-4",
-    content: (
-      <BulletSlide 
-        title="Attributes 3-4"
-        bullets={[
-          "Domain-Specific — Requires genuine expertise in a professional field",
-          "Nuanced — Contains subtle details that change the correct approach"
-        ]}
-        numbered
-      />
-    ),
-  },
-  {
-    id: "prompt-attr-5-6-7",
-    section: "Prompt Writing",
-    title: "Attributes 5-7",
-    content: (
-      <BulletSlide 
-        title="Attributes 5-7"
-        bullets={[
-          "Unambiguous — Clear enough that experts would agree on quality",
-          "Challenging — Exposes current AI limitations",
-          "Valuable — The answer teaches something meaningful"
-        ]}
-        numbered
-      />
-    ),
-  },
-  {
-    id: "prompt-failure-modes",
-    section: "Prompt Writing",
-    title: "Model Failure Modes",
-    content: (
-      <ContentSlide title="Model Failure Modes">
-        <p className="mb-6">
-          Understanding <strong className="text-foreground">how</strong> AI fails helps you write 
-          better prompts. Look for these patterns:
-        </p>
-        <div className="grid gap-4 text-left max-w-2xl mx-auto mt-8">
-          <div className="p-4 rounded-lg bg-destructive/10 border border-destructive/20">
-            <strong className="text-destructive">Hallucination</strong> — Making up facts confidently
+      <ContentSlide title='Why do "good" prompts matter?' layout="left">
+        <div className="space-y-6">
+          <div className="p-6 rounded-lg border bg-card">
+            <p className="mb-4">
+              <strong className="text-foreground">Without training on good prompts, models will not be able to learn how to perform well on professional tasks,</strong> because these tasks are often non-representative of real-world domains.
+            </p>
+            <ul className="list-disc list-inside space-y-2 text-muted-foreground">
+              <li>If a prompt is not realistic, the model cannot generalize well to real professional work.</li>
+              <li>If a prompt is overly contrived, the resulting behavior does not transfer to actual use cases.</li>
+            </ul>
           </div>
-          <div className="p-4 rounded-lg bg-warning/10 border border-warning/20">
-            <strong className="text-warning">Oversimplification</strong> — Missing crucial nuance
-          </div>
-          <div className="p-4 rounded-lg bg-primary/10 border border-primary/20">
-            <strong className="text-primary">Pattern Matching</strong> — Giving generic answers
+          
+          <div className="p-6 rounded-lg border bg-card">
+            <p className="mb-4">
+              <strong className="text-foreground">If a prompt is not clear and direct, it becomes difficult to evaluate model responses</strong> and impossible to determine whether the model succeeded or failed.
+            </p>
+            <p className="text-muted-foreground">
+              For successful reinforcement learning, it is imperative that this is not the case. Clear prompts make outcomes evaluable.
+            </p>
           </div>
         </div>
       </ContentSlide>
     ),
   },
   {
-    id: "prompt-checklist-why",
+    id: "prompt-difficulty",
     section: "Prompt Writing",
-    title: "Why a Checklist?",
+    title: "Importance of difficulty",
     content: (
-      <QuoteSlide 
-        quote="A checklist doesn't limit creativity — it ensures quality."
-        attribution="The Beet Methodology"
-      />
-    ),
-  },
-  {
-    id: "prompt-checklist-before",
-    section: "Prompt Writing",
-    title: "Before You Write",
-    content: (
-      <BulletSlide 
-        title="Before You Write"
-        bullets={[
-          "Identify your domain expertise clearly",
-          "Choose a realistic scenario from your experience",
-          "Define what makes this task genuinely difficult",
-          "Know what a good response looks like"
-        ]}
-        variant="check"
-      />
-    ),
-  },
-  {
-    id: "prompt-checklist-during",
-    section: "Prompt Writing",
-    title: "As You Write",
-    content: (
-      <BulletSlide 
-        title="As You Write"
-        bullets={[
-          "Include specific details that matter",
-          "Add constraints that create trade-offs",
-          "Remove anything that gives away the answer",
-          "Ensure experts would find this worthwhile"
-        ]}
-        variant="check"
-      />
-    ),
-  },
-  {
-    id: "prompt-checklist-submit",
-    section: "Prompt Writing",
-    title: "Before You Submit",
-    content: (
-      <BulletSlide 
-        title="Before You Submit"
-        bullets={[
-          "Test against all 7 attributes",
-          "Verify domain accuracy",
-          "Confirm the prompt exposes AI weaknesses",
-          "Self-review: Would you learn from the answer?"
-        ]}
-        variant="check"
-      />
+      <ContentSlide title="The importance of Prompt difficulty" layout="left">
+        <div className="space-y-6">
+          <p>
+            <strong className="text-foreground">If a prompt is not sufficiently difficult, the model will not have anything meaningful to learn.</strong>
+          </p>
+          <p>
+            In these cases, the model can already perform the task sufficiently well, and additional training does not lead to improvement.
+          </p>
+        </div>
+      </ContentSlide>
     ),
   },
 
