@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
 import { 
   Home,
   KeyRound,
@@ -34,8 +33,9 @@ const sections: NavItem[] = [
 
 const ProjectInfoLayout = () => {
   const [activeSection, setActiveSection] = useState("welcome");
+  const [scrollProgress, setScrollProgress] = useState(0);
   
-  // Track scroll position to highlight active section
+  // Track scroll position to highlight active section and update progress
   useEffect(() => {
     const handleScroll = () => {
       const sectionElements = sections.map(s => ({
@@ -47,16 +47,22 @@ const ProjectInfoLayout = () => {
       for (const { id, element } of sectionElements) {
         if (element) {
           const rect = element.getBoundingClientRect();
-          // Section is active if its top is near the top of viewport
           if (rect.top <= 150 && rect.bottom > 150) {
             setActiveSection(id);
             break;
           }
         }
       }
+      
+      // Calculate scroll progress
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+      setScrollProgress(Math.min(100, Math.max(0, progress)));
     };
     
     window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll(); // Initial call
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
   
@@ -67,39 +73,72 @@ const ProjectInfoLayout = () => {
     }
   };
 
+  // Calculate which section index we're on for the step indicator
+  const activeSectionIndex = sections.findIndex(s => s.id === activeSection);
+
   return (
     <div className="min-h-screen flex">
       {/* Sticky Sidebar - Anchor Navigation */}
       <aside className="w-72 border-r border-border bg-card flex-shrink-0">
         <div className="sticky top-0 pt-4">
-          {/* Header */}
+          {/* Progress Header */}
           <div className="px-4 pb-4 border-b border-border">
-            <span className="text-sm font-medium text-foreground">On This Page</span>
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-sm font-medium text-foreground">On This Page</span>
+              <span className="text-xs text-muted-foreground">{Math.round(scrollProgress)}%</span>
+            </div>
+            {/* Scroll Progress Bar */}
+            <div className="h-1 bg-muted rounded-full overflow-hidden">
+              <div 
+                className="h-full bg-gradient-to-r from-primary to-secondary rounded-full transition-all duration-150 ease-out"
+                style={{ width: `${scrollProgress}%` }}
+              />
+            </div>
           </div>
 
-          {/* Nav Items */}
+          {/* Nav Items with step indicator line */}
           <nav className="p-2">
-            <div className="space-y-1">
-              {sections.map((item) => {
-                const active = activeSection === item.id;
-                const Icon = item.icon;
-                
-                return (
-                  <button
-                    key={item.id}
-                    onClick={() => scrollToSection(item.id)}
-                    className={cn(
-                      "w-full flex items-center gap-2 px-3 py-2 rounded-lg transition-colors text-sm text-left",
-                      active 
-                        ? "bg-primary/10 text-primary" 
-                        : "text-muted-foreground hover:bg-muted hover:text-foreground"
-                    )}
-                  >
-                    <Icon className="w-4 h-4 flex-shrink-0" />
-                    <span className="truncate">{item.label}</span>
-                  </button>
-                );
-              })}
+            <div className="relative">
+              {/* Vertical progress line */}
+              <div className="absolute left-[22px] top-3 bottom-3 w-0.5 bg-muted rounded-full" />
+              <div 
+                className="absolute left-[22px] top-3 w-0.5 bg-primary rounded-full transition-all duration-300"
+                style={{ 
+                  height: `${((activeSectionIndex + 1) / sections.length) * 100}%`,
+                  maxHeight: 'calc(100% - 24px)'
+                }}
+              />
+              
+              <div className="space-y-1 relative">
+                {sections.map((item, index) => {
+                  const active = activeSection === item.id;
+                  const passed = index <= activeSectionIndex;
+                  const Icon = item.icon;
+                  
+                  return (
+                    <button
+                      key={item.id}
+                      onClick={() => scrollToSection(item.id)}
+                      className={cn(
+                        "w-full flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all text-sm text-left",
+                        active 
+                          ? "bg-primary/10 text-primary" 
+                          : "text-muted-foreground hover:bg-muted hover:text-foreground"
+                      )}
+                    >
+                      {/* Step dot */}
+                      <div className={cn(
+                        "w-2.5 h-2.5 rounded-full border-2 transition-colors flex-shrink-0",
+                        passed 
+                          ? "bg-primary border-primary" 
+                          : "bg-background border-muted-foreground/30"
+                      )} />
+                      <Icon className="w-4 h-4 flex-shrink-0" />
+                      <span className="truncate">{item.label}</span>
+                    </button>
+                  );
+                })}
+              </div>
             </div>
           </nav>
         </div>
@@ -114,69 +153,29 @@ const ProjectInfoLayout = () => {
 
         {/* Scrollable Content with all sections */}
         <div className="flex-1 p-6 lg:p-10">
-          <div className="max-w-5xl space-y-0">
+          <div className="max-w-5xl">
             {/* Welcome Section */}
-            <section id="welcome" className="scroll-mt-8 pb-16">
+            <section id="welcome" className="scroll-mt-8 pb-20">
               <WelcomePage />
             </section>
             
-            {/* Section Divider */}
-            <div className="relative py-8">
-              <div className="absolute inset-0 flex items-center">
-                <div className="w-full h-px bg-gradient-to-r from-transparent via-border to-transparent" />
-              </div>
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="w-2 h-2 rounded-full bg-primary/30" />
-              </div>
-            </div>
-            
             {/* Access Section */}
-            <section id="access" className="scroll-mt-8 py-16">
+            <section id="access" className="scroll-mt-8 pb-20">
               <AccessPage />
             </section>
             
-            {/* Section Divider */}
-            <div className="relative py-8">
-              <div className="absolute inset-0 flex items-center">
-                <div className="w-full h-px bg-gradient-to-r from-transparent via-border to-transparent" />
-              </div>
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="w-2 h-2 rounded-full bg-primary/30" />
-              </div>
-            </div>
-            
             {/* Workflow Section */}
-            <section id="workflow" className="scroll-mt-8 py-16">
+            <section id="workflow" className="scroll-mt-8 pb-20">
               <WorkflowPage />
             </section>
             
-            {/* Section Divider */}
-            <div className="relative py-8">
-              <div className="absolute inset-0 flex items-center">
-                <div className="w-full h-px bg-gradient-to-r from-transparent via-border to-transparent" />
-              </div>
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="w-2 h-2 rounded-full bg-primary/30" />
-              </div>
-            </div>
-            
             {/* Tools Section */}
-            <section id="tools" className="scroll-mt-8 py-16">
+            <section id="tools" className="scroll-mt-8 pb-20">
               <ToolsPage />
             </section>
             
-            {/* Section Divider */}
-            <div className="relative py-8">
-              <div className="absolute inset-0 flex items-center">
-                <div className="w-full h-px bg-gradient-to-r from-transparent via-border to-transparent" />
-              </div>
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="w-2 h-2 rounded-full bg-primary/30" />
-              </div>
-            </div>
-            
             {/* FAQs Section */}
-            <section id="faqs" className="scroll-mt-8 pt-16 pb-8">
+            <section id="faqs" className="scroll-mt-8 pb-8">
               <FAQsPage />
             </section>
           </div>
