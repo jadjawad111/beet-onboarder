@@ -8,6 +8,7 @@ import {
 } from "@/components/presentation";
 import type { Slide } from "@/components/presentation/PresentationLayout";
 import PromptQualityChecklist from "@/components/presentation/slides/PromptQualityChecklist";
+import CoreElementsHover from "@/components/presentation/slides/CoreElementsHover";
 import { Lightbulb } from "lucide-react";
 
 // All slides for the Project Beet 2.0 Training Course
@@ -163,6 +164,24 @@ const slides: Slide[] = [
           </p>
           <p>
             In these cases, the model can already perform the task sufficiently well, and additional training does not lead to improvement.
+          </p>
+        </div>
+      </ContentSlide>
+    ),
+  },
+  {
+    id: "prompt-6-elements",
+    section: "Prompt Writing",
+    title: "The 6 core elements",
+    content: (
+      <ContentSlide title='The 6 core elements of a "good" prompt' layout="left">
+        <div className="space-y-6">
+          <p>
+            A "good" prompt in Beet 2.0 has all six of the following attributes:
+          </p>
+          <CoreElementsHover />
+          <p className="text-muted-foreground">
+            Each attribute captures a different aspect of how real professional tasks are communicated and evaluated.
           </p>
         </div>
       </ContentSlide>
