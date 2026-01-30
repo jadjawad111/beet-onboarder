@@ -73,6 +73,9 @@ const EducationLayout = () => {
   const isActive = (path: string) => location.pathname === path;
   const isInTrack = (track: Track) => location.pathname.startsWith(track.to);
   const isOverview = location.pathname === "/education";
+  const isTrackOverview = (track: Track) => location.pathname === track.to;
+  const currentTrack = tracks.find(t => isTrackOverview(t));
+  const isAnyTrackOverview = !!currentTrack;
   
   const getTrackProgress = (track: Track) => {
     const completed = track.modules.filter(m => 
@@ -181,6 +184,7 @@ const EducationLayout = () => {
         {/* Content */}
         <div className="flex-1 p-6 lg:p-8">
           {isOverview ? (
+            /* Main Education Overview - Show all tracks */
             <div className="max-w-4xl">
               <div className="grid md:grid-cols-2 gap-6">
                 {tracks.map((track) => {
@@ -212,7 +216,53 @@ const EducationLayout = () => {
                 })}
               </div>
             </div>
+          ) : isAnyTrackOverview && currentTrack ? (
+            /* Track Overview - Show modules in this track */
+            <div className="max-w-4xl">
+              <div className="mb-8">
+                <h1 className="text-3xl font-bold text-foreground mb-2">{currentTrack.label}</h1>
+                <p className="text-muted-foreground">
+                  Complete all {currentTrack.modules.length} modules to finish this track.
+                </p>
+              </div>
+              
+              <div className="space-y-4">
+                {currentTrack.modules.map((module, index) => {
+                  const completed = completedModules.includes(`${currentTrack.id}/${module.id}`);
+                  const Icon = module.icon;
+                  
+                  return (
+                    <Link
+                      key={module.id}
+                      to={module.to}
+                      className="group flex items-center gap-4 p-5 rounded-xl border border-border bg-card hover:border-primary/30 hover:shadow-md transition-all"
+                    >
+                      <div className={cn(
+                        "w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0",
+                        completed ? "bg-primary/10" : "bg-muted"
+                      )}>
+                        {completed ? (
+                          <CheckCircle2 className="w-6 h-6 text-primary" />
+                        ) : (
+                          <Icon className="w-6 h-6 text-muted-foreground group-hover:text-primary transition-colors" />
+                        )}
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors">
+                          {module.label}
+                        </h3>
+                        <p className="text-sm text-muted-foreground">
+                          {completed ? "Completed" : `Step ${index + 1} of ${currentTrack.modules.length}`}
+                        </p>
+                      </div>
+                      <ChevronRight className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
+                    </Link>
+                  );
+                })}
+              </div>
+            </div>
           ) : (
+            /* Module Content */
             <div className="max-w-3xl">
               <Outlet />
             </div>
