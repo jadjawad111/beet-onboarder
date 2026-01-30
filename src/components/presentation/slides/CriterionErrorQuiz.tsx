@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { CheckCircle2, XCircle, AlertTriangle, Search, Wrench } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Card, CardContent } from "@/components/ui/card";
@@ -16,6 +16,8 @@ interface CriterionErrorQuizProps {
   detectHeuristics: string[];
   quickTest: string;
   howToFix: string;
+  onOptionSelected?: () => void;
+  onGateUnlock?: () => void;
 }
 
 const CriterionErrorQuiz = ({
@@ -31,6 +33,8 @@ const CriterionErrorQuiz = ({
   detectHeuristics,
   quickTest,
   howToFix,
+  onOptionSelected,
+  onGateUnlock,
 }: CriterionErrorQuizProps) => {
   // Randomize order based on element number (seeded for consistency per slide)
   const isSwapped = useMemo(() => {
@@ -59,6 +63,13 @@ const CriterionErrorQuiz = ({
     if (selected) return;
     setSelected(actualOption);
   };
+
+  useEffect(() => {
+    if (isRevealed) {
+      onOptionSelected?.();
+      onGateUnlock?.();
+    }
+  }, [isRevealed, onOptionSelected, onGateUnlock]);
 
   const getOptionState = (actualOption: "A" | "B") => {
     if (!isRevealed) return "default";
