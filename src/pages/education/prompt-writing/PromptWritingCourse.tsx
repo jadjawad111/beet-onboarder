@@ -266,19 +266,19 @@ const slides: Slide[] = [
                 context="Finance"
                 bad="Analyze Verizon's free cash flow using EBIT."
                 issue="Which year? What tax rate should be used? How should CapEx be treated?"
-                good={<>Calculate <strong className="text-green-600">Unlevered Free Cash Flow</strong> <strong className="text-green-600">using EBIT NOPAT</strong>, <strong className="text-green-600">using the provided 10-K extractions</strong>. <strong className="text-green-600">Assume a tax rate of 28.80%</strong>.</>}
+                good={<>Calculate Unlevered Free Cash Flow using EBIT NOPAT, <strong className="text-green-600">using the provided 10-K extractions</strong>. <strong className="text-green-600">Assume a tax rate of 28.80%</strong>.</>}
               />
               <ElementExampleRow
                 context="Nurse Scheduling"
                 bad="Create a schedule for the hospital using the attached surgeon requests."
                 issue="What are the hours? Are weekends included?"
-                good={<>Create a <strong className="text-green-600">Monday–Friday schedule</strong>. <strong className="text-green-600">ORs function 24/7</strong>, but <strong className="text-green-600">surgeons prefer 6am–4pm</strong>. The hospital has <strong className="text-green-600">four dedicated trauma ORs</strong>.</>}
+                good={<>Create a <strong className="text-green-600">Monday–Friday schedule</strong>. ORs function 24/7, but surgeons prefer 6am–4pm. The hospital has <strong className="text-green-600">four dedicated trauma ORs</strong>.</>}
               />
               <ElementExampleRow
                 context="Semiconductor Risk"
                 bad="Analyze the risk of the ETF based on the provided spreadsheets."
                 issue="Is risk volatility? Geopolitical exposure? Supply chain disruption?"
-                good={<><strong className="text-green-600">Quantify the ETF's vulnerability</strong> to the <strong className="text-green-600">six scenarios</strong> in the <strong className="text-green-600">'Policy_Shocks' tab</strong>. <strong className="text-green-600">Report portfolio return impact</strong> as a <strong className="text-green-600">percentage (two decimals)</strong>.</>}
+                good={<>Quantify the ETF's vulnerability to the <strong className="text-green-600">six scenarios in the 'Policy_Shocks' tab</strong>. <strong className="text-green-600">Report portfolio return impact as a percentage (two decimals)</strong>.</>}
               />
             </div>
           </div>
@@ -339,25 +339,25 @@ const slides: Slide[] = [
                 context="Pharma / Clinical"
                 bad="You are an AI assistant helping with drug data."
                 issue="No role, no seniority, no stakes, and no indication of how the output will be used."
-                good={<>You are a <strong className="text-green-600">Clinical Pharmacology Lead</strong> at a <strong className="text-green-600">biopharmaceutical sponsor</strong>. The <strong className="text-green-600">program team</strong> requires an <strong className="text-green-600">interim PK/PD review</strong> to prepare for an <strong className="text-green-600">internal governance meeting</strong>.</>}
+                good={<>You are a <strong className="text-green-600">Clinical Pharmacology Lead</strong> at a biopharmaceutical sponsor. The program team requires an interim PK/PD review to prepare for an <strong className="text-green-600">internal governance meeting</strong>.</>}
               />
               <ElementExampleRow
                 context="Concierge"
                 bad="Plan a trip to Istanbul for a rich client."
                 issue="Client expectations, standards, and constraints are undefined."
-                good={<>You are the <strong className="text-green-600">Chief of Staff</strong> for an <strong className="text-green-600">ultra-high net worth individual</strong> who <strong className="text-green-600">exited his last venture for over $1 billion</strong>. You need to ensure every moment of the trip is handled with <strong className="text-green-600">white glove service</strong>.</>}
+                good={<>You are the <strong className="text-green-600">Chief of Staff</strong> for an ultra-high net worth individual who exited his last venture for over $1 billion. You need to ensure every moment of the trip is handled with <strong className="text-green-600">white glove service</strong>.</>}
               />
               <ElementExampleRow
                 context="Audio Engineering"
                 bad="Mix this song so it sounds good."
                 issue='"Sounds good" is subjective and does not establish professional standards.'
-                good={<>You are a <strong className="text-green-600">mixing engineer</strong> working with a <strong className="text-green-600">film studio</strong> on a <strong className="text-green-600">diegetic song</strong> in a <strong className="text-green-600">major motion picture</strong>. The <strong className="text-green-600">director has requested</strong> <strong className="text-green-600">aggressive T-Pain–style auto-tune</strong>.</>}
+                good={<>You are a <strong className="text-green-600">mixing engineer</strong> working with a film studio on a diegetic song in a major motion picture. The <strong className="text-green-600">director has requested</strong> aggressive T-Pain–style auto-tune.</>}
               />
               <ElementExampleRow
                 context="Government Administration"
                 bad="Summarize these articles about AI in government."
                 issue="The audience, purpose, and decision context are unclear."
-                good={<>You are an <strong className="text-green-600">Administrative Operations Lead</strong> in a <strong className="text-green-600">government department</strong>. There is a <strong className="text-green-600">strategic goal to expand automation</strong>. Create a scan to <strong className="text-green-600">guide strategic planning</strong>.</>}
+                good={<>You are an <strong className="text-green-600">Administrative Operations Lead</strong> in a government department. There is a strategic goal to expand automation. Create a scan to <strong className="text-green-600">guide strategic planning</strong>.</>}
               />
             </div>
           </div>
@@ -418,19 +418,19 @@ const slides: Slide[] = [
                 context="Finance / Salary"
                 bad="Please calculate the following: (E.g. Salary) (E.g. Taxes) Please format as a table."
                 issue="This structure does not resemble real professional inputs."
-                good={<><strong className="text-green-600">Apollo Braun profile</strong>: <strong className="text-green-600">Annual salary $99,604.08</strong>. <strong className="text-green-600">Started working June 1</strong>. <strong className="text-green-600">12% of net pay directed to investment</strong>. <strong className="text-green-600">Create an Excel spreadsheet</strong>…</>}
+                good={<><strong className="text-green-600">Apollo Braun profile</strong>: Annual salary $99,604.08. Started working June 1. <strong className="text-green-600">12% of net pay directed to investment</strong>. Create an Excel spreadsheet…</>}
               />
               <ElementExampleRow
                 context="Legal"
                 bad="Translate this modeling contract into a recipe for cookies to explain it to me."
                 issue="Contrived and unrelated to how legal work is actually performed."
-                good={<>Please provide a <strong className="text-green-600">professionally written email</strong> <strong className="text-green-600">to your client</strong>, <strong className="text-green-600">no longer than 600 words</strong>, addressing <strong className="text-green-600">issues she should look out for</strong>.</>}
+                good={<>Please provide a professionally written <strong className="text-green-600">email to your client</strong>, <strong className="text-green-600">no longer than 600 words</strong>, addressing issues she should look out for.</>}
               />
               <ElementExampleRow
                 context="Engineering"
                 bad="Task: Look at the file. Step 1: Make a 3D model. Step 2: Make a list."
                 issue="Over-structured and artificial."
-                good={<>Your <strong className="text-green-600">biggest client</strong> has <strong className="text-green-600">sent a 2D drawing</strong>. Your job is to (a) <strong className="text-green-600">create a 3D part</strong> and (b) <strong className="text-green-600">select the fastener that fits exactly</strong>.</>}
+                good={<>Your <strong className="text-green-600">biggest client has sent a 2D drawing</strong>. Your job is to (a) create a 3D part and (b) <strong className="text-green-600">select the fastener that fits exactly</strong>.</>}
               />
             </div>
           </div>
@@ -491,19 +491,19 @@ const slides: Slide[] = [
                 context="Retail Planning"
                 bad="Plan the sales for next month (October 2023)."
                 issue="Relies on a real-world date that will become outdated."
-                good={<><strong className="text-green-600">It is September 2024</strong>. You have been tasked with leading the <strong className="text-green-600">2024 Black Friday event</strong>. Create an <strong className="text-green-600">eight-week preparation plan</strong>.</>}
+                good={<><strong className="text-green-600">It is September 2024</strong>. You have been tasked with leading the 2024 Black Friday event. Create an <strong className="text-green-600">eight-week preparation plan</strong>.</>}
               />
               <ElementExampleRow
                 context="Real Estate"
                 bad="Find houses for sale right now."
                 issue='"Right now" has no fixed meaning.'
-                good={<><strong className="text-green-600">It is June 24, 2025</strong>. Select homes to show <strong className="text-green-600">this weekend</strong>. The <strong className="text-green-600">buyers are only in town for two days</strong>.</>}
+                good={<><strong className="text-green-600">It is June 24, 2025</strong>. Select homes to show this weekend. The <strong className="text-green-600">buyers are only in town for two days</strong>.</>}
               />
               <ElementExampleRow
                 context="Concierge"
                 bad="Plan a trip for next summer."
                 issue="Time reference is ambiguous and unstable."
-                good={<><strong className="text-green-600">Day 1 is June 1</strong>. <strong className="text-green-600">Day 2 is June 2</strong>. <strong className="text-green-600">Day 3 is June 3</strong>, <strong className="text-green-600">the wedding day</strong>.</>}
+                good={<>Day 1 is June 1. Day 2 is June 2. <strong className="text-green-600">Day 3 is June 3, the wedding day</strong>.</>}
               />
             </div>
           </div>
@@ -564,19 +564,19 @@ const slides: Slide[] = [
                 context="Data Analysis"
                 bad="Give me the data."
                 issue="The format and intended use are undefined."
-                good={<>Create an <strong className="text-green-600">Excel workbook</strong> named <strong className="text-green-600">SemiETF_PolicyRisk.xlsx</strong> with <strong className="text-green-600">exactly five tabs</strong>, in <strong className="text-green-600">exactly this order</strong>: <strong className="text-green-600">Holdings_Clean</strong>, <strong className="text-green-600">Exposure_By_Region</strong>…</>}
+                good={<>Create an <strong className="text-green-600">Excel workbook named SemiETF_PolicyRisk.xlsx</strong> with <strong className="text-green-600">exactly five tabs</strong>, in exactly this order: Holdings_Clean, Exposure_By_Region…</>}
               />
               <ElementExampleRow
                 context="Design / CAD"
                 bad="Make a 3D file."
                 issue="File type, naming conventions, and downstream usage are unclear."
-                good={<>Save the output as a <strong className="text-green-600">STEP file</strong> named <strong className="text-green-600">coverplate.step</strong>. List the <strong className="text-green-600">number, radius, and length</strong> in a <strong className="text-green-600">separate Excel file</strong>.</>}
+                good={<>Save the output as a <strong className="text-green-600">STEP file named coverplate.step</strong>. List the number, radius, and length in a <strong className="text-green-600">separate Excel file</strong>.</>}
               />
               <ElementExampleRow
                 context="Marketing"
                 bad="Make a presentation."
                 issue="Audience and success criteria are undefined."
-                good={<>Design a <strong className="text-green-600">modern PDF presentation deck</strong> (approximately <strong className="text-green-600">15–18 slides</strong>). <strong className="text-green-600">Each slide should focus</strong> on a <strong className="text-green-600">core service category</strong>.</>}
+                good={<>Design a modern <strong className="text-green-600">PDF presentation deck</strong> (approximately <strong className="text-green-600">15–18 slides</strong>). Each slide should focus on a core service category.</>}
               />
             </div>
           </div>
@@ -634,25 +634,25 @@ const slides: Slide[] = [
                 context="Finance"
                 bad="Make a spreadsheet for the investment."
                 issue="No validation or calculation constraints are defined."
-                good={<>The tables should be <strong className="text-green-600">dynamic</strong> with <strong className="text-green-600">no hardcoded cells</strong>. If a number cannot be traced to the spreadsheet output, it <strong className="text-green-600">must not be stated</strong>.</>}
+                good={<>The tables should be dynamic with <strong className="text-green-600">no hardcoded cells</strong>. If a number cannot be traced to the spreadsheet output, it <strong className="text-green-600">must not be stated</strong>.</>}
               />
               <ElementExampleRow
                 context="Nurse Scheduling"
                 bad="Schedule the surgeries."
                 issue="No competing priorities or real-world constraints."
-                good={<>The hospital <strong className="text-green-600">prioritizes trauma readiness</strong>, <strong className="text-green-600">maximizes weekday utilization</strong>, and the ER has mentioned a <strong className="text-green-600">potential mass casualty event</strong>.</>}
+                good={<>The hospital <strong className="text-green-600">prioritizes trauma readiness</strong>, maximizes weekday utilization, and the ER has mentioned a potential mass casualty event.</>}
               />
               <ElementExampleRow
                 context="Audio"
                 bad="Auto-tune the vocals."
                 issue="Creative direction and constraints are missing."
-                good={<>The director has requested an <strong className="text-green-600">aggressive</strong> and <strong className="text-green-600">clearly audible</strong> auto-tune effect, <strong className="text-green-600">similar to T-Pain</strong>.</>}
+                good={<>The director has requested an <strong className="text-green-600">aggressive auto-tune</strong> effect, similar to T-Pain.</>}
               />
               <ElementExampleRow
                 context="Inventory"
                 bad="Order more stock."
                 issue="Budget and channel constraints are absent."
-                good={<><strong className="text-green-600">Do not plan receipts under $10k per month in stores</strong> <strong className="text-green-600">or under $6k per month in e-commerce</strong>.</>}
+                good={<><strong className="text-green-600">Do not plan receipts under $10k per month</strong> in stores or under $6k per month in e-commerce.</>}
               />
             </div>
           </div>
