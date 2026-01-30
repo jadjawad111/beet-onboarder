@@ -36,11 +36,13 @@ const PresentationLayout = ({
   const [slideDirection, setSlideDirection] = useState<'next' | 'prev'>('next');
   const [visitedSlides, setVisitedSlides] = useState<Set<number>>(new Set([0]));
   const [unlockedSlides, setUnlockedSlides] = useState<Set<string>>(new Set());
+  const [highestSlideReached, setHighestSlideReached] = useState(0);
 
   const totalSlides = slides.length;
   const isFirstSlide = currentSlide === 0;
   const isLastSlide = currentSlide === totalSlides - 1;
-  const progress = ((currentSlide + 1) / totalSlides) * 100;
+  // Progress is based on highest slide reached, not current position
+  const progress = ((highestSlideReached + 1) / totalSlides) * 100;
 
   const currentSlideData = slides[currentSlide];
   const isCurrentSlideGated = currentSlideData?.gated ?? false;
@@ -54,9 +56,10 @@ const PresentationLayout = ({
     }
   }, [currentSlideData?.id]);
 
-  // Track visited slides
+  // Track visited slides and highest slide reached
   useEffect(() => {
     setVisitedSlides(prev => new Set([...prev, currentSlide]));
+    setHighestSlideReached(prev => Math.max(prev, currentSlide));
   }, [currentSlide]);
 
   const goToSlide = useCallback((index: number, direction: 'next' | 'prev') => {
@@ -285,7 +288,9 @@ const PresentationLayout = ({
                         {section.slides.map(({ slide, index }) => {
                           const isCurrent = index === currentSlide;
                           const isVisited = visitedSlides.has(index);
-                          const isPast = index < currentSlide;
+                          // A slide is "past" if we've progressed beyond it (based on highest reached)
+                          const isPast = index < highestSlideReached;
+                          
                           
                           // Find child slides (nested under this slide)
                           const childSlides = slides
@@ -338,7 +343,7 @@ const PresentationLayout = ({
                                   {childSlides.map(({ slide: childSlide, index: childIndex }) => {
                                     const isChildCurrent = childIndex === currentSlide;
                                     const isChildVisited = visitedSlides.has(childIndex);
-                                    const isChildPast = childIndex < currentSlide;
+                                    const isChildPast = childIndex < highestSlideReached;
                                     
                                     return (
                                       <button
