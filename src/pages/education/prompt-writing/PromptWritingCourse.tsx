@@ -1096,8 +1096,8 @@ This analysis will be stored on the concierge laptop as a Word file and will be 
 
           {/* Good Criterion section */}
           <div className="space-y-3">
-            <div className="pb-2 border-b border-amber-500/30">
-              <h3 className="text-lg font-bold text-amber-600 dark:text-amber-400">What makes a good Criterion?</h3>
+            <div className="pb-2 border-b border-primary/30">
+              <h3 className="text-lg font-bold text-primary">What makes a good Criterion?</h3>
               <p className="text-xs text-muted-foreground mt-1">Click each to learn more:</p>
             </div>
             <CharacteristicsGrid
