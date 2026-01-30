@@ -5,7 +5,7 @@ const qualities = [
   "Realistic to the actual job",
   "Clear and direct in what deliverable is being asked for",
   "Sufficiently complex and difficult so the model actually learns",
-  "Succinct and unambiguous, such that multiple professionals would agree on what a good output looks like",
+  "Unambiguous, such that multiple professionals would agree on what a good output looks like",
   "Timeless, with a clearly established current date of reference",
   "Includes clear implicit or explicit constraints",
 ];
