@@ -14,6 +14,7 @@ import PromptExerciseQuiz from "@/components/presentation/slides/PromptExerciseQ
 import BronzeExampleSlide from "@/components/presentation/slides/BronzeExampleSlide";
 import RevealInsight from "@/components/presentation/slides/RevealInsight";
 import CharacteristicsGrid from "@/components/presentation/slides/CharacteristicsGrid";
+import AITrainingProcess from "@/components/presentation/slides/AITrainingProcess";
 import { Card, CardContent } from "@/components/ui/card";
 import { Lightbulb, Target } from "lucide-react";
 
@@ -1103,34 +1104,11 @@ This analysis will be stored on the concierge laptop as a Word file and will be 
           </div>
 
           <p>
-            Once a strong prompt and rubric are created, they are used to guide model improvement through repeated evaluation and feedback.
+            Once a strong prompt and rubric are created, they are used to guide model improvement through the following process:
           </p>
 
-          {/* Visual: Rubric Structure Preview */}
-          <div className="p-4 rounded-lg border bg-muted/30">
-            <p className="text-xs uppercase tracking-wide text-muted-foreground mb-4">What a rubric looks like</p>
-            <div className="space-y-2">
-              {[1, 2, 3, 4].map((num) => (
-                <div key={num} className="flex items-center gap-3 p-3 rounded-lg border bg-card">
-                  <div className="w-7 h-7 rounded-full bg-primary/20 flex items-center justify-center text-xs font-bold text-primary">{num}</div>
-                  <div className="flex-1">
-                    <p className="text-sm font-medium text-foreground">Criterion</p>
-                    <div className="flex gap-4 text-xs text-muted-foreground mt-1">
-                      <span>Weight</span>
-                      <span>Category</span>
-                      <span>Rationale</span>
-                      <span>Implicit/Explicit</span>
-                    </div>
-                  </div>
-                </div>
-              ))}
-              <div className="flex flex-col items-center gap-1 py-2 text-muted-foreground">
-                <span>•</span>
-                <span>•</span>
-                <span>•</span>
-              </div>
-            </div>
-          </div>
+          {/* AI Training Process Visualization */}
+          <AITrainingProcess />
         </div>
       </ContentSlide>
     ),
