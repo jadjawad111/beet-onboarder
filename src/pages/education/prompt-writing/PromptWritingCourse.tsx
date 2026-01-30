@@ -1112,7 +1112,7 @@ This analysis will be stored on the concierge laptop as a Word file and will be 
       <ContentSlide title="The Rubric Judge (Judge Models)" layout="left">
         <div className="space-y-5">
           <p className="text-muted-foreground">
-            Once you have created your rubric, future responses to the prompt will be evaluated using a <strong className="text-foreground">judge model</strong>.
+            Once a Rubric has been created, future responses to the prompt will be evaluated using a <strong className="text-foreground">judge model</strong>.
           </p>
           <p className="text-muted-foreground">
             You can think of a judge model as a very simple AI that does only three things:
