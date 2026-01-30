@@ -1064,88 +1064,85 @@ This analysis will be stored on the concierge laptop as a Word file and will be 
     ),
   },
   {
-    id: "rubrics-good-rubric",
+    id: "rubrics-intuition",
     section: "Rubrics",
-    title: "What makes a good rubric",
+    title: "Intuition: Good Rubrics & Criteria",
     content: (
-      <ContentSlide title="A good rubric defines correct evaluation at the system level" layout="left">
-        <div className="space-y-6">
-          <p className="text-muted-foreground mb-2">
-            Click each to learn more:
-          </p>
-          <CharacteristicsGrid
-            characteristics={[
-              {
-                title: "Coverage",
-                description: "A good rubric has coverage and includes everything it needs to include to evaluate the task meaningfully.",
-              },
-              {
-                title: "Professional Judgment",
-                description: "It captures the nuanced taste and expertise of the profession, which is often hard to evaluate in isolation.",
-              },
-              {
-                title: "Evaluator Consistency",
-                description: "The goal of these rubrics is such that if ten people were to evaluate the same output ten times, they would all come out the same.",
-              },
-            ]}
-          />
-          
-          {/* Questions box */}
-          <div className="mt-6 p-5 rounded-xl border-2 border-amber-500/30 bg-amber-500/5">
-            <div className="flex items-start gap-3">
-              <div className="w-10 h-10 rounded-full bg-amber-500/20 flex items-center justify-center flex-shrink-0">
-                <span className="text-xl">💡</span>
-              </div>
-              <div>
-                <p className="font-semibold text-foreground mb-3">Questions to ask yourself</p>
-                <ul className="space-y-2 text-sm text-muted-foreground">
-                  <li>• Does the set of criteria I've created cover all explicit asks of the prompt?</li>
-                  <li>• Would an ideal response score highly on all criteria?</li>
-                  <li>• Are there any gaps in what I'm measuring?</li>
-                </ul>
-              </div>
+      <ContentSlide title="Building Intuition" layout="center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          {/* Left: Good Rubric */}
+          <div className="space-y-4">
+            <div className="pb-3 border-b border-border">
+              <h3 className="text-xl font-bold text-foreground">What makes a good Rubric?</h3>
+              <p className="text-sm text-muted-foreground mt-1">At the system level</p>
             </div>
+            <ul className="space-y-4">
+              <li className="flex gap-3">
+                <div className="w-2 h-2 rounded-full bg-primary mt-2 flex-shrink-0" />
+                <div>
+                  <span className="font-semibold text-foreground">Coverage</span>
+                  <span className="text-muted-foreground"> — includes everything needed to evaluate the task meaningfully.</span>
+                </div>
+              </li>
+              <li className="flex gap-3">
+                <div className="w-2 h-2 rounded-full bg-primary mt-2 flex-shrink-0" />
+                <div>
+                  <span className="font-semibold text-foreground">Professional Judgment</span>
+                  <span className="text-muted-foreground"> — captures nuanced taste and expertise that's hard to evaluate in isolation.</span>
+                </div>
+              </li>
+              <li className="flex gap-3">
+                <div className="w-2 h-2 rounded-full bg-primary mt-2 flex-shrink-0" />
+                <div>
+                  <span className="font-semibold text-foreground">Evaluator Consistency</span>
+                  <span className="text-muted-foreground"> — if ten people evaluate the same output, they should all reach the same result.</span>
+                </div>
+              </li>
+            </ul>
           </div>
-          
-          {/* Transition text */}
-          <p className="text-sm text-muted-foreground italic pt-4 border-t border-border">
-            These help us understand what a good rubric looks like at the macro level. But what makes a Rubric Criterion good? More next →
-          </p>
+
+          {/* Right: Good Criterion */}
+          <div className="space-y-4">
+            <div className="pb-3 border-b border-border">
+              <h3 className="text-xl font-bold text-foreground">What makes a good Criterion?</h3>
+              <p className="text-sm text-muted-foreground mt-1">At the individual check level</p>
+            </div>
+            <ul className="space-y-4">
+              <li className="flex gap-3">
+                <div className="w-2 h-2 rounded-full bg-primary mt-2 flex-shrink-0" />
+                <div>
+                  <span className="font-semibold text-foreground">Not Stacked</span>
+                  <span className="text-muted-foreground"> — multiple criteria bundled together without clear weighting will not return consistent results.</span>
+                </div>
+              </li>
+              <li className="flex gap-3">
+                <div className="w-2 h-2 rounded-full bg-primary mt-2 flex-shrink-0" />
+                <div>
+                  <span className="font-semibold text-foreground">Programmatically Verifiable</span>
+                  <span className="text-muted-foreground"> — AI labs need automated ways of evaluating at scale.</span>
+                </div>
+              </li>
+              <li className="flex gap-3">
+                <div className="w-2 h-2 rounded-full bg-primary mt-2 flex-shrink-0" />
+                <div>
+                  <span className="font-semibold text-foreground">Consistently Evaluable</span>
+                  <span className="text-muted-foreground"> — an AI evaluator can return the same answer each time against that criterion.</span>
+                </div>
+              </li>
+              <li className="flex gap-3">
+                <div className="w-2 h-2 rounded-full bg-primary mt-2 flex-shrink-0" />
+                <div>
+                  <span className="font-semibold text-foreground">Self-contained</span>
+                  <span className="text-muted-foreground"> — the judge model won't have access to input files or external context.</span>
+                </div>
+              </li>
+            </ul>
+          </div>
         </div>
-      </ContentSlide>
-    ),
-  },
-  {
-    id: "rubrics-good-criterion",
-    section: "Rubrics",
-    title: "What makes a good criterion",
-    content: (
-      <ContentSlide title="What does a good Rubric Criterion really mean?" layout="left">
-        <div className="space-y-4">
-          <p className="mb-4">
-            Each criterion in your rubric should meet these four characteristics. <span className="text-muted-foreground">Click each to learn more:</span>
-          </p>
-          <CharacteristicsGrid
-            characteristics={[
-              {
-                title: "Atomic / Not Stacked",
-                description: "Each criterion should measure one specific aspect of the deliverable at a time. Do not bundle multiple requirements into a single check.",
-              },
-              {
-                title: "Self-contained",
-                description: "The evaluator only sees the deliverable and the criterion. Any required context must be included directly in the criterion.",
-              },
-              {
-                title: "Unambiguous",
-                description: "Criteria should be written in plain, direct language and interpreted in only one way, with minimal room for subjective judgment.",
-              },
-              {
-                title: "Programmatically Verifiable",
-                description: "Criteria must be written so they can be evaluated consistently at scale, including by automated evaluators.",
-              },
-            ]}
-          />
-        </div>
+        
+        <p className="text-sm text-muted-foreground italic mt-8 pt-4 border-t border-border text-center">
+          This gives you intuition for why these matter. Next, we'll deep dive into each with definitions and examples.
+        </p>
       </ContentSlide>
     ),
   },
