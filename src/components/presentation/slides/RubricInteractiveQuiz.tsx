@@ -434,7 +434,7 @@ const RubricInteractiveQuiz = ({
 
       {/* Submit All Button */}
       {!submitted && (
-        <div className="sticky bottom-4 bg-background/95 backdrop-blur p-4 rounded-lg border shadow-lg">
+        <div className="mt-6">
           <Button 
             onClick={handleSubmitAll} 
             size="lg" 
