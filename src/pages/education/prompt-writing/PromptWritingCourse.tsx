@@ -691,6 +691,7 @@ const slides: Slide[] = [
     id: "prompt-quiz-1",
     section: "Prompt Writing",
     title: "Exercise #1",
+    parentId: "prompt-quiz-intro",
     content: (
       <PromptExerciseQuiz
         exerciseNumber={1}
@@ -731,6 +732,7 @@ Create a document with this information and include photos. The goal is to help 
     id: "prompt-quiz-2",
     section: "Prompt Writing",
     title: "Exercise #2",
+    parentId: "prompt-quiz-intro",
     content: (
       <PromptExerciseQuiz
         exerciseNumber={2}
@@ -773,6 +775,7 @@ Create an updated version that is clearer and more useful…`}
     id: "prompt-quiz-3",
     section: "Prompt Writing",
     title: "Exercise #3",
+    parentId: "prompt-quiz-intro",
     content: (
       <PromptExerciseQuiz
         exerciseNumber={3}
