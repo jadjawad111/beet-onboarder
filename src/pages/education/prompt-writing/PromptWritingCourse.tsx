@@ -8,6 +8,7 @@ import {
 } from "@/components/presentation";
 import type { Slide } from "@/components/presentation/PresentationLayout";
 import PromptQualityChecklist from "@/components/presentation/slides/PromptQualityChecklist";
+import { Lightbulb } from "lucide-react";
 
 // All slides for the Project Beet 2.0 Training Course
 const slides: Slide[] = [
@@ -122,23 +123,29 @@ const slides: Slide[] = [
     content: (
       <ContentSlide title='Why do "good" prompts matter?' layout="left">
         <div className="space-y-6">
-          <div className="p-6 rounded-lg border bg-card">
-            <p className="mb-4">
-              <strong className="text-foreground">Without training on good prompts, models will not be able to learn how to perform well on professional tasks,</strong> because these tasks are often non-representative of real-world domains.
-            </p>
-            <ul className="list-disc list-inside space-y-2 text-muted-foreground">
-              <li>If a prompt is not realistic, the model cannot generalize well to real professional work.</li>
-              <li>If a prompt is overly contrived, the resulting behavior does not transfer to actual use cases.</li>
-            </ul>
+          <div className="flex gap-4 p-6 rounded-lg border bg-card">
+            <Lightbulb className="w-6 h-6 text-primary flex-shrink-0 mt-1" />
+            <div>
+              <p className="mb-4">
+                <strong className="text-foreground">Without training on good prompts, models will not be able to learn how to perform well on professional tasks,</strong> because these tasks are often non-representative of real-world domains.
+              </p>
+              <ul className="list-disc list-inside space-y-2 text-muted-foreground">
+                <li>If a prompt is not realistic, the model cannot generalize well to real professional work.</li>
+                <li>If a prompt is overly contrived, the resulting behavior does not transfer to actual use cases.</li>
+              </ul>
+            </div>
           </div>
           
-          <div className="p-6 rounded-lg border bg-card">
-            <p className="mb-4">
-              <strong className="text-foreground">If a prompt is not clear and direct, it becomes difficult to evaluate model responses</strong> and impossible to determine whether the model succeeded or failed.
-            </p>
-            <p className="text-muted-foreground">
-              For successful reinforcement learning, it is imperative that this is not the case. Clear prompts make outcomes evaluable.
-            </p>
+          <div className="flex gap-4 p-6 rounded-lg border bg-card">
+            <Lightbulb className="w-6 h-6 text-primary flex-shrink-0 mt-1" />
+            <div>
+              <p className="mb-4">
+                <strong className="text-foreground">If a prompt is not clear and direct, it becomes difficult to evaluate model responses</strong> and impossible to determine whether the model succeeded or failed.
+              </p>
+              <p className="text-muted-foreground">
+                For successful reinforcement learning, it is imperative that this is not the case. Clear prompts make outcomes evaluable.
+              </p>
+            </div>
           </div>
         </div>
       </ContentSlide>
