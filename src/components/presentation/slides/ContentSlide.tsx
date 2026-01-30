@@ -9,16 +9,25 @@ interface ContentSlideProps {
   onGateUnlock?: () => void; // Pass-through for gate unlock
 }
 
-// Inject onGateUnlock only to first-level React elements
-// Do NOT inject recursively - components with their own gate tracking (like GatedElementSlide)
-// manage their own sub-component callbacks and call onGateUnlock when ALL are complete
+// Recursively inject onGateUnlock to all React elements that can accept it
 const injectGateUnlock = (children: React.ReactNode, onGateUnlock: () => void): React.ReactNode => {
   return React.Children.map(children, (child) => {
     if (!React.isValidElement(child)) {
       return child;
     }
-    // Only inject onGateUnlock to first-level children, not recursively
-    return React.cloneElement(child as React.ReactElement<any>, { onGateUnlock });
+    
+    const element = child as React.ReactElement<any>;
+    
+    // If this element has children, recursively inject into them
+    const newChildren = element.props.children 
+      ? injectGateUnlock(element.props.children, onGateUnlock)
+      : element.props.children;
+    
+    // Clone with both onGateUnlock prop and recursively updated children
+    return React.cloneElement(element, { 
+      onGateUnlock,
+      children: newChildren 
+    });
   });
 };
 
