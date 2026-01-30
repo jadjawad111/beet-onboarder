@@ -15,6 +15,7 @@ import BronzeExampleSlide from "@/components/presentation/slides/BronzeExampleSl
 import RevealInsight from "@/components/presentation/slides/RevealInsight";
 import CharacteristicsGrid from "@/components/presentation/slides/CharacteristicsGrid";
 import AITrainingProcess from "@/components/presentation/slides/AITrainingProcess";
+import CriterionErrorQuiz from "@/components/presentation/slides/CriterionErrorQuiz";
 import { Card, CardContent } from "@/components/ui/card";
 import { Lightbulb, Target } from "lucide-react";
 
@@ -1535,257 +1536,173 @@ This analysis will be stored on the concierge laptop as a Word file and will be 
   },
 
   // ═══════════════════════════════════════════════════════════════
-  // RUBRICS: Good Criterion Deep Dives
+  // RUBRICS: 5 Core Elements of Rubric Criteria (Errors to Avoid)
   // ═══════════════════════════════════════════════════════════════
   {
-    id: "criterion-elements-overview",
+    id: "criterion-errors-overview",
     section: "Rubrics",
-    title: "The 4 Criterion Elements",
+    title: "The 5 Core Elements",
     content: (
-      <ContentSlide title="Core elements of a good Criterion" layout="left">
+      <ContentSlide title="The 5 Core Elements of Rubric Criteria" layout="left">
         <div className="space-y-6">
           <p className="text-muted-foreground">
-            Each individual criterion should meet these four requirements. Click each to explore in detail:
+            Each criterion you write must avoid these five common errors. A criterion that violates any of these will cause inconsistent or unreliable evaluations.
           </p>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="p-4 rounded-lg border-2 border-border bg-card hover:border-primary/40 transition-colors">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center font-bold text-primary">1</div>
-                <div>
-                  <p className="font-semibold text-foreground">Not Stacked</p>
-                  <p className="text-sm text-muted-foreground">One thing at a time</p>
+          <div className="grid gap-3">
+            {[
+              { num: 1, name: "Ambiguous", desc: "Uses subjective language or undefined standards" },
+              { num: 2, name: "Not Self-contained", desc: "Relies on external context the judge can't access" },
+              { num: 3, name: "Stacked", desc: "Bundles multiple independent checks into one" },
+              { num: 4, name: "Convoluted Phrasing", desc: "Longer or more complex than necessary" },
+              { num: 5, name: "Process Words", desc: "Evaluates how it was made, not what it is" },
+            ].map((item) => (
+              <div key={item.num} className="p-4 rounded-lg border-2 border-border bg-card hover:border-primary/40 transition-colors">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-full bg-destructive/10 flex items-center justify-center font-bold text-destructive">{item.num}</div>
+                  <div>
+                    <p className="font-semibold text-foreground">{item.name}</p>
+                    <p className="text-sm text-muted-foreground">{item.desc}</p>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div className="p-4 rounded-lg border-2 border-border bg-card hover:border-primary/40 transition-colors">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center font-bold text-primary">2</div>
-                <div>
-                  <p className="font-semibold text-foreground">Programmatically Verifiable</p>
-                  <p className="text-sm text-muted-foreground">Can be automated at scale</p>
-                </div>
-              </div>
-            </div>
-            <div className="p-4 rounded-lg border-2 border-border bg-card hover:border-primary/40 transition-colors">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center font-bold text-primary">3</div>
-                <div>
-                  <p className="font-semibold text-foreground">Consistently Evaluable</p>
-                  <p className="text-sm text-muted-foreground">Same answer every time</p>
-                </div>
-              </div>
-            </div>
-            <div className="p-4 rounded-lg border-2 border-border bg-card hover:border-primary/40 transition-colors">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center font-bold text-primary">4</div>
-                <div>
-                  <p className="font-semibold text-foreground">Self-contained</p>
-                  <p className="text-sm text-muted-foreground">No external context needed</p>
-                </div>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </ContentSlide>
     ),
   },
   {
-    id: "criterion-element-not-stacked",
+    id: "criterion-error-ambiguous",
     section: "Rubrics",
-    title: "Element #1: Not Stacked",
-    parentId: "criterion-elements-overview",
+    title: "Element #1 — Ambiguous",
+    parentId: "criterion-errors-overview",
     content: (
-      <ContentSlide title="Not Stacked" layout="left">
-        <div className="space-y-6">
-          {/* Definition */}
-          <div className="p-4 rounded-lg border bg-card">
-            <div className="flex items-start gap-3">
-              <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
-                <span className="text-primary">🎯</span>
-              </div>
-              <div>
-                <p className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Definition</p>
-                <p className="text-foreground">Multiple criteria bundled together without clear weighting will not return consistent results. Each criterion should measure one specific aspect.</p>
-              </div>
-            </div>
-          </div>
-          
-          {/* Why it matters */}
-          <div className="p-4 rounded-lg border bg-card">
-            <div className="flex items-start gap-3">
-              <div className="w-8 h-8 rounded-full bg-amber-500/10 flex items-center justify-center flex-shrink-0">
-                <span>💡</span>
-              </div>
-              <div>
-                <p className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Why it matters</p>
-                <p className="text-foreground">[Content coming soon]</p>
-              </div>
-            </div>
-          </div>
-
-          {/* Examples */}
-          <div>
-            <p className="text-xs uppercase tracking-wide text-muted-foreground mb-4">Examples</p>
-            <div className="space-y-4">
-              <ElementExampleRow
-                context="[Context]"
-                bad="[Bad criterion example]"
-                issue="[Why it's bad]"
-                good={<>[Good criterion example with <strong className="text-green-600">key highlights</strong>]</>}
-              />
-            </div>
-          </div>
-        </div>
+      <ContentSlide title="Element #1 — Ambiguous" layout="left">
+        <CriterionErrorQuiz
+          elementNumber={1}
+          elementName="Ambiguous"
+          definition="A criterion is ambiguous when a judge model cannot reliably mark it true or false because it uses subjective language, undefined standards, or fuzzy thresholds. Ambiguity leads to inconsistent scoring across evaluators and future responses."
+          examplePrompt="You are a consultant. Create a 6-slide proposal deck (PDF) that includes: Problem Summary, Proposed Approach, Timeline, Risks & Mitigations."
+          optionA="The proposal deck is well-organized."
+          optionB="The proposal deck includes a slide titled 'Risks and Mitigations'."
+          correctOption="B"
+          whyBadExplanation='"Well-organized" is subjective and open to interpretation. Different judges may disagree on whether the criterion is satisfied.'
+          whyGoodExplanation="It checks for a specific, observable artifact that can be evaluated consistently."
+          detectHeuristics={[
+            'Look for subjective adjectives like "good," "clear," "professional," or "correct."',
+            'Look for undefined standards such as "best practices" or "high quality."',
+          ]}
+          quickTest="Could two reasonable reviewers disagree while reading the same output?"
+          howToFix="Replace subjective language with observable, concrete requirements such as sections, headings, exact statements, or clearly defined thresholds."
+        />
       </ContentSlide>
     ),
   },
   {
-    id: "criterion-element-verifiable",
+    id: "criterion-error-not-self-contained",
     section: "Rubrics",
-    title: "Element #2: Programmatically Verifiable",
-    parentId: "criterion-elements-overview",
+    title: "Element #2 — Not Self-contained",
+    parentId: "criterion-errors-overview",
     content: (
-      <ContentSlide title="Programmatically Verifiable" layout="left">
-        <div className="space-y-6">
-          {/* Definition */}
-          <div className="p-4 rounded-lg border bg-card">
-            <div className="flex items-start gap-3">
-              <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
-                <span className="text-primary">🎯</span>
-              </div>
-              <div>
-                <p className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Definition</p>
-                <p className="text-foreground">AI labs need automated ways of evaluating at scale. Criteria must be written so they can be checked by code or AI.</p>
-              </div>
-            </div>
-          </div>
-          
-          {/* Why it matters */}
-          <div className="p-4 rounded-lg border bg-card">
-            <div className="flex items-start gap-3">
-              <div className="w-8 h-8 rounded-full bg-amber-500/10 flex items-center justify-center flex-shrink-0">
-                <span>💡</span>
-              </div>
-              <div>
-                <p className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Why it matters</p>
-                <p className="text-foreground">[Content coming soon]</p>
-              </div>
-            </div>
-          </div>
-
-          {/* Examples */}
-          <div>
-            <p className="text-xs uppercase tracking-wide text-muted-foreground mb-4">Examples</p>
-            <div className="space-y-4">
-              <ElementExampleRow
-                context="[Context]"
-                bad="[Bad criterion example]"
-                issue="[Why it's bad]"
-                good={<>[Good criterion example with <strong className="text-green-600">key highlights</strong>]</>}
-              />
-            </div>
-          </div>
-        </div>
+      <ContentSlide title="Element #2 — Not Self-contained" layout="left">
+        <CriterionErrorQuiz
+          elementNumber={2}
+          elementName="Not Self-contained"
+          definition="A criterion is not self-contained when it relies on information outside the criterion and the deliverable. The judge model evaluates each criterion in isolation and does not read the prompt, input files, or links."
+          examplePrompt="Using the data below, write a one-page Q1 sales summary (PDF). Data: January = $310k, February = $420k, March = $510k."
+          optionA="The summary includes the total Q1 sales from the input data."
+          optionB="The summary states total Q1 sales are $1,240,000."
+          correctOption="B"
+          whyBadExplanation='The judge model does not have access to "the input data" and cannot verify the criterion.'
+          whyGoodExplanation="All required context is included directly in the criterion."
+          detectHeuristics={[
+            'Look for references like "from the prompt," "from the input file," or "as described above."',
+            "Look for pronouns that require external context.",
+          ]}
+          quickTest="Could someone judge this criterion using only the criterion text and the deliverable?"
+          howToFix="Include the specific values, names, or statements directly in the criterion so it can be evaluated independently."
+        />
       </ContentSlide>
     ),
   },
   {
-    id: "criterion-element-consistent",
+    id: "criterion-error-stacked",
     section: "Rubrics",
-    title: "Element #3: Consistently Evaluable",
-    parentId: "criterion-elements-overview",
+    title: "Element #3 — Stacked",
+    parentId: "criterion-errors-overview",
     content: (
-      <ContentSlide title="Consistently Evaluable" layout="left">
-        <div className="space-y-6">
-          {/* Definition */}
-          <div className="p-4 rounded-lg border bg-card">
-            <div className="flex items-start gap-3">
-              <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
-                <span className="text-primary">🎯</span>
-              </div>
-              <div>
-                <p className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Definition</p>
-                <p className="text-foreground">An AI model serving as an evaluator can consistently return the same answer against that criterion.</p>
-              </div>
-            </div>
-          </div>
-          
-          {/* Why it matters */}
-          <div className="p-4 rounded-lg border bg-card">
-            <div className="flex items-start gap-3">
-              <div className="w-8 h-8 rounded-full bg-amber-500/10 flex items-center justify-center flex-shrink-0">
-                <span>💡</span>
-              </div>
-              <div>
-                <p className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Why it matters</p>
-                <p className="text-foreground">[Content coming soon]</p>
-              </div>
-            </div>
-          </div>
-
-          {/* Examples */}
-          <div>
-            <p className="text-xs uppercase tracking-wide text-muted-foreground mb-4">Examples</p>
-            <div className="space-y-4">
-              <ElementExampleRow
-                context="[Context]"
-                bad="[Bad criterion example]"
-                issue="[Why it's bad]"
-                good={<>[Good criterion example with <strong className="text-green-600">key highlights</strong>]</>}
-              />
-            </div>
-          </div>
-        </div>
+      <ContentSlide title="Element #3 — Stacked" layout="left">
+        <CriterionErrorQuiz
+          elementNumber={3}
+          elementName="Stacked"
+          definition="A criterion is stacked when it measures two or more independent checks at once. Because scoring is binary, partial success still results in failure, creating noisy and unfair scoring."
+          examplePrompt="Write a kickoff email that includes: (1) meeting date, (2) Zoom link, (3) agenda bullets."
+          optionA="The email includes the meeting date and the Zoom link."
+          optionB="The email includes the meeting date."
+          correctOption="B"
+          whyBadExplanation="It bundles two independent requirements into one true or false check."
+          whyGoodExplanation="It evaluates a single requirement and can be paired with another criterion."
+          detectHeuristics={[
+            'Look for "and," "as well as," or multiple nouns in one criterion.',
+            "Ask whether partial compliance is possible.",
+          ]}
+          quickTest="Could a response satisfy part of this criterion but still fail it?"
+          howToFix="Split stacked criteria into multiple atomic criteria, one per requirement."
+        />
       </ContentSlide>
     ),
   },
   {
-    id: "criterion-element-self-contained",
+    id: "criterion-error-convoluted",
     section: "Rubrics",
-    title: "Element #4: Self-contained",
-    parentId: "criterion-elements-overview",
+    title: "Element #4 — Convoluted Phrasing",
+    parentId: "criterion-errors-overview",
     content: (
-      <ContentSlide title="Self-contained" layout="left">
-        <div className="space-y-6">
-          {/* Definition */}
-          <div className="p-4 rounded-lg border bg-card">
-            <div className="flex items-start gap-3">
-              <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
-                <span className="text-primary">🎯</span>
-              </div>
-              <div>
-                <p className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Definition</p>
-                <p className="text-foreground">When the criterion requires access to input files or external context, the judge model will not have access to that context. All necessary info must be in the criterion itself.</p>
-              </div>
-            </div>
-          </div>
-          
-          {/* Why it matters */}
-          <div className="p-4 rounded-lg border bg-card">
-            <div className="flex items-start gap-3">
-              <div className="w-8 h-8 rounded-full bg-amber-500/10 flex items-center justify-center flex-shrink-0">
-                <span>💡</span>
-              </div>
-              <div>
-                <p className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Why it matters</p>
-                <p className="text-foreground">[Content coming soon]</p>
-              </div>
-            </div>
-          </div>
-
-          {/* Examples */}
-          <div>
-            <p className="text-xs uppercase tracking-wide text-muted-foreground mb-4">Examples</p>
-            <div className="space-y-4">
-              <ElementExampleRow
-                context="[Context]"
-                bad="[Bad criterion example]"
-                issue="[Why it's bad]"
-                good={<>[Good criterion example with <strong className="text-green-600">key highlights</strong>]</>}
-              />
-            </div>
-          </div>
-        </div>
+      <ContentSlide title="Element #4 — Convoluted Phrasing" layout="left">
+        <CriterionErrorQuiz
+          elementNumber={4}
+          elementName="Convoluted Phrasing"
+          definition="A criterion has convoluted phrasing when it is longer or more complex than necessary, making it harder to interpret consistently."
+          examplePrompt="Write a one-page summary report that includes a table summarizing 2026 farm produce totals."
+          optionA="The summary report has a table in it where the title indicates that it is meant to be a summary of the values for farm produce production for 2026."
+          optionB="The table in the Summary Report includes a title indicating it summarizes farm produce production for 2026."
+          correctOption="B"
+          whyBadExplanation="It is wordy, indirect, and harder to parse."
+          whyGoodExplanation="It is concise, direct, and easy to evaluate."
+          detectHeuristics={[
+            "Look for long dependent clauses or repeated phrasing.",
+            "Notice if you have to reread the criterion.",
+          ]}
+          quickTest="Can you rewrite it in one shorter sentence without losing meaning?"
+          howToFix='Use a consistent, simple template like: "The [deliverable or section] includes [specific, observable detail]."'
+        />
+      </ContentSlide>
+    ),
+  },
+  {
+    id: "criterion-error-process-words",
+    section: "Rubrics",
+    title: "Element #5 — Process Words",
+    parentId: "criterion-errors-overview",
+    content: (
+      <ContentSlide title="Element #5 — Process Words" layout="left">
+        <CriterionErrorQuiz
+          elementNumber={5}
+          elementName="Process Words"
+          definition="A criterion uses process words when it evaluates how the deliverable was produced rather than what the deliverable contains or is."
+          examplePrompt="Create a sample track in MP4 format."
+          optionA="The sample track is converted into an MP4 file."
+          optionB="The sample track is an MP4 file."
+          correctOption="B"
+          whyBadExplanation='"Converted" describes a process that is not observable in the final output.'
+          whyGoodExplanation="It evaluates the observable state of the deliverable."
+          detectHeuristics={[
+            'Look for verbs like "converted," "validated," "ensured," or "followed."',
+            "Look for phrases describing intent or method.",
+          ]}
+          quickTest="Could the deliverable be correct even if you do not know how it was made?"
+          howToFix="Rewrite process-based criteria to check the observable output state."
+        />
       </ContentSlide>
     ),
   },
