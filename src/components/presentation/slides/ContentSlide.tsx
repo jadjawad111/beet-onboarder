@@ -9,20 +9,36 @@ interface ContentSlideProps {
   onGateUnlock?: () => void; // Pass-through for gate unlock
 }
 
+// Recursively inject onGateUnlock prop to all nested React elements
+const injectGateUnlock = (children: React.ReactNode, onGateUnlock: () => void): React.ReactNode => {
+  return React.Children.map(children, (child) => {
+    if (!React.isValidElement(child)) {
+      return child;
+    }
+
+    // Clone the element with onGateUnlock prop
+    const childProps: any = { onGateUnlock };
+    
+    // If the child has children, recursively inject into them too
+    if (child.props.children) {
+      childProps.children = injectGateUnlock(child.props.children, onGateUnlock);
+    }
+    
+    return React.cloneElement(child as React.ReactElement<any>, childProps);
+  });
+};
+
 const ContentSlide = ({ 
   title, 
   children, 
   layout = 'center',
   className,
-  onGateUnlock, // Accept but don't use directly - children will receive via cloneElement
+  onGateUnlock,
 }: ContentSlideProps) => {
-  // Clone children and inject onGateUnlock to first-level children that support it
-  const childrenWithProps = React.Children.map(children, (child) => {
-    if (React.isValidElement(child) && onGateUnlock) {
-      return React.cloneElement(child as React.ReactElement<any>, { onGateUnlock });
-    }
-    return child;
-  });
+  // Inject onGateUnlock recursively to all children
+  const childrenWithProps = onGateUnlock 
+    ? injectGateUnlock(children, onGateUnlock)
+    : children;
 
   return (
     <div className={cn(
