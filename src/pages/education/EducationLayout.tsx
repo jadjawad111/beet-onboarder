@@ -5,15 +5,29 @@ import {
   ChevronDown, 
   CheckCircle2,
   PlayCircle,
-  BookOpen
+  Lightbulb,
+  Puzzle,
+  Sparkles,
+  BookOpen,
+  Layers,
+  Scale,
+  CheckSquare,
+  type LucideIcon
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import ContentHeader from "@/components/layout/ContentHeader";
 
+interface Module {
+  id: string;
+  label: string;
+  to: string;
+  icon: LucideIcon;
+}
+
 interface Track {
   id: string;
   label: string;
-  modules: { id: string; label: string; to: string }[];
+  modules: Module[];
   to: string;
 }
 
@@ -23,9 +37,9 @@ const tracks: Track[] = [
     label: "Prompt Writing",
     to: "/education/prompt-writing",
     modules: [
-      { id: "module-1", label: "Module 1: Fundamentals", to: "/education/prompt-writing/module-1" },
-      { id: "module-2", label: "Module 2: Advanced", to: "/education/prompt-writing/module-2" },
-      { id: "module-3", label: "Module 3: Best Practices", to: "/education/prompt-writing/module-3" },
+      { id: "module-1", label: "Module 1: Fundamentals", to: "/education/prompt-writing/module-1", icon: Lightbulb },
+      { id: "module-2", label: "Module 2: Advanced", to: "/education/prompt-writing/module-2", icon: Puzzle },
+      { id: "module-3", label: "Module 3: Best Practices", to: "/education/prompt-writing/module-3", icon: Sparkles },
     ]
   },
   {
@@ -33,10 +47,10 @@ const tracks: Track[] = [
     label: "Rubrics Creation",
     to: "/education/rubrics",
     modules: [
-      { id: "module-1", label: "Module 1: Introduction", to: "/education/rubrics/module-1" },
-      { id: "module-2", label: "Module 2: Categories", to: "/education/rubrics/module-2" },
-      { id: "module-3", label: "Module 3: Weights", to: "/education/rubrics/module-3" },
-      { id: "module-4", label: "Module 4: Validation", to: "/education/rubrics/module-4" },
+      { id: "module-1", label: "Module 1: Introduction", to: "/education/rubrics/module-1", icon: BookOpen },
+      { id: "module-2", label: "Module 2: Categories", to: "/education/rubrics/module-2", icon: Layers },
+      { id: "module-3", label: "Module 3: Weights", to: "/education/rubrics/module-3", icon: Scale },
+      { id: "module-4", label: "Module 4: Validation", to: "/education/rubrics/module-4", icon: CheckSquare },
     ]
   }
 ];
@@ -142,7 +156,7 @@ const EducationLayout = () => {
                             {completed ? (
                               <CheckCircle2 className="w-4 h-4 text-primary flex-shrink-0" />
                             ) : (
-                              <BookOpen className="w-4 h-4 flex-shrink-0" />
+                              <module.icon className="w-4 h-4 flex-shrink-0" />
                             )}
                             <span className="truncate">{module.label}</span>
                           </Link>
