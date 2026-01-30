@@ -9,14 +9,7 @@ import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 
 // Project Info pages
-import {
-  ProjectInfoLayout,
-  WelcomePage,
-  AccessPage,
-  WorkflowPage,
-  ToolsPage,
-  FAQsPage,
-} from "./pages/project-info";
+import { ProjectInfoLayout } from "./pages/project-info";
 
 // Education pages
 import { EducationLayout } from "./pages/education";
@@ -56,15 +49,8 @@ const App = () => (
           <Route element={<MainLayout />}>
             <Route path="/home" element={<Index />} />
             
-            {/* Project Information Routes */}
-            <Route path="/project-info" element={<ProjectInfoLayout />}>
-              <Route index element={null} />
-              <Route path="welcome" element={<WelcomePage />} />
-              <Route path="access" element={<AccessPage />} />
-              <Route path="workflow" element={<WorkflowPage />} />
-              <Route path="tools" element={<ToolsPage />} />
-              <Route path="faqs" element={<FAQsPage />} />
-            </Route>
+            {/* Project Information - Single scrollable page */}
+            <Route path="/project-info" element={<ProjectInfoLayout />} />
             
             {/* Education Routes */}
             <Route path="/education" element={<EducationLayout />}>
