@@ -1064,6 +1064,190 @@ This analysis will be stored on the concierge laptop as a Word file and will be 
     ),
   },
   {
+    id: "rubrics-why-need",
+    section: "Rubrics",
+    title: "Why do we need a rubric?",
+    content: (
+      <ContentSlide title="Why do we need a rubric?" layout="left">
+        <div className="space-y-6">
+          <p>
+            As AI models move beyond verifiable, discrete tasks and into real-world reasoning tasks, <strong className="text-foreground">evaluation becomes more complex</strong>. For many professional tasks, a response cannot be graded with a simple right or wrong check.
+          </p>
+          <p>
+            In expert domains, quality depends on multiple dimensions. A response might be factually correct but incomplete, well-written but unsafe, or persuasive but poorly reasoned. That is why evaluation requires <strong className="text-foreground">nuanced, multi-criteria judgment</strong>, similar to how people assess work in real jobs.
+          </p>
+          
+          {/* Domain Examples */}
+          <div className="p-4 rounded-lg border bg-primary/5 border-primary/20">
+            <p className="text-sm text-muted-foreground mb-3">You will see this across the domains in this project:</p>
+            <div className="flex flex-wrap gap-2">
+              {["Medicine", "Customer Support", "Law", "Music Production", "Finance", "Computer Science", "Sales"].map((domain) => (
+                <span key={domain} className="px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-medium">
+                  {domain}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          <p>
+            In these contexts, "good enough" is rarely binary. It is a combination of <strong className="text-foreground">accuracy, completeness, reasoning, clarity, tone, safety, and task fit</strong>.
+          </p>
+
+          <div className="p-4 rounded-lg border-2 border-primary/30 bg-primary/5">
+            <p className="text-foreground font-medium">
+              In this section, you will learn one of the most challenging parts of Project Beet 2.0: how to use rubrics to evaluate complex work consistently.
+            </p>
+          </div>
+        </div>
+      </ContentSlide>
+    ),
+  },
+  {
+    id: "rubrics-how-used",
+    section: "Rubrics",
+    title: "How Rubrics Are Used in AI Training",
+    content: (
+      <ContentSlide title="How Rubrics Are Used in AI Training" layout="left">
+        <div className="space-y-6">
+          <p>
+            In Project Beet 2.0, rubrics are used to <strong className="text-foreground">grade any future response</strong> to a prompt.
+          </p>
+          
+          {/* Key Definition Box */}
+          <div className="p-5 rounded-xl border-2 border-primary/30 bg-primary/5">
+            <p className="text-lg text-foreground">
+              A rubric is a <strong className="underline decoration-primary decoration-2">collection of criteria</strong> that collectively define what a good response is to a specific prompt, <strong>now and in the future</strong>.
+            </p>
+          </div>
+
+          <p>
+            Once a strong prompt and rubric are created, they are used to guide model improvement through repeated evaluation and feedback.
+          </p>
+
+          {/* Visual: Rubric Structure Preview */}
+          <div className="p-4 rounded-lg border bg-muted/30">
+            <p className="text-xs uppercase tracking-wide text-muted-foreground mb-4">What a rubric looks like</p>
+            <div className="space-y-2">
+              {[1, 2, 3, 4].map((num) => (
+                <div key={num} className="flex items-center gap-3 p-3 rounded-lg border bg-card">
+                  <div className="w-7 h-7 rounded-full bg-primary/20 flex items-center justify-center text-xs font-bold text-primary">{num}</div>
+                  <div className="flex-1">
+                    <p className="text-sm font-medium text-foreground">Criterion</p>
+                    <div className="flex gap-4 text-xs text-muted-foreground mt-1">
+                      <span>Weight</span>
+                      <span>Category</span>
+                      <span>Rationale</span>
+                      <span>Implicit/Explicit</span>
+                    </div>
+                  </div>
+                </div>
+              ))}
+              <div className="flex flex-col items-center gap-1 py-2 text-muted-foreground">
+                <span>•</span>
+                <span>•</span>
+                <span>•</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ContentSlide>
+    ),
+  },
+  {
+    id: "rubrics-what-is-criterion",
+    section: "Rubrics",
+    title: "What Is a Criterion?",
+    content: (
+      <ContentSlide title="What Is a Criterion?" layout="left">
+        <div className="space-y-6">
+          <p className="text-muted-foreground">Each criterion you create includes the following components:</p>
+          
+          {/* Criterion Components */}
+          <div className="space-y-3">
+            {/* Criterion */}
+            <div className="p-4 rounded-lg border bg-card">
+              <div className="flex items-start gap-3">
+                <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                  <span className="text-primary">✓</span>
+                </div>
+                <div>
+                  <p className="font-semibold text-foreground">Criterion</p>
+                  <p className="text-sm text-muted-foreground">A binary true or false statement that measures something about the expected response.</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Weight */}
+            <div className="p-4 rounded-lg border bg-card">
+              <div className="flex items-start gap-3">
+                <div className="w-8 h-8 rounded-full bg-amber-500/10 flex items-center justify-center flex-shrink-0">
+                  <span className="text-amber-600">⚖</span>
+                </div>
+                <div>
+                  <p className="font-semibold text-foreground">Weight</p>
+                  <p className="text-sm text-muted-foreground">A score from -100 to 100 that represents how important that criterion is.</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Category */}
+            <div className="p-4 rounded-lg border bg-card">
+              <div className="flex items-start gap-3">
+                <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                  <span className="text-primary">📁</span>
+                </div>
+                <div>
+                  <p className="font-semibold text-foreground">Category</p>
+                  <p className="text-sm text-muted-foreground mb-2">What aspect of the deliverable the criterion evaluates.</p>
+                  <div className="flex flex-wrap gap-2">
+                    {["Instruction Following", "Reasoning", "Extraction", "Formatting"].map((cat) => (
+                      <span key={cat} className="px-2 py-1 rounded text-xs bg-primary/10 text-primary font-medium">
+                        {cat}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Rationale */}
+            <div className="p-4 rounded-lg border bg-card">
+              <div className="flex items-start gap-3">
+                <div className="w-8 h-8 rounded-full bg-pink-500/10 flex items-center justify-center flex-shrink-0">
+                  <span className="text-pink-600">💭</span>
+                </div>
+                <div>
+                  <p className="font-semibold text-foreground">Rationale</p>
+                  <p className="text-sm text-muted-foreground">Your explanation for why the criterion exists and why it matters to evaluate.</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Implicit or Explicit */}
+            <div className="p-4 rounded-lg border bg-card">
+              <div className="flex items-start gap-3">
+                <div className="w-8 h-8 rounded-full bg-purple-500/10 flex items-center justify-center flex-shrink-0">
+                  <span className="text-purple-600">👁</span>
+                </div>
+                <div>
+                  <p className="font-semibold text-foreground">Implicit or Explicit</p>
+                  <p className="text-sm text-muted-foreground">Whether the criterion measures something explicitly asked for in the prompt, or something implied that requires expert judgment.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Summary callout */}
+          <div className="p-4 rounded-lg border-2 border-primary/30 bg-primary/5">
+            <p className="text-foreground font-medium">
+              Essentially, a rubric is a <strong className="underline decoration-primary decoration-2">collection of criteria</strong> that together define what makes a good response.
+            </p>
+          </div>
+        </div>
+      </ContentSlide>
+    ),
+  },
+  {
     id: "rubrics-intuition",
     section: "Rubrics",
     title: "Intuition: Good Rubrics & Criteria",
