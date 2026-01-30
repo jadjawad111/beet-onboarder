@@ -36,6 +36,66 @@ const allElements: ElementKey[] = [
   "clearConstraints",
 ];
 
+// Strip highlight markers for display before submission
+const stripMarkers = (text: string): string => {
+  return text.replace(/🟢|🔴/g, "");
+};
+
+// Parse and render text with highlights after submission
+const renderHighlightedText = (text: string): React.ReactNode[] => {
+  const parts: React.ReactNode[] = [];
+  let currentIndex = 0;
+  let key = 0;
+
+  // Regex to match both green and red markers
+  const regex = /(🟢([^🟢]+)🟢|🔴([^🔴]+)🔴)/g;
+  let match;
+
+  while ((match = regex.exec(text)) !== null) {
+    // Add text before the match
+    if (match.index > currentIndex) {
+      parts.push(<span key={key++}>{text.slice(currentIndex, match.index)}</span>);
+    }
+
+    // Check which type of highlight
+    if (match[2]) {
+      // Green highlight
+      parts.push(
+        <span 
+          key={key++} 
+          className="bg-green-500/20 text-green-700 dark:text-green-400 px-1 rounded font-medium"
+        >
+          {match[2]}
+        </span>
+      );
+    } else if (match[3]) {
+      // Red highlight
+      parts.push(
+        <span 
+          key={key++} 
+          className="bg-destructive/20 text-destructive px-1 rounded font-medium"
+        >
+          {match[3]}
+        </span>
+      );
+    }
+
+    currentIndex = match.index + match[0].length;
+  }
+
+  // Add remaining text
+  if (currentIndex < text.length) {
+    parts.push(<span key={key++}>{text.slice(currentIndex)}</span>);
+  }
+
+  return parts;
+};
+
+// Parse feedback explanation with inline highlights
+const renderFeedbackText = (text: string): React.ReactNode[] => {
+  return renderHighlightedText(text);
+};
+
 const PromptExerciseQuiz = ({
   exerciseNumber,
   promptExcerpt,
@@ -84,10 +144,10 @@ const PromptExerciseQuiz = ({
         {/* Prompt Excerpt */}
         <div className="mb-6 p-5 rounded-xl bg-muted/50 border-2 border-border">
           <p className="text-xs uppercase tracking-wider text-muted-foreground mb-3">
-            Prompt (Excerpt)
+            Prompt {submitted && <span className="text-primary">(with highlights)</span>}
           </p>
-          <p className="text-foreground italic leading-relaxed whitespace-pre-wrap">
-            "{promptExcerpt}"
+          <p className="text-foreground leading-relaxed whitespace-pre-wrap">
+            {submitted ? renderHighlightedText(promptExcerpt) : stripMarkers(promptExcerpt)}
           </p>
         </div>
 
@@ -198,17 +258,17 @@ const PromptExerciseQuiz = ({
                     key={element}
                     className={cn(
                       "p-4 rounded-lg border",
-                      isIssue ? "bg-green-500/5 border-green-500/30" : "bg-muted/30 border-border"
+                      isIssue ? "bg-destructive/5 border-destructive/30" : "bg-muted/30 border-border"
                     )}
                   >
                     <div className="flex items-start gap-2">
                       <div className="flex-1">
-                        <p className={cn("font-semibold", isIssue && "text-green-600")}>
-                          {isIssue ? "✅ " : ""}
+                        <p className={cn("font-semibold", isIssue && "text-destructive")}>
+                          {isIssue ? "🟥 " : ""}
                           {elementLabels[element]} — {isIssue ? "INCLUDED (Correct)" : "NOT an issue"}
                         </p>
                         <p className="text-sm text-muted-foreground mt-1">
-                          {elementFeedback.explanation}
+                          {renderFeedbackText(elementFeedback.explanation)}
                         </p>
                       </div>
                     </div>
