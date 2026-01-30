@@ -1068,7 +1068,7 @@ This analysis will be stored on the concierge laptop as a Word file and will be 
     section: "Rubrics",
     title: "Intuition: Good Rubrics & Criteria",
     content: (
-      <ContentSlide title="Building Intuition" layout="left">
+      <ContentSlide title="What really makes up a good Rubric and good Rubric Criterion?" layout="left">
         <div className="space-y-8">
           {/* Good Rubric section */}
           <div className="space-y-3">
