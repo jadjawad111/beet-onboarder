@@ -17,8 +17,10 @@ import CharacteristicsGrid from "@/components/presentation/slides/Characteristic
 import AITrainingProcess from "@/components/presentation/slides/AITrainingProcess";
 import CriterionErrorQuiz from "@/components/presentation/slides/CriterionErrorQuiz";
 import RubricLevelQuiz from "@/components/presentation/slides/RubricLevelQuiz";
+import RubricInteractiveQuiz from "@/components/presentation/slides/RubricInteractiveQuiz";
+import { exercise1Prompt, exercise1DeliverableUrl, exercise1Criteria } from "@/data/rubricQuizExercise1";
 import { Card, CardContent } from "@/components/ui/card";
-import { Lightbulb, Target } from "lucide-react";
+import { Lightbulb, Target, ClipboardCheck } from "lucide-react";
 
 // All slides for the Project Beet 2.0 Training Course
 const slides: Slide[] = [
@@ -1743,6 +1745,89 @@ This analysis will be stored on the concierge laptop as a Word file and will be 
             "Traceability test: Can you point to a sentence in the prompt that directly states the requirement? Yes → Explicit. No → Implicit, if the criterion measures something that requires intermediate steps to satisfy a prompt requirement or requires professional judgment.",
           ]}
           howToFix="Try to map each criterion to a specific statement or request in the prompt. If it isn't explicitly stated, it is likely implicit."
+        />
+      </ContentSlide>
+    ),
+  },
+
+  // ═══════════════════════════════════════════════════════════════
+  // RUBRIC INTERACTIVE QUIZ
+  // ═══════════════════════════════════════════════════════════════
+  {
+    id: "rubric-quiz-intro",
+    section: "Rubrics",
+    title: "Interactive Quiz",
+    content: (
+      <ContentSlide title="Rubric Interactive Quiz" layout="left">
+        <div className="space-y-6">
+          <Card className="border-primary/30 bg-primary/5">
+            <CardContent className="p-6">
+              <div className="flex gap-4">
+                <div className="flex-shrink-0 w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center">
+                  <ClipboardCheck className="w-6 h-6 text-primary" />
+                </div>
+                <div>
+                  <p className="font-semibold text-lg text-foreground mb-2">Test Your Knowledge</p>
+                  <p className="text-muted-foreground">
+                    Now it's time to apply what you've learned. You'll review rubric criteria and identify any errors.
+                  </p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          <div className="space-y-4">
+            <h3 className="font-semibold text-lg">What You'll Do</h3>
+            <ul className="space-y-3">
+              <li className="flex gap-3">
+                <span className="flex-shrink-0 w-6 h-6 rounded-full bg-muted flex items-center justify-center text-sm font-medium">1</span>
+                <span>Review a real prompt and its golden deliverable</span>
+              </li>
+              <li className="flex gap-3">
+                <span className="flex-shrink-0 w-6 h-6 rounded-full bg-muted flex items-center justify-center text-sm font-medium">2</span>
+                <span>Evaluate 25 rubric criteria for errors</span>
+              </li>
+              <li className="flex gap-3">
+                <span className="flex-shrink-0 w-6 h-6 rounded-full bg-muted flex items-center justify-center text-sm font-medium">3</span>
+                <span>Identify the specific error type when applicable</span>
+              </li>
+              <li className="flex gap-3">
+                <span className="flex-shrink-0 w-6 h-6 rounded-full bg-muted flex items-center justify-center text-sm font-medium">4</span>
+                <span>Receive immediate feedback on each criterion</span>
+              </li>
+            </ul>
+          </div>
+
+          <Card className="border-amber-300 bg-amber-50 dark:bg-amber-950/30 dark:border-amber-600/50">
+            <CardContent className="p-5">
+              <div className="flex gap-4">
+                <Lightbulb className="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" />
+                <div>
+                  <p className="font-medium text-amber-800 dark:text-amber-300 mb-1">Remember</p>
+                  <p className="text-sm text-foreground">
+                    Only <strong>criterion-level errors</strong> are in scope: Ambiguous, Not self-contained, Stacked, Convoluted phrasing, and Process words.
+                  </p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      </ContentSlide>
+    ),
+  },
+  {
+    id: "rubric-quiz-exercise-1",
+    section: "Rubrics",
+    title: "Exercise #1",
+    parentId: "rubric-quiz-intro",
+    content: (
+      <ContentSlide title="" layout="left">
+        <RubricInteractiveQuiz
+          exerciseNumber={1}
+          prompt={exercise1Prompt}
+          deliverableUrl={exercise1DeliverableUrl}
+          deliverableTitle="Real Estate Buyer Brochure"
+          criteria={exercise1Criteria}
         />
       </ContentSlide>
     ),
