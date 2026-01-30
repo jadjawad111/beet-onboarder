@@ -9,8 +9,7 @@ import {
   FileText, 
   ExternalLink,
   Trophy,
-  Target,
-  Send
+  Target
 } from "lucide-react";
 import {
   Table,
@@ -89,12 +88,10 @@ const RubricInteractiveQuiz = ({
     return initial;
   });
   
-  // Track which criteria have been submitted (individually or via submit all)
-  const [submittedCriteria, setSubmittedCriteria] = useState<Set<number>>(new Set());
-  const [allSubmitted, setAllSubmitted] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
 
   const handleHasErrorChange = (criterionId: number, value: "yes" | "no") => {
-    if (submittedCriteria.has(criterionId)) return;
+    if (submitted) return;
     setAnswers(prev => ({
       ...prev,
       [criterionId]: {
@@ -105,7 +102,7 @@ const RubricInteractiveQuiz = ({
   };
 
   const handleErrorTypeChange = (criterionId: number, value: ErrorType) => {
-    if (submittedCriteria.has(criterionId)) return;
+    if (submitted) return;
     setAnswers(prev => ({
       ...prev,
       [criterionId]: {
@@ -122,20 +119,13 @@ const RubricInteractiveQuiz = ({
     return true;
   };
 
-  const handleSubmitSingle = (criterionId: number) => {
-    if (!isCriterionAnswered(criterionId)) return;
-    setSubmittedCriteria(prev => new Set([...prev, criterionId]));
-  };
-
   const allAnswered = useMemo(() => {
     return criteria.every(c => isCriterionAnswered(c.id));
   }, [answers, criteria]);
 
   const handleSubmitAll = () => {
     if (!allAnswered) return;
-    const allIds = new Set(criteria.map(c => c.id));
-    setSubmittedCriteria(allIds);
-    setAllSubmitted(true);
+    setSubmitted(true);
   };
 
   const getScore = (criterion: CriterionData, answer: CriterionAnswer): "full" | "partial" | "none" => {
@@ -157,7 +147,7 @@ const RubricInteractiveQuiz = ({
   };
 
   const results = useMemo(() => {
-    if (!allSubmitted) return null;
+    if (!submitted) return null;
     
     let fullCredit = 0;
     let partialCredit = 0;
@@ -196,7 +186,7 @@ const RubricInteractiveQuiz = ({
       mostMissedType: mostMissed ? mostMissed[0] as ErrorType : null,
       mostMissedCount: mostMissed ? mostMissed[1] : 0,
     };
-  }, [allSubmitted, criteria, answers]);
+  }, [submitted, criteria, answers]);
 
   const embedUrl = useMemo(() => {
     const match = deliverableUrl.match(/\/d\/([a-zA-Z0-9_-]+)/);
@@ -207,7 +197,6 @@ const RubricInteractiveQuiz = ({
   }, [deliverableUrl]);
 
   const answeredCount = criteria.filter(c => isCriterionAnswered(c.id)).length;
-  const submittedCount = submittedCriteria.size;
 
   return (
     <div className="space-y-6">
@@ -215,7 +204,7 @@ const RubricInteractiveQuiz = ({
       <div>
         <h2 className="text-2xl font-bold mb-2">Exercise #{exerciseNumber}</h2>
         <p className="text-muted-foreground">
-          Review each rubric criterion and identify any errors. Submit individually or all at once.
+          Review each rubric criterion and identify any errors.
         </p>
       </div>
 
@@ -228,7 +217,7 @@ const RubricInteractiveQuiz = ({
               <p className="font-semibold text-foreground mb-1">Instructions</p>
               <p className="text-muted-foreground">
                 For each criterion: select <strong>No</strong> or <strong>Yes</strong> for errors. 
-                If yes, choose the type. Click the submit button per row, or use "Submit All" at the bottom.
+                If yes, choose the error type. Submit all answers at the bottom when ready.
               </p>
             </div>
           </div>
@@ -279,12 +268,10 @@ const RubricInteractiveQuiz = ({
       {/* Progress indicator */}
       <div className="flex items-center justify-between text-sm">
         <span className="text-muted-foreground">
-          Progress: <strong>{submittedCount}</strong> / {criteria.length} submitted
+          Progress: <strong>{answeredCount}</strong> / {criteria.length} answered
         </span>
-        {answeredCount > submittedCount && (
-          <span className="text-primary">
-            {answeredCount - submittedCount} ready to submit
-          </span>
+        {!submitted && answeredCount === criteria.length && (
+          <span className="text-green-600 font-medium">Ready to submit!</span>
         )}
       </div>
 
@@ -296,20 +283,18 @@ const RubricInteractiveQuiz = ({
             <TableHeader>
               <TableRow className="bg-muted/50">
                 <TableHead className="w-12 text-center">#</TableHead>
-                <TableHead className="min-w-[280px]">Criterion</TableHead>
+                <TableHead className="min-w-[300px]">Criterion</TableHead>
                 <TableHead className="w-16 text-center">Weight</TableHead>
                 <TableHead className="w-36">Category</TableHead>
                 <TableHead className="w-28 text-center">Error?</TableHead>
                 <TableHead className="w-40">Error Type</TableHead>
-                <TableHead className="w-20 text-center">Submit</TableHead>
+                {submitted && <TableHead className="w-20 text-center">Result</TableHead>}
               </TableRow>
             </TableHeader>
             <TableBody>
               {criteria.map((criterion) => {
                 const answer = answers[criterion.id];
-                const isSubmitted = submittedCriteria.has(criterion.id);
-                const isAnswered = isCriterionAnswered(criterion.id);
-                const score = isSubmitted ? getScore(criterion, answer) : null;
+                const score = submitted ? getScore(criterion, answer) : null;
                 
                 return (
                   <>
@@ -317,9 +302,9 @@ const RubricInteractiveQuiz = ({
                       key={criterion.id}
                       className={cn(
                         "transition-colors",
-                        isSubmitted && score === "full" && "bg-green-500/5",
-                        isSubmitted && score === "partial" && "bg-amber-500/5",
-                        isSubmitted && score === "none" && "bg-destructive/5"
+                        submitted && score === "full" && "bg-green-500/5",
+                        submitted && score === "partial" && "bg-amber-500/5",
+                        submitted && score === "none" && "bg-destructive/5"
                       )}
                     >
                       <TableCell className="text-center font-medium text-muted-foreground">
@@ -343,26 +328,26 @@ const RubricInteractiveQuiz = ({
                         <div className="flex justify-center gap-1">
                           <button
                             onClick={() => handleHasErrorChange(criterion.id, "no")}
-                            disabled={isSubmitted}
+                            disabled={submitted}
                             className={cn(
                               "px-2 py-1 text-xs rounded transition-all",
                               answer.hasError === "no" 
                                 ? "bg-green-500 text-white" 
                                 : "bg-muted hover:bg-muted/80 text-muted-foreground",
-                              isSubmitted && "cursor-default opacity-70"
+                              submitted && "cursor-default opacity-70"
                             )}
                           >
                             No
                           </button>
                           <button
                             onClick={() => handleHasErrorChange(criterion.id, "yes")}
-                            disabled={isSubmitted}
+                            disabled={submitted}
                             className={cn(
                               "px-2 py-1 text-xs rounded transition-all",
                               answer.hasError === "yes" 
                                 ? "bg-destructive text-white" 
                                 : "bg-muted hover:bg-muted/80 text-muted-foreground",
-                              isSubmitted && "cursor-default opacity-70"
+                              submitted && "cursor-default opacity-70"
                             )}
                           >
                             Yes
@@ -370,7 +355,7 @@ const RubricInteractiveQuiz = ({
                         </div>
                       </TableCell>
                       <TableCell>
-                        {answer.hasError === "yes" && !isSubmitted && (
+                        {answer.hasError === "yes" && !submitted && (
                           <select
                             value={answer.errorType ?? ""}
                             onChange={(e) => handleErrorTypeChange(criterion.id, e.target.value as ErrorType)}
@@ -387,7 +372,7 @@ const RubricInteractiveQuiz = ({
                             ))}
                           </select>
                         )}
-                        {answer.hasError === "yes" && isSubmitted && (
+                        {answer.hasError === "yes" && submitted && (
                           <span className="text-xs">{answer.errorType ? errorTypeLabels[answer.errorType] : "—"}</span>
                         )}
                         {answer.hasError === "no" && (
@@ -397,34 +382,17 @@ const RubricInteractiveQuiz = ({
                           <span className="text-xs text-muted-foreground">—</span>
                         )}
                       </TableCell>
-                      <TableCell className="text-center">
-                        {!isSubmitted && (
-                          <button
-                            onClick={() => handleSubmitSingle(criterion.id)}
-                            disabled={!isAnswered}
-                            className={cn(
-                              "p-1.5 rounded transition-all",
-                              isAnswered 
-                                ? "bg-primary text-primary-foreground hover:bg-primary/90" 
-                                : "bg-muted text-muted-foreground cursor-not-allowed"
-                            )}
-                            title={isAnswered ? "Submit this criterion" : "Complete answer first"}
-                          >
-                            <Send className="w-3.5 h-3.5" />
-                          </button>
-                        )}
-                        {isSubmitted && (
-                          <>
-                            {score === "full" && <CheckCircle2 className="w-5 h-5 text-green-500 mx-auto" />}
-                            {score === "partial" && <AlertTriangle className="w-5 h-5 text-amber-500 mx-auto" />}
-                            {score === "none" && <XCircle className="w-5 h-5 text-destructive mx-auto" />}
-                          </>
-                        )}
-                      </TableCell>
+                      {submitted && (
+                        <TableCell className="text-center">
+                          {score === "full" && <CheckCircle2 className="w-5 h-5 text-green-500 mx-auto" />}
+                          {score === "partial" && <AlertTriangle className="w-5 h-5 text-amber-500 mx-auto" />}
+                          {score === "none" && <XCircle className="w-5 h-5 text-destructive mx-auto" />}
+                        </TableCell>
+                      )}
                     </TableRow>
                     
-                    {/* Feedback row (shown after individual submit) */}
-                    {isSubmitted && (
+                    {/* Feedback row (shown after submit) */}
+                    {submitted && (
                       <TableRow key={`${criterion.id}-feedback`}>
                         <TableCell colSpan={7} className="bg-muted/30 p-0">
                           <div className={cn(
@@ -465,7 +433,7 @@ const RubricInteractiveQuiz = ({
       </div>
 
       {/* Submit All Button */}
-      {!allSubmitted && (
+      {!submitted && (
         <div className="sticky bottom-4 bg-background/95 backdrop-blur p-4 rounded-lg border shadow-lg">
           <Button 
             onClick={handleSubmitAll} 
@@ -474,15 +442,15 @@ const RubricInteractiveQuiz = ({
             disabled={!allAnswered}
           >
             {allAnswered 
-              ? `Submit All (${criteria.length - submittedCount} remaining)` 
-              : `Complete all criteria to submit all (${answeredCount}/${criteria.length})`
+              ? "Submit All Answers" 
+              : `Complete all criteria to submit (${answeredCount}/${criteria.length})`
             }
           </Button>
         </div>
       )}
 
       {/* Summary Screen */}
-      {allSubmitted && results && (
+      {submitted && results && (
         <Card className="border-2 border-primary/30">
           <CardContent className="p-6">
             <div className="flex items-center gap-4 mb-6">
