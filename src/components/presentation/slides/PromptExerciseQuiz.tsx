@@ -217,7 +217,14 @@ const PromptExerciseQuiz = ({
 
         {/* Post-Submit Feedback */}
         {submitted && (
-          <div className="space-y-4">
+          <div className="space-y-6 mt-8">
+            {/* Divider */}
+            <div className="flex items-center gap-4">
+              <div className="flex-1 h-px bg-border" />
+              <span className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Results</span>
+              <div className="flex-1 h-px bg-border" />
+            </div>
+
             {/* Result Banner */}
             <div
               className={cn(
@@ -245,7 +252,7 @@ const PromptExerciseQuiz = ({
             </div>
 
             {/* Element-by-Element Feedback */}
-            <div className="space-y-3">
+            <div className="space-y-3 pt-2">
               <p className="font-semibold text-sm uppercase tracking-wider text-muted-foreground">
                 Detailed Feedback
               </p>
