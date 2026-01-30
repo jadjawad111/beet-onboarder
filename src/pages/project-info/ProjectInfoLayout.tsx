@@ -31,15 +31,36 @@ const sections: NavItem[] = [
   { id: "faqs", label: "FAQs", icon: HelpCircle },
 ];
 
+// Section divider component
+const SectionDivider = ({ number }: { number: number }) => (
+  <div className="relative py-16">
+    {/* Full-width line */}
+    <div className="absolute inset-x-0 top-1/2 h-px bg-border" />
+    
+    {/* Center badge with section number */}
+    <div className="relative flex justify-center">
+      <div className="bg-background px-6 flex items-center gap-3">
+        <div className="h-px w-12 bg-gradient-to-r from-transparent to-primary/50" />
+        <div className="w-10 h-10 rounded-full bg-primary/10 border-2 border-primary flex items-center justify-center">
+          <span className="text-sm font-bold text-primary">{number}</span>
+        </div>
+        <div className="h-px w-12 bg-gradient-to-l from-transparent to-primary/50" />
+      </div>
+    </div>
+  </div>
+);
+
 // Animated section wrapper with scroll-triggered fade-in
 const AnimatedSection = ({ 
   id, 
-  children, 
-  isEven 
+  children,
+  sectionNumber,
+  isFirst = false,
 }: { 
   id: string; 
   children: React.ReactNode; 
-  isEven: boolean;
+  sectionNumber: number;
+  isFirst?: boolean;
 }) => {
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
@@ -52,7 +73,7 @@ const AnimatedSection = ({
           observer.disconnect(); // Only animate once
         }
       },
-      { threshold: 0.1, rootMargin: "-50px" }
+      { threshold: 0.05, rootMargin: "0px" }
     );
 
     if (sectionRef.current) {
@@ -66,17 +87,24 @@ const AnimatedSection = ({
     <section
       ref={sectionRef}
       id={id}
-      className={cn(
-        "scroll-mt-4 transition-all duration-700 ease-out",
-        isEven ? "bg-muted/30" : "bg-background",
-        isVisible 
-          ? "opacity-100 translate-y-0" 
-          : "opacity-0 translate-y-8"
-      )}
+      className="scroll-mt-4"
     >
-      <div className="py-12 lg:py-16 px-6 lg:px-10">
-        <div className="max-w-5xl">
-          {children}
+      {/* Section Divider - skip for first section */}
+      {!isFirst && <SectionDivider number={sectionNumber} />}
+      
+      {/* Content with animation */}
+      <div 
+        className={cn(
+          "transition-all duration-700 ease-out",
+          isVisible 
+            ? "opacity-100 translate-y-0" 
+            : "opacity-0 translate-y-8"
+        )}
+      >
+        <div className="py-8 px-6 lg:px-10">
+          <div className="max-w-5xl">
+            {children}
+          </div>
         </div>
       </div>
     </section>
@@ -203,30 +231,30 @@ const ProjectInfoLayout = () => {
           subtitle="Everything you need to get started"
         />
 
-        {/* Scrollable Content with all sections - alternating backgrounds */}
+        {/* Scrollable Content with all sections */}
         <div className="flex-1 overflow-y-auto">
           {/* Welcome Section */}
-          <AnimatedSection id="welcome" isEven={false}>
+          <AnimatedSection id="welcome" sectionNumber={1} isFirst>
             <WelcomePage />
           </AnimatedSection>
           
           {/* Access Section */}
-          <AnimatedSection id="access" isEven={true}>
+          <AnimatedSection id="access" sectionNumber={2}>
             <AccessPage />
           </AnimatedSection>
           
           {/* Workflow Section */}
-          <AnimatedSection id="workflow" isEven={false}>
+          <AnimatedSection id="workflow" sectionNumber={3}>
             <WorkflowPage />
           </AnimatedSection>
           
           {/* Tools Section */}
-          <AnimatedSection id="tools" isEven={true}>
+          <AnimatedSection id="tools" sectionNumber={4}>
             <ToolsPage />
           </AnimatedSection>
           
           {/* FAQs Section */}
-          <AnimatedSection id="faqs" isEven={false}>
+          <AnimatedSection id="faqs" sectionNumber={5}>
             <FAQsPage />
           </AnimatedSection>
         </div>
