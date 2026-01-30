@@ -11,6 +11,7 @@ import PromptQualityChecklist from "@/components/presentation/slides/PromptQuali
 import CoreElementsHover from "@/components/presentation/slides/CoreElementsHover";
 import ElementExampleRow from "@/components/presentation/slides/ElementExampleRow";
 import PromptExerciseQuiz from "@/components/presentation/slides/PromptExerciseQuiz";
+import BronzeExamplesSlide from "@/components/presentation/slides/BronzeExamplesSlide";
 import { Card, CardContent } from "@/components/ui/card";
 import { Lightbulb, Target } from "lucide-react";
 
@@ -842,19 +843,53 @@ This report will be used to brief the design team and guide future optimization 
     ),
   },
   {
-    id: "bronze-placeholder",
+    id: "bronze-what-is",
     section: '"Bronze" Response',
-    title: "Coming Soon",
+    title: "What is a Bronze response?",
     content: (
-      <ContentSlide title="Bronze Response Content">
-        <p className="mb-6">
-          Content for the Bronze Response section will be added here.
-        </p>
-        <p className="text-muted-foreground">
-          This section will cover quality tiers and response evaluation.
-        </p>
+      <ContentSlide title="What is a Bronze response?" layout="left">
+        <div className="space-y-6">
+          <p>
+            <strong className="text-foreground">A Bronze response is your attempt at producing the actual deliverable for a task.</strong>
+          </p>
+          <p>
+            The model will not train directly on your deliverable. Producing a Bronze response helps you build a strong understanding of what matters in the output, what a good response looks like, and which elements should be captured and evaluated in your rubric.
+          </p>
+          <p className="text-muted-foreground">
+            If you do not produce a Bronze response, or do not seriously attempt one, you will likely miss several key elements that are important for assessing model outputs.
+          </p>
+        </div>
       </ContentSlide>
     ),
+  },
+  {
+    id: "bronze-not-perfect",
+    section: '"Bronze" Response',
+    title: "What it doesn't need to be",
+    content: (
+      <ContentSlide title="What a Bronze response does not need to be" layout="left">
+        <div className="space-y-6">
+          <p>
+            A Bronze response, as the name implies, <strong className="text-foreground">is not a gold standard deliverable</strong>.
+          </p>
+          <p>
+            It does not need to be perfect, fully polished, or something you would confidently send to your boss or a client.
+          </p>
+          <p>
+            However, it does need to be <strong className="text-foreground">sufficiently thoughtful and detailed</strong> so that you have a complete understanding of what a strong output would include.
+          </p>
+          <p className="text-primary font-medium">
+            The goal is comprehension and evaluation, not perfection.
+          </p>
+        </div>
+      </ContentSlide>
+    ),
+  },
+  {
+    id: "bronze-examples",
+    section: '"Bronze" Response',
+    title: "Examples",
+    content: <BronzeExamplesSlide />,
   },
 
   // ═══════════════════════════════════════════════════════════════
