@@ -1013,7 +1013,7 @@ This report will be used to brief the design team and guide future optimization 
     section: "Rubrics",
     title: "What makes a good criterion",
     content: (
-      <ContentSlide title="What makes a good rubric criterion?" layout="left">
+      <ContentSlide title="What does a good Rubric generally mean?" layout="left">
         <div className="space-y-4">
           <p className="mb-4">
             Each criterion in your rubric should meet these four characteristics. <span className="text-muted-foreground">Click each to learn more:</span>
