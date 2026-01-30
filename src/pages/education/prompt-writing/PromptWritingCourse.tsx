@@ -185,6 +185,13 @@ const slides: Slide[] = [
           <p className="text-muted-foreground">
             Each attribute captures a different aspect of how real professional tasks are communicated and evaluated.
           </p>
+          
+          {/* Caveat Card */}
+          <div className="p-4 rounded-lg border border-primary/20 bg-primary/5">
+            <p className="text-sm text-muted-foreground">
+              <strong className="text-foreground">Note:</strong> We will do a deep dive into each element. For educational purposes, we'll show excerpts from prompts to showcase these elements individually. In practice, prompts exist as a whole — full examples will be shown towards the end of this section.
+            </p>
+          </div>
         </div>
       </ContentSlide>
     ),
