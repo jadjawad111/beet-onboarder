@@ -249,7 +249,7 @@ const PromptExerciseQuiz = ({
               <p className="font-semibold text-sm uppercase tracking-wider text-muted-foreground">
                 Detailed Feedback
               </p>
-              {allElements.map((element) => {
+            {allElements.map((element) => {
                 const elementFeedback = feedback[element];
                 const isIssue = elementFeedback.isIssue;
 
@@ -258,14 +258,19 @@ const PromptExerciseQuiz = ({
                     key={element}
                     className={cn(
                       "p-4 rounded-lg border",
-                      isIssue ? "bg-destructive/5 border-destructive/30" : "bg-muted/30 border-border"
+                      isIssue ? "bg-destructive/5 border-destructive/30" : "bg-green-500/5 border-green-500/30"
                     )}
                   >
-                    <div className="flex items-start gap-2">
+                    <div className="flex items-start gap-3">
+                      <div className={cn(
+                        "flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold mt-0.5",
+                        isIssue ? "bg-destructive/20 text-destructive" : "bg-green-500/20 text-green-600"
+                      )}>
+                        {isIssue ? "✗" : "✓"}
+                      </div>
                       <div className="flex-1">
-                        <p className={cn("font-semibold", isIssue && "text-destructive")}>
-                          {isIssue ? "🟥 " : ""}
-                          {elementLabels[element]} — {isIssue ? "INCLUDED (Correct)" : "NOT an issue"}
+                        <p className={cn("font-semibold", isIssue ? "text-destructive" : "text-green-600")}>
+                          {elementLabels[element]} — {isIssue ? "ERROR" : "NO ERROR"}
                         </p>
                         <p className="text-sm text-muted-foreground mt-1">
                           {renderFeedbackText(elementFeedback.explanation)}
