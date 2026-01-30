@@ -15,6 +15,7 @@ const slides: Slide[] = [
   // ═══════════════════════════════════════════════════════════════
   {
     id: "title",
+    title: "Welcome",
     content: (
       <TitleSlide 
         title="Prompt Writing"
@@ -29,6 +30,7 @@ const slides: Slide[] = [
   {
     id: "m1-intro",
     module: 1,
+    title: "Module 1: Introduction",
     content: (
       <SectionDividerSlide 
         moduleNumber={1}
@@ -40,6 +42,7 @@ const slides: Slide[] = [
   {
     id: "m1-problem",
     module: 1,
+    title: "The Problem",
     content: (
       <ContentSlide title="The Problem">
         <p className="mb-6">
@@ -56,6 +59,7 @@ const slides: Slide[] = [
   {
     id: "m1-what-is-knowledge-work",
     module: 1,
+    title: "What is Knowledge Work?",
     content: (
       <BulletSlide 
         title="What is Knowledge Work?"
@@ -72,6 +76,7 @@ const slides: Slide[] = [
   {
     id: "m1-ai-gap",
     module: 1,
+    title: "The AI Gap",
     content: (
       <QuoteSlide 
         quote="AI doesn't fail on the easy stuff. It fails on the subtle stuff — the things experts take years to master."
@@ -82,6 +87,7 @@ const slides: Slide[] = [
   {
     id: "m1-your-role",
     module: 1,
+    title: "Your Role",
     content: (
       <BulletSlide 
         title="Your Role as a Prompt Writer"
@@ -102,6 +108,7 @@ const slides: Slide[] = [
   {
     id: "m2-intro",
     module: 2,
+    title: "Module 2: Introduction",
     content: (
       <SectionDividerSlide 
         moduleNumber={2}
@@ -113,6 +120,7 @@ const slides: Slide[] = [
   {
     id: "m2-attributes-overview",
     module: 2,
+    title: "Core Attributes Overview",
     content: (
       <ContentSlide title="The 7 Core Attributes">
         <p className="mb-6">
@@ -128,6 +136,7 @@ const slides: Slide[] = [
   {
     id: "m2-attr-1-2",
     module: 2,
+    title: "Attributes 1-2",
     content: (
       <BulletSlide 
         title="Attributes 1-2"
@@ -142,6 +151,7 @@ const slides: Slide[] = [
   {
     id: "m2-attr-3-4",
     module: 2,
+    title: "Attributes 3-4",
     content: (
       <BulletSlide 
         title="Attributes 3-4"
@@ -156,6 +166,7 @@ const slides: Slide[] = [
   {
     id: "m2-attr-5-6-7",
     module: 2,
+    title: "Attributes 5-7",
     content: (
       <BulletSlide 
         title="Attributes 5-7"
@@ -171,6 +182,7 @@ const slides: Slide[] = [
   {
     id: "m2-failure-modes",
     module: 2,
+    title: "Model Failure Modes",
     content: (
       <ContentSlide title="Model Failure Modes">
         <p className="mb-6">
@@ -198,6 +210,7 @@ const slides: Slide[] = [
   {
     id: "m3-intro",
     module: 3,
+    title: "Module 3: Introduction",
     content: (
       <SectionDividerSlide 
         moduleNumber={3}
@@ -209,6 +222,7 @@ const slides: Slide[] = [
   {
     id: "m3-why-checklist",
     module: 3,
+    title: "Why a Checklist?",
     content: (
       <QuoteSlide 
         quote="A checklist doesn't limit creativity — it ensures quality."
@@ -219,6 +233,7 @@ const slides: Slide[] = [
   {
     id: "m3-checklist-part1",
     module: 3,
+    title: "Before You Write",
     content: (
       <BulletSlide 
         title="Before You Write"
@@ -235,6 +250,7 @@ const slides: Slide[] = [
   {
     id: "m3-checklist-part2",
     module: 3,
+    title: "As You Write",
     content: (
       <BulletSlide 
         title="As You Write"
@@ -251,6 +267,7 @@ const slides: Slide[] = [
   {
     id: "m3-checklist-part3",
     module: 3,
+    title: "Before You Submit",
     content: (
       <BulletSlide 
         title="Before You Submit"
@@ -266,6 +283,7 @@ const slides: Slide[] = [
   },
   {
     id: "final",
+    title: "Complete!",
     content: (
       <ContentSlide title="You're Ready!">
         <p className="mb-6">
