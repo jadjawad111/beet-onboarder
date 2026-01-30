@@ -45,9 +45,8 @@ const PresentationLayout = ({
   const progress = ((highestSlideReached + 1) / totalSlides) * 100;
 
   const currentSlideData = slides[currentSlide];
-  const isCurrentSlideGated = currentSlideData?.gated ?? false;
-  const isCurrentSlideUnlocked = unlockedSlides.has(currentSlideData?.id ?? '');
-  const canContinue = !isCurrentSlideGated || isCurrentSlideUnlocked;
+  // Gating disabled - always allow continuation
+  const canContinue = true;
 
   // Function to unlock the current slide (passed to children)
   const unlockCurrentSlide = useCallback(() => {
@@ -417,12 +416,7 @@ const PresentationLayout = ({
                 {slides[currentSlide].section}
               </span>
             )}
-            {isCurrentSlideGated && !isCurrentSlideUnlocked && (
-              <span className="px-2 py-1 rounded-full bg-amber-500/10 text-xs font-medium text-amber-600 flex items-center gap-1">
-                <Lock className="w-3 h-3" />
-                Complete to continue
-              </span>
-            )}
+            {/* Gating indicator removed */}
           </div>
           
           {/* Back button (visible when not on first slide) */}
