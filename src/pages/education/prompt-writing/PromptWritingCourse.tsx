@@ -1068,13 +1068,13 @@ This analysis will be stored on the concierge laptop as a Word file and will be 
     section: "Rubrics",
     title: "Intuition: Good Rubrics & Criteria",
     content: (
-      <ContentSlide title="Building Intuition" layout="center">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          {/* Left: Good Rubric */}
-          <div className="space-y-4">
-            <div className="pb-3 border-b border-border">
-              <h3 className="text-xl font-bold text-foreground">What makes a good Rubric?</h3>
-              <p className="text-sm text-muted-foreground mt-1">Click each to learn more:</p>
+      <ContentSlide title="Building Intuition" layout="left">
+        <div className="space-y-8">
+          {/* Good Rubric section */}
+          <div className="space-y-3">
+            <div className="pb-2 border-b border-border">
+              <h3 className="text-lg font-bold text-foreground">What makes a good Rubric?</h3>
+              <p className="text-xs text-muted-foreground mt-1">Click each to learn more:</p>
             </div>
             <CharacteristicsGrid
               characteristics={[
@@ -1094,11 +1094,11 @@ This analysis will be stored on the concierge laptop as a Word file and will be 
             />
           </div>
 
-          {/* Right: Good Criterion */}
-          <div className="space-y-4">
-            <div className="pb-3 border-b border-border">
-              <h3 className="text-xl font-bold text-foreground">What makes a good Criterion?</h3>
-              <p className="text-sm text-muted-foreground mt-1">Click each to learn more:</p>
+          {/* Good Criterion section */}
+          <div className="space-y-3">
+            <div className="pb-2 border-b border-border">
+              <h3 className="text-lg font-bold text-foreground">What makes a good Criterion?</h3>
+              <p className="text-xs text-muted-foreground mt-1">Click each to learn more:</p>
             </div>
             <CharacteristicsGrid
               characteristics={[
@@ -1121,11 +1121,11 @@ This analysis will be stored on the concierge laptop as a Word file and will be 
               ]}
             />
           </div>
+          
+          <p className="text-sm text-muted-foreground italic pt-4 border-t border-border">
+            This gives you intuition for why these matter. Next, we'll deep dive into each with definitions and examples.
+          </p>
         </div>
-        
-        <p className="text-sm text-muted-foreground italic mt-8 pt-4 border-t border-border text-center">
-          This gives you intuition for why these matter. Next, we'll deep dive into each with definitions and examples.
-        </p>
       </ContentSlide>
     ),
   },
