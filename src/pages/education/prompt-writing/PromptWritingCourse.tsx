@@ -1072,23 +1072,23 @@ This analysis will be stored on the concierge laptop as a Word file and will be 
         <div className="space-y-8">
           {/* Good Rubric section */}
           <div className="space-y-3">
-            <div className="pb-2 border-b border-border">
-              <h3 className="text-lg font-bold text-foreground">What makes a good Rubric?</h3>
+            <div className="pb-2 border-b border-primary/30">
+              <h3 className="text-lg font-bold text-primary">What makes a good Rubric?</h3>
               <p className="text-xs text-muted-foreground mt-1">Click each to learn more:</p>
             </div>
             <CharacteristicsGrid
               characteristics={[
                 {
                   title: "Coverage",
-                  description: "A good rubric includes everything needed to evaluate the task meaningfully.",
+                  description: "A good rubric is exhaustive. It covers the full breadth of what matters for evaluating the task. If something is important to quality, it should be reflected somewhere in the rubric.",
                 },
                 {
                   title: "Professional Judgment",
-                  description: "Captures nuanced taste and expertise that's hard to evaluate in isolation.",
+                  description: "A good rubric captures the nuanced taste and expertise of the profession — aspects of quality that are difficult to evaluate in isolation, but obvious to experienced practitioners.",
                 },
                 {
                   title: "Evaluator Consistency",
-                  description: "If ten people evaluate the same output, they should all reach the same result.",
+                  description: "A good rubric produces consistent results across evaluators. The majority of people evaluating the same output should arrive at the same score, allowing learning to converge.",
                 },
               ]}
             />
@@ -1096,27 +1096,27 @@ This analysis will be stored on the concierge laptop as a Word file and will be 
 
           {/* Good Criterion section */}
           <div className="space-y-3">
-            <div className="pb-2 border-b border-border">
-              <h3 className="text-lg font-bold text-foreground">What makes a good Criterion?</h3>
+            <div className="pb-2 border-b border-amber-500/30">
+              <h3 className="text-lg font-bold text-amber-600 dark:text-amber-400">What makes a good Criterion?</h3>
               <p className="text-xs text-muted-foreground mt-1">Click each to learn more:</p>
             </div>
             <CharacteristicsGrid
               characteristics={[
                 {
                   title: "Not Stacked",
-                  description: "Multiple criteria bundled together without clear weighting will not return consistent results.",
+                  description: "A good criterion evaluates one thing at a time. When multiple requirements are bundled, if one part fails the entire criterion fails — this makes it hard to assign accurate credit.",
                 },
                 {
                   title: "Programmatically Verifiable",
-                  description: "AI labs need automated ways of evaluating at scale.",
+                  description: "A good criterion can be evaluated at scale. AI labs may need to apply thousands of criteria across millions of outputs, requiring automated or semi-automated evaluation.",
                 },
                 {
                   title: "Consistently Evaluable",
-                  description: "An AI evaluator can return the same answer each time against that criterion.",
+                  description: "A good criterion returns the same result when applied repeatedly to the same output. High variance across evaluations hinders model improvement.",
                 },
                 {
                   title: "Self-contained",
-                  description: "The judge model won't have access to input files or external context.",
+                  description: "A good criterion can be evaluated using only the deliverable itself. The evaluator doesn't have access to input files, so any necessary information must be included directly.",
                 },
               ]}
             />
