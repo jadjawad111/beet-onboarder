@@ -83,6 +83,49 @@ const PresentationLayout = ({
     return new Set();
   });
   
+  // Reset all progress function
+  const resetProgress = useCallback(() => {
+    localStorage.removeItem(storageKey);
+    setCurrentSlide(0);
+    setVisitedSlides(new Set([0]));
+    setHighestSlideReached(0);
+    setUnlockedSlides(new Set());
+    setIsComplete(false);
+    // Also clear rubrics progress
+    localStorage.removeItem("rubrics-module-1-complete");
+    localStorage.removeItem("rubrics-module-2-sections-read");
+    localStorage.removeItem("rubrics-module-2-complete");
+    localStorage.removeItem("rubrics-criterion-guidelines-read");
+    localStorage.removeItem("rubrics-module-3-errors-read");
+    localStorage.removeItem("rubrics-module-3-complete");
+    localStorage.removeItem("rubrics-module-4-checklist");
+    localStorage.removeItem("rubrics-module-4-complete");
+    localStorage.removeItem("rubrics-module-4-first-visit");
+    console.log("✅ Course progress reset!");
+  }, [storageKey]);
+
+  // Expose reset function globally for testing
+  useEffect(() => {
+    (window as any).resetCourseProgress = resetProgress;
+    return () => {
+      delete (window as any).resetCourseProgress;
+    };
+  }, [resetProgress]);
+
+  // Keyboard shortcut: Ctrl+Shift+R to reset progress
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.ctrlKey && e.shiftKey && e.key === 'R') {
+        e.preventDefault();
+        if (confirm("Reset all course progress? This will take you back to the beginning.")) {
+          resetProgress();
+        }
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [resetProgress]);
+
   // Save all progress to localStorage whenever relevant state changes
   useEffect(() => {
     try {
