@@ -37,8 +37,26 @@ const PresentationLayout = ({
   const [isComplete, setIsComplete] = useState(false);
   const [slideDirection, setSlideDirection] = useState<'next' | 'prev'>('next');
   const [visitedSlides, setVisitedSlides] = useState<Set<number>>(new Set([0]));
-  const [unlockedSlides, setUnlockedSlides] = useState<Set<string>>(new Set());
   const [highestSlideReached, setHighestSlideReached] = useState(0);
+  
+  // Persist unlocked slides in sessionStorage so they stay unlocked during the session
+  const [unlockedSlides, setUnlockedSlides] = useState<Set<string>>(() => {
+    try {
+      const stored = sessionStorage.getItem('course-unlocked-slides');
+      return stored ? new Set(JSON.parse(stored)) : new Set();
+    } catch {
+      return new Set();
+    }
+  });
+  
+  // Save unlocked slides to sessionStorage whenever they change
+  useEffect(() => {
+    try {
+      sessionStorage.setItem('course-unlocked-slides', JSON.stringify([...unlockedSlides]));
+    } catch {
+      // Ignore storage errors
+    }
+  }, [unlockedSlides]);
 
   const totalSlides = slides.length;
   const isFirstSlide = currentSlide === 0;
@@ -80,18 +98,13 @@ const PresentationLayout = ({
     if (!canContinue) return;
     
     if (isLastSlide) {
-      // Trigger completion animation
+      // Trigger completion - stays on overlay until user clicks download or exits
       setIsComplete(true);
       onComplete?.();
-      
-      // Navigate away after animation
-      setTimeout(() => {
-        navigate(exitPath);
-      }, 2500);
     } else {
       goToSlide(currentSlide + 1, 'next');
     }
-  }, [isLastSlide, currentSlide, goToSlide, onComplete, navigate, exitPath, canContinue]);
+  }, [isLastSlide, currentSlide, goToSlide, onComplete, canContinue]);
 
   const handlePrev = useCallback(() => {
     goToSlide(currentSlide - 1, 'prev');
@@ -146,11 +159,31 @@ const PresentationLayout = ({
     }
   };
 
-  // Completion overlay
+  // Handle closing the completion overlay
+  const handleCloseCompletion = () => {
+    navigate(exitPath);
+  };
+
+  // Completion overlay - stays until user clicks download or exits
   if (isComplete) {
     return (
-      <div className="fixed inset-0 z-50 flex items-center justify-center bg-background">
-        <div className="text-center animate-fade-in max-w-md px-6">
+      <div 
+        className="fixed inset-0 z-50 flex items-center justify-center bg-background"
+        onClick={handleCloseCompletion}
+      >
+        <div 
+          className="text-center animate-fade-in max-w-md px-6"
+          onClick={(e) => e.stopPropagation()}
+        >
+          {/* Close button */}
+          <button
+            onClick={handleCloseCompletion}
+            className="absolute top-6 right-6 p-2 rounded-full hover:bg-muted transition-colors"
+            aria-label="Close"
+          >
+            <X className="w-6 h-6 text-muted-foreground" />
+          </button>
+          
           {/* Celebration animation */}
           <div className="relative mb-8">
             <img 
@@ -160,7 +193,7 @@ const PresentationLayout = ({
               style={{ animationDuration: '0.6s' }}
             />
             {/* Confetti particles */}
-            <div className="absolute inset-0 overflow-hidden">
+            <div className="absolute inset-0 overflow-hidden pointer-events-none">
               {[...Array(12)].map((_, i) => (
                 <div
                   key={i}
@@ -203,7 +236,7 @@ const PresentationLayout = ({
           </div>
           
           <p className="text-sm text-muted-foreground mt-6">
-            Returning to overview in a moment...
+            Click anywhere or press the X to return to overview
           </p>
         </div>
       </div>
