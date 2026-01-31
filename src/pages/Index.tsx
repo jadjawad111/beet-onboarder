@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowRight, Briefcase, GraduationCap, CheckCircle2, Lock, Mail, MessageCircle } from "lucide-react";
+import { ArrowRight, Briefcase, GraduationCap, Lock, Mail, MessageCircle, ExternalLink } from "lucide-react";
 import beetIcon from "@/assets/beet-icon.png";
+import handshakeLogo from "@/assets/handshake-logo.png";
 import {
   Dialog,
   DialogContent,
@@ -84,15 +85,9 @@ const Index = () => {
               <h3 className="text-xl font-semibold text-foreground mb-2 group-hover:text-primary transition-colors">
                 Project Information
               </h3>
-              <p className="text-muted-foreground text-sm mb-4">
+              <p className="text-muted-foreground text-sm">
                 Everything you need to know about Beet 2.0 - setup, workflow, tools, and FAQs.
               </p>
-              <div className="flex items-center gap-4 text-sm">
-                <span className="flex items-center gap-1.5 text-muted-foreground">
-                  <CheckCircle2 className="w-4 h-4" />
-                  0 of 5 complete
-                </span>
-              </div>
             </Link>
           )}
 
@@ -114,6 +109,69 @@ const Index = () => {
               Complete the training course covering Prompt Writing and Rubrics to qualify.
             </p>
           </Link>
+        </div>
+
+        {/* Handshake AI Platform Links */}
+        <h2 className="text-lg font-semibold text-foreground mb-6 mt-12">Handshake AI Platform</h2>
+        <div className="grid md:grid-cols-2 gap-6 max-w-4xl">
+          {/* Handshake AI Button - LHS */}
+          <a
+            href="https://app.handshake.ai"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group relative overflow-hidden p-6 rounded-2xl bg-gradient-to-br from-primary via-primary/90 to-secondary/70 hover:shadow-xl transition-all"
+          >
+            {/* Background logo */}
+            <div className="absolute top-4 right-4 opacity-15">
+              <img src={handshakeLogo} alt="" className="w-16 h-16 object-contain" />
+            </div>
+            
+            <div className="relative z-10">
+              <div className="flex items-center gap-2 mb-3">
+                <img src={handshakeLogo} alt="Handshake AI" className="w-8 h-8 object-contain" />
+                <ExternalLink className="w-4 h-4 text-white/70 opacity-0 group-hover:opacity-100 transition-opacity" />
+              </div>
+              <h3 className="text-xl font-semibold text-white mb-2">
+                Handshake AI
+              </h3>
+              <p className="text-white/80 text-sm">
+                Access the main platform
+              </p>
+            </div>
+          </a>
+
+          {/* Handshake AI Platform Button - RHS (Banner style) */}
+          <a
+            href="https://app.handshake.ai"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group relative overflow-hidden p-8 rounded-2xl bg-gradient-to-br from-primary via-primary/90 to-secondary/70 hover:shadow-xl transition-all"
+          >
+            {/* Background logos */}
+            <div className="absolute top-6 right-12 opacity-20">
+              <img src={handshakeLogo} alt="" className="w-24 h-24 object-contain" />
+            </div>
+            <div className="absolute bottom-4 right-1/3 opacity-10 hidden md:block">
+              <img src={handshakeLogo} alt="" className="w-16 h-16 object-contain" />
+            </div>
+            
+            <div className="relative z-10">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/20 text-white text-xs font-medium mb-4">
+                <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
+                Main Platform
+              </div>
+              <h3 className="text-2xl font-bold text-white mb-2 group-hover:translate-x-1 transition-transform">
+                Handshake AI Platform
+              </h3>
+              <p className="text-white/80 text-sm mb-4">
+                This is where most of your work happens. Access tasking, projects, and more.
+              </p>
+              <div className="flex items-center gap-2 text-white font-medium">
+                <span>Open Platform</span>
+                <ExternalLink className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </div>
+            </div>
+          </a>
         </div>
 
         {/* Support Info */}
