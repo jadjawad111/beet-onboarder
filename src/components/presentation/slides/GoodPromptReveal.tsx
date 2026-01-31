@@ -39,7 +39,7 @@ const elementBubbles: Record<ElementKey, { title: string; why: string; enables: 
     enables: "The prompt does not age out.",
   },
   clearAsks: {
-    title: "Clear Asks",
+    title: "Clear Deliverable",
     why: "This explicitly defines what the final output should look like and how it will be consumed, leaving no ambiguity.",
     enables: "The output is usable, not just correct.",
   },

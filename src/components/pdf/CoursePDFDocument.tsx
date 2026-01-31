@@ -450,7 +450,7 @@ const CoursePDFDocument = () => {
           <View style={styles.elementNumber}>
             <Text style={styles.elementNumberText}>5</Text>
           </View>
-          <Text style={styles.elementName}>Clear Asks / Deliverable</Text>
+          <Text style={styles.elementName}>Clear Deliverable</Text>
         </View>
         <View style={styles.elementBox}>
           <View style={styles.elementNumber}>
