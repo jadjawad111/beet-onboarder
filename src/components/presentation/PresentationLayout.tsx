@@ -539,32 +539,45 @@ const PresentationLayout = ({
                                       onClick={() => isVisited && goToSlide(index, index > currentSlide ? 'next' : 'prev')}
                                       disabled={!isVisited}
                                       className={cn(
-                                        "w-full flex items-center gap-2 px-2 py-1.5 rounded-md transition-all text-left",
-                                        (isCurrent || childIsCurrent) && "bg-primary/10 text-primary",
-                                        !isCurrent && !childIsCurrent && isVisited && "hover:bg-muted cursor-pointer",
+                                        "w-full flex items-center gap-2 px-2 rounded-md transition-all text-left",
+                                        slide.important ? "py-3 my-1" : "py-1.5",
+                                        slide.important && "bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-800",
+                                        (isCurrent || childIsCurrent) && !slide.important && "bg-primary/10 text-primary",
+                                        !isCurrent && !childIsCurrent && isVisited && !slide.important && "hover:bg-muted cursor-pointer",
+                                        slide.important && isVisited && "hover:bg-red-100 dark:hover:bg-red-950/50 cursor-pointer",
                                         !isVisited && "opacity-50 cursor-not-allowed"
                                       )}
                                     >
                                       <div className={cn(
-                                        "w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-bold flex-shrink-0 transition-colors",
-                                        slide.important && !isPast && "bg-red-500 text-white ring-2 ring-red-300",
+                                        "rounded-full flex items-center justify-center font-bold flex-shrink-0 transition-colors",
+                                        slide.important ? "w-8 h-8 text-sm" : "w-5 h-5 text-[10px]",
+                                        slide.important && !isPast && "bg-red-500 text-white ring-2 ring-red-300 animate-pulse",
                                         slide.important && isPast && !isCurrent && "bg-red-200 text-red-600",
                                         !slide.important && isCurrent && "bg-primary text-primary-foreground",
                                         !slide.important && isPast && !isCurrent && "bg-primary/20 text-primary",
                                         !slide.important && !isPast && !isCurrent && "bg-muted text-muted-foreground"
                                       )}>
                                         {isPast && !isCurrent ? (
-                                          <Check className="w-3 h-3" />
+                                          <Check className={slide.important ? "w-4 h-4" : "w-3 h-3"} />
                                         ) : (
                                           index + 1
                                         )}
                                       </div>
-                                      <span className={cn(
-                                        "text-xs truncate hidden lg:block",
-                                        (isCurrent || childIsCurrent) ? "text-primary font-medium" : "text-muted-foreground"
-                                      )}>
-                                        {slide.title || `Step ${index + 1}`}
-                                      </span>
+                                      <div className="hidden lg:block flex-1 min-w-0">
+                                        <span className={cn(
+                                          "truncate block",
+                                          slide.important ? "text-sm font-semibold text-red-700 dark:text-red-400" : "text-xs",
+                                          !slide.important && (isCurrent || childIsCurrent) ? "text-primary font-medium" : "",
+                                          !slide.important && !isCurrent && !childIsCurrent && "text-muted-foreground"
+                                        )}>
+                                          {slide.title || `Step ${index + 1}`}
+                                        </span>
+                                        {slide.important && (
+                                          <span className="text-[10px] text-red-500 dark:text-red-400 uppercase tracking-wide font-medium">
+                                            Important
+                                          </span>
+                                        )}
+                                      </div>
                                     </button>
                                     
                                     {hasChildren && (
