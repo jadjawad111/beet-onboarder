@@ -56,7 +56,7 @@ const InputFileCharacteristics = () => {
             Three Valid Ways to Reference Input Files
           </h3>
           <p className="text-sm text-muted-foreground mb-5">
-            All three are <strong className="text-foreground">unambiguous</strong> and valid. The balance is between maximum traceability and realistic professional communication.
+            All three work just fine. The difference is how specific you want to be versus how people naturally communicate at work.
           </p>
           
           <div className="space-y-4">
