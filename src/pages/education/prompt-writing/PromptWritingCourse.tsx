@@ -956,8 +956,8 @@ Notes:
 Itinerary details are illustrative only.
 All entities are fictional. Geographies, assumptions, and amounts are illustrative and do not reflect any specific tour.`}
         bronzeFileName="Sample Music Tour P&L (Bronze)"
-        embedUrl="https://docs.google.com/spreadsheets/d/1wgRWXeVhUixB8WZThvNLCcWh6rqc3ooP/preview?gid=2146016466"
-        viewUrl="https://docs.google.com/spreadsheets/d/1wgRWXeVhUixB8WZThvNLCcWh6rqc3ooP/edit?gid=2146016466#gid=2146016466"
+        embedUrl="https://docs.google.com/spreadsheets/d/1BnX4IgxTIsjwS99T9GdwoZJyzBPf9n3aTWLGbw3ukxI/preview?gid=853916782"
+        viewUrl="https://docs.google.com/spreadsheets/d/1BnX4IgxTIsjwS99T9GdwoZJyzBPf9n3aTWLGbw3ukxI/edit?gid=853916782#gid=853916782"
         goldFileName="Sample Music Tour P&L (Gold)"
         goldEmbedUrl="https://docs.google.com/spreadsheets/d/1wgRWXeVhUixB8WZThvNLCcWh6rqc3ooP/preview?gid=347156326"
         goldViewUrl="https://docs.google.com/spreadsheets/d/1wgRWXeVhUixB8WZThvNLCcWh6rqc3ooP/edit?gid=347156326#gid=347156326"
