@@ -1225,6 +1225,7 @@ This analysis will be stored on the concierge laptop as a Word file and will be 
     id: "rubrics-why-matter",
     section: "Rubrics",
     title: "Why good rubrics matter",
+    gated: true,
     content: (
       <ContentSlide title="Why good rubrics matter" layout="left">
         <div className="space-y-6">

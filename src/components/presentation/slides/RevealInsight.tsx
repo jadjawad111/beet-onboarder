@@ -7,9 +7,10 @@ interface RevealInsightProps {
   insight: string;
   className?: string;
   onRevealed?: () => void;
+  onGateUnlock?: () => void;
 }
 
-const RevealInsight = ({ teaser, insight, className, onRevealed }: RevealInsightProps) => {
+const RevealInsight = ({ teaser, insight, className, onRevealed, onGateUnlock }: RevealInsightProps) => {
   const [revealed, setRevealed] = useState(false);
 
   const handleReveal = () => {
@@ -19,10 +20,11 @@ const RevealInsight = ({ teaser, insight, className, onRevealed }: RevealInsight
   };
 
   useEffect(() => {
-    if (revealed && onRevealed) {
-      onRevealed();
+    if (revealed) {
+      onRevealed?.();
+      onGateUnlock?.();
     }
-  }, [revealed, onRevealed]);
+  }, [revealed, onRevealed, onGateUnlock]);
 
   return (
     <div className={cn("relative", className)}>
