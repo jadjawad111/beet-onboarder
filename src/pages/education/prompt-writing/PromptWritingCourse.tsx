@@ -1009,7 +1009,7 @@ This report will be used to brief the design team and guide future optimization 
     section: "Prompt Writing" as const,
     title: `Practice #${index + 1}`,
     parentId: "prompt-quiz-intro",
-    gated: true,
+    // Gate removed for dogfooding
     content: (
       <PromptExerciseQuiz
         key={`prompt-practice-${index + 1}`}
