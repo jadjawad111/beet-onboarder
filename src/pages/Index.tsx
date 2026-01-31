@@ -149,12 +149,12 @@ const Index = () => {
           </div>
 
           {/* Right Column - Handshake AI Platform Banner */}
-          <div className="lg:w-80 xl:w-96">
+          <div className="lg:w-80 xl:w-96 flex">
             <a
               href="https://app.handshake.ai"
               target="_blank"
               rel="noopener noreferrer"
-              className="group relative overflow-hidden p-8 rounded-2xl bg-gradient-to-br from-primary via-primary/90 to-secondary/70 hover:shadow-xl transition-all h-full min-h-[320px] flex flex-col justify-between"
+              className="group relative overflow-hidden p-8 rounded-2xl bg-gradient-to-br from-primary via-primary/90 to-secondary/70 hover:shadow-xl transition-all flex-1 flex flex-col justify-between"
             >
               {/* Background logos */}
               <div className="absolute top-8 right-8 opacity-20">
