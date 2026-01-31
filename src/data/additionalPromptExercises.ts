@@ -39,7 +39,7 @@ export const elementDisplayMap: Record<string, string> = {
 export const additionalExercises: AdditionalExercise[] = [
   {
     id: "EX-01",
-    title: "Luxury Concierge — Napa Wineries",
+    title: "Luxury Concierge: Napa Wineries",
     promptPlain: `It is August 20, 2025 and you are a Senior Lifestyle Manager at a luxury concierge company for ultra-high-net-worth individuals.
 
 A member is currently staying at The Westin Verasa Napa in Napa Valley, United States. He has emailed you to request a list of wineries located near the hotel. The selected wineries should offer tasting experiences and a variety of grape types.
@@ -83,12 +83,12 @@ The purpose of this task is to present the information in a 🔴visually appeali
       {
         element: "clearAsks",
         status: "ERROR",
-        text: `🔴"Create a shareable document"🔴 does not specify Word vs PDF, page count, or formatting requirements beyond a footer—output expectations are underspecified.`
+        text: `🔴"Create a shareable document"🔴 does not specify Word vs PDF, page count, or formatting requirements beyond a footer. Output expectations are underspecified.`
       },
       {
         element: "clearConstraints",
         status: "ERROR",
-        text: `Real-world constraints are missing — budget limitations, member preferences, scheduling windows, or sourcing rules (e.g., only verified wineries, distance limits). Without these operational guardrails, the task lacks meaningful tradeoffs.`
+        text: `Real-world constraints are missing: budget limitations, member preferences, scheduling windows, or sourcing rules (e.g., only verified wineries, distance limits). Without these operational guardrails, the task lacks meaningful tradeoffs.`
       }
     ]
   },
@@ -143,13 +143,13 @@ Ensure the formatting is 🔴easy to read🔴 and that all links are 🟢clickab
       {
         element: "clearConstraints",
         status: "ERROR",
-        text: "Real-world constraints are missing — budget limits, travel time windows between activities, dietary restrictions, or security protocols for the principal. These operational boundaries create meaningful tradeoffs."
+        text: "Real-world constraints are missing: budget limits, travel time windows between activities, dietary restrictions, or security protocols for the principal. These operational boundaries create meaningful tradeoffs."
       }
     ]
   },
   {
     id: "EX-03",
-    title: "Car Rental — New Rental Agreement Guide",
+    title: "Car Rental: New Rental Agreement Guide",
     promptPlain: `You are a car rental clerk with five years of experience at an international airport. Due to the high volume of business at this location, it also serves as a final training site for onboarding new rental clerks.
 
 Because of your seniority, you've been asked to create a step-by-step instructional guide that explains how to create a new Rental Agreement.
@@ -194,7 +194,7 @@ The goal is to ensure 🟢smooth, accurate, and independent execution🟢 of the
       {
         element: "clearConstraints",
         status: "ERROR",
-        text: `Real-world operational constraints are missing — what happens during system downtime, how to handle difficult customers, or when to escalate. These situational guardrails reflect actual job complexity.`
+        text: `Real-world operational constraints are missing: what happens during system downtime, how to handle difficult customers, or when to escalate. These situational guardrails reflect actual job complexity.`
       }
     ]
   },
@@ -249,7 +249,7 @@ Reference Material: 🟢Closed Rental Agreements - June 27, 2025.xlsx🟢`,
       {
         element: "clearConstraints",
         status: "ERROR",
-        text: "Real-world constraints are missing — threshold levels for flagging issues, comparison to previous periods, or escalation criteria. These operational boundaries define what 'actionable insights' means for management."
+        text: "Real-world constraints are missing: threshold levels for flagging issues, comparison to previous periods, or escalation criteria. These operational boundaries define what 'actionable insights' means for management."
       }
     ]
   },
@@ -377,7 +377,7 @@ Attached reference files: 🟢Vendor Schedules🟢, 🟢Availability🟢 and �
       {
         element: "unambiguous",
         status: "ERROR",
-        text: `🔴"the date of work"🔴 is underspecified because the scheduling rules (no vendor overlap, staff workdays, appliance installation lead rules, weekends/holidays) were removed—leaving ambiguity about how to pick dates.`
+        text: `🔴"the date of work"🔴 is underspecified because the scheduling rules (no vendor overlap, staff workdays, appliance installation lead rules, weekends/holidays) were removed, leaving ambiguity about how to pick dates.`
       },
       {
         element: "professional",
@@ -402,7 +402,7 @@ Attached reference files: 🟢Vendor Schedules🟢, 🟢Availability🟢 and �
       {
         element: "clearConstraints",
         status: "ERROR",
-        text: "Real-world scheduling constraints are missing — vendor availability windows, staff working days, no overlap rules, and lead times for appliance installation. These operational boundaries make the timeline solvable."
+        text: "Real-world scheduling constraints are missing: vendor availability windows, staff working days, no overlap rules, and lead times for appliance installation. These operational boundaries make the timeline solvable."
       }
     ]
   },
@@ -500,7 +500,7 @@ Keep the tone 🔴practical and engaging🔴.`,
       {
         element: "clearConstraints",
         status: "ERROR",
-        text: `Real-world training constraints are missing — escalation protocols, when to involve supervisors, compliance boundaries, or time limits for customer interactions. These operational guardrails reflect actual job complexity.`
+        text: `Real-world training constraints are missing: escalation protocols, when to involve supervisors, compliance boundaries, or time limits for customer interactions. These operational guardrails reflect actual job complexity.`
       }
     ]
   },
@@ -547,13 +547,13 @@ After completion of the summary document, please also draft some 🔴talking poi
       {
         element: "clearConstraints",
         status: "ERROR",
-        text: "Real-world constraints are missing for the talking points — priority topics for the board, time limits for presentation, or political sensitivities to avoid. The summary has a page limit but the second deliverable lacks operational boundaries."
+        text: "Real-world constraints are missing for the talking points: priority topics for the board, time limits for presentation, or political sensitivities to avoid. The summary has a page limit but the second deliverable lacks operational boundaries."
       }
     ]
   },
   {
     id: "EX-11",
-    title: "Identity Theft Claims — Slide Deck",
+    title: "Identity Theft Claims: Slide Deck",
     promptPlain: `You've worked for six years as a reimbursement services representative for a digital security services company that provides identity theft insurance.
 
 The CEO has tasked you with reviewing the company's policy documentation and a sample of recent claims (both attached) to determine if they fall within the parameters for reimbursement.
@@ -594,7 +594,7 @@ Create a 🔴slide deck🔴 containing an 🟢agenda🟢, 🟢purpose🟢, and �
       {
         element: "clearConstraints",
         status: "ERROR",
-        text: "Real-world decision constraints are missing — financial thresholds for escalation, policy interpretation boundaries, or compliance requirements. These operational guardrails define how recommendations should be framed for leadership."
+        text: "Real-world decision constraints are missing: financial thresholds for escalation, policy interpretation boundaries, or compliance requirements. These operational guardrails define how recommendations should be framed for leadership."
       }
     ]
   },
@@ -636,12 +636,12 @@ Create a 🔴document🔴 titled 🟢"Case Feedback"🟢 with your feedback for 
       {
         element: "clearAsks",
         status: "ERROR",
-        text: `🔴"Create a document"🔴 is underspecified—no required structure (problem statements, alternatives), no per-case formatting requirements, no length guidance.`
+        text: `🔴"Create a document"🔴 is underspecified: no required structure (problem statements, alternatives), no per-case formatting requirements, no length guidance.`
       },
       {
         element: "clearConstraints",
         status: "ERROR",
-        text: `Real-world coaching constraints are missing — what topics are off-limits (policy criticism), time constraints for responses, or escalation thresholds. These operational boundaries reflect actual coaching limitations.`
+        text: `Real-world coaching constraints are missing: what topics are off-limits (policy criticism), time constraints for responses, or escalation thresholds. These operational boundaries reflect actual coaching limitations.`
       }
     ]
   }

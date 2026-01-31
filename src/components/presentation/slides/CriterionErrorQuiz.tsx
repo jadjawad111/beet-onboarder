@@ -106,7 +106,7 @@ const CriterionErrorQuiz = ({
       <div className="space-y-4">
         <p className="font-medium text-foreground">
           Which criterion is written correctly?
-          {!isRevealed && <span className="text-muted-foreground font-normal ml-2">— select one</span>}
+          {!isRevealed && <span className="text-muted-foreground font-normal ml-2">(select one)</span>}
         </p>
 
         <div className="grid md:grid-cols-2 gap-4">
@@ -140,7 +140,7 @@ const CriterionErrorQuiz = ({
                 getOptionState(displayOptions.first.actualOption) === "correct" && "text-green-600",
                 getOptionState(displayOptions.first.actualOption) === "incorrect" && "text-destructive"
               )}>
-                Option {displayOptions.first.label}{isRevealed && (displayOptions.first.actualOption === correctOption ? " — Correct" : " — Incorrect")}
+                Option {displayOptions.first.label}{isRevealed && (displayOptions.first.actualOption === correctOption ? " ✓ Correct" : " ✗ Incorrect")}
               </span>
             </div>
             <p className="text-sm text-muted-foreground">"{displayOptions.first.text}"</p>
@@ -176,7 +176,7 @@ const CriterionErrorQuiz = ({
                 getOptionState(displayOptions.second.actualOption) === "correct" && "text-green-600",
                 getOptionState(displayOptions.second.actualOption) === "incorrect" && "text-destructive"
               )}>
-                Option {displayOptions.second.label}{isRevealed && (displayOptions.second.actualOption === correctOption ? " — Correct" : " — Incorrect")}
+                Option {displayOptions.second.label}{isRevealed && (displayOptions.second.actualOption === correctOption ? " ✓ Correct" : " ✗ Incorrect")}
               </span>
             </div>
             <p className="text-sm text-muted-foreground">"{displayOptions.second.text}"</p>

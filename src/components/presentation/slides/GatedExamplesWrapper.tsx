@@ -43,7 +43,7 @@ const GatedExamplesWrapper = ({
       <p className="text-xs uppercase tracking-wide text-muted-foreground mb-4">
         Examples {revealedCount < totalExamples && (
           <span className="text-primary ml-2">
-            (Hover all {totalExamples} to continue — {revealedCount}/{totalExamples})
+            (Hover all {totalExamples} to continue: {revealedCount}/{totalExamples})
           </span>
         )}
         {revealedCount >= totalExamples && (

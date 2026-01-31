@@ -52,7 +52,7 @@ const slides: Slide[] = [
       <ContentSlide title="What is the goal of the project?" layout="left">
         <div className="space-y-6">
           <p>
-            AI models are good at a lot of things; however, they struggle significantly when completing tasks that resemble professional domains — for instance, trying to create complicated financial reports or complete nuanced tax forms.
+            AI models are good at a lot of things; however, they struggle significantly when completing tasks that resemble professional domains. For instance, trying to create complicated financial reports or complete nuanced tax forms.
           </p>
           <p>
             <strong className="text-foreground">The goal is to produce high-quality training data to help models improve across multiple occupations.</strong>
@@ -328,7 +328,7 @@ const slides: Slide[] = [
       <ContentSlide title="What Makes a Prompt Difficult?" layout="left">
         <div className="space-y-6">
           <p className="text-xl text-muted-foreground">
-            A good prompt induces model failures — that's where learning happens.
+            A good prompt induces model failures. That's where learning happens.
           </p>
           <div className="overflow-hidden rounded-xl border-2">
             <table className="w-full text-base">
@@ -342,7 +342,7 @@ const slides: Slide[] = [
               <tbody>
                 <tr className="border-b">
                   <td className="p-5 font-semibold text-lg bg-muted/30">Easy for Professional</td>
-                  <td className="p-5 text-center text-muted-foreground text-base">Too easy — no learning</td>
+                  <td className="p-5 text-center text-muted-foreground text-base">Too easy, no learning</td>
                   <td className="p-5 text-center bg-green-50 dark:bg-green-950/30 border-4 border-green-500">
                     <span className="font-bold text-xl text-green-600">✓ Good prompt!</span>
                     <p className="text-sm text-muted-foreground mt-2">Model needs improvement</p>
@@ -360,7 +360,7 @@ const slides: Slide[] = [
             </table>
           </div>
           <p className="text-base text-muted-foreground italic">
-            The goal is to create prompts where the model fails — that's when reinforcement learning can improve performance.
+            The goal is to create prompts where the model fails. That's when reinforcement learning can improve performance.
           </p>
         </div>
       </ContentSlide>
@@ -622,7 +622,7 @@ const slides: Slide[] = [
                 </div>
                 <h4 className="font-semibold mb-2">Check for Clarifying Questions</h4>
                 <p className="text-xs text-muted-foreground">
-                  Prompt a model to check for clarification questions — if it asks for more info, the prompt is ambiguous.
+                  Prompt a model to check for clarification questions. If it asks for more info, the prompt is ambiguous.
                 </p>
               </CardContent>
             </Card>
@@ -672,7 +672,7 @@ const slides: Slide[] = [
                     We will do a <strong>deep dive into each element</strong>. For educational purposes, we'll show excerpts from prompts to showcase these elements individually.
                   </p>
                   <p className="text-sm text-muted-foreground mt-2">
-                    In practice, prompts exist as a whole — full examples will be shown towards the end of this section.
+                    In practice, prompts exist as a whole. Full examples will be shown towards the end of this section.
                   </p>
                 </div>
               </div>
@@ -685,11 +685,11 @@ const slides: Slide[] = [
   {
     id: "element-1-unambiguous",
     section: "Prompt Writing",
-    title: "Element #1 — Unambiguous",
+    title: "Element #1: Unambiguous",
     parentId: "prompt-6-elements",
     gated: true,
     content: (
-      <ContentSlide title="Element #1 — Unambiguous" layout="left">
+      <ContentSlide title="Element #1: Unambiguous" layout="left">
         <div className="space-y-6">
           {/* Definition Card */}
           <Card>
@@ -760,11 +760,11 @@ const slides: Slide[] = [
   {
     id: "element-2-professional-role",
     section: "Prompt Writing",
-    title: "Element #2 — Professional Role & Context",
+    title: "Element #2: Professional Role & Context",
     parentId: "prompt-6-elements",
     gated: true,
     content: (
-      <ContentSlide title="Element #2 — Professional Role & Context" layout="left">
+      <ContentSlide title="Element #2: Professional Role & Context" layout="left">
         <div className="space-y-6">
           {/* Definition Card */}
           <Card>
@@ -837,11 +837,11 @@ const slides: Slide[] = [
   {
     id: "element-3-realistic",
     section: "Prompt Writing",
-    title: "Element #3 — Realistic & NOT Contrived",
+    title: "Element #3: Realistic & NOT Contrived",
     parentId: "prompt-6-elements",
     gated: true,
     content: (
-      <ContentSlide title="Element #3 — Realistic & NOT Contrived" layout="left">
+      <ContentSlide title="Element #3: Realistic & NOT Contrived" layout="left">
         <div className="space-y-6">
           {/* Definition Card */}
           <Card>
@@ -905,11 +905,11 @@ const slides: Slide[] = [
   {
     id: "element-4-timelessness",
     section: "Prompt Writing",
-    title: "Element #4 — Timelessness",
+    title: "Element #4: Timelessness",
     parentId: "prompt-6-elements",
     gated: true,
     content: (
-      <ContentSlide title="Element #4 — Timelessness (Relative Dating)" layout="left">
+      <ContentSlide title="Element #4: Timelessness (Relative Dating)" layout="left">
         <div className="space-y-6">
           {/* Definition Card */}
           <Card>
@@ -976,11 +976,11 @@ const slides: Slide[] = [
   {
     id: "element-5-clear-asks",
     section: "Prompt Writing",
-    title: "Element #5 — Clear Deliverable",
+    title: "Element #5: Clear Deliverable",
     parentId: "prompt-6-elements",
     gated: true,
     content: (
-      <ContentSlide title="Element #5 — Clear Deliverable" layout="left">
+      <ContentSlide title="Element #5: Clear Deliverable" layout="left">
         <div className="space-y-6">
           {/* Definition Card */}
           <Card>
@@ -1047,11 +1047,11 @@ const slides: Slide[] = [
   {
     id: "element-6-clear-constraints",
     section: "Prompt Writing",
-    title: "Element #6 — Clear Constraints",
+    title: "Element #6: Clear Constraints",
     parentId: "prompt-6-elements",
     gated: true,
     content: (
-      <ContentSlide title="Element #6 — Clear Constraints" layout="left">
+      <ContentSlide title="Element #6: Clear Constraints" layout="left">
         <div className="space-y-6">
           {/* Definition Card */}
           <Card>
@@ -1063,7 +1063,7 @@ const slides: Slide[] = [
                 <div>
                   <p className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Definition</p>
                   <p className="text-foreground">
-                    Clear constraints define <strong>real-world limitations and tradeoffs</strong> — resource constraints, competing priorities, business rules, and operational boundaries. These go beyond output formatting to include the guardrails that make professional tasks meaningfully difficult.
+                    Clear constraints define <strong>real-world limitations and tradeoffs</strong>: resource constraints, competing priorities, business rules, and operational boundaries. These go beyond output formatting to include the guardrails that make professional tasks meaningfully difficult.
                   </p>
                 </div>
               </div>

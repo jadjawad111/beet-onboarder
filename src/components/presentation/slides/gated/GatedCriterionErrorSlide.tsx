@@ -34,7 +34,7 @@ const GatedCriterionErrorSlide = ({
   onGateUnlock,
 }: GatedCriterionErrorSlideProps) => {
   return (
-    <ContentSlide title={`Element #${elementNumber} — ${elementName}`} layout="left">
+    <ContentSlide title={`Element #${elementNumber}: ${elementName}`} layout="left">
       <CriterionErrorQuiz
         elementNumber={elementNumber}
         elementName={elementName}
