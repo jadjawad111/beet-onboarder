@@ -20,6 +20,7 @@ import {
   PromptWritingModule2,
   PromptWritingModule3,
   PromptWritingCourse,
+  CourseReference,
 } from "./pages/education/prompt-writing";
 
 // Rubrics modules
@@ -47,6 +48,9 @@ const App = () => (
           
           {/* Prompt Writing Course - Full screen presentation (outside layout) */}
           <Route path="/education/prompt-writing/course" element={<PromptWritingCourse />} />
+          
+          {/* Course Reference - Full screen printable reference (outside layout) */}
+          <Route path="/education/prompt-writing/reference" element={<CourseReference />} />
           
           {/* Main app with layout */}
           <Route element={<MainLayout />}>
