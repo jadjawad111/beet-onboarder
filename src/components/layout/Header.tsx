@@ -30,7 +30,7 @@ const Header = ({ onMenuClick }: HeaderProps) => {
           <div className="flex flex-col">
             <h1 className="text-lg font-semibold text-foreground">Project Beet</h1>
             <p className="text-xs text-muted-foreground hidden sm:block">
-              Onboarding & Training Portal
+              Educational Material
             </p>
           </div>
         </div>
