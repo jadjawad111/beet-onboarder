@@ -32,32 +32,72 @@ const PresentationLayout = ({
   exitPath = "/education"
 }: PresentationLayoutProps) => {
   const navigate = useNavigate();
-  const [currentSlide, setCurrentSlide] = useState(0);
+  // Generate a storage key based on the course title for unique per-course progress
+  const storageKey = `course-progress-${title.replace(/\s+/g, '-').toLowerCase()}`;
+  
+  // Load initial state from localStorage
+  const [currentSlide, setCurrentSlide] = useState(() => {
+    try {
+      const saved = localStorage.getItem(storageKey);
+      if (saved) {
+        const data = JSON.parse(saved);
+        return data.currentSlide ?? 0;
+      }
+    } catch {}
+    return 0;
+  });
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [isComplete, setIsComplete] = useState(false);
   const [slideDirection, setSlideDirection] = useState<'next' | 'prev'>('next');
-  const [visitedSlides, setVisitedSlides] = useState<Set<number>>(new Set([0]));
-  const [highestSlideReached, setHighestSlideReached] = useState(0);
+  const [visitedSlides, setVisitedSlides] = useState<Set<number>>(() => {
+    try {
+      const saved = localStorage.getItem(storageKey);
+      if (saved) {
+        const data = JSON.parse(saved);
+        return new Set(data.visitedSlides ?? [0]);
+      }
+    } catch {}
+    return new Set([0]);
+  });
+  const [highestSlideReached, setHighestSlideReached] = useState(() => {
+    try {
+      const saved = localStorage.getItem(storageKey);
+      if (saved) {
+        const data = JSON.parse(saved);
+        return data.highestSlideReached ?? 0;
+      }
+    } catch {}
+    return 0;
+  });
   const [openSections, setOpenSections] = useState<Set<string>>(new Set());
   
-  // Persist unlocked slides in sessionStorage so they stay unlocked during the session
+  // Persist unlocked slides in localStorage so they stay unlocked between sessions
   const [unlockedSlides, setUnlockedSlides] = useState<Set<string>>(() => {
     try {
-      const stored = sessionStorage.getItem('course-unlocked-slides');
-      return stored ? new Set(JSON.parse(stored)) : new Set();
-    } catch {
-      return new Set();
-    }
+      const saved = localStorage.getItem(storageKey);
+      if (saved) {
+        const data = JSON.parse(saved);
+        return new Set(data.unlockedSlides ?? []);
+      }
+    } catch {}
+    return new Set();
   });
   
-  // Save unlocked slides to sessionStorage whenever they change
+  // Save all progress to localStorage whenever relevant state changes
   useEffect(() => {
     try {
-      sessionStorage.setItem('course-unlocked-slides', JSON.stringify([...unlockedSlides]));
+      const progressData = {
+        currentSlide,
+        visitedSlides: [...visitedSlides],
+        highestSlideReached,
+        unlockedSlides: [...unlockedSlides],
+        lastUpdated: new Date().toISOString(),
+      };
+      localStorage.setItem(storageKey, JSON.stringify(progressData));
     } catch {
       // Ignore storage errors
     }
-  }, [unlockedSlides]);
+  }, [currentSlide, visitedSlides, highestSlideReached, unlockedSlides, storageKey]);
 
   const totalSlides = slides.length;
   const mainContentRef = useRef<HTMLElement>(null);
@@ -281,10 +321,10 @@ const PresentationLayout = ({
             </Button>
           </div>
           
-          {/* Warning callout */}
-          <div className="mt-4 p-4 bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800 rounded-lg max-w-md">
-            <p className="text-sm text-amber-800 dark:text-amber-200">
-              <strong>Note:</strong> Progress may not persist between sessions. We recommend downloading the reference guide now for future use.
+          {/* Info callout */}
+          <div className="mt-4 p-4 bg-primary/5 border border-primary/20 rounded-lg max-w-md">
+            <p className="text-sm text-muted-foreground">
+              <strong className="text-foreground">Tip:</strong> Your progress is saved in this browser. Download the reference guide for offline access or use on other devices.
             </p>
           </div>
           
