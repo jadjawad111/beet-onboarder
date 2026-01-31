@@ -193,10 +193,10 @@ const slides: Slide[] = [
       <ContentSlide title="The importance of Prompt difficulty" layout="left">
         <div className="space-y-6">
           <p>
-            <strong className="text-foreground">If a prompt is not sufficiently difficult, the model will not have anything meaningful to learn.</strong>
+            <strong className="text-foreground">If a prompt is not sufficiently difficult, the model will not have anything meaningful to learn.</strong> In these cases, the model can already perform the task sufficiently well, and additional training does not lead to improvement. In the next section, we go through six components of a good prompt.
           </p>
           <p>
-            In these cases, the model can already perform the task sufficiently well, and additional training does not lead to improvement.
+            Ultimately, the prompt itself needs to be difficult enough. We can attempt to do this by writing prompts that invoke multi-step reasoning or more convoluted sets of steps, as long as they are realistic. In reality, it requires a significant amount of dogfooding (which we will unpack in later modules) to check whether our prompts and input files actually induce model failures that are valuable.
           </p>
         </div>
       </ContentSlide>
