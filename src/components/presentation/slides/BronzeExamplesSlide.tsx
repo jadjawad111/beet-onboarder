@@ -88,15 +88,17 @@ const BronzeExamplesSlide = () => {
     setActiveExample((prev) => (prev - 1 + examples.length) % examples.length);
   };
 
+  const hasGold = Boolean(currentExample.goldEmbedUrl);
+
   return (
     <div className="w-full max-w-6xl mx-auto">
       <div className="flex items-center justify-between mb-4">
         <div>
           <h2 className="text-2xl md:text-3xl font-bold text-foreground">
-            Bronze Response Examples
+            {hasGold ? "Bronze & Gold Response Examples" : "Bronze Response Examples"}
           </h2>
           <p className="text-muted-foreground text-sm mt-1">
-            Prompt on top, Bronze response below
+            Prompt on top, {hasGold ? "Bronze and Gold responses below" : "Bronze response below"}
           </p>
         </div>
         
@@ -156,22 +158,22 @@ const BronzeExamplesSlide = () => {
         </div>
 
         {/* Bronze Response (embedded) */}
-        <div className="border rounded-lg bg-card overflow-hidden">
-          <div className="px-4 py-2 border-b bg-muted/30 flex items-center justify-between">
-            <h3 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+        <div className="border-2 border-orange-300 rounded-lg bg-card overflow-hidden">
+          <div className="px-4 py-2 border-b bg-orange-50 flex items-center justify-between">
+            <h3 className="text-sm font-semibold uppercase tracking-wide text-orange-700">
               Bronze Response
             </h3>
             <a
               href={currentExample.viewUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 text-xs text-primary hover:underline"
+              className="inline-flex items-center gap-1.5 text-xs text-orange-700 hover:underline"
             >
               {currentExample.bronzeFileName}
               <ExternalLink className="w-3 h-3" />
             </a>
           </div>
-          <div className="h-[300px] bg-muted/5">
+          <div className={hasGold ? "h-[250px] bg-muted/5" : "h-[350px] bg-muted/5"}>
             <iframe
               src={currentExample.embedUrl}
               className="w-full h-full border-0"
