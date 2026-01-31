@@ -52,28 +52,78 @@ const InputFileCharacteristics = () => {
       {/* Three Valid Patterns */}
       <Card className="mb-6">
         <CardContent className="p-6">
-          <h3 className="font-semibold text-foreground mb-4">
+          <h3 className="font-semibold text-foreground mb-2">
             Three Valid Ways to Reference Input Files
           </h3>
+          <p className="text-sm text-muted-foreground mb-5">
+            All three are <strong className="text-foreground">unambiguous</strong> and valid. The balance is between maximum traceability and realistic professional communication.
+          </p>
+          
           <div className="space-y-4">
-            <div className="border-l-2 border-primary pl-4">
-              <p className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Gold Standard: Enumerated Lists</p>
-              <p className="text-sm text-foreground italic">
-                "You'll find everything you need in the attached files: COA.xlsx, Insurance.pdf, Prepaid_Expenses.pdf…"
-              </p>
+            {/* Most Specific */}
+            <div className="flex items-start gap-4">
+              <div className="flex flex-col items-center">
+                <div className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center text-xs font-bold text-primary">1</div>
+                <div className="w-0.5 h-full bg-primary/20 mt-1" />
+              </div>
+              <div className="flex-1 pb-2">
+                <div className="flex items-center gap-2 mb-1">
+                  <p className="text-sm font-medium text-foreground">Enumerated Lists</p>
+                  <span className="text-xs bg-primary/10 text-primary px-2 py-0.5 rounded">Most Specific</span>
+                </div>
+                <p className="text-sm text-muted-foreground italic mb-1">
+                  "You'll find everything you need in the attached files: COA.xlsx, Insurance.pdf…"
+                </p>
+                <p className="text-xs text-muted-foreground">
+                  Zero guessing. Perfect traceability. Best for complex multi-file tasks.
+                </p>
+              </div>
             </div>
-            <div className="border-l-2 border-primary/60 pl-4">
-              <p className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Strong: Named Explicitly</p>
-              <p className="text-sm text-foreground italic">
-                "The attached spreadsheet titled 'Population' contains…"
-              </p>
+
+            {/* Named Explicitly */}
+            <div className="flex items-start gap-4">
+              <div className="flex flex-col items-center">
+                <div className="w-8 h-8 rounded-full bg-primary/15 flex items-center justify-center text-xs font-bold text-primary/80">2</div>
+                <div className="w-0.5 h-full bg-primary/15 mt-1" />
+              </div>
+              <div className="flex-1 pb-2">
+                <div className="flex items-center gap-2 mb-1">
+                  <p className="text-sm font-medium text-foreground">Named Explicitly</p>
+                </div>
+                <p className="text-sm text-muted-foreground italic mb-1">
+                  "The attached spreadsheet titled 'Population' contains…"
+                </p>
+                <p className="text-xs text-muted-foreground">
+                  Clear identifier. Re-referenced when tasks begin. Very common in professional asks.
+                </p>
+              </div>
             </div>
-            <div className="border-l-2 border-muted-foreground/40 pl-4">
-              <p className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Acceptable: Grouped but Scoped</p>
-              <p className="text-sm text-foreground italic">
-                "Use the attached reference files…"
-              </p>
+
+            {/* Grouped but Scoped */}
+            <div className="flex items-start gap-4">
+              <div className="flex flex-col items-center">
+                <div className="w-8 h-8 rounded-full bg-muted flex items-center justify-center text-xs font-bold text-muted-foreground">3</div>
+              </div>
+              <div className="flex-1">
+                <div className="flex items-center gap-2 mb-1">
+                  <p className="text-sm font-medium text-foreground">Grouped but Scoped</p>
+                  <span className="text-xs bg-muted text-muted-foreground px-2 py-0.5 rounded">Most Realistic</span>
+                </div>
+                <p className="text-sm text-muted-foreground italic mb-1">
+                  "Use the attached reference files…"
+                </p>
+                <p className="text-xs text-muted-foreground">
+                  Scope is closed and unambiguous. Mirrors how professionals often communicate.
+                </p>
+              </div>
             </div>
+          </div>
+
+          <div className="mt-5 pt-4 border-t border-border">
+            <p className="text-sm text-muted-foreground">
+              <strong className="text-foreground">The key:</strong> All three are unambiguous about what files to use. 
+              Choose based on task complexity and what feels natural for the professional context.
+            </p>
           </div>
         </CardContent>
       </Card>
