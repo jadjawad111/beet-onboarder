@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { ArrowRight, Briefcase, GraduationCap, CheckCircle2, Clock, Lock } from "lucide-react";
+import { ArrowRight, Briefcase, GraduationCap, CheckCircle2, Clock, Lock, Mail, MessageCircle } from "lucide-react";
 import beetIcon from "@/assets/beet-icon.png";
 
 const Index = () => {
@@ -116,6 +116,39 @@ const Index = () => {
               </span>
             </div>
           </Link>
+        </div>
+
+        {/* Support Info */}
+        <div className="mt-12 p-6 rounded-2xl border border-border bg-card max-w-4xl">
+          <h3 className="text-lg font-semibold text-foreground mb-4">Need Help?</h3>
+          <div className="grid sm:grid-cols-2 gap-4">
+            <a 
+              href="mailto:projectbeet@joinhandshake.com"
+              className="flex items-center gap-3 p-4 rounded-xl bg-muted/50 hover:bg-muted transition-colors group"
+            >
+              <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
+                <Mail className="w-5 h-5 text-primary" />
+              </div>
+              <div>
+                <p className="text-sm font-medium text-foreground group-hover:text-primary transition-colors">Support Email</p>
+                <p className="text-xs text-muted-foreground">projectbeet@joinhandshake.com</p>
+              </div>
+            </a>
+            <a 
+              href="https://discord.gg/GbtUVawyrv"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-3 p-4 rounded-xl bg-muted/50 hover:bg-muted transition-colors group"
+            >
+              <div className="w-10 h-10 rounded-lg bg-[#5865F2]/10 flex items-center justify-center">
+                <MessageCircle className="w-5 h-5 text-[#5865F2]" />
+              </div>
+              <div>
+                <p className="text-sm font-medium text-foreground group-hover:text-[#5865F2] transition-colors">Discord Community</p>
+                <p className="text-xs text-muted-foreground">Primary communication channel</p>
+              </div>
+            </a>
+          </div>
         </div>
       </div>
     </div>
