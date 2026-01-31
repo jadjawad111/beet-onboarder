@@ -411,8 +411,11 @@ const slides: Slide[] = [
                 </div>
                 <div>
                   <p className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Definition</p>
+                  <p className="text-foreground mb-2">
+                    A realistic prompt asks the model to perform a task that a real professional in that role would plausibly be responsible for, using outputs they could actually produce within real workflows and constraints.
+                  </p>
                   <p className="text-foreground">
-                    The prompt mimics the messy, dense, and unpolished nature of real-world artifacts such as emails, memos, and Slack messages. It avoids "AI-speak."
+                    A prompt is <strong>contrived</strong> when it asks for an outcome that bypasses systems, approvals, or role boundaries, even if it sounds professional.
                   </p>
                 </div>
               </div>
@@ -429,10 +432,10 @@ const slides: Slide[] = [
                 <div>
                   <p className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Why it matters</p>
                   <p className="mb-3 text-foreground">
-                    We are training models to replace or assist workers in reality, not in a lab.
+                    We are training models to perform real job tasks inside real organizations.
                   </p>
                   <p className="text-sm text-muted-foreground">
-                    Real work does not come with perfectly nested bullet points, artificial scaffolding, or instructional hints.
+                    If a prompt ignores how work is actually done, the model may learn patterns that look correct but cannot transfer to real-world use. This produces misleading training signals and weak generalization.
                   </p>
                 </div>
               </div>
@@ -442,16 +445,16 @@ const slides: Slide[] = [
           {/* Examples Section - Gated */}
           <GatedExamplesWrapper totalExamples={2}>
             <ElementExampleRow
-              context="Finance / Salary"
-              bad="Please calculate the following: (E.g. Salary) (E.g. Taxes) Please format as a table."
-              issue="This structure does not resemble real professional inputs."
-              good={<><strong className="text-green-600">Apollo Braun profile</strong>: Annual salary $99,604.08. Started working June 1. <strong className="text-green-600">12% of net pay directed to investment</strong>. Create an Excel spreadsheet…</>}
+              context="Finance / Payroll"
+              bad={`"Go into Workday and modify the payroll records for three employees to adjust their salaries and tax withholdings to meet the new budget targets."`}
+              issue="Finance professionals do not directly edit payroll records. Changes require HR coordination, approvals, and system-level permissions. The task bypasses real payroll workflows."
+              good={<>"<strong className="text-green-600">Review the payroll data</strong> for three employees and <strong className="text-green-600">prepare a spreadsheet</strong> summarizing proposed salary and tax adjustments needed to meet the new budget targets. Include justification and notes for HR review."</>}
             />
             <ElementExampleRow
               context="Legal"
-              bad="Translate this modeling contract into a recipe for cookies to explain it to me."
-              issue="Contrived and unrelated to how legal work is actually performed."
-              good={<>Please provide a professionally written <strong className="text-green-600">email to your client</strong>, <strong className="text-green-600">no longer than 600 words</strong>, addressing issues she should look out for.</>}
+              bad={`"Update this signed client contract to remove unfavorable clauses and send the revised version to the client."`}
+              issue="Lawyers cannot unilaterally change executed contracts. Contract modifications require amendments, negotiation, and counterparty approval."
+              good={<>"Review this signed client contract and <strong className="text-green-600">draft a memo</strong> identifying clauses that may be unfavorable, along with <strong className="text-green-600">recommended amendment language</strong> and next steps for client discussion."</>}
             />
           </GatedExamplesWrapper>
         </div>
