@@ -331,7 +331,7 @@ const PresentationLayout = ({
                 return (
                   <Collapsible
                     key={section.name}
-                    defaultOpen={sectionHasCurrent || section.slides[0]?.index === 0}
+                    open={sectionHasCurrent}
                   >
                     <div className={cn(
                       "w-full flex items-center justify-between px-3 py-2 rounded-lg transition-colors",
