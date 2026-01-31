@@ -476,82 +476,107 @@ const slides: Slide[] = [
     parentId: "prompt-difficulty",
     content: (
       <ContentSlide title="Avoiding Artificial Failures" layout="left">
-        <div className="space-y-4">
+        <div className="space-y-5">
           <p className="text-muted-foreground">
             There are "cheap" failures that don't reflect true gaps in professional reasoning. Here's how to avoid them:
           </p>
-          <div className="overflow-hidden rounded-lg border">
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="border-b bg-muted/50">
-                  <th className="p-3 text-left font-medium w-1/5">Scenario</th>
-                  <th className="p-3 text-left font-medium text-destructive w-2/5">✗ Artificial Challenge</th>
-                  <th className="p-3 text-left font-medium text-green-600 w-2/5">✓ Genuine Challenge</th>
-                </tr>
-              </thead>
-              <tbody className="text-xs">
-                <tr className="border-b">
-                  <td className="p-3 align-top">
-                    <p className="font-medium">Nurse Manager</p>
-                    <p className="text-muted-foreground">Scheduling Surgeries</p>
-                  </td>
-                  <td className="p-3 align-top text-muted-foreground">
-                    The Hidden Rule: "Schedule these surgeries, but pretend that 'Dr. Kamal' is actually named 'Dr. Smith' and that hours are only 50 minutes long."
-                  </td>
-                  <td className="p-3 align-top text-muted-foreground">
-                    The Conflicting Constraint: "Schedule the elective surgeries for Dr. Kamal... However, the ER has declared a mass casualty event, and you must strictly maintain 4 Trauma ORs open 24/7."
-                  </td>
-                </tr>
-                <tr className="border-b">
-                  <td className="p-3 align-top">
-                    <p className="font-medium">Investment Advisor</p>
-                    <p className="text-muted-foreground">Calculating ROI</p>
-                  </td>
-                  <td className="p-3 align-top text-muted-foreground">
-                    The Arbitrary Filter: "Calculate the ROI, but do not count any money invested on a Tuesday."
-                  </td>
-                  <td className="p-3 align-top text-muted-foreground">
-                    The Implicit Variable: "Apollo's annual salary is $99,604. But he started working on June 1st. Calculate his 2023 investment potential."
-                  </td>
-                </tr>
-                <tr className="border-b">
-                  <td className="p-3 align-top">
-                    <p className="font-medium">Semiconductor Analyst</p>
-                    <p className="text-muted-foreground">Risk Analysis</p>
-                  </td>
-                  <td className="p-3 align-top text-muted-foreground">
-                    The Random Exclusion: "Analyze the risk of this ETF. By the way, ignore the third tab in the Excel sheet for no reason."
-                  </td>
-                  <td className="p-3 align-top text-muted-foreground">
-                    The Data Reconciliation: "Calculate the exposure. Note: Some holdings in the 'Holdings' tab do not map to the 'Country_Exposure' tab."
-                  </td>
-                </tr>
-                <tr className="border-b">
-                  <td className="p-3 align-top">
-                    <p className="font-medium">Pharmacology Lead</p>
-                    <p className="text-muted-foreground">Clinical Drug Review</p>
-                  </td>
-                  <td className="p-3 align-top text-muted-foreground">
-                    The Secret Code: "If the patient ID ends in '5', treat their dosage as double."
-                  </td>
-                  <td className="p-3 align-top text-muted-foreground">
-                    The Biological Plausibility: "Identify outliers. One patient shows a baseline PD level of 7.5% (normal is {"<"}1%). Discuss if this is a confounder."
-                  </td>
-                </tr>
-                <tr>
-                  <td className="p-3 align-top">
-                    <p className="font-medium">Audio Engineer</p>
-                    <p className="text-muted-foreground">Mixing a Track</p>
-                  </td>
-                  <td className="p-3 align-top text-muted-foreground">
-                    The Impossible Ask: "Make the song sound like the color blue."
-                  </td>
-                  <td className="p-3 align-top text-muted-foreground">
-                    The Creative Tension: "Apply aggressive T-Pain style auto-tune, but ensure the vocal still blends naturally with the acoustic guitar."
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+          
+          <div className="space-y-3">
+            {/* Row 1 */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+              <Card className="border-l-4 border-l-destructive bg-destructive/5">
+                <CardContent className="p-4">
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="text-destructive font-semibold text-xs">✗ ARTIFICIAL</span>
+                    <span className="text-xs text-muted-foreground">Nurse Manager</span>
+                  </div>
+                  <p className="text-sm font-medium mb-1">The Hidden Rule</p>
+                  <p className="text-xs text-muted-foreground">"Schedule these surgeries, but pretend that 'Dr. Kamal' is actually named 'Dr. Smith' and that hours are only 50 minutes long."</p>
+                </CardContent>
+              </Card>
+              <Card className="border-l-4 border-l-green-500 bg-green-50/50 dark:bg-green-950/20">
+                <CardContent className="p-4">
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="text-green-600 font-semibold text-xs">✓ GENUINE</span>
+                    <span className="text-xs text-muted-foreground">Nurse Manager</span>
+                  </div>
+                  <p className="text-sm font-medium mb-1">The Conflicting Constraint</p>
+                  <p className="text-xs text-muted-foreground">"Schedule the elective surgeries for Dr. Kamal... However, the ER has declared a mass casualty event, and you must strictly maintain 4 Trauma ORs open 24/7."</p>
+                </CardContent>
+              </Card>
+            </div>
+
+            {/* Row 2 */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+              <Card className="border-l-4 border-l-destructive bg-destructive/5">
+                <CardContent className="p-4">
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="text-destructive font-semibold text-xs">✗ ARTIFICIAL</span>
+                    <span className="text-xs text-muted-foreground">Investment Advisor</span>
+                  </div>
+                  <p className="text-sm font-medium mb-1">The Arbitrary Filter</p>
+                  <p className="text-xs text-muted-foreground">"Calculate the ROI, but do not count any money invested on a Tuesday."</p>
+                </CardContent>
+              </Card>
+              <Card className="border-l-4 border-l-green-500 bg-green-50/50 dark:bg-green-950/20">
+                <CardContent className="p-4">
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="text-green-600 font-semibold text-xs">✓ GENUINE</span>
+                    <span className="text-xs text-muted-foreground">Investment Advisor</span>
+                  </div>
+                  <p className="text-sm font-medium mb-1">The Implicit Variable</p>
+                  <p className="text-xs text-muted-foreground">"Apollo's annual salary is $99,604. But he started working on June 1st. Calculate his 2023 investment potential."</p>
+                </CardContent>
+              </Card>
+            </div>
+
+            {/* Row 3 */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+              <Card className="border-l-4 border-l-destructive bg-destructive/5">
+                <CardContent className="p-4">
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="text-destructive font-semibold text-xs">✗ ARTIFICIAL</span>
+                    <span className="text-xs text-muted-foreground">Pharmacology Lead</span>
+                  </div>
+                  <p className="text-sm font-medium mb-1">The Secret Code</p>
+                  <p className="text-xs text-muted-foreground">"If the patient ID ends in '5', treat their dosage as double."</p>
+                </CardContent>
+              </Card>
+              <Card className="border-l-4 border-l-green-500 bg-green-50/50 dark:bg-green-950/20">
+                <CardContent className="p-4">
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="text-green-600 font-semibold text-xs">✓ GENUINE</span>
+                    <span className="text-xs text-muted-foreground">Pharmacology Lead</span>
+                  </div>
+                  <p className="text-sm font-medium mb-1">The Biological Plausibility</p>
+                  <p className="text-xs text-muted-foreground">"Identify outliers. One patient shows a baseline PD level of 7.5% (normal is {"<"}1%). Discuss if this is a confounder."</p>
+                </CardContent>
+              </Card>
+            </div>
+
+            {/* Row 4 */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+              <Card className="border-l-4 border-l-destructive bg-destructive/5">
+                <CardContent className="p-4">
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="text-destructive font-semibold text-xs">✗ ARTIFICIAL</span>
+                    <span className="text-xs text-muted-foreground">Audio Engineer</span>
+                  </div>
+                  <p className="text-sm font-medium mb-1">The Impossible Ask</p>
+                  <p className="text-xs text-muted-foreground">"Make the song sound like the color blue."</p>
+                </CardContent>
+              </Card>
+              <Card className="border-l-4 border-l-green-500 bg-green-50/50 dark:bg-green-950/20">
+                <CardContent className="p-4">
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="text-green-600 font-semibold text-xs">✓ GENUINE</span>
+                    <span className="text-xs text-muted-foreground">Audio Engineer</span>
+                  </div>
+                  <p className="text-sm font-medium mb-1">The Creative Tension</p>
+                  <p className="text-xs text-muted-foreground">"Apply aggressive T-Pain style auto-tune, but ensure the vocal still blends naturally with the acoustic guitar."</p>
+                </CardContent>
+              </Card>
+            </div>
           </div>
         </div>
       </ContentSlide>
