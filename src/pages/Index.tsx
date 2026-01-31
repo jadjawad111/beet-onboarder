@@ -106,15 +106,9 @@ const Index = () => {
             <h3 className="text-xl font-semibold text-foreground mb-2 group-hover:text-primary transition-colors">
               Project Beet 2.0 Training Course
             </h3>
-            <p className="text-muted-foreground text-sm mb-4">
+            <p className="text-muted-foreground text-sm">
               Complete the training course covering Prompt Writing and Rubrics to qualify.
             </p>
-            <div className="flex items-center gap-4 text-sm">
-              <span className="flex items-center gap-1.5 text-muted-foreground">
-                <Clock className="w-4 h-4" />
-                4 sections
-              </span>
-            </div>
           </Link>
         </div>
 
