@@ -1,5 +1,10 @@
-import { AlertTriangle, Search, Wrench } from "lucide-react";
+import { AlertTriangle, Lightbulb, Search, Wrench } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
+
+interface InsightBox {
+  title: string;
+  paragraphs: string[];
+}
 
 interface RubricLevelQuizProps {
   elementNumber: number;
@@ -21,6 +26,7 @@ interface RubricLevelQuizProps {
   }>;
   detectHeuristics: string[];
   howToFix: string;
+  insightBox?: InsightBox;
 }
 
 const RubricLevelQuiz = ({
@@ -31,6 +37,7 @@ const RubricLevelQuiz = ({
   goodCriteria,
   detectHeuristics,
   howToFix,
+  insightBox,
 }: RubricLevelQuizProps) => {
   return (
     <div className="space-y-8">
@@ -108,6 +115,25 @@ const RubricLevelQuiz = ({
             </table>
           </div>
         </div>
+      )}
+
+      {/* Insight Box - displayed after Bad Criteria */}
+      {insightBox && (
+        <Card className="border-amber-400/40 bg-amber-50/50 dark:bg-amber-950/20">
+          <CardContent className="p-6">
+            <div className="flex gap-4">
+              <div className="flex-shrink-0 w-11 h-11 rounded-full bg-amber-400/20 flex items-center justify-center">
+                <Lightbulb className="w-5 h-5 text-amber-600" />
+              </div>
+              <div className="space-y-3">
+                <p className="text-sm font-semibold text-amber-700 dark:text-amber-400">{insightBox.title}</p>
+                {insightBox.paragraphs.map((paragraph, index) => (
+                  <p key={index} className="text-base text-foreground/90 leading-relaxed">{paragraph}</p>
+                ))}
+              </div>
+            </div>
+          </CardContent>
+        </Card>
       )}
 
       {/* Good Criteria Table */}
