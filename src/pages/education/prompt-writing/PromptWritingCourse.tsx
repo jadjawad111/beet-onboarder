@@ -20,6 +20,7 @@ import AITrainingProcess from "@/components/presentation/slides/AITrainingProces
 import CriterionErrorQuiz from "@/components/presentation/slides/CriterionErrorQuiz";
 import RubricLevelQuiz from "@/components/presentation/slides/RubricLevelQuiz";
 import RubricInteractiveQuiz from "@/components/presentation/slides/RubricInteractiveQuiz";
+import GoodPromptReveal, { h } from "@/components/presentation/slides/GoodPromptReveal";
 import { exercise1Prompt, exercise1DeliverableUrl, exercise1Criteria } from "@/data/rubricQuizExercise1";
 import { exercise2Prompt, exercise2DeliverableUrl, exercise2Criteria } from "@/data/rubricQuizExercise2";
 import { Card, CardContent } from "@/components/ui/card";
@@ -835,6 +836,146 @@ This report will be used to brief the design team and guide future optimization 
             explanation: "The issue is lack of clarity, not missing tradeoffs or guardrails.",
           },
         }}
+      />
+    ),
+  },
+  // Good Prompt Reveal #1 - After Quiz 1
+  {
+    id: "prompt-good-1",
+    section: "Prompt Writing",
+    title: "Good Prompt #1",
+    parentId: "prompt-quiz-intro",
+    content: (
+      <GoodPromptReveal
+        exerciseNumber={1}
+        promptParts={[
+          "You are a ",
+          h("retail general manager", "professionalRole"),
+          " at a ",
+          h("bridal store", "professionalRole"),
+          ". You need to teach your entire ",
+          h("bridal sales team", "professionalRole"),
+          " how to overcome objections and/or hesitations to the purchase of ",
+          h("bridalwear", "realistic"),
+          ".\n\n",
+          h("Create a Word document", "clearAsks"),
+          " to be used as a ",
+          h("brief training", "clearAsks"),
+          " on the topic of ",
+          h("overcoming sales objections", "unambiguous"),
+          ".",
+        ]}
+      />
+    ),
+  },
+  // Good Prompt Reveal #2 - After Quiz 2
+  {
+    id: "prompt-good-2",
+    section: "Prompt Writing",
+    title: "Good Prompt #2",
+    parentId: "prompt-quiz-intro",
+    content: (
+      <GoodPromptReveal
+        exerciseNumber={2}
+        promptParts={[
+          h("It is September 2024", "timelessness"),
+          " and you are a ",
+          h("Retail Sales Manager", "professionalRole"),
+          ". The store you manage is located in the ",
+          h("UK", "professionalRole"),
+          ". You have been tasked with ",
+          h("leading the 2024 Black Friday event", "realistic"),
+          ". You'll guide your team and your store through one of the busiest trading weekends on the 2024 retail calendar.\n\n",
+          h("Reference materials are attached", "unambiguous"),
+          ", including ",
+          h('"Black Friday 2023 vs 2024 Targets.pdf"', "unambiguous"),
+          " and ",
+          h('"Marketing Email.pdf"', "unambiguous"),
+          ", which outline this year's ",
+          h("performance goals and promotional offers", "unambiguous"),
+          ".\n\nYou've been tasked to ",
+          h("create a clear 8-week preparation plan", "clearAsks"),
+          " leading up to Black Friday. The plan should have an upfront section on ",
+          h("Strategic Objectives", "clearConstraints"),
+          ", outlining ",
+          h("what success looks like for Black Friday", "clearConstraints"),
+          " based on performance goals.\n\nInclude ",
+          h("high level bullet points for each of the 8 weeks", "clearConstraints"),
+          ", covering ",
+          h("operational action items in sequence", "clearConstraints"),
+          " leading up to Black Friday's launch.\n\n",
+          h("Please submit the plan as a PDF", "clearAsks"),
+          ".\n\nYou'll also prepare a ",
+          h("Black Friday Team Launch deck", "clearAsks"),
+          ". This deck will be presented as an instructional document to the team i) ",
+          h("on Black Friday morning", "clearConstraints"),
+          ", ii) ",
+          h("throughout the day for team members arriving later", "clearConstraints"),
+          ", and iii) ",
+          h("throughout the entire Black Friday weekend", "clearConstraints"),
+          ".\n\nThe deck should remind team members of ",
+          h("performance goals", "clearAsks"),
+          " consistent with those outlined in the preparation plan, and ",
+          h("clarify promotional offers and execution priorities", "clearAsks"),
+          " for the weekend.\n\nThe deck can include ",
+          h("open-source images, original visuals, or graphics from free-to-use libraries", "clearConstraints"),
+          " of your choosing. ",
+          h("Institutional branding is not required", "clearConstraints"),
+          "; you may choose colors and design of your preference.\n\n",
+          h("Please submit the launch deck as a PDF", "clearAsks"),
+          ".",
+        ]}
+      />
+    ),
+  },
+  // Good Prompt Reveal #3 - After Quiz 3
+  {
+    id: "prompt-good-3",
+    section: "Prompt Writing",
+    title: "Good Prompt #3",
+    parentId: "prompt-quiz-intro",
+    content: (
+      <GoodPromptReveal
+        exerciseNumber={3}
+        promptParts={[
+          "You are ",
+          h("John Pederson, a real estate broker with CRECO Denver", "professionalRole"),
+          ", and you handle ",
+          h("complex real estate purchases and sales transactions", "professionalRole"),
+          ".\n\nCustom purchase and sale agreements (PSAs) can be costly and require significant time and effort to draft and negotiate between transacting parties. As such, buyers in real estate transactions often choose to submit their initial offer to the seller in the form of a ",
+          h("letter of intent (LOI)", "clearAsks"),
+          ".\n\n",
+          h("LOIs should be no more than 5 pages", "clearConstraints"),
+          " and should include information about: the ",
+          h("transacting parties", "clearAsks"),
+          ", the ",
+          h("property", "clearAsks"),
+          ", the ",
+          h("primary business terms and financial considerations", "clearAsks"),
+          " (e.g., price, deposits, feasibility, closing), additional deliverables, and whether a broker is involved.\n\n",
+          h("LOIs should have an expiration date", "clearConstraints"),
+          " (typically a 7–10 day period from the date of delivery).\n\nYour client, ",
+          h("Annocium Investors", "realistic"),
+          ", is interested in purchasing a ",
+          h("48,000-sf multi-tenant office building", "unambiguous"),
+          " on ",
+          h("4 acres at 536-41 Fraanklyn Ave, Denver, Colorado", "unambiguous"),
+          " as part of a ",
+          h("1031 exchange", "realistic"),
+          ".\n\nDraft a ",
+          h("LOI in Word", "clearAsks"),
+          " reflecting a ",
+          h("6.5% cap rate", "unambiguous"),
+          " (rounding to the nearest $100,000).\n\nFollow a ",
+          h("professional, standard real estate LOI format", "clearConstraints"),
+          " with ",
+          h("clear section headings", "clearConstraints"),
+          " and ",
+          h("formal tone", "clearConstraints"),
+          ". ",
+          h("Save as a Word document (.docx)", "clearAsks"),
+          ".",
+        ]}
       />
     ),
   },
