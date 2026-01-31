@@ -608,9 +608,9 @@ const slides: Slide[] = [
                 <div className="w-8 h-8 rounded bg-green-500/10 flex items-center justify-center mb-3">
                   <span className="text-green-600 font-bold">2</span>
                 </div>
-                <h4 className="font-semibold mb-2">Check for Clarifying Questions</h4>
+                <h4 className="font-semibold mb-2">Run Multiple Times</h4>
                 <p className="text-xs text-muted-foreground">
-                  If it asks for more info, it's ambiguous.
+                  Run it 3 times and read the responses to see how well it did.
                 </p>
               </CardContent>
             </Card>
@@ -620,9 +620,9 @@ const slides: Slide[] = [
                 <div className="w-8 h-8 rounded bg-amber-500/10 flex items-center justify-center mb-3">
                   <span className="text-amber-600 font-bold">3</span>
                 </div>
-                <h4 className="font-semibold mb-2">Human Intern Test</h4>
+                <h4 className="font-semibold mb-2">Check for Clarifying Questions</h4>
                 <p className="text-xs text-muted-foreground">
-                  Could a smart intern solve this?
+                  Prompt a model to check for clarification questions — if it asks for more info, the prompt is ambiguous.
                 </p>
               </CardContent>
             </Card>
@@ -632,9 +632,9 @@ const slides: Slide[] = [
                 <div className="w-8 h-8 rounded bg-blue-500/10 flex items-center justify-center mb-3">
                   <span className="text-blue-600 font-bold">4</span>
                 </div>
-                <h4 className="font-semibold mb-2">Run Multiple Times</h4>
+                <h4 className="font-semibold mb-2">Human Intern Test</h4>
                 <p className="text-xs text-muted-foreground">
-                  Models are probabilistic — test 3x.
+                  Could a smart intern solve this?
                 </p>
               </CardContent>
             </Card>
