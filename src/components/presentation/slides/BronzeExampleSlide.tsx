@@ -45,7 +45,7 @@ const BronzeExampleSlide = ({
               Prompt
             </h3>
           </div>
-          <ScrollArea className={hasGold ? "h-[200px]" : "h-[280px]"}>
+        <ScrollArea className="h-[150px]">
             <div className="p-4">
               <pre className="whitespace-pre-wrap text-sm text-foreground font-sans leading-relaxed">
                 {promptText}
@@ -70,7 +70,7 @@ const BronzeExampleSlide = ({
               <ExternalLink className="w-3 h-3" />
             </a>
           </div>
-          <div className={hasGold ? "h-[300px] bg-muted/5" : "h-[500px] bg-muted/5"}>
+          <div className={hasGold ? "h-[500px] bg-muted/5" : "h-[600px] bg-muted/5"}>
             <iframe
               src={embedUrl}
               className="w-full h-full border-0"
@@ -97,7 +97,7 @@ const BronzeExampleSlide = ({
                 <ExternalLink className="w-3 h-3" />
               </a>
             </div>
-            <div className="h-[300px] bg-muted/5">
+            <div className="h-[500px] bg-muted/5">
               <iframe
                 src={goldEmbedUrl}
                 className="w-full h-full border-0"
