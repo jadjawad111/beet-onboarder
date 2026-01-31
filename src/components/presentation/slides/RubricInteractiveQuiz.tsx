@@ -410,21 +410,22 @@ const RubricInteractiveQuiz = ({
                       </TableCell>
                       <TableCell className="text-center">
                         {isThisSubmitted ? (
-                          <>
-                            {score === "full" && <CheckCircle2 className="w-5 h-5 text-green-500 mx-auto" />}
-                            {score === "partial" && <AlertTriangle className="w-5 h-5 text-amber-500 mx-auto" />}
-                            {score === "none" && <XCircle className="w-5 h-5 text-destructive mx-auto" />}
-                          </>
-                        ) : (
+                          <div className="flex justify-center">
+                            {score === "full" && <CheckCircle2 className="w-5 h-5 text-green-500" />}
+                            {score === "partial" && <AlertTriangle className="w-5 h-5 text-amber-500" />}
+                            {score === "none" && <XCircle className="w-5 h-5 text-destructive" />}
+                          </div>
+                        ) : canSubmitThis ? (
                           <Button
                             size="sm"
                             variant="outline"
                             onClick={() => handleSubmitCriterion(criterion.id)}
-                            disabled={!canSubmitThis}
                             className="text-xs h-7 px-2"
                           >
                             Check
                           </Button>
+                        ) : (
+                          <span className="text-xs text-muted-foreground">—</span>
                         )}
                       </TableCell>
                     </TableRow>
