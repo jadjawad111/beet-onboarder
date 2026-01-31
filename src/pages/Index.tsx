@@ -1,8 +1,11 @@
 import { Link } from "react-router-dom";
-import { ArrowRight, Briefcase, GraduationCap, CheckCircle2, Clock } from "lucide-react";
+import { ArrowRight, Briefcase, GraduationCap, CheckCircle2, Clock, Lock } from "lucide-react";
 import beetIcon from "@/assets/beet-icon.png";
 
 const Index = () => {
+  // Project Information is locked for dogfooding
+  const isProjectInfoLocked = true;
+
   return (
     <div className="min-h-screen">
       {/* Hero */}
@@ -34,30 +37,60 @@ const Index = () => {
         <h2 className="text-lg font-semibold text-foreground mb-6">Get Started</h2>
         
         <div className="grid md:grid-cols-2 gap-6 max-w-4xl">
-          {/* Project Information Card */}
-          <Link 
-            to="/project-info"
-            className="group p-6 rounded-2xl border border-border bg-card hover:border-primary/30 hover:shadow-lg transition-all"
-          >
-            <div className="flex items-start justify-between mb-4">
-              <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
-                <Briefcase className="w-6 h-6 text-primary" />
+          {/* Project Information Card - LOCKED */}
+          {isProjectInfoLocked ? (
+            <div 
+              className="relative p-6 rounded-2xl border border-border bg-muted/30 cursor-not-allowed opacity-60"
+            >
+              {/* Lock badge */}
+              <div className="absolute top-4 right-4 flex items-center gap-1.5 px-2 py-1 rounded-full bg-muted text-muted-foreground text-xs font-medium">
+                <Lock className="w-3 h-3" />
+                Locked
               </div>
-              <ArrowRight className="w-5 h-5 text-muted-foreground opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all" />
+              
+              <div className="flex items-start justify-between mb-4">
+                <div className="w-12 h-12 rounded-xl bg-muted flex items-center justify-center">
+                  <Briefcase className="w-6 h-6 text-muted-foreground" />
+                </div>
+              </div>
+              <h3 className="text-xl font-semibold text-muted-foreground mb-2">
+                Project Information
+              </h3>
+              <p className="text-muted-foreground/70 text-sm mb-4">
+                Everything you need to know about Beet 2.0 - setup, workflow, tools, and FAQs.
+              </p>
+              <div className="flex items-center gap-4 text-sm">
+                <span className="flex items-center gap-1.5 text-muted-foreground/70">
+                  <CheckCircle2 className="w-4 h-4" />
+                  0 of 5 complete
+                </span>
+              </div>
             </div>
-            <h3 className="text-xl font-semibold text-foreground mb-2 group-hover:text-primary transition-colors">
-              Project Information
-            </h3>
-            <p className="text-muted-foreground text-sm mb-4">
-              Everything you need to know about Beet 2.0 - setup, workflow, tools, and FAQs.
-            </p>
-            <div className="flex items-center gap-4 text-sm">
-              <span className="flex items-center gap-1.5 text-muted-foreground">
-                <CheckCircle2 className="w-4 h-4" />
-                0 of 5 complete
-              </span>
-            </div>
-          </Link>
+          ) : (
+            <Link 
+              to="/project-info"
+              className="group p-6 rounded-2xl border border-border bg-card hover:border-primary/30 hover:shadow-lg transition-all"
+            >
+              <div className="flex items-start justify-between mb-4">
+                <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
+                  <Briefcase className="w-6 h-6 text-primary" />
+                </div>
+                <ArrowRight className="w-5 h-5 text-muted-foreground opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all" />
+              </div>
+              <h3 className="text-xl font-semibold text-foreground mb-2 group-hover:text-primary transition-colors">
+                Project Information
+              </h3>
+              <p className="text-muted-foreground text-sm mb-4">
+                Everything you need to know about Beet 2.0 - setup, workflow, tools, and FAQs.
+              </p>
+              <div className="flex items-center gap-4 text-sm">
+                <span className="flex items-center gap-1.5 text-muted-foreground">
+                  <CheckCircle2 className="w-4 h-4" />
+                  0 of 5 complete
+                </span>
+              </div>
+            </Link>
+          )}
 
           {/* Training Course Card */}
           <Link 
