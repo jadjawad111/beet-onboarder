@@ -649,7 +649,7 @@ const slides: Slide[] = [
           </Card>
 
           {/* Examples Section - Gated */}
-          <GatedExamplesWrapper totalExamples={4}>
+          <GatedExamplesWrapper totalExamples={3}>
             <ElementExampleRow
               context="Finance"
               bad="Make a spreadsheet for the investment."
@@ -667,12 +667,6 @@ const slides: Slide[] = [
               bad="Auto-tune the vocals."
               issue="Creative direction and constraints are missing."
               good={<>The director has requested an <strong className="text-green-600">aggressive auto-tune</strong> effect, similar to T-Pain.</>}
-            />
-            <ElementExampleRow
-              context="Inventory"
-              bad="Order more stock."
-              issue="Budget and channel constraints are absent."
-              good={<><strong className="text-green-600">Do not plan receipts under $10k per month</strong> in stores or under $6k per month in e-commerce.</>}
             />
           </GatedExamplesWrapper>
         </div>
