@@ -1338,6 +1338,7 @@ This analysis will be stored on the concierge laptop as a Word file and will be 
     section: "Rubrics",
     title: "Element #1 — Ambiguous",
     parentId: "criterion-errors-overview",
+    gated: true,
     content: (
       <ContentSlide title="Element #1 — Ambiguous" layout="left">
         <CriterionErrorQuiz
@@ -1365,6 +1366,7 @@ This analysis will be stored on the concierge laptop as a Word file and will be 
     section: "Rubrics",
     title: "Element #2 — Not Self-contained",
     parentId: "criterion-errors-overview",
+    gated: true,
     content: (
       <ContentSlide title="Element #2 — Not Self-contained" layout="left">
         <CriterionErrorQuiz
@@ -1392,6 +1394,7 @@ This analysis will be stored on the concierge laptop as a Word file and will be 
     section: "Rubrics",
     title: "Element #3 — Stacked",
     parentId: "criterion-errors-overview",
+    gated: true,
     content: (
       <ContentSlide title="Element #3 — Stacked" layout="left">
         <CriterionErrorQuiz
@@ -1419,6 +1422,7 @@ This analysis will be stored on the concierge laptop as a Word file and will be 
     section: "Rubrics",
     title: "Element #4 — Convoluted Phrasing",
     parentId: "criterion-errors-overview",
+    gated: true,
     content: (
       <ContentSlide title="Element #4 — Convoluted Phrasing" layout="left">
         <CriterionErrorQuiz
@@ -1446,6 +1450,7 @@ This analysis will be stored on the concierge laptop as a Word file and will be 
     section: "Rubrics",
     title: "Element #5 — Process Words",
     parentId: "criterion-errors-overview",
+    gated: true,
     content: (
       <ContentSlide title="Element #5 — Process Words" layout="left">
         <CriterionErrorQuiz
