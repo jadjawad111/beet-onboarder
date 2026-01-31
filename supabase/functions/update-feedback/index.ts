@@ -11,14 +11,31 @@ Deno.serve(async (req) => {
   }
 
   try {
-    const { id, feedback } = await req.json();
+    const body = await req.json();
+    const { id } = body;
 
-    if (!id || !feedback) {
+    if (!id) {
       return new Response(
-        JSON.stringify({ error: "Missing id or feedback" }),
+        JSON.stringify({ error: "Missing id" }),
         { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
     }
+
+    // Extract the feedback - it could be the entire body minus the id, or a nested feedback object
+    let feedbackData: unknown;
+    if (body.feedback) {
+      // If feedback is explicitly provided as a field
+      feedbackData = body.feedback;
+    } else {
+      // Otherwise, use all fields except id as the feedback
+      const { id: _, ...rest } = body;
+      feedbackData = rest;
+    }
+
+    // Store feedback as JSON string
+    const feedbackString = typeof feedbackData === 'string' 
+      ? feedbackData 
+      : JSON.stringify(feedbackData);
 
     const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
     const supabaseServiceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
@@ -26,7 +43,7 @@ Deno.serve(async (req) => {
 
     const { data, error } = await supabase
       .from("prompt_submissions")
-      .update({ feedback, status: "completed" })
+      .update({ feedback: feedbackString, status: "completed" })
       .eq("id", id)
       .select()
       .single();
