@@ -955,9 +955,12 @@ Your summary will be used by executives at the production company to evaluate to
 Notes:
 Itinerary details are illustrative only.
 All entities are fictional. Geographies, assumptions, and amounts are illustrative and do not reflect any specific tour.`}
-        bronzeFileName="Sample Music Tour P&L (Excel)"
-        embedUrl="https://docs.google.com/spreadsheets/d/1wgRWXeVhUixB8WZThvNLCcWh6rqc3ooP/preview"
-        viewUrl="https://docs.google.com/spreadsheets/d/1wgRWXeVhUixB8WZThvNLCcWh6rqc3ooP/edit?usp=sharing"
+        bronzeFileName="Sample Music Tour P&L (Bronze)"
+        embedUrl="https://docs.google.com/spreadsheets/d/1wgRWXeVhUixB8WZThvNLCcWh6rqc3ooP/preview?gid=2146016466"
+        viewUrl="https://docs.google.com/spreadsheets/d/1wgRWXeVhUixB8WZThvNLCcWh6rqc3ooP/edit?gid=2146016466#gid=2146016466"
+        goldFileName="Sample Music Tour P&L (Gold)"
+        goldEmbedUrl="https://docs.google.com/spreadsheets/d/1wgRWXeVhUixB8WZThvNLCcWh6rqc3ooP/preview?gid=347156326"
+        goldViewUrl="https://docs.google.com/spreadsheets/d/1wgRWXeVhUixB8WZThvNLCcWh6rqc3ooP/edit?gid=347156326#gid=347156326"
       />
     ),
   },
