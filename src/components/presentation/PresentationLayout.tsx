@@ -439,9 +439,11 @@ const PresentationLayout = ({
                                 const isVisited = visitedSlides.has(index);
                                 const isPast = index < highestSlideReached;
                                 
+                                // Filter child slides - exclude Practice slides (they go in Continue Practising)
+                                const practicePattern = /^Practice #\d+$/;
                                 const childSlides = slides
                                   .map((s, i) => ({ slide: s, index: i }))
-                                  .filter(s => s.slide.parentId === slide.id);
+                                  .filter(s => s.slide.parentId === slide.id && !practicePattern.test(s.slide.title || ''));
                                 const hasChildren = childSlides.length > 0;
                                 const childIsCurrent = childSlides.some(c => c.index === currentSlide);
                                 
