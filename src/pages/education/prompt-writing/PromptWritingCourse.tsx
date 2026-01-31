@@ -21,6 +21,8 @@ import CriterionErrorQuiz from "@/components/presentation/slides/CriterionErrorQ
 import RubricLevelQuiz from "@/components/presentation/slides/RubricLevelQuiz";
 import RubricInteractiveQuiz from "@/components/presentation/slides/RubricInteractiveQuiz";
 import TaskProcessOverview from "@/components/presentation/slides/TaskProcessOverview";
+import InputFileExampleSlide from "@/components/presentation/slides/InputFileExampleSlide";
+import InputFileCharacteristics from "@/components/presentation/slides/InputFileCharacteristics";
 import GoodPromptReveal, { h } from "@/components/presentation/slides/GoodPromptReveal";
 import PracticeOverlay from "@/components/presentation/slides/PracticeOverlay";
 import { exercise1Prompt, exercise1DeliverableUrl, exercise1Criteria } from "@/data/rubricQuizExercise1";
@@ -1539,7 +1541,7 @@ This report will be used to brief the design team and guide future optimization 
   })),
 
   // ═══════════════════════════════════════════════════════════════
-  // SECTION: Input Files (between Prompt Writing and Bronze Response)
+  // SECTION: Input Files (between Prompt Writing and Golden Example Deliverable)
   // ═══════════════════════════════════════════════════════════════
   {
     id: "input-files-intro",
@@ -1561,31 +1563,123 @@ This report will be used to brief the design team and guide future optimization 
   {
     id: "input-files-overview",
     section: "Input Files",
-    title: "What are Input Files?",
+    title: "Why Input Files Matter",
     content: (
-      <ContentSlide title="What are Input Files?" layout="left">
+      <ContentSlide title="Why Input Files Matter" layout="left">
         <div className="space-y-6">
           <p>
-            <strong className="text-foreground">Input files are the supporting documents, datasets, and reference materials</strong> that accompany your prompt and provide the context the model needs to complete the task.
+            <strong className="text-foreground">Professional domain tasks often require reference material in order to be representative.</strong> These need to be accounted for and considered as part of the task design.
           </p>
           <p>
-            In professional work, you rarely give instructions without providing the necessary materials. A financial analyst needs the spreadsheet data. A concierge needs the restaurant list. A lawyer needs the contract to review.
+            In professional work, you rarely give instructions without providing the necessary materials. A financial analyst needs the spreadsheet data. An auditor needs the population file. A buyer needs the vendor quotations.
           </p>
-          <div className="grid gap-4 mt-6">
-            <Card>
-              <CardContent className="p-5">
-                <p className="font-semibold text-foreground mb-2">Examples of Input Files</p>
-                <ul className="list-disc list-inside space-y-1 text-muted-foreground text-sm">
-                  <li>Spreadsheets with raw data to analyze</li>
-                  <li>Documents to summarize or review</li>
-                  <li>Reference materials and guidelines</li>
-                  <li>Images or media to process</li>
-                </ul>
-              </CardContent>
-            </Card>
-          </div>
+          <Card className="border-2 border-primary/30 bg-primary/5">
+            <CardContent className="p-5">
+              <p className="font-semibold text-foreground mb-2">Input files vs. Output deliverables</p>
+              <p className="text-sm text-muted-foreground">
+                <strong className="text-foreground">Input files</strong> are the reference materials provided TO the model. 
+                <strong className="text-foreground ml-1">Output deliverables</strong> are what the model produces. 
+                These are different concepts. A clear deliverable in a prompt is NOT the same as an input file.
+              </p>
+            </CardContent>
+          </Card>
         </div>
       </ContentSlide>
+    ),
+  },
+  {
+    id: "input-files-example-1",
+    section: "Input Files",
+    title: "Example: Audit / AFC Metrics",
+    parentId: "input-files-overview",
+    content: (
+      <InputFileExampleSlide
+        exampleNumber={1}
+        title="Explicit File Reference"
+        domain="Audit / AFC Metrics"
+        promptExcerpt={
+          <div className="space-y-3">
+            <p>
+              You are an auditor and as part of an audit engagement, you are tasked with reviewing and testing the accuracy of reported Anti-Financial Crime Risk Metrics.
+            </p>
+            <p className="bg-green-500/10 border-l-2 border-green-500 pl-3 py-1">
+              The attached spreadsheet titled <strong>'Population'</strong> contains Anti-Financial Crime Risk Metrics for Q2 and Q3 2024. You have obtained this data as part of the audit review to perform sample testing on a representative subset of metrics.
+            </p>
+            <p className="bg-green-500/10 border-l-2 border-green-500 pl-3 py-1">
+              Using the data in the <strong>'Population'</strong> spreadsheet, complete the following:
+            </p>
+            <p className="text-muted-foreground text-xs">
+              1. Calculate the required sample size... 2. Perform a variance analysis on Q2 and Q3 data (columns H and I)... 3. Select a sample for audit testing...
+            </p>
+          </div>
+        }
+        inputFileDescription="Anti-Financial Crime Risk Metrics Spreadsheet"
+        inputFileName="Population.xlsx"
+        inputFileUrl="https://docs.google.com/spreadsheets/d/1nrpI4qPfdjb_chj-APnPn158MG5t8h4X/edit?usp=sharing&ouid=109946200030023295969&rtpof=true&sd=true"
+        referenceHighlights={[
+          {
+            quote: "The attached spreadsheet titled 'Population'",
+            explanation: "Explicitly named file, no ambiguity about which document"
+          },
+          {
+            quote: "Using the data in the 'Population' spreadsheet, complete the following",
+            explanation: "Re-referenced before tasks begin, clearly identified as the data source"
+          }
+        ]}
+        qualityNotes={[
+          "Self-contained: no external data required",
+          "File explicitly named with clear identifier",
+          "Tasks directly reference specific columns (H, I, J, K)"
+        ]}
+      />
+    ),
+  },
+  {
+    id: "input-files-example-2",
+    section: "Input Files",
+    title: "Example: Automotive NPV Analysis",
+    parentId: "input-files-overview",
+    content: (
+      <InputFileExampleSlide
+        exampleNumber={2}
+        title="Grouped File Reference"
+        domain="Automotive / Procurement"
+        promptExcerpt={
+          <div className="space-y-3">
+            <p>
+              You're the category buyer for automotive electronics at LiIon Motors and are currently leading the sourcing process for headlamps on the upcoming mid-size passenger vehicle...
+            </p>
+            <p>
+              Create an Excel workbook that includes a dedicated NPV calculation sheet for each vendor and a final summary sheet for direct side-by-side comparison...
+            </p>
+            <p className="bg-green-500/10 border-l-2 border-green-500 pl-3 py-1">
+              <strong>All relevant documents</strong>, including vendor quotations and volume projections, <strong>are attached</strong>. Clearly list all assumptions made.
+            </p>
+          </div>
+        }
+        inputFileDescription="Vendor quotations and volume projections"
+        inputFileName="Multiple files (quotations, projections)"
+        inputFileUrl="https://drive.google.com/drive/folders/1O8aVfirvXI1rG-8bfGiuN71WjEKxOu1D?usp=sharing"
+        referenceHighlights={[
+          {
+            quote: "All relevant documents... are attached",
+            explanation: "Files not individually named, but clearly scoped as provided attachments"
+          }
+        ]}
+        qualityNotes={[
+          "Model knows all attached files are inputs",
+          "Acceptable in professional workflows",
+          "Could be improved by naming each file explicitly"
+        ]}
+      />
+    ),
+  },
+  {
+    id: "input-files-characteristics",
+    section: "Input Files",
+    title: "Best Practices",
+    content: (
+      <InputFileCharacteristics />
     ),
   },
 
