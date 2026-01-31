@@ -116,15 +116,34 @@ const TaskingAssistancePage = () => {
       // Upload files first
       const attachmentUrls = files.length > 0 ? await uploadFiles() : [];
 
-      const { error } = await supabase.from("prompt_submissions").insert({
+      const { data, error } = await supabase.from("prompt_submissions").insert({
         submitter_name: name.trim(),
         submitter_email: email.trim() || null,
         prompt_text: promptText.trim(),
         submission_type: "prompt",
         attachment_urls: attachmentUrls,
-      });
+      }).select().single();
 
       if (error) throw error;
+
+      // Trigger Zapier webhook
+      try {
+        await fetch("https://hooks.zapier.com/hooks/catch/25935708/ul9kd5j/", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          mode: "no-cors",
+          body: JSON.stringify({
+            id: data.id,
+            submitter_name: data.submitter_name,
+            submitter_email: data.submitter_email,
+            prompt_text: data.prompt_text,
+            attachment_urls: data.attachment_urls,
+            created_at: data.created_at,
+          }),
+        });
+      } catch (webhookError) {
+        console.error("Zapier webhook failed:", webhookError);
+      }
 
       setIsSubmitted(true);
       toast({
