@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -108,6 +108,7 @@ const PromptExerciseQuiz = ({
 }: PromptExerciseQuizProps) => {
   const [selected, setSelected] = useState<Set<ElementKey>>(new Set());
   const [submitted, setSubmitted] = useState(false);
+  const feedbackRef = useRef<HTMLDivElement>(null);
 
   const toggleElement = (element: ElementKey) => {
     if (submitted) return;
@@ -128,6 +129,10 @@ const PromptExerciseQuiz = ({
     if (submitted) {
       onSubmit?.();
       onGateUnlock?.();
+      // Scroll to feedback after a brief delay to ensure DOM has updated
+      setTimeout(() => {
+        feedbackRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 100);
     }
   }, [submitted, onSubmit, onGateUnlock]);
 
@@ -227,6 +232,9 @@ const PromptExerciseQuiz = ({
         )}
 
         {/* Post-Submit Feedback */}
+        {submitted && (
+          <div ref={feedbackRef}></div>
+        )}
         {submitted && (
           <div className="space-y-6 mt-8">
             {/* Divider */}
