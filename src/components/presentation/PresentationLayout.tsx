@@ -415,104 +415,212 @@ const PresentationLayout = ({
                     
                     <CollapsibleContent>
                       <div className="ml-4 mt-1 space-y-0.5 border-l border-border pl-2">
-                        {section.slides.map(({ slide, index }) => {
-                          const isCurrent = index === currentSlide;
-                          const isVisited = visitedSlides.has(index);
-                          // A slide is "past" if we've progressed beyond it (based on highest reached)
-                          const isPast = index < highestSlideReached;
+                        {(() => {
+                          // Separate practice slides #4+ from regular slides
+                          const practicePattern = /^Practice #(\d+)$/;
+                          const regularSlides: { slide: Slide; index: number }[] = [];
+                          const continuePracticeSlides: { slide: Slide; index: number }[] = [];
                           
+                          section.slides.forEach(item => {
+                            const match = item.slide.title?.match(practicePattern);
+                            if (match && parseInt(match[1]) >= 4) {
+                              continuePracticeSlides.push(item);
+                            } else {
+                              regularSlides.push(item);
+                            }
+                          });
                           
-                          // Find child slides (nested under this slide)
-                          const childSlides = slides
-                            .map((s, i) => ({ slide: s, index: i }))
-                            .filter(s => s.slide.parentId === slide.id);
-                          const hasChildren = childSlides.length > 0;
-                          const childIsCurrent = childSlides.some(c => c.index === currentSlide);
-                          
-                          // Skip rendering if this slide has a parentId (it will be rendered as a child)
-                          if (slide.parentId) return null;
+                          const hasContinuePractice = continuePracticeSlides.length > 0;
+                          const continuePracticeHasCurrent = continuePracticeSlides.some(s => s.index === currentSlide);
+                          const continuePracticeComplete = continuePracticeSlides.every(s => s.index < highestSlideReached);
+                          const continuePracticeFirstVisited = continuePracticeSlides.length > 0 && visitedSlides.has(continuePracticeSlides[0].index);
                           
                           return (
-                            <div key={slide.id}>
-                              <button
-                                onClick={() => isVisited && goToSlide(index, index > currentSlide ? 'next' : 'prev')}
-                                disabled={!isVisited}
-                                className={cn(
-                                  "w-full flex items-center gap-2 px-2 py-1.5 rounded-md transition-all text-left",
-                                  (isCurrent || childIsCurrent) && "bg-primary/10 text-primary",
-                                  !isCurrent && !childIsCurrent && isVisited && "hover:bg-muted cursor-pointer",
-                                  !isVisited && "opacity-50 cursor-not-allowed"
-                                )}
-                              >
-                                {/* Step indicator */}
-                                <div className={cn(
-                                  "w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-bold flex-shrink-0 transition-colors",
-                                  isCurrent && "bg-primary text-primary-foreground",
-                                  isPast && !isCurrent && "bg-primary/20 text-primary",
-                                  !isPast && !isCurrent && "bg-muted text-muted-foreground"
-                                )}>
-                                  {isPast && !isCurrent ? (
-                                    <Check className="w-3 h-3" />
-                                  ) : (
-                                    index + 1
-                                  )}
-                                </div>
+                            <>
+                              {regularSlides.map(({ slide, index }) => {
+                                const isCurrent = index === currentSlide;
+                                const isVisited = visitedSlides.has(index);
+                                const isPast = index < highestSlideReached;
                                 
-                                {/* Step title (desktop only) */}
-                                <span className={cn(
-                                  "text-xs truncate hidden lg:block",
-                                  (isCurrent || childIsCurrent) ? "text-primary font-medium" : "text-muted-foreground"
-                                )}>
-                                  {slide.title || `Step ${index + 1}`}
-                                </span>
-                              </button>
-                              
-                              {/* Nested child slides */}
-                              {hasChildren && (
-                                <div className="ml-4 mt-0.5 space-y-0.5 border-l border-border/50 pl-2">
-                                  {childSlides.map(({ slide: childSlide, index: childIndex }) => {
-                                    const isChildCurrent = childIndex === currentSlide;
-                                    const isChildVisited = visitedSlides.has(childIndex);
-                                    const isChildPast = childIndex < highestSlideReached;
-                                    
-                                    return (
-                                      <button
-                                        key={childSlide.id}
-                                        onClick={() => isChildVisited && goToSlide(childIndex, childIndex > currentSlide ? 'next' : 'prev')}
-                                        disabled={!isChildVisited}
-                                        className={cn(
-                                          "w-full flex items-center gap-2 px-2 py-1 rounded-md transition-all text-left",
-                                          isChildCurrent && "bg-primary/10 text-primary",
-                                          !isChildCurrent && isChildVisited && "hover:bg-muted cursor-pointer",
-                                          !isChildVisited && "opacity-50 cursor-not-allowed"
+                                const childSlides = slides
+                                  .map((s, i) => ({ slide: s, index: i }))
+                                  .filter(s => s.slide.parentId === slide.id);
+                                const hasChildren = childSlides.length > 0;
+                                const childIsCurrent = childSlides.some(c => c.index === currentSlide);
+                                
+                                if (slide.parentId) return null;
+                                
+                                return (
+                                  <div key={slide.id}>
+                                    <button
+                                      onClick={() => isVisited && goToSlide(index, index > currentSlide ? 'next' : 'prev')}
+                                      disabled={!isVisited}
+                                      className={cn(
+                                        "w-full flex items-center gap-2 px-2 py-1.5 rounded-md transition-all text-left",
+                                        (isCurrent || childIsCurrent) && "bg-primary/10 text-primary",
+                                        !isCurrent && !childIsCurrent && isVisited && "hover:bg-muted cursor-pointer",
+                                        !isVisited && "opacity-50 cursor-not-allowed"
+                                      )}
+                                    >
+                                      <div className={cn(
+                                        "w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-bold flex-shrink-0 transition-colors",
+                                        isCurrent && "bg-primary text-primary-foreground",
+                                        isPast && !isCurrent && "bg-primary/20 text-primary",
+                                        !isPast && !isCurrent && "bg-muted text-muted-foreground"
+                                      )}>
+                                        {isPast && !isCurrent ? (
+                                          <Check className="w-3 h-3" />
+                                        ) : (
+                                          index + 1
                                         )}
-                                      >
-                                        <div className={cn(
-                                          "w-4 h-4 rounded-full flex items-center justify-center text-[9px] font-bold flex-shrink-0 transition-colors",
-                                          isChildCurrent && "bg-primary text-primary-foreground",
-                                          isChildPast && !isChildCurrent && "bg-primary/20 text-primary",
-                                          !isChildPast && !isChildCurrent && "bg-muted text-muted-foreground"
-                                        )}>
-                                          {isChildPast && !isChildCurrent ? (
-                                            <Check className="w-2.5 h-2.5" />
-                                          ) : (
-                                            childIndex + 1
-                                          )}
+                                      </div>
+                                      <span className={cn(
+                                        "text-xs truncate hidden lg:block",
+                                        (isCurrent || childIsCurrent) ? "text-primary font-medium" : "text-muted-foreground"
+                                      )}>
+                                        {slide.title || `Step ${index + 1}`}
+                                      </span>
+                                    </button>
+                                    
+                                    {hasChildren && (
+                                      <div className="ml-4 mt-0.5 space-y-0.5 border-l border-border/50 pl-2">
+                                        {childSlides.map(({ slide: childSlide, index: childIndex }) => {
+                                          const isChildCurrent = childIndex === currentSlide;
+                                          const isChildVisited = visitedSlides.has(childIndex);
+                                          const isChildPast = childIndex < highestSlideReached;
+                                          
+                                          return (
+                                            <button
+                                              key={childSlide.id}
+                                              onClick={() => isChildVisited && goToSlide(childIndex, childIndex > currentSlide ? 'next' : 'prev')}
+                                              disabled={!isChildVisited}
+                                              className={cn(
+                                                "w-full flex items-center gap-2 px-2 py-1 rounded-md transition-all text-left",
+                                                isChildCurrent && "bg-primary/10 text-primary",
+                                                !isChildCurrent && isChildVisited && "hover:bg-muted cursor-pointer",
+                                                !isChildVisited && "opacity-50 cursor-not-allowed"
+                                              )}
+                                            >
+                                              <div className={cn(
+                                                "w-4 h-4 rounded-full flex items-center justify-center text-[9px] font-bold flex-shrink-0 transition-colors",
+                                                isChildCurrent && "bg-primary text-primary-foreground",
+                                                isChildPast && !isChildCurrent && "bg-primary/20 text-primary",
+                                                !isChildPast && !isChildCurrent && "bg-muted text-muted-foreground"
+                                              )}>
+                                                {isChildPast && !isChildCurrent ? (
+                                                  <Check className="w-2.5 h-2.5" />
+                                                ) : (
+                                                  childIndex + 1
+                                                )}
+                                              </div>
+                                              <span className={cn(
+                                                "text-[11px] truncate hidden lg:block",
+                                                isChildCurrent ? "text-primary font-medium" : "text-muted-foreground"
+                                              )}>
+                                                {childSlide.title || `Step ${childIndex + 1}`}
+                                              </span>
+                                            </button>
+                                          );
+                                        })}
+                                      </div>
+                                    )}
+                                  </div>
+                                );
+                              })}
+                              
+                              {/* Continue Practising collapsible group */}
+                              {hasContinuePractice && (
+                                <Collapsible
+                                  open={openSections.has("Continue Practising")}
+                                  onOpenChange={(open) => {
+                                    setOpenSections(prev => {
+                                      const next = new Set(prev);
+                                      if (open) {
+                                        next.add("Continue Practising");
+                                      } else {
+                                        next.delete("Continue Practising");
+                                      }
+                                      return next;
+                                    });
+                                  }}
+                                >
+                                  <div className={cn(
+                                    "flex items-center gap-1 px-2 py-1.5 rounded-md transition-colors",
+                                    continuePracticeHasCurrent && "bg-primary/10"
+                                  )}>
+                                    <CollapsibleTrigger className="flex items-center gap-2 flex-1 text-left">
+                                      {continuePracticeComplete ? (
+                                        <div className="w-5 h-5 rounded-full bg-primary/20 flex items-center justify-center">
+                                          <Check className="w-3 h-3 text-primary" />
                                         </div>
-                                        <span className={cn(
-                                          "text-[11px] truncate hidden lg:block",
-                                          isChildCurrent ? "text-primary font-medium" : "text-muted-foreground"
+                                      ) : (
+                                        <div className={cn(
+                                          "w-5 h-5 rounded-full flex items-center justify-center",
+                                          continuePracticeHasCurrent ? "bg-primary" : "bg-muted"
                                         )}>
-                                          {childSlide.title || `Step ${childIndex + 1}`}
-                                        </span>
-                                      </button>
-                                    );
-                                  })}
-                                </div>
+                                          <div className={cn(
+                                            "w-2 h-2 rounded-full",
+                                            continuePracticeHasCurrent ? "bg-primary-foreground" : "bg-muted-foreground"
+                                          )} />
+                                        </div>
+                                      )}
+                                      <span className={cn(
+                                        "text-xs font-medium hidden lg:block",
+                                        continuePracticeHasCurrent ? "text-primary" : "text-muted-foreground"
+                                      )}>
+                                        Continue Practising
+                                      </span>
+                                      <ChevronDown className="w-3 h-3 text-muted-foreground transition-transform duration-200 [[data-state=open]>&]:rotate-180 hidden lg:block" />
+                                    </CollapsibleTrigger>
+                                  </div>
+                                  
+                                  <CollapsibleContent>
+                                    <div className="ml-4 mt-0.5 space-y-0.5 border-l border-border/50 pl-2">
+                                      {continuePracticeSlides.map(({ slide, index }) => {
+                                        const isCurrent = index === currentSlide;
+                                        const isVisited = visitedSlides.has(index);
+                                        const isPast = index < highestSlideReached;
+                                        
+                                        return (
+                                          <button
+                                            key={slide.id}
+                                            onClick={() => isVisited && goToSlide(index, index > currentSlide ? 'next' : 'prev')}
+                                            disabled={!isVisited}
+                                            className={cn(
+                                              "w-full flex items-center gap-2 px-2 py-1 rounded-md transition-all text-left",
+                                              isCurrent && "bg-primary/10 text-primary",
+                                              !isCurrent && isVisited && "hover:bg-muted cursor-pointer",
+                                              !isVisited && "opacity-50 cursor-not-allowed"
+                                            )}
+                                          >
+                                            <div className={cn(
+                                              "w-4 h-4 rounded-full flex items-center justify-center text-[9px] font-bold flex-shrink-0 transition-colors",
+                                              isCurrent && "bg-primary text-primary-foreground",
+                                              isPast && !isCurrent && "bg-primary/20 text-primary",
+                                              !isPast && !isCurrent && "bg-muted text-muted-foreground"
+                                            )}>
+                                              {isPast && !isCurrent ? (
+                                                <Check className="w-2.5 h-2.5" />
+                                              ) : (
+                                                index + 1
+                                              )}
+                                            </div>
+                                            <span className={cn(
+                                              "text-[11px] truncate hidden lg:block",
+                                              isCurrent ? "text-primary font-medium" : "text-muted-foreground"
+                                            )}>
+                                              {slide.title || `Step ${index + 1}`}
+                                            </span>
+                                          </button>
+                                        );
+                                      })}
+                                    </div>
+                                  </CollapsibleContent>
+                                </Collapsible>
                               )}
-                            </div>
+                            </>
                           );
-                        })}
+                        })()}
                       </div>
                     </CollapsibleContent>
                   </Collapsible>
