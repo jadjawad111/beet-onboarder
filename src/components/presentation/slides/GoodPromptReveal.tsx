@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import {
   Tooltip,
@@ -25,7 +25,7 @@ const elementBubbles: Record<ElementKey, { title: string; why: string; enables: 
   },
   unambiguous: {
     title: "Unambiguous",
-    why: "This wording removes guesswork by clearly stating what is expected. Different professionals would interpret this the same way.",
+    why: "This wording removes guesswork by clearly stating what is expected. Different professionals would agree on what a good output looks like.",
     enables: "Outputs can be evaluated consistently.",
   },
   realistic: {
@@ -61,24 +61,41 @@ interface GoodPromptRevealProps {
   // The prompt text with markers: use [[text||element]] format
   // e.g., "You are a [[retail general manager||professionalRole]] at a [[bridal store||professionalRole]]"
   promptParts: (string | HighlightedPhrase)[];
+  onGateUnlock?: () => void;
 }
 
-const HighlightSpan = ({ phrase }: { phrase: HighlightedPhrase }) => {
+interface HighlightSpanProps {
+  phrase: HighlightedPhrase;
+  index: number;
+  onHovered: (index: number) => void;
+  isHovered: boolean;
+}
+
+const HighlightSpan = ({ phrase, index, onHovered, isHovered }: HighlightSpanProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const bubble = elementBubbles[phrase.element];
 
+  const handleOpenChange = (open: boolean) => {
+    setIsOpen(open);
+    if (open) {
+      onHovered(index);
+    }
+  };
+
   return (
-    <Tooltip open={isOpen} onOpenChange={setIsOpen}>
+    <Tooltip open={isOpen} onOpenChange={handleOpenChange}>
       <TooltipTrigger asChild>
         <span
           className={cn(
-            "bg-green-500/20 text-green-700 dark:text-green-300 px-1.5 py-0.5 rounded cursor-pointer",
-            "hover:bg-green-500/30 transition-colors inline font-medium",
-            "border-b-2 border-green-500/40 border-dashed"
+            "px-1.5 py-0.5 rounded cursor-pointer inline font-medium border-b-2 border-dashed transition-colors",
+            isHovered 
+              ? "bg-green-500/30 text-green-700 dark:text-green-300 border-green-500/60"
+              : "bg-green-500/20 text-green-700 dark:text-green-300 border-green-500/40 hover:bg-green-500/30"
           )}
           onClick={() => setIsOpen(!isOpen)}
         >
           {phrase.text}
+          {isHovered && <CheckCircle2 className="w-3 h-3 inline ml-1 text-green-500" />}
         </span>
       </TooltipTrigger>
       <TooltipContent 
@@ -110,7 +127,29 @@ const HighlightSpan = ({ phrase }: { phrase: HighlightedPhrase }) => {
   );
 };
 
-const GoodPromptReveal = ({ exerciseNumber, promptParts }: GoodPromptRevealProps) => {
+const GoodPromptReveal = ({ exerciseNumber, promptParts, onGateUnlock }: GoodPromptRevealProps) => {
+  // Track which highlight indices have been hovered
+  const [hoveredIndices, setHoveredIndices] = useState<Set<number>>(new Set());
+  
+  // Count total number of highlighted phrases
+  const totalHighlights = promptParts.filter(p => typeof p !== "string").length;
+  const hoveredCount = hoveredIndices.size;
+  const allHovered = hoveredCount >= totalHighlights;
+
+  const handleHovered = (index: number) => {
+    setHoveredIndices(prev => new Set(prev).add(index));
+  };
+
+  // Unlock gate when all bubbles have been hovered
+  useEffect(() => {
+    if (allHovered && onGateUnlock) {
+      onGateUnlock();
+    }
+  }, [allHovered, onGateUnlock]);
+
+  // Track highlight index separately from map index
+  let highlightIndex = -1;
+
   return (
     <div className="h-full flex flex-col">
       {/* Header */}
@@ -122,6 +161,17 @@ const GoodPromptReveal = ({ exerciseNumber, promptParts }: GoodPromptRevealProps
         <p className="text-muted-foreground">
           Hover over the <span className="text-green-600 font-medium">green highlighted</span> sections to understand why they demonstrate good prompt construction.
         </p>
+        {!allHovered && (
+          <p className="text-sm text-primary mt-2 font-medium">
+            Hover all {totalHighlights} highlights to continue ({hoveredCount}/{totalHighlights})
+          </p>
+        )}
+        {allHovered && (
+          <p className="text-sm text-green-600 mt-2 font-medium flex items-center gap-1">
+            <CheckCircle2 className="w-4 h-4" />
+            All highlights reviewed — you may continue
+          </p>
+        )}
       </div>
 
       {/* Prompt Content */}
@@ -132,11 +182,21 @@ const GoodPromptReveal = ({ exerciseNumber, promptParts }: GoodPromptRevealProps
             Original Good Prompt
           </p>
           <div className="text-foreground leading-relaxed text-base whitespace-pre-wrap">
-            {promptParts.map((part, index) => {
+            {promptParts.map((part, mapIndex) => {
               if (typeof part === "string") {
-                return <span key={index}>{part}</span>;
+                return <span key={mapIndex}>{part}</span>;
               }
-              return <HighlightSpan key={index} phrase={part} />;
+              highlightIndex++;
+              const currentHighlightIndex = highlightIndex;
+              return (
+                <HighlightSpan 
+                  key={mapIndex} 
+                  phrase={part} 
+                  index={currentHighlightIndex}
+                  onHovered={handleHovered}
+                  isHovered={hoveredIndices.has(currentHighlightIndex)}
+                />
+              );
             })}
           </div>
         </div>

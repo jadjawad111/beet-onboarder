@@ -752,6 +752,7 @@ The goal is to help improve how the team responds to customer concerns and incre
     section: "Prompt Writing",
     title: "Good Prompt #1",
     parentId: "prompt-quiz-intro",
+    gated: true,
     content: (
       <GoodPromptReveal
         exerciseNumber={1}
@@ -829,6 +830,7 @@ Submit both documents when complete.`}
     section: "Prompt Writing",
     title: "Good Prompt #2",
     parentId: "prompt-quiz-intro",
+    gated: true,
     content: (
       <GoodPromptReveal
         exerciseNumber={2}
@@ -936,6 +938,7 @@ This report will be used to brief the design team and guide future optimization 
     section: "Prompt Writing",
     title: "Good Prompt #3",
     parentId: "prompt-quiz-intro",
+    gated: true,
     content: (
       <GoodPromptReveal
         exerciseNumber={3}
