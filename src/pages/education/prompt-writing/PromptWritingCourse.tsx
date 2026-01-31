@@ -485,8 +485,8 @@ const slides: Slide[] = [
               <thead>
                 <tr className="border-b bg-muted/50">
                   <th className="p-3 text-left font-medium w-1/5">Scenario</th>
-                  <th className="p-3 text-left font-medium text-destructive w-2/5">✗ Bad Trap</th>
-                  <th className="p-3 text-left font-medium text-green-600 w-2/5">✓ Good Trap</th>
+                  <th className="p-3 text-left font-medium text-destructive w-2/5">✗ Artificial Challenge</th>
+                  <th className="p-3 text-left font-medium text-green-600 w-2/5">✓ Genuine Challenge</th>
                 </tr>
               </thead>
               <tbody className="text-xs">
