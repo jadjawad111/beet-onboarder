@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useMemo } from "react";
+import React, { useState, useEffect, useCallback, useMemo, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { ChevronLeft, ChevronRight, X, Check, ChevronDown, Lock, Download, FileText } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -59,6 +59,7 @@ const PresentationLayout = ({
   }, [unlockedSlides]);
 
   const totalSlides = slides.length;
+  const mainContentRef = useRef<HTMLElement>(null);
   const isFirstSlide = currentSlide === 0;
   const isLastSlide = currentSlide === totalSlides - 1;
   // Progress is based on highest slide reached, not current position
@@ -76,10 +77,12 @@ const PresentationLayout = ({
     }
   }, [currentSlideData?.id]);
 
-  // Track visited slides and highest slide reached
+  // Track visited slides and highest slide reached, and scroll to top on slide change
   useEffect(() => {
     setVisitedSlides(prev => new Set([...prev, currentSlide]));
     setHighestSlideReached(prev => Math.max(prev, currentSlide));
+    // Scroll main content to top when slide changes
+    mainContentRef.current?.scrollTo({ top: 0, behavior: 'instant' });
   }, [currentSlide]);
 
   const goToSlide = useCallback((index: number, direction: 'next' | 'prev') => {
@@ -502,7 +505,7 @@ const PresentationLayout = ({
         </header>
 
         {/* Slide content */}
-        <main className="flex-1 flex flex-col px-8 md:px-16 lg:px-24 pt-12 pb-24 overflow-y-auto">
+        <main ref={mainContentRef} className="flex-1 flex flex-col px-8 md:px-16 lg:px-24 pt-12 pb-24 overflow-y-auto">
           <div className="flex-1 flex items-center justify-center min-h-0">
             <div 
               key={currentSlideData?.id}
