@@ -203,6 +203,7 @@ const slides: Slide[] = [
     id: "prompt-section-goal",
     section: "Prompt Writing",
     title: "Section Goal",
+    important: true,
     content: (
       <ContentSlide title="The Goal of This Section" layout="left">
         <div className="space-y-6">
