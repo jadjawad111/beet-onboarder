@@ -251,20 +251,21 @@ const slides: Slide[] = [
       </ContentSlide>
     ),
   },
-  {
-    id: "prompt-what-is-good",
-    section: "Prompt Writing",
-    title: "What is a good prompt?",
-    gated: true,
-    content: (
-      <ContentSlide title='What is a "good" prompt really?' layout="left">
-        <div className="space-y-4">
-          <p className="mb-6">A good prompt is one that is:</p>
-          <PromptQualityChecklist />
-        </div>
-      </ContentSlide>
-    ),
-  },
+  // HIDDEN: Step 9 - "What is a good prompt?" slide
+  // {
+  //   id: "prompt-what-is-good",
+  //   section: "Prompt Writing",
+  //   title: "What is a good prompt?",
+  //   gated: true,
+  //   content: (
+  //     <ContentSlide title='What is a "good" prompt really?' layout="left">
+  //       <div className="space-y-4">
+  //         <p className="mb-6">A good prompt is one that is:</p>
+  //         <PromptQualityChecklist />
+  //       </div>
+  //     </ContentSlide>
+  //   ),
+  // },
   {
     id: "prompt-why-matter",
     section: "Prompt Writing",
