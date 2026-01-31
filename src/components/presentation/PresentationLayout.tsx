@@ -260,34 +260,32 @@ const PresentationLayout = ({
             You've mastered {title}
           </p>
           
-          {/* Reference Options */}
+          {/* Reference Download */}
           <div className="mt-8 p-6 bg-card border border-border rounded-xl">
             <div className="flex items-center justify-center gap-3 mb-3">
               <FileText className="w-6 h-6 text-primary" />
               <span className="font-semibold text-foreground">Course Reference</span>
             </div>
             <p className="text-sm text-muted-foreground mb-4">
-              Access all course content as a reference guide you can print or download.
+              Get the complete course content as a printable reference guide.
             </p>
-            <div className="flex flex-col sm:flex-row gap-3 justify-center">
-              <Button
-                onClick={() => navigate('/education/prompt-writing/reference')}
-                variant="outline"
-                className="gap-2"
-                size="lg"
-              >
-                <FileText className="w-4 h-4" />
-                View Full Reference
-              </Button>
-              <Button
-                onClick={handleDownloadPDF}
-                className="gap-2"
-                size="lg"
-              >
+            <Button
+              asChild
+              className="gap-2 w-full sm:w-auto"
+              size="lg"
+            >
+              <a href="/education/prompt-writing/reference" target="_blank" rel="noopener noreferrer">
                 <Download className="w-4 h-4" />
-                Download PDF
-              </Button>
-            </div>
+                Download Reference Guide
+              </a>
+            </Button>
+          </div>
+          
+          {/* Warning callout */}
+          <div className="mt-4 p-4 bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800 rounded-lg max-w-md">
+            <p className="text-sm text-amber-800 dark:text-amber-200">
+              <strong>Note:</strong> Progress may not persist between sessions. We recommend downloading the reference guide now for future use.
+            </p>
           </div>
           
           <p className="text-sm text-muted-foreground mt-6">
