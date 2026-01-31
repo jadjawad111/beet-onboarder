@@ -312,7 +312,7 @@ const RubricInteractiveQuiz = ({
                 <TableHead className="w-16 text-center">Weight</TableHead>
                 <TableHead className="w-36">Category</TableHead>
                 <TableHead className="w-28 text-center">Error?</TableHead>
-                <TableHead className="w-40">Error Type</TableHead>
+                <TableHead className="w-52">Error Type</TableHead>
                 <TableHead className="w-24 text-center">Action</TableHead>
               </TableRow>
             </TableHeader>
