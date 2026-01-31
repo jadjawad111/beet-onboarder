@@ -20,6 +20,7 @@ import AITrainingProcess from "@/components/presentation/slides/AITrainingProces
 import CriterionErrorQuiz from "@/components/presentation/slides/CriterionErrorQuiz";
 import RubricLevelQuiz from "@/components/presentation/slides/RubricLevelQuiz";
 import RubricInteractiveQuiz from "@/components/presentation/slides/RubricInteractiveQuiz";
+import TaskProcessOverview from "@/components/presentation/slides/TaskProcessOverview";
 import GoodPromptReveal, { h } from "@/components/presentation/slides/GoodPromptReveal";
 import PracticeOverlay from "@/components/presentation/slides/PracticeOverlay";
 import { exercise1Prompt, exercise1DeliverableUrl, exercise1Criteria } from "@/data/rubricQuizExercise1";
@@ -249,6 +250,21 @@ const slides: Slide[] = [
             </Card>
           </div>
         </div>
+      </ContentSlide>
+    ),
+  },
+  {
+    id: "task-process-prompt",
+    section: "Prompt Writing",
+    title: "The Task Process",
+    content: (
+      <ContentSlide title="" layout="center">
+        <TaskProcessOverview 
+          prompt={{ highlighted: true }}
+          inputFiles={{}}
+          deliverable={{}}
+          rubric={{}}
+        />
       </ContentSlide>
     ),
   },
@@ -1505,6 +1521,57 @@ This report will be used to brief the design team and guide future optimization 
   })),
 
   // ═══════════════════════════════════════════════════════════════
+  // SECTION: Input Files (between Prompt Writing and Bronze Response)
+  // ═══════════════════════════════════════════════════════════════
+  {
+    id: "input-files-intro",
+    section: "Input Files",
+    title: "Input Files",
+    content: (
+      <ContentSlide title="" layout="center">
+        <TaskProcessOverview 
+          title="Input Files"
+          subtitle="Supporting documents and data for your task"
+          prompt={{ completed: true }}
+          inputFiles={{ highlighted: true }}
+          deliverable={{}}
+          rubric={{}}
+        />
+      </ContentSlide>
+    ),
+  },
+  {
+    id: "input-files-overview",
+    section: "Input Files",
+    title: "What are Input Files?",
+    content: (
+      <ContentSlide title="What are Input Files?" layout="left">
+        <div className="space-y-6">
+          <p>
+            <strong className="text-foreground">Input files are the supporting documents, datasets, and reference materials</strong> that accompany your prompt and provide the context the model needs to complete the task.
+          </p>
+          <p>
+            In professional work, you rarely give instructions without providing the necessary materials. A financial analyst needs the spreadsheet data. A concierge needs the restaurant list. A lawyer needs the contract to review.
+          </p>
+          <div className="grid gap-4 mt-6">
+            <Card>
+              <CardContent className="p-5">
+                <p className="font-semibold text-foreground mb-2">Examples of Input Files</p>
+                <ul className="list-disc list-inside space-y-1 text-muted-foreground text-sm">
+                  <li>Spreadsheets with raw data to analyze</li>
+                  <li>Documents to summarize or review</li>
+                  <li>Reference materials and guidelines</li>
+                  <li>Images or media to process</li>
+                </ul>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </ContentSlide>
+    ),
+  },
+
+  // ═══════════════════════════════════════════════════════════════
   // SECTION 3: "Bronze" Response
   // ═══════════════════════════════════════════════════════════════
   {
@@ -1522,6 +1589,21 @@ This report will be used to brief the design team and guide future optimization 
           "Real examples of Bronze responses",
         ]}
       />
+    ),
+  },
+  {
+    id: "task-process-bronze",
+    section: '"Bronze" Response',
+    title: "The Task Process",
+    content: (
+      <ContentSlide title="" layout="center">
+        <TaskProcessOverview 
+          prompt={{ completed: true }}
+          inputFiles={{ completed: true }}
+          deliverable={{ highlighted: true }}
+          rubric={{}}
+        />
+      </ContentSlide>
     ),
   },
   {
@@ -1674,6 +1756,21 @@ This analysis will be stored on the concierge laptop as a Word file and will be 
           "Examples of well-designed rubrics",
         ]}
       />
+    ),
+  },
+  {
+    id: "task-process-rubrics",
+    section: "Rubrics",
+    title: "The Task Process",
+    content: (
+      <ContentSlide title="" layout="center">
+        <TaskProcessOverview 
+          prompt={{ completed: true }}
+          inputFiles={{ completed: true }}
+          deliverable={{ completed: true }}
+          rubric={{ highlighted: true }}
+        />
+      </ContentSlide>
     ),
   },
   {
@@ -2611,6 +2708,22 @@ This analysis will be stored on the concierge laptop as a Word file and will be 
   // ═══════════════════════════════════════════════════════════════
   // COMPLETION
   // ═══════════════════════════════════════════════════════════════
+  {
+    id: "task-process-complete",
+    section: "Rubrics",
+    title: "All Components Complete",
+    content: (
+      <ContentSlide title="" layout="center">
+        <TaskProcessOverview 
+          prompt={{ completed: true }}
+          inputFiles={{ completed: true }}
+          deliverable={{ completed: true }}
+          rubric={{ completed: true }}
+          showCompletedAnimation={true}
+        />
+      </ContentSlide>
+    ),
+  },
   {
     id: "final",
     section: "Rubrics",
