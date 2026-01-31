@@ -140,12 +140,10 @@ const GoodPromptReveal = ({ exerciseNumber, promptParts, onGateUnlock }: GoodPro
     setHoveredIndices(prev => new Set(prev).add(index));
   };
 
-  // Unlock gate when all bubbles have been hovered
+  // Gate removed: unlock immediately on mount
   useEffect(() => {
-    if (allHovered && onGateUnlock) {
-      onGateUnlock();
-    }
-  }, [allHovered, onGateUnlock]);
+    onGateUnlock?.();
+  }, [onGateUnlock]);
 
   // Track highlight index separately from map index
   let highlightIndex = -1;
