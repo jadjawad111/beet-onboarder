@@ -16,6 +16,7 @@ export type Database = {
     Tables: {
       prompt_submissions: {
         Row: {
+          attachment_urls: string[] | null
           created_at: string
           feedback: string | null
           id: string
@@ -27,6 +28,7 @@ export type Database = {
           updated_at: string
         }
         Insert: {
+          attachment_urls?: string[] | null
           created_at?: string
           feedback?: string | null
           id?: string
@@ -38,6 +40,7 @@ export type Database = {
           updated_at?: string
         }
         Update: {
+          attachment_urls?: string[] | null
           created_at?: string
           feedback?: string | null
           id?: string
