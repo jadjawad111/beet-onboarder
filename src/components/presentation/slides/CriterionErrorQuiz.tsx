@@ -187,12 +187,12 @@ const CriterionErrorQuiz = ({
       {/* Reveal State */}
       {isRevealed && (
         <div className="space-y-4 animate-in fade-in duration-300 pt-6 border-t border-border">
-          {/* Why Bad / Why Good */}
+          {/* Why Bad / Why Good - use DISPLAY labels, not actual option values */}
           <div className="grid md:grid-cols-2 gap-4">
             <Card className="border-destructive/20">
               <CardContent className="p-4">
                 <p className="text-xs uppercase tracking-wide text-destructive font-medium mb-2">
-                  Why Option {correctOption === "A" ? "B" : "A"} fails
+                  Why Option {displayOptions.first.actualOption === correctOption ? displayOptions.second.label : displayOptions.first.label} fails
                 </p>
                 <p className="text-sm text-muted-foreground">{whyBadExplanation}</p>
               </CardContent>
@@ -200,7 +200,7 @@ const CriterionErrorQuiz = ({
             <Card className="border-green-500/20">
               <CardContent className="p-4">
                 <p className="text-xs uppercase tracking-wide text-green-600 font-medium mb-2">
-                  Why Option {correctOption} works
+                  Why Option {displayOptions.first.actualOption === correctOption ? displayOptions.first.label : displayOptions.second.label} works
                 </p>
                 <p className="text-sm text-muted-foreground">{whyGoodExplanation}</p>
               </CardContent>
