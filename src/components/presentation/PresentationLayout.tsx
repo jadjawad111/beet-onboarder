@@ -38,6 +38,7 @@ const PresentationLayout = ({
   const [slideDirection, setSlideDirection] = useState<'next' | 'prev'>('next');
   const [visitedSlides, setVisitedSlides] = useState<Set<number>>(new Set([0]));
   const [highestSlideReached, setHighestSlideReached] = useState(0);
+  const [openSections, setOpenSections] = useState<Set<string>>(new Set());
   
   // Persist unlocked slides in sessionStorage so they stay unlocked during the session
   const [unlockedSlides, setUnlockedSlides] = useState<Set<string>>(() => {
@@ -85,6 +86,16 @@ const PresentationLayout = ({
     // Scroll main content to top when slide changes
     mainContentRef.current?.scrollTo({ top: 0, behavior: 'instant' });
   }, [currentSlide]);
+
+  // Auto-open the section containing the current slide
+  useEffect(() => {
+    const currentSectionName = slides[currentSlide]?.section || "Overview";
+    setOpenSections(prev => {
+      const next = new Set(prev);
+      next.add(currentSectionName);
+      return next;
+    });
+  }, [currentSlide, slides]);
 
   const goToSlide = useCallback((index: number, direction: 'next' | 'prev') => {
     if (isTransitioning || index < 0 || index >= totalSlides) return;
@@ -331,7 +342,18 @@ const PresentationLayout = ({
                 return (
                   <Collapsible
                     key={section.name}
-                    open={sectionHasCurrent}
+                    open={openSections.has(section.name)}
+                    onOpenChange={(open) => {
+                      setOpenSections(prev => {
+                        const next = new Set(prev);
+                        if (open) {
+                          next.add(section.name);
+                        } else {
+                          next.delete(section.name);
+                        }
+                        return next;
+                      });
+                    }}
                   >
                     <div className={cn(
                       "w-full flex items-center justify-between px-3 py-2 rounded-lg transition-colors",
