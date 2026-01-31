@@ -14,6 +14,7 @@ export interface Slide {
   title?: string;
   parentId?: string; // For nested slides under another slide
   gated?: boolean; // Whether this slide requires completion before continuing
+  important?: boolean; // Whether this slide should be highlighted as important (red indicator)
 }
 
 interface PresentationLayoutProps {
@@ -546,9 +547,11 @@ const PresentationLayout = ({
                                     >
                                       <div className={cn(
                                         "w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-bold flex-shrink-0 transition-colors",
-                                        isCurrent && "bg-primary text-primary-foreground",
-                                        isPast && !isCurrent && "bg-primary/20 text-primary",
-                                        !isPast && !isCurrent && "bg-muted text-muted-foreground"
+                                        slide.important && !isPast && "bg-red-500 text-white ring-2 ring-red-300",
+                                        slide.important && isPast && !isCurrent && "bg-red-200 text-red-600",
+                                        !slide.important && isCurrent && "bg-primary text-primary-foreground",
+                                        !slide.important && isPast && !isCurrent && "bg-primary/20 text-primary",
+                                        !slide.important && !isPast && !isCurrent && "bg-muted text-muted-foreground"
                                       )}>
                                         {isPast && !isCurrent ? (
                                           <Check className="w-3 h-3" />
