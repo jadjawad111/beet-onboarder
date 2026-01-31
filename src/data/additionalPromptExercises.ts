@@ -88,7 +88,7 @@ The purpose of this task is to present the information in a 🔴visually appeali
       {
         element: "clearConstraints",
         status: "ERROR",
-        text: `Key constraints from the strong version are missing (page limit, sourcing rules, Google Maps distances, required formatting specs). Without these guardrails, it's hard to evaluate success consistently.`
+        text: `Real-world constraints are missing — budget limitations, member preferences, scheduling windows, or sourcing rules (e.g., only verified wineries, distance limits). Without these operational guardrails, the task lacks meaningful tradeoffs.`
       }
     ]
   },
@@ -143,7 +143,7 @@ Ensure the formatting is 🔴easy to read🔴 and that all links are 🟢clickab
       {
         element: "clearConstraints",
         status: "ERROR",
-        text: "Critical constraints and specifics (day-by-day schedule details, named entities verification rule, required columns, required inclusions per day, and explicit timing requirements) were removed, weakening evaluation and realism."
+        text: "Real-world constraints are missing — budget limits, travel time windows between activities, dietary restrictions, or security protocols for the principal. These operational boundaries create meaningful tradeoffs."
       }
     ]
   },
@@ -194,7 +194,7 @@ The goal is to ensure 🟢smooth, accurate, and independent execution🟢 of the
       {
         element: "clearConstraints",
         status: "ERROR",
-        text: `Key guardrails were removed (e.g., include "why each step is necessary," common mistakes, troubleshooting, and the explicit note about avoiding system-specific instructions).`
+        text: `Real-world operational constraints are missing — what happens during system downtime, how to handle difficult customers, or when to escalate. These situational guardrails reflect actual job complexity.`
       }
     ]
   },
@@ -249,7 +249,7 @@ Reference Material: 🟢Closed Rental Agreements - June 27, 2025.xlsx🟢`,
       {
         element: "clearConstraints",
         status: "ERROR",
-        text: "The strong version includes explicit metric lists (LOR, ADR, utilization, booking source, payment method) and required breakdowns; removing these eliminates the guardrails that make the task evaluable."
+        text: "Real-world constraints are missing — threshold levels for flagging issues, comparison to previous periods, or escalation criteria. These operational boundaries define what 'actionable insights' means for management."
       }
     ]
   },
@@ -402,7 +402,7 @@ Attached reference files: 🟢Vendor Schedules🟢, 🟢Availability🟢 and �
       {
         element: "clearConstraints",
         status: "ERROR",
-        text: "All key scheduling constraints from the strong version were removed (vendor conflicts, staff days, Mon–Fri, appliance install rules, holiday/weekend limits), eliminating the guardrails that make the timeline solvable and evaluable."
+        text: "Real-world scheduling constraints are missing — vendor availability windows, staff working days, no overlap rules, and lead times for appliance installation. These operational boundaries make the timeline solvable."
       }
     ]
   },
@@ -500,7 +500,7 @@ Keep the tone 🔴practical and engaging🔴.`,
       {
         element: "clearConstraints",
         status: "ERROR",
-        text: `Key constraints from the strong version were removed (e.g., ~10 pages, "no-fluff," escalation guidance specifics, and specific writing style constraints), reducing evaluability.`
+        text: `Real-world training constraints are missing — escalation protocols, when to involve supervisors, compliance boundaries, or time limits for customer interactions. These operational guardrails reflect actual job complexity.`
       }
     ]
   },
@@ -547,7 +547,7 @@ After completion of the summary document, please also draft some 🔴talking poi
       {
         element: "clearConstraints",
         status: "ERROR",
-        text: "Constraints are incomplete for the second deliverable: the summary is constrained to 🟢one page🟢, but the talking points lack scope, length, or organization constraints."
+        text: "Real-world constraints are missing for the talking points — priority topics for the board, time limits for presentation, or political sensitivities to avoid. The summary has a page limit but the second deliverable lacks operational boundaries."
       }
     ]
   },
@@ -594,7 +594,7 @@ Create a 🔴slide deck🔴 containing an 🟢agenda🟢, 🟢purpose🟢, and �
       {
         element: "clearConstraints",
         status: "ERROR",
-        text: "Key constraints were removed (include financial impact, dollar amount, percentage, and at least one policy language update option). Without these, evaluability drops."
+        text: "Real-world decision constraints are missing — financial thresholds for escalation, policy interpretation boundaries, or compliance requirements. These operational guardrails define how recommendations should be framed for leadership."
       }
     ]
   },
@@ -641,7 +641,7 @@ Create a 🔴document🔴 titled 🟢"Case Feedback"🟢 with your feedback for 
       {
         element: "clearConstraints",
         status: "ERROR",
-        text: `The strong version includes strict formatting rules (bolded case titles, 1.5 spacing, <5 pages, statement-by-statement critique + alternatives, and a reference guide). Removing these eliminates key guardrails.`
+        text: `Real-world coaching constraints are missing — what topics are off-limits (policy criticism), time constraints for responses, or escalation thresholds. These operational boundaries reflect actual coaching limitations.`
       }
     ]
   }

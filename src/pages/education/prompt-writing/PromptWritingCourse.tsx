@@ -1063,7 +1063,7 @@ const slides: Slide[] = [
                 <div>
                   <p className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Definition</p>
                   <p className="text-foreground">
-                    Clear constraints explicitly define must-nots, resource limitations, and style rules. These are the guardrails that make the task meaningfully difficult.
+                    Clear constraints define <strong>real-world limitations and tradeoffs</strong> — resource constraints, competing priorities, business rules, and operational boundaries. These go beyond output formatting to include the guardrails that make professional tasks meaningfully difficult.
                   </p>
                 </div>
               </div>
