@@ -187,10 +187,10 @@ const TaskProcessOverview = ({
                 deliverable.highlighted ? "text-amber-600 font-bold" :
                 "text-muted-foreground"
               )}>
-                Deliverable
+                Golden Example Deliverable
               </h3>
               <p className="text-sm text-muted-foreground">
-                Your attempt at the actual output (Bronze response)
+                Your attempt at the actual output
               </p>
               <p className="text-xs text-muted-foreground/70 italic mt-1">
                 Use the deliverable to help inform the rubric
