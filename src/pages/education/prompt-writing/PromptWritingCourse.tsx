@@ -206,43 +206,43 @@ const slides: Slide[] = [
     important: true,
     content: (
       <ContentSlide title="The Goal of This Section" layout="left">
-        <div className="space-y-6">
-          <p className="text-lg">
+        <div className="space-y-8">
+          <p className="text-2xl font-medium">
             By the end of this section, you should be able to write prompts that are:
           </p>
           
-          <div className="grid gap-4">
+          <div className="grid gap-6">
             <Card className="border-l-4 border-l-green-500 bg-green-50/50 dark:bg-green-950/20">
-              <CardContent className="p-5">
-                <div className="flex items-center gap-3">
-                  <span className="text-2xl font-bold text-green-600">1</span>
+              <CardContent className="p-6">
+                <div className="flex items-center gap-4">
+                  <span className="text-4xl font-bold text-green-600">1</span>
                   <div>
-                    <p className="font-semibold text-foreground">Realistic</p>
-                    <p className="text-sm text-muted-foreground">Prompts that mirror real professional workflows and domain expertise</p>
+                    <p className="text-xl font-semibold text-foreground">Realistic</p>
+                    <p className="text-base text-muted-foreground">Prompts that mirror real professional workflows and domain expertise</p>
                   </div>
                 </div>
               </CardContent>
             </Card>
             
             <Card className="border-l-4 border-l-blue-500 bg-blue-50/50 dark:bg-blue-950/20">
-              <CardContent className="p-5">
-                <div className="flex items-center gap-3">
-                  <span className="text-2xl font-bold text-blue-600">2</span>
+              <CardContent className="p-6">
+                <div className="flex items-center gap-4">
+                  <span className="text-4xl font-bold text-blue-600">2</span>
                   <div>
-                    <p className="font-semibold text-foreground">Unambiguous</p>
-                    <p className="text-sm text-muted-foreground">Clear, specific instructions that leave no room for misinterpretation</p>
+                    <p className="text-xl font-semibold text-foreground">Unambiguous</p>
+                    <p className="text-base text-muted-foreground">Clear, specific instructions that leave no room for misinterpretation</p>
                   </div>
                 </div>
               </CardContent>
             </Card>
             
             <Card className="border-l-4 border-l-amber-500 bg-amber-50/50 dark:bg-amber-950/20">
-              <CardContent className="p-5">
-                <div className="flex items-center gap-3">
-                  <span className="text-2xl font-bold text-amber-600">3</span>
+              <CardContent className="p-6">
+                <div className="flex items-center gap-4">
+                  <span className="text-4xl font-bold text-amber-600">3</span>
                   <div>
-                    <p className="font-semibold text-foreground">Challenging</p>
-                    <p className="text-sm text-muted-foreground">Sufficiently difficult to induce meaningful model learning opportunities</p>
+                    <p className="text-xl font-semibold text-foreground">Challenging</p>
+                    <p className="text-base text-muted-foreground">Sufficiently difficult to induce meaningful model learning opportunities</p>
                   </div>
                 </div>
               </CardContent>
