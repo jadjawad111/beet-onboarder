@@ -326,40 +326,40 @@ const slides: Slide[] = [
     parentId: "prompt-difficulty",
     content: (
       <ContentSlide title="What Makes a Prompt Difficult?" layout="left">
-        <div className="space-y-4">
-          <p className="text-muted-foreground mb-4">
+        <div className="space-y-6">
+          <p className="text-xl text-muted-foreground">
             A good prompt induces model failures — that's where learning happens.
           </p>
-          <div className="overflow-hidden rounded-lg border">
-            <table className="w-full text-sm">
+          <div className="overflow-hidden rounded-xl border-2">
+            <table className="w-full text-base">
               <thead>
                 <tr className="border-b bg-muted/50">
-                  <th className="p-3 text-left font-medium"></th>
-                  <th className="p-3 text-center font-medium text-green-600">Model Succeeds</th>
-                  <th className="p-3 text-center font-medium text-destructive">Model Fails</th>
+                  <th className="p-5 text-left font-semibold text-lg"></th>
+                  <th className="p-5 text-center font-semibold text-lg text-green-600">Model Succeeds</th>
+                  <th className="p-5 text-center font-semibold text-lg text-destructive">Model Fails</th>
                 </tr>
               </thead>
               <tbody>
                 <tr className="border-b">
-                  <td className="p-3 font-medium bg-muted/30">Easy for Professional</td>
-                  <td className="p-3 text-center text-muted-foreground">Too easy — no learning</td>
-                  <td className="p-3 text-center bg-green-50 dark:bg-green-950/30 border-2 border-green-500">
-                    <span className="font-semibold text-green-600">✓ Good prompt!</span>
-                    <p className="text-xs text-muted-foreground mt-1">Model needs improvement</p>
+                  <td className="p-5 font-semibold text-lg bg-muted/30">Easy for Professional</td>
+                  <td className="p-5 text-center text-muted-foreground text-base">Too easy — no learning</td>
+                  <td className="p-5 text-center bg-green-50 dark:bg-green-950/30 border-4 border-green-500">
+                    <span className="font-bold text-xl text-green-600">✓ Good prompt!</span>
+                    <p className="text-sm text-muted-foreground mt-2">Model needs improvement</p>
                   </td>
                 </tr>
                 <tr>
-                  <td className="p-3 font-medium bg-muted/30">Hard for Professional</td>
-                  <td className="p-3 text-center text-muted-foreground">Impressive, but rare</td>
-                  <td className="p-3 text-center bg-green-50 dark:bg-green-950/30 border-2 border-green-500">
-                    <span className="font-semibold text-green-600">✓ Good prompt!</span>
-                    <p className="text-xs text-muted-foreground mt-1">Complex task reveals gaps</p>
+                  <td className="p-5 font-semibold text-lg bg-muted/30">Hard for Professional</td>
+                  <td className="p-5 text-center text-muted-foreground text-base">Impressive, but rare</td>
+                  <td className="p-5 text-center bg-green-50 dark:bg-green-950/30 border-4 border-green-500">
+                    <span className="font-bold text-xl text-green-600">✓ Good prompt!</span>
+                    <p className="text-sm text-muted-foreground mt-2">Complex task reveals gaps</p>
                   </td>
                 </tr>
               </tbody>
             </table>
           </div>
-          <p className="text-sm text-muted-foreground italic">
+          <p className="text-base text-muted-foreground italic">
             The goal is to create prompts where the model fails — that's when reinforcement learning can improve performance.
           </p>
         </div>
