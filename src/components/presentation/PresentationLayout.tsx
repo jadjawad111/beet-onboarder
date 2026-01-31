@@ -414,14 +414,13 @@ const PresentationLayout = ({
                     <CollapsibleContent>
                       <div className="ml-4 mt-1 space-y-0.5 border-l border-border pl-2">
                         {(() => {
-                          // Separate practice slides #4+ from regular slides
-                          const practicePattern = /^Practice #(\d+)$/;
+                          // Separate ALL practice slides from regular slides
+                          const practicePattern = /^Practice #\d+$/;
                           const regularSlides: { slide: Slide; index: number }[] = [];
                           const continuePracticeSlides: { slide: Slide; index: number }[] = [];
                           
                           section.slides.forEach(item => {
-                            const match = item.slide.title?.match(practicePattern);
-                            if (match && parseInt(match[1]) >= 4) {
+                            if (practicePattern.test(item.slide.title || '')) {
                               continuePracticeSlides.push(item);
                             } else {
                               regularSlides.push(item);
