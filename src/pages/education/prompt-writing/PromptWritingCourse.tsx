@@ -313,7 +313,7 @@ const slides: Slide[] = [
             <strong className="text-foreground">If a prompt is not sufficiently difficult, the model will not have anything meaningful to learn.</strong> In these cases, the model can already perform the task sufficiently well, and additional training does not lead to improvement.
           </p>
           <p className="text-muted-foreground">
-            In the next section, we go through six components of a good prompt.
+            Let's explore what makes a prompt difficult and how to test for model failures.
           </p>
         </div>
       </ContentSlide>
