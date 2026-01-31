@@ -307,14 +307,313 @@ const slides: Slide[] = [
     section: "Prompt Writing",
     title: "Importance of difficulty",
     content: (
-      <ContentSlide title="The importance of Prompt difficulty" layout="left">
+      <ContentSlide title="The Importance of Prompt Difficulty" layout="left">
         <div className="space-y-6">
           <p>
-            <strong className="text-foreground">If a prompt is not sufficiently difficult, the model will not have anything meaningful to learn.</strong> In these cases, the model can already perform the task sufficiently well, and additional training does not lead to improvement. In the next section, we go through six components of a good prompt.
+            <strong className="text-foreground">If a prompt is not sufficiently difficult, the model will not have anything meaningful to learn.</strong> In these cases, the model can already perform the task sufficiently well, and additional training does not lead to improvement.
           </p>
-          <p>
-            Ultimately, the prompt itself needs to be difficult enough. We can attempt to do this by writing prompts that invoke multi-step reasoning or more convoluted sets of steps, as long as they are realistic. In reality, it requires a significant amount of dogfooding (which we will unpack in later modules) to check whether our prompts and input files actually induce model failures that are valuable.
+          <p className="text-muted-foreground">
+            In the next section, we go through six components of a good prompt.
           </p>
+        </div>
+      </ContentSlide>
+    ),
+  },
+  {
+    id: "prompt-difficulty-matrix",
+    section: "Prompt Writing",
+    title: "What makes a prompt difficult?",
+    parentId: "prompt-difficulty",
+    content: (
+      <ContentSlide title="What Makes a Prompt Difficult?" layout="left">
+        <div className="space-y-4">
+          <p className="text-muted-foreground mb-4">
+            A good prompt induces model failures — that's where learning happens.
+          </p>
+          <div className="overflow-hidden rounded-lg border">
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="border-b bg-muted/50">
+                  <th className="p-3 text-left font-medium"></th>
+                  <th className="p-3 text-center font-medium text-green-600">Model Succeeds</th>
+                  <th className="p-3 text-center font-medium text-destructive">Model Fails</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr className="border-b">
+                  <td className="p-3 font-medium bg-muted/30">Easy for Professional</td>
+                  <td className="p-3 text-center text-muted-foreground">Too easy — no learning</td>
+                  <td className="p-3 text-center bg-green-50 dark:bg-green-950/30 border-2 border-green-500">
+                    <span className="font-semibold text-green-600">✓ Good prompt!</span>
+                    <p className="text-xs text-muted-foreground mt-1">Model needs improvement</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td className="p-3 font-medium bg-muted/30">Hard for Professional</td>
+                  <td className="p-3 text-center text-muted-foreground">Impressive, but rare</td>
+                  <td className="p-3 text-center bg-green-50 dark:bg-green-950/30 border-2 border-green-500">
+                    <span className="font-semibold text-green-600">✓ Good prompt!</span>
+                    <p className="text-xs text-muted-foreground mt-1">Complex task reveals gaps</p>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p className="text-sm text-muted-foreground italic">
+            The goal is to create prompts where the model fails — that's when reinforcement learning can improve performance.
+          </p>
+        </div>
+      </ContentSlide>
+    ),
+  },
+  {
+    id: "prompt-failure-modes",
+    section: "Prompt Writing",
+    title: "What does it mean for a model to fail?",
+    parentId: "prompt-difficulty",
+    content: (
+      <ContentSlide title="What Does It Mean for a Model to Fail?" layout="left">
+        <div className="space-y-4">
+          <p className="text-muted-foreground mb-2">
+            Model failures fall into three categories:
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {/* Extraction Failures */}
+            <Card className="border-t-4 border-t-destructive">
+              <CardContent className="p-4">
+                <div className="flex items-center gap-2 mb-3">
+                  <div className="w-6 h-6 rounded-full bg-green-100 dark:bg-green-900 flex items-center justify-center">
+                    <span className="text-green-600 text-xs">✓</span>
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-sm">Extraction Failures</h4>
+                    <p className="text-xs text-muted-foreground">(The "Blind Spot")</p>
+                  </div>
+                </div>
+                <div className="space-y-3 text-xs">
+                  <div>
+                    <p className="font-medium text-destructive">Hallucination</p>
+                    <p className="text-muted-foreground">The model invents data that isn't in the file to fill a gap (e.g., making up a 'Country of Origin' because the cell was blank).</p>
+                  </div>
+                  <div>
+                    <p className="font-medium text-destructive">Omission</p>
+                    <p className="text-muted-foreground">The model misses a critical detail buried in a large document (e.g., ignoring a footnote in a PDF that changes the tax rate).</p>
+                  </div>
+                  <div>
+                    <p className="font-medium text-destructive">Misinterpretation</p>
+                    <p className="text-muted-foreground">The model reads the data but misunderstands the context (e.g., treating a 'Projected 2026' column as 'Actual 2025' data).</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Reasoning Failures */}
+            <Card className="border-t-4 border-t-amber-500">
+              <CardContent className="p-4">
+                <div className="flex items-center gap-2 mb-3">
+                  <div className="w-6 h-6 rounded-full bg-green-100 dark:bg-green-900 flex items-center justify-center">
+                    <span className="text-green-600 text-xs">✓</span>
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-sm">Reasoning Failures</h4>
+                    <p className="text-xs text-muted-foreground">(The "Logic Break")</p>
+                  </div>
+                </div>
+                <div className="space-y-3 text-xs">
+                  <div>
+                    <p className="font-medium text-amber-600">Dependency Collapse</p>
+                    <p className="text-muted-foreground">The model solves Step 1 correctly but forgets that Step 2 depends on the result of Step 1, leading to a cascading error.</p>
+                  </div>
+                  <div>
+                    <p className="font-medium text-amber-600">Constraint Violation</p>
+                    <p className="text-muted-foreground">The model ignores a negative constraint (e.g., 'Do not schedule overtime') because it is trying too hard to satisfy a positive constraint (e.g., 'Finish the project by Friday').</p>
+                  </div>
+                  <div>
+                    <p className="font-medium text-amber-600">Invalid Inference</p>
+                    <p className="text-muted-foreground">The model makes a logical leap that is factually or professionally unsound (e.g., assuming 'Revenue' equals 'Profit' without checking for expenses).</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Formatting Failures */}
+            <Card className="border-t-4 border-t-blue-500">
+              <CardContent className="p-4">
+                <div className="flex items-center gap-2 mb-3">
+                  <div className="w-6 h-6 rounded-full bg-green-100 dark:bg-green-900 flex items-center justify-center">
+                    <span className="text-green-600 text-xs">✓</span>
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-sm">Formatting & Deliverable Failures</h4>
+                    <p className="text-xs text-muted-foreground">(The "Professional Gap")</p>
+                  </div>
+                </div>
+                <div className="space-y-3 text-xs">
+                  <div>
+                    <p className="font-medium text-blue-600">Wrong Output Format</p>
+                    <p className="text-muted-foreground">You asked for a downloadable .csv file, and it gave you a text table in the chat window. Incorrect headings or implicit stylistic asks included.</p>
+                  </div>
+                  <div>
+                    <p className="font-medium text-blue-600">Structure Mismatch</p>
+                    <p className="text-muted-foreground">You asked for a 'Memo with an Executive Summary,' and it gave you a casual email.</p>
+                  </div>
+                  <div>
+                    <p className="font-medium text-blue-600">Formula Stagnation</p>
+                    <p className="text-muted-foreground">You asked for a 'dynamic Excel spreadsheet with active formulas,' and it gave you a sheet with hard-coded numbers (static values).</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </ContentSlide>
+    ),
+  },
+  {
+    id: "prompt-avoiding-artificial-failures",
+    section: "Prompt Writing",
+    title: "Avoiding artificial failures",
+    parentId: "prompt-difficulty",
+    content: (
+      <ContentSlide title="Avoiding Artificial Failures" layout="left">
+        <div className="space-y-4">
+          <p className="text-muted-foreground">
+            There are "cheap" failures that don't reflect true gaps in professional reasoning. Here's how to avoid them:
+          </p>
+          <div className="overflow-hidden rounded-lg border">
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="border-b bg-muted/50">
+                  <th className="p-3 text-left font-medium w-1/5">Scenario</th>
+                  <th className="p-3 text-left font-medium text-destructive w-2/5">✗ Bad Trap</th>
+                  <th className="p-3 text-left font-medium text-green-600 w-2/5">✓ Good Trap</th>
+                </tr>
+              </thead>
+              <tbody className="text-xs">
+                <tr className="border-b">
+                  <td className="p-3 align-top">
+                    <p className="font-medium">Nurse Manager</p>
+                    <p className="text-muted-foreground">Scheduling Surgeries</p>
+                  </td>
+                  <td className="p-3 align-top text-muted-foreground">
+                    The Hidden Rule: "Schedule these surgeries, but pretend that 'Dr. Kamal' is actually named 'Dr. Smith' and that hours are only 50 minutes long."
+                  </td>
+                  <td className="p-3 align-top text-muted-foreground">
+                    The Conflicting Constraint: "Schedule the elective surgeries for Dr. Kamal... However, the ER has declared a mass casualty event, and you must strictly maintain 4 Trauma ORs open 24/7."
+                  </td>
+                </tr>
+                <tr className="border-b">
+                  <td className="p-3 align-top">
+                    <p className="font-medium">Investment Advisor</p>
+                    <p className="text-muted-foreground">Calculating ROI</p>
+                  </td>
+                  <td className="p-3 align-top text-muted-foreground">
+                    The Arbitrary Filter: "Calculate the ROI, but do not count any money invested on a Tuesday."
+                  </td>
+                  <td className="p-3 align-top text-muted-foreground">
+                    The Implicit Variable: "Apollo's annual salary is $99,604. But he started working on June 1st. Calculate his 2023 investment potential."
+                  </td>
+                </tr>
+                <tr className="border-b">
+                  <td className="p-3 align-top">
+                    <p className="font-medium">Semiconductor Analyst</p>
+                    <p className="text-muted-foreground">Risk Analysis</p>
+                  </td>
+                  <td className="p-3 align-top text-muted-foreground">
+                    The Random Exclusion: "Analyze the risk of this ETF. By the way, ignore the third tab in the Excel sheet for no reason."
+                  </td>
+                  <td className="p-3 align-top text-muted-foreground">
+                    The Data Reconciliation: "Calculate the exposure. Note: Some holdings in the 'Holdings' tab do not map to the 'Country_Exposure' tab."
+                  </td>
+                </tr>
+                <tr className="border-b">
+                  <td className="p-3 align-top">
+                    <p className="font-medium">Pharmacology Lead</p>
+                    <p className="text-muted-foreground">Clinical Drug Review</p>
+                  </td>
+                  <td className="p-3 align-top text-muted-foreground">
+                    The Secret Code: "If the patient ID ends in '5', treat their dosage as double."
+                  </td>
+                  <td className="p-3 align-top text-muted-foreground">
+                    The Biological Plausibility: "Identify outliers. One patient shows a baseline PD level of 7.5% (normal is {"<"}1%). Discuss if this is a confounder."
+                  </td>
+                </tr>
+                <tr>
+                  <td className="p-3 align-top">
+                    <p className="font-medium">Audio Engineer</p>
+                    <p className="text-muted-foreground">Mixing a Track</p>
+                  </td>
+                  <td className="p-3 align-top text-muted-foreground">
+                    The Impossible Ask: "Make the song sound like the color blue."
+                  </td>
+                  <td className="p-3 align-top text-muted-foreground">
+                    The Creative Tension: "Apply aggressive T-Pain style auto-tune, but ensure the vocal still blends naturally with the acoustic guitar."
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </ContentSlide>
+    ),
+  },
+  {
+    id: "prompt-testing-failures",
+    section: "Prompt Writing",
+    title: "How to test for model failures",
+    parentId: "prompt-difficulty",
+    content: (
+      <ContentSlide title="How to Test for Model Failures" layout="left">
+        <div className="space-y-6">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+            <Card className="border-t-4 border-t-primary">
+              <CardContent className="p-4">
+                <div className="w-8 h-8 rounded bg-primary/10 flex items-center justify-center mb-3">
+                  <span className="text-primary font-bold">1</span>
+                </div>
+                <h4 className="font-semibold mb-2">Run it through a Model</h4>
+                <p className="text-xs text-muted-foreground">
+                  If perfect on first try, it's too easy.
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="border-t-4 border-t-green-500">
+              <CardContent className="p-4">
+                <div className="w-8 h-8 rounded bg-green-500/10 flex items-center justify-center mb-3">
+                  <span className="text-green-600 font-bold">2</span>
+                </div>
+                <h4 className="font-semibold mb-2">Check for Clarifying Questions</h4>
+                <p className="text-xs text-muted-foreground">
+                  If it asks for more info, it's ambiguous.
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="border-t-4 border-t-amber-500">
+              <CardContent className="p-4">
+                <div className="w-8 h-8 rounded bg-amber-500/10 flex items-center justify-center mb-3">
+                  <span className="text-amber-600 font-bold">3</span>
+                </div>
+                <h4 className="font-semibold mb-2">Human Intern Test</h4>
+                <p className="text-xs text-muted-foreground">
+                  Could a smart intern solve this?
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="border-t-4 border-t-blue-500">
+              <CardContent className="p-4">
+                <div className="w-8 h-8 rounded bg-blue-500/10 flex items-center justify-center mb-3">
+                  <span className="text-blue-600 font-bold">4</span>
+                </div>
+                <h4 className="font-semibold mb-2">Run Multiple Times</h4>
+                <p className="text-xs text-muted-foreground">
+                  Models are probabilistic — test 3x.
+                </p>
+              </CardContent>
+            </Card>
+          </div>
         </div>
       </ContentSlide>
     ),
