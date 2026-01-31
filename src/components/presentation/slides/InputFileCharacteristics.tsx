@@ -1,57 +1,9 @@
-import { CheckCircle2, FileText, Database, Link2, Target } from "lucide-react";
+import { CheckCircle2, XCircle } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
-
-const characteristics = [
-  {
-    icon: FileText,
-    title: "Explicitly Acknowledged",
-    description: "The prompt signals that files exist and are part of the task.",
-    examples: ['"the attached spreadsheet…"', '"refer to the attached files…"'],
-  },
-  {
-    icon: Database,
-    title: "Authoritative Source of Truth",
-    description: "Files are positioned as THE data to use, not optional references.",
-    examples: ['"Using the data in the spreadsheet, complete…"'],
-  },
-  {
-    icon: Link2,
-    title: "Referenced Before Tasks Begin",
-    description: "File references appear before numbered instructions, not mid-execution.",
-    examples: ["Input introduced in context, then tasks reference it"],
-  },
-  {
-    icon: Target,
-    title: "Tied to Concrete Actions",
-    description: "Files are bound to specific work, not just mentioned decoratively.",
-    examples: ['"Use column H and I…"', '"Pull totals from the detailed schedules…"'],
-  },
-];
-
-const referencePatterns = [
-  {
-    level: "Gold Standard",
-    label: "Enumerated lists",
-    example: '"You\'ll find everything you need in the attached files: COA.xlsx, Insurance.pdf…"',
-    color: "text-amber-600 bg-amber-500/10 border-amber-500/30",
-  },
-  {
-    level: "Strong",
-    label: "Named explicitly",
-    example: '"The attached spreadsheet titled \'Population\'…"',
-    color: "text-green-600 bg-green-500/10 border-green-500/30",
-  },
-  {
-    level: "Acceptable",
-    label: "Grouped but scoped",
-    example: '"Use the attached reference files…"',
-    color: "text-blue-600 bg-blue-500/10 border-blue-500/30",
-  },
-];
 
 const InputFileCharacteristics = () => {
   return (
-    <div className="w-full max-w-5xl mx-auto">
+    <div className="w-full max-w-4xl mx-auto">
       {/* Header */}
       <div className="text-center mb-8">
         <p className="text-xs uppercase tracking-widest text-muted-foreground mb-2">
@@ -62,55 +14,93 @@ const InputFileCharacteristics = () => {
         </h2>
       </div>
 
-      {/* Characteristics Grid */}
-      <div className="grid md:grid-cols-2 gap-4 mb-8">
-        {characteristics.map((char, idx) => (
-          <Card key={idx}>
-            <CardContent className="p-4">
-              <div className="flex gap-3">
-                <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
-                  <char.icon className="w-5 h-5 text-primary" />
-                </div>
-                <div className="flex-1">
-                  <h4 className="font-semibold text-foreground mb-1">{char.title}</h4>
-                  <p className="text-sm text-muted-foreground mb-2">{char.description}</p>
-                  <div className="flex flex-wrap gap-1">
-                    {char.examples.map((ex, exIdx) => (
-                      <span key={exIdx} className="text-xs bg-muted px-2 py-0.5 rounded italic">
-                        {ex}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        ))}
-      </div>
+      {/* Core Characteristics */}
+      <Card className="mb-6">
+        <CardContent className="p-6">
+          <h3 className="font-semibold text-foreground mb-4">
+            Key Characteristics
+          </h3>
+          <div className="grid md:grid-cols-2 gap-x-8 gap-y-3">
+            <div className="flex items-start gap-2">
+              <CheckCircle2 className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
+              <span className="text-sm text-foreground">Inputs are <strong>explicitly acknowledged</strong> as existing</span>
+            </div>
+            <div className="flex items-start gap-2">
+              <CheckCircle2 className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
+              <span className="text-sm text-foreground">Inputs are the <strong>authoritative source of truth</strong></span>
+            </div>
+            <div className="flex items-start gap-2">
+              <CheckCircle2 className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
+              <span className="text-sm text-foreground">Referenced <strong>before tasks begin</strong>, not mid-execution</span>
+            </div>
+            <div className="flex items-start gap-2">
+              <CheckCircle2 className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
+              <span className="text-sm text-foreground">Scope is always <strong>clear and closed</strong></span>
+            </div>
+            <div className="flex items-start gap-2">
+              <CheckCircle2 className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
+              <span className="text-sm text-foreground">Files are <strong>tied to concrete actions</strong>, not decorative</span>
+            </div>
+            <div className="flex items-start gap-2">
+              <CheckCircle2 className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
+              <span className="text-sm text-foreground">Treated as <strong>stable, complete artifacts</strong></span>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
 
-      {/* Reference Patterns */}
-      <Card className="border-2 border-primary/20">
-        <CardContent className="p-5">
-          <h3 className="font-semibold text-foreground mb-4 text-center">
+      {/* Three Valid Patterns */}
+      <Card className="mb-6">
+        <CardContent className="p-6">
+          <h3 className="font-semibold text-foreground mb-4">
             Three Valid Ways to Reference Input Files
           </h3>
-          <div className="space-y-3">
-            {referencePatterns.map((pattern, idx) => (
-              <div key={idx} className={`rounded-lg border p-3 ${pattern.color}`}>
-                <div className="flex items-center gap-2 mb-1">
-                  <span className="text-xs font-bold uppercase">{pattern.level}</span>
-                  <span className="text-sm font-medium">{pattern.label}</span>
-                </div>
-                <p className="text-sm italic opacity-80">{pattern.example}</p>
-              </div>
-            ))}
+          <div className="space-y-4">
+            <div className="border-l-2 border-primary pl-4">
+              <p className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Gold Standard: Enumerated Lists</p>
+              <p className="text-sm text-foreground italic">
+                "You'll find everything you need in the attached files: COA.xlsx, Insurance.pdf, Prepaid_Expenses.pdf…"
+              </p>
+            </div>
+            <div className="border-l-2 border-primary/60 pl-4">
+              <p className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Strong: Named Explicitly</p>
+              <p className="text-sm text-foreground italic">
+                "The attached spreadsheet titled 'Population' contains…"
+              </p>
+            </div>
+            <div className="border-l-2 border-muted-foreground/40 pl-4">
+              <p className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Acceptable: Grouped but Scoped</p>
+              <p className="text-sm text-foreground italic">
+                "Use the attached reference files…"
+              </p>
+            </div>
           </div>
-          
-          <div className="mt-4 pt-4 border-t border-border">
-            <p className="text-sm text-muted-foreground text-center">
-              <strong className="text-foreground">Key principle:</strong> The source of truth is always clear. 
-              No prompt requires external discovery or assumes undocumented data.
-            </p>
+        </CardContent>
+      </Card>
+
+      {/* What NOT to do */}
+      <Card className="border-destructive/20 bg-destructive/5">
+        <CardContent className="p-6">
+          <h3 className="font-semibold text-foreground mb-3">
+            What Good Input References Never Do
+          </h3>
+          <div className="grid md:grid-cols-2 gap-x-8 gap-y-2">
+            <div className="flex items-center gap-2">
+              <XCircle className="w-4 h-4 text-destructive flex-shrink-0" />
+              <span className="text-sm text-muted-foreground">Assume undocumented external data</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <XCircle className="w-4 h-4 text-destructive flex-shrink-0" />
+              <span className="text-sm text-muted-foreground">Require web browsing or research</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <XCircle className="w-4 h-4 text-destructive flex-shrink-0" />
+              <span className="text-sm text-muted-foreground">Leave the source of truth unclear</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <XCircle className="w-4 h-4 text-destructive flex-shrink-0" />
+              <span className="text-sm text-muted-foreground">Introduce files mid-execution unexpectedly</span>
+            </div>
           </div>
         </CardContent>
       </Card>
