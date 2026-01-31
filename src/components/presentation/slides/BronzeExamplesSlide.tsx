@@ -11,7 +11,13 @@ interface BronzeExample {
   viewUrl: string;
 }
 
-const examples: BronzeExample[] = [
+interface GoldExample {
+  goldFileName: string;
+  goldEmbedUrl: string;
+  goldViewUrl: string;
+}
+
+const examples: (BronzeExample & Partial<GoldExample>)[] = [
   {
     id: "example-1",
     promptText: `You are the Finance Lead for an advisory client and are responsible for managing and controlling expenses related to their professional music engagements. Your summary will be used not only for internal oversight but also by executives at the production company to evaluate tour performance and guide future financial planning.
@@ -45,9 +51,12 @@ Your summary will be used by executives at the production company to evaluate to
 Notes:
 Itinerary details are illustrative only.
 All entities are fictional. Geographies, assumptions, and amounts are illustrative and do not reflect any specific tour.`,
-    bronzeFileName: "Sample Music Tour P&L (Excel)",
-    embedUrl: "https://docs.google.com/spreadsheets/d/1wgRWXeVhUixB8WZThvNLCcWh6rqc3ooP/preview",
-    viewUrl: "https://docs.google.com/spreadsheets/d/1wgRWXeVhUixB8WZThvNLCcWh6rqc3ooP/edit?usp=sharing",
+    bronzeFileName: "Sample Music Tour P&L (Bronze)",
+    embedUrl: "https://docs.google.com/spreadsheets/d/1wgRWXeVhUixB8WZThvNLCcWh6rqc3ooP/preview?gid=2146016466",
+    viewUrl: "https://docs.google.com/spreadsheets/d/1wgRWXeVhUixB8WZThvNLCcWh6rqc3ooP/edit?gid=2146016466#gid=2146016466",
+    goldFileName: "Sample Music Tour P&L (Gold)",
+    goldEmbedUrl: "https://docs.google.com/spreadsheets/d/1wgRWXeVhUixB8WZThvNLCcWh6rqc3ooP/preview?gid=347156326",
+    goldViewUrl: "https://docs.google.com/spreadsheets/d/1wgRWXeVhUixB8WZThvNLCcWh6rqc3ooP/edit?gid=347156326#gid=347156326",
   },
   {
     id: "example-2",
@@ -162,7 +171,7 @@ const BronzeExamplesSlide = () => {
               <ExternalLink className="w-3 h-3" />
             </a>
           </div>
-          <div className="h-[400px] bg-muted/5">
+          <div className="h-[300px] bg-muted/5">
             <iframe
               src={currentExample.embedUrl}
               className="w-full h-full border-0"
@@ -171,6 +180,34 @@ const BronzeExamplesSlide = () => {
             />
           </div>
         </div>
+
+        {/* Gold Response (embedded) - only show if available */}
+        {currentExample.goldEmbedUrl && (
+          <div className="border rounded-lg bg-card overflow-hidden border-amber-300">
+            <div className="px-4 py-2 border-b bg-amber-50 flex items-center justify-between">
+              <h3 className="text-sm font-semibold uppercase tracking-wide text-amber-700">
+                Gold Response (Reference)
+              </h3>
+              <a
+                href={currentExample.goldViewUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 text-xs text-amber-700 hover:underline"
+              >
+                {currentExample.goldFileName}
+                <ExternalLink className="w-3 h-3" />
+              </a>
+            </div>
+            <div className="h-[300px] bg-muted/5">
+              <iframe
+                src={currentExample.goldEmbedUrl}
+                className="w-full h-full border-0"
+                title={currentExample.goldFileName}
+                allow="autoplay"
+              />
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
