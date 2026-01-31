@@ -187,22 +187,34 @@ const CriterionErrorQuiz = ({
       {/* Reveal State */}
       {isRevealed && (
         <div className="space-y-4 animate-in fade-in duration-300 pt-6 border-t border-border">
-          {/* Why Bad / Why Good - use DISPLAY labels, not actual option values */}
+          {/* Why Bad / Why Good - positioned to match the options above */}
           <div className="grid md:grid-cols-2 gap-4">
-            <Card className="border-destructive/20">
+            {/* Left card - matches first option (displayed as A) */}
+            <Card className={displayOptions.first.actualOption === correctOption ? "border-green-500/20" : "border-destructive/20"}>
               <CardContent className="p-4">
-                <p className="text-xs uppercase tracking-wide text-destructive font-medium mb-2">
-                  Why Option {displayOptions.first.actualOption === correctOption ? displayOptions.second.label : displayOptions.first.label} fails
+                <p className={cn(
+                  "text-xs uppercase tracking-wide font-medium mb-2",
+                  displayOptions.first.actualOption === correctOption ? "text-green-600" : "text-destructive"
+                )}>
+                  Why Option {displayOptions.first.label} {displayOptions.first.actualOption === correctOption ? "works" : "fails"}
                 </p>
-                <p className="text-sm text-muted-foreground">{whyBadExplanation}</p>
+                <p className="text-sm text-muted-foreground">
+                  {displayOptions.first.actualOption === correctOption ? whyGoodExplanation : whyBadExplanation}
+                </p>
               </CardContent>
             </Card>
-            <Card className="border-green-500/20">
+            {/* Right card - matches second option (displayed as B) */}
+            <Card className={displayOptions.second.actualOption === correctOption ? "border-green-500/20" : "border-destructive/20"}>
               <CardContent className="p-4">
-                <p className="text-xs uppercase tracking-wide text-green-600 font-medium mb-2">
-                  Why Option {displayOptions.first.actualOption === correctOption ? displayOptions.first.label : displayOptions.second.label} works
+                <p className={cn(
+                  "text-xs uppercase tracking-wide font-medium mb-2",
+                  displayOptions.second.actualOption === correctOption ? "text-green-600" : "text-destructive"
+                )}>
+                  Why Option {displayOptions.second.label} {displayOptions.second.actualOption === correctOption ? "works" : "fails"}
                 </p>
-                <p className="text-sm text-muted-foreground">{whyGoodExplanation}</p>
+                <p className="text-sm text-muted-foreground">
+                  {displayOptions.second.actualOption === correctOption ? whyGoodExplanation : whyBadExplanation}
+                </p>
               </CardContent>
             </Card>
           </div>
