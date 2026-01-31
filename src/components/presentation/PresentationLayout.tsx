@@ -260,23 +260,34 @@ const PresentationLayout = ({
             You've mastered {title}
           </p>
           
-          {/* PDF Download Section */}
+          {/* Reference Options */}
           <div className="mt-8 p-6 bg-card border border-border rounded-xl">
             <div className="flex items-center justify-center gap-3 mb-3">
               <FileText className="w-6 h-6 text-primary" />
-              <span className="font-semibold text-foreground">Reference Guide Ready</span>
+              <span className="font-semibold text-foreground">Course Reference</span>
             </div>
             <p className="text-sm text-muted-foreground mb-4">
-              Download your PDF reference guide to keep all the course content at your fingertips.
+              Access all course content as a reference guide you can print or download.
             </p>
-            <Button
-              onClick={handleDownloadPDF}
-              className="gap-2"
-              size="lg"
-            >
-              <Download className="w-4 h-4" />
-              Download PDF
-            </Button>
+            <div className="flex flex-col sm:flex-row gap-3 justify-center">
+              <Button
+                onClick={() => navigate('/education/prompt-writing/reference')}
+                variant="outline"
+                className="gap-2"
+                size="lg"
+              >
+                <FileText className="w-4 h-4" />
+                View Full Reference
+              </Button>
+              <Button
+                onClick={handleDownloadPDF}
+                className="gap-2"
+                size="lg"
+              >
+                <Download className="w-4 h-4" />
+                Download PDF
+              </Button>
+            </div>
           </div>
           
           <p className="text-sm text-muted-foreground mt-6">
