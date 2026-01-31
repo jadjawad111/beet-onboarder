@@ -30,6 +30,9 @@ import {
   RubricsModule4,
 } from "./pages/education/rubrics";
 
+// Tasking Assistance
+import { TaskingAssistancePage } from "./pages/tasking-assistance";
+
 const queryClient = new QueryClient();
 
 const App = () => (
@@ -48,6 +51,9 @@ const App = () => (
           {/* Main app with layout */}
           <Route element={<MainLayout />}>
             <Route path="/home" element={<Index />} />
+            
+            {/* Tasking Assistance */}
+            <Route path="/tasking-assistance" element={<TaskingAssistancePage />} />
             
             {/* Project Information - Single scrollable page */}
             <Route path="/project-info" element={<ProjectInfoLayout />} />
