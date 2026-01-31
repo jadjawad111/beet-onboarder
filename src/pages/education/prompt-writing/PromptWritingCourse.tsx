@@ -1598,38 +1598,39 @@ This report will be used to brief the design team and guide future optimization 
         title="Explicit File Reference"
         domain="Audit / AFC Metrics"
         promptExcerpt={
-          <div className="space-y-3">
+          <div className="space-y-2 text-xs">
             <p>
               You are an auditor and as part of an audit engagement, you are tasked with reviewing and testing the accuracy of reported Anti-Financial Crime Risk Metrics.
             </p>
-            <p className="bg-green-500/10 border-l-2 border-green-500 pl-3 py-1">
-              The attached spreadsheet titled <strong>'Population'</strong> contains Anti-Financial Crime Risk Metrics for Q2 and Q3 2024. You have obtained this data as part of the audit review to perform sample testing on a representative subset of metrics.
+            <p className="bg-primary/10 border-l-2 border-primary pl-2 py-1">
+              The attached spreadsheet titled <strong>'Population'</strong> contains Anti-Financial Crime Risk Metrics for Q2 and Q3 2024.
             </p>
-            <p className="bg-green-500/10 border-l-2 border-green-500 pl-3 py-1">
+            <p className="bg-primary/10 border-l-2 border-primary pl-2 py-1">
               Using the data in the <strong>'Population'</strong> spreadsheet, complete the following:
             </p>
-            <p className="text-muted-foreground text-xs">
-              1. Calculate the required sample size... 2. Perform a variance analysis on Q2 and Q3 data (columns H and I)... 3. Select a sample for audit testing...
+            <p className="text-muted-foreground">
+              1. Calculate sample size... 2. Variance analysis (columns H, I)... 3. Select sample...
             </p>
           </div>
         }
         inputFileDescription="Anti-Financial Crime Risk Metrics Spreadsheet"
         inputFileName="Population.xlsx"
         inputFileUrl="https://docs.google.com/spreadsheets/d/1nrpI4qPfdjb_chj-APnPn158MG5t8h4X/edit?usp=sharing&ouid=109946200030023295969&rtpof=true&sd=true"
+        inputFileEmbedUrl="https://docs.google.com/spreadsheets/d/1nrpI4qPfdjb_chj-APnPn158MG5t8h4X/preview"
         referenceHighlights={[
           {
             quote: "The attached spreadsheet titled 'Population'",
-            explanation: "Explicitly named file, no ambiguity about which document"
+            explanation: "Explicitly named file"
           },
           {
-            quote: "Using the data in the 'Population' spreadsheet, complete the following",
-            explanation: "Re-referenced before tasks begin, clearly identified as the data source"
+            quote: "Using the data in the 'Population' spreadsheet",
+            explanation: "Re-referenced before tasks begin"
           }
         ]}
         qualityNotes={[
           "Self-contained: no external data required",
-          "File explicitly named with clear identifier",
-          "Tasks directly reference specific columns (H, I, J, K)"
+          "File explicitly named",
+          "Tasks reference specific columns (H, I, J, K)"
         ]}
       />
     ),
@@ -1645,31 +1646,32 @@ This report will be used to brief the design team and guide future optimization 
         title="Grouped File Reference"
         domain="Automotive / Procurement"
         promptExcerpt={
-          <div className="space-y-3">
+          <div className="space-y-2 text-xs">
             <p>
-              You're the category buyer for automotive electronics at LiIon Motors and are currently leading the sourcing process for headlamps on the upcoming mid-size passenger vehicle...
+              You're the category buyer for automotive electronics at LiIon Motors, leading the sourcing process for headlamps on Model I...
             </p>
             <p>
-              Create an Excel workbook that includes a dedicated NPV calculation sheet for each vendor and a final summary sheet for direct side-by-side comparison...
+              Create an Excel workbook with NPV calculation sheets for each vendor and a summary sheet for comparison...
             </p>
-            <p className="bg-green-500/10 border-l-2 border-green-500 pl-3 py-1">
-              <strong>All relevant documents</strong>, including vendor quotations and volume projections, <strong>are attached</strong>. Clearly list all assumptions made.
+            <p className="bg-primary/10 border-l-2 border-primary pl-2 py-1">
+              <strong>All relevant documents</strong>, including vendor quotations and volume projections, <strong>are attached</strong>.
             </p>
           </div>
         }
         inputFileDescription="Vendor quotations and volume projections"
         inputFileName="Multiple files (quotations, projections)"
         inputFileUrl="https://drive.google.com/drive/folders/1O8aVfirvXI1rG-8bfGiuN71WjEKxOu1D?usp=sharing"
+        inputFileEmbedUrl="https://drive.google.com/embeddedfolderview?id=1O8aVfirvXI1rG-8bfGiuN71WjEKxOu1D#list"
         referenceHighlights={[
           {
             quote: "All relevant documents... are attached",
-            explanation: "Files not individually named, but clearly scoped as provided attachments"
+            explanation: "Files grouped but clearly scoped as attachments"
           }
         ]}
         qualityNotes={[
           "Model knows all attached files are inputs",
           "Acceptable in professional workflows",
-          "Could be improved by naming each file explicitly"
+          "Could list each file explicitly for more clarity"
         ]}
       />
     ),
