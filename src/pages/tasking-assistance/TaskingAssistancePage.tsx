@@ -236,7 +236,7 @@ const TaskingAssistancePage = () => {
                     multiple
                     onChange={handleFileSelect}
                     className="hidden"
-                    accept=".pdf,.doc,.docx,.txt,.png,.jpg,.jpeg,.gif,.xlsx,.xls,.csv"
+                    accept=".pdf,.doc,.docx,.txt,.png,.jpg,.jpeg,.gif,.xlsx,.xls,.csv,.ppt,.pptx,.rtf,.odt,.ods,.odp,.json,.xml,.md,.html"
                     disabled={isSubmitting}
                   />
                   <Button
@@ -250,7 +250,7 @@ const TaskingAssistancePage = () => {
                     Upload Files
                   </Button>
                   <p className="text-xs text-muted-foreground mt-2">
-                    PDF, Word, Excel, images, or text files (max 10MB each, up to 5 files)
+                    PDF, Word, Excel, PowerPoint, CSV, images, and more (max 10MB each, up to 5 files)
                   </p>
                 </div>
 
