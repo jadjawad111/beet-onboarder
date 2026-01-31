@@ -147,14 +147,19 @@ const PromptExerciseQuiz = ({
     // Check immediately in case content is already visible
     setTimeout(checkIfScrolledToBottom, 150);
 
-    // Add scroll listener to the container or window
-    const container = containerRef.current?.closest('.overflow-auto') || window;
+    // Find the scrollable container - check for both overflow-auto and overflow-y-auto
+    const container = containerRef.current?.closest('[class*="overflow"]') || 
+                      containerRef.current?.closest('main') || 
+                      window;
     container.addEventListener('scroll', checkIfScrolledToBottom);
     window.addEventListener('scroll', checkIfScrolledToBottom);
+    // Also check on resize in case viewport changes
+    window.addEventListener('resize', checkIfScrolledToBottom);
 
     return () => {
       container.removeEventListener('scroll', checkIfScrolledToBottom);
       window.removeEventListener('scroll', checkIfScrolledToBottom);
+      window.removeEventListener('resize', checkIfScrolledToBottom);
     };
   }, [submitted, hasScrolledToBottom]);
 
