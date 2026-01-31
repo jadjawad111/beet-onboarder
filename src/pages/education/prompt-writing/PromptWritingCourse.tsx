@@ -21,8 +21,10 @@ import CriterionErrorQuiz from "@/components/presentation/slides/CriterionErrorQ
 import RubricLevelQuiz from "@/components/presentation/slides/RubricLevelQuiz";
 import RubricInteractiveQuiz from "@/components/presentation/slides/RubricInteractiveQuiz";
 import GoodPromptReveal, { h } from "@/components/presentation/slides/GoodPromptReveal";
+import PracticeOverlay from "@/components/presentation/slides/PracticeOverlay";
 import { exercise1Prompt, exercise1DeliverableUrl, exercise1Criteria } from "@/data/rubricQuizExercise1";
 import { exercise2Prompt, exercise2DeliverableUrl, exercise2Criteria } from "@/data/rubricQuizExercise2";
+import { additionalExercises, elementKeyMap } from "@/data/additionalPromptExercises";
 import { Card, CardContent } from "@/components/ui/card";
 import { Lightbulb, Target, ClipboardCheck } from "lucide-react";
 
@@ -979,6 +981,67 @@ This report will be used to brief the design team and guide future optimization 
       />
     ),
   },
+
+  // Practice Overlay - After Good Prompt #3
+  {
+    id: "prompt-practice-overlay",
+    section: "Prompt Writing",
+    title: "Continue Practicing?",
+    parentId: "prompt-quiz-intro",
+    content: (
+      <PracticeOverlay
+        onContinuePractice={() => {
+          // Navigation handled by PresentationLayout
+        }}
+        onSkip={() => {
+          // Navigation handled by PresentationLayout
+        }}
+      />
+    ),
+  },
+
+  // Additional Practice Exercises (12 total)
+  ...additionalExercises.map((exercise, index) => ({
+    id: `prompt-practice-${index + 1}`,
+    section: "Prompt Writing" as const,
+    title: `Practice #${index + 1}`,
+    parentId: "prompt-quiz-intro",
+    gated: true,
+    content: (
+      <PromptExerciseQuiz
+        key={`prompt-practice-${index + 1}`}
+        exerciseNumber={index + 4} // Start at 4 since we already have 1-3
+        promptExcerpt={exercise.promptReveal}
+        correctAnswers={exercise.correctSelections.map(s => elementKeyMap[s] || s) as ("unambiguous" | "professional" | "realistic" | "timelessness" | "clearAsks" | "clearConstraints")[]}
+        feedback={{
+          unambiguous: {
+            isIssue: exercise.detailedFeedback.find(f => f.element === "unambiguous")?.status === "ERROR",
+            explanation: exercise.detailedFeedback.find(f => f.element === "unambiguous")?.text || "",
+          },
+          professional: {
+            isIssue: exercise.detailedFeedback.find(f => f.element === "professional")?.status === "ERROR",
+            explanation: exercise.detailedFeedback.find(f => f.element === "professional")?.text || "",
+          },
+          realistic: {
+            isIssue: exercise.detailedFeedback.find(f => f.element === "realistic")?.status === "ERROR",
+            explanation: exercise.detailedFeedback.find(f => f.element === "realistic")?.text || "",
+          },
+          timelessness: {
+            isIssue: exercise.detailedFeedback.find(f => f.element === "timelessness")?.status === "ERROR",
+            explanation: exercise.detailedFeedback.find(f => f.element === "timelessness")?.text || "",
+          },
+          clearAsks: {
+            isIssue: exercise.detailedFeedback.find(f => f.element === "clearAsks")?.status === "ERROR",
+            explanation: exercise.detailedFeedback.find(f => f.element === "clearAsks")?.text || "",
+          },
+          clearConstraints: {
+            isIssue: exercise.detailedFeedback.find(f => f.element === "clearConstraints")?.status === "ERROR",
+            explanation: exercise.detailedFeedback.find(f => f.element === "clearConstraints")?.text || "",
+          },
+        }}
+      />
+    ),
+  })),
 
   // ═══════════════════════════════════════════════════════════════
   // SECTION 3: "Bronze" Response

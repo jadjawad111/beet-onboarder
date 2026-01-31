@@ -136,6 +136,35 @@ const PresentationLayout = ({
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [handleNext, handlePrev]);
 
+  // Handle practice overlay navigation events
+  useEffect(() => {
+    const handlePracticeContinue = () => {
+      // Continue to next slide (practice exercises)
+      if (currentSlide < totalSlides - 1) {
+        goToSlide(currentSlide + 1, 'next');
+      }
+    };
+
+    const handlePracticeSkip = () => {
+      // Find the Bronze section start (skip all practice exercises)
+      const bronzeIndex = slides.findIndex(s => s.section === '"Bronze" Response');
+      if (bronzeIndex !== -1 && bronzeIndex > currentSlide) {
+        goToSlide(bronzeIndex, 'next');
+      } else {
+        // Fallback: just go to next slide
+        handleNext();
+      }
+    };
+
+    window.addEventListener('practice-overlay-continue', handlePracticeContinue);
+    window.addEventListener('practice-overlay-skip', handlePracticeSkip);
+    
+    return () => {
+      window.removeEventListener('practice-overlay-continue', handlePracticeContinue);
+      window.removeEventListener('practice-overlay-skip', handlePracticeSkip);
+    };
+  }, [currentSlide, totalSlides, slides, goToSlide, handleNext]);
+
   // Clone children and inject unlockCurrentSlide prop
   const slideContent = useMemo(() => {
     const content = currentSlideData?.content;
