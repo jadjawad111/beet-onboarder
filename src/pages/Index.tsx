@@ -59,9 +59,9 @@ const Index = () => {
             </div>
           </Link>
 
-          {/* Educational Modules Card */}
+          {/* Training Course Card */}
           <Link 
-            to="/education"
+            to="/education/prompt-writing/course"
             className="group p-6 rounded-2xl border border-border bg-card hover:border-primary/30 hover:shadow-lg transition-all"
           >
             <div className="flex items-start justify-between mb-4">
@@ -71,15 +71,15 @@ const Index = () => {
               <ArrowRight className="w-5 h-5 text-muted-foreground opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all" />
             </div>
             <h3 className="text-xl font-semibold text-foreground mb-2 group-hover:text-primary transition-colors">
-              Educational Modules
+              Project Beet 2.0 Training Course
             </h3>
             <p className="text-muted-foreground text-sm mb-4">
-              Two training tracks: Prompt Writing and Rubrics Creation. Complete both to qualify.
+              Complete the training course covering Prompt Writing and Rubrics to qualify.
             </p>
             <div className="flex items-center gap-4 text-sm">
               <span className="flex items-center gap-1.5 text-muted-foreground">
                 <Clock className="w-4 h-4" />
-                2 tracks · 7 modules
+                4 sections
               </span>
             </div>
           </Link>
