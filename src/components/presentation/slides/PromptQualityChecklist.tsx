@@ -36,14 +36,14 @@ const PromptQualityChecklist = ({ onAllChecked, onGateUnlock }: PromptQualityChe
       {qualities.map((quality, index) => (
         <label
           key={index}
-          className="flex items-start gap-3 p-3 rounded-lg border bg-card cursor-pointer hover:bg-accent/50 transition-colors"
+          className="flex items-center gap-3 p-3 rounded-lg border bg-card cursor-pointer hover:bg-accent/50 transition-colors min-h-[52px]"
         >
           <Checkbox
             checked={checked[index] || false}
             onCheckedChange={() => handleCheck(index)}
-            className="mt-0.5"
+            className="flex-shrink-0"
           />
-          <span className="text-foreground leading-relaxed">{quality}</span>
+          <span className="text-foreground">{quality}</span>
         </label>
       ))}
       {allChecked && (
