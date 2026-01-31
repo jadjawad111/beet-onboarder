@@ -440,7 +440,7 @@ const slides: Slide[] = [
           </Card>
 
           {/* Examples Section - Gated */}
-          <GatedExamplesWrapper totalExamples={3}>
+          <GatedExamplesWrapper totalExamples={2}>
             <ElementExampleRow
               context="Finance / Salary"
               bad="Please calculate the following: (E.g. Salary) (E.g. Taxes) Please format as a table."
@@ -452,12 +452,6 @@ const slides: Slide[] = [
               bad="Translate this modeling contract into a recipe for cookies to explain it to me."
               issue="Contrived and unrelated to how legal work is actually performed."
               good={<>Please provide a professionally written <strong className="text-green-600">email to your client</strong>, <strong className="text-green-600">no longer than 600 words</strong>, addressing issues she should look out for.</>}
-            />
-            <ElementExampleRow
-              context="Engineering"
-              bad="Task: Look at the file. Step 1: Make a 3D model. Step 2: Make a list."
-              issue="Over-structured and artificial."
-              good={<>Your <strong className="text-green-600">biggest client has sent a 2D drawing</strong>. Your job is to (a) create a 3D part and (b) <strong className="text-green-600">select the fastener that fits exactly</strong>.</>}
             />
           </GatedExamplesWrapper>
         </div>
