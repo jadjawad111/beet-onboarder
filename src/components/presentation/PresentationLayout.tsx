@@ -1,9 +1,11 @@
 import React, { useState, useEffect, useCallback, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
-import { ChevronLeft, ChevronRight, X, Check, ChevronDown, Lock } from "lucide-react";
+import { ChevronLeft, ChevronRight, X, Check, ChevronDown, Lock, Download, FileText } from "lucide-react";
 import { cn } from "@/lib/utils";
 import beetIcon from "@/assets/beet-icon.png";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
+import { generateAndDownloadCoursePDF } from "@/utils/generateCoursePDF";
+import { Button } from "@/components/ui/button";
 
 export interface Slide {
   id: string;
@@ -135,11 +137,20 @@ const PresentationLayout = ({
     }
   }, [currentSlideData?.content, unlockCurrentSlide]);
 
+  // Handle PDF download
+  const handleDownloadPDF = async () => {
+    try {
+      await generateAndDownloadCoursePDF();
+    } catch (error) {
+      console.error('Failed to generate PDF:', error);
+    }
+  };
+
   // Completion overlay
   if (isComplete) {
     return (
       <div className="fixed inset-0 z-50 flex items-center justify-center bg-background">
-        <div className="text-center animate-fade-in">
+        <div className="text-center animate-fade-in max-w-md px-6">
           {/* Celebration animation */}
           <div className="relative mb-8">
             <img 
@@ -171,8 +182,28 @@ const PresentationLayout = ({
           <p className="text-xl text-muted-foreground mb-2">
             You've mastered {title}
           </p>
-          <p className="text-sm text-muted-foreground">
-            Returning to overview...
+          
+          {/* PDF Download Section */}
+          <div className="mt-8 p-6 bg-card border border-border rounded-xl">
+            <div className="flex items-center justify-center gap-3 mb-3">
+              <FileText className="w-6 h-6 text-primary" />
+              <span className="font-semibold text-foreground">Reference Guide Ready</span>
+            </div>
+            <p className="text-sm text-muted-foreground mb-4">
+              Download your PDF reference guide to keep all the course content at your fingertips.
+            </p>
+            <Button
+              onClick={handleDownloadPDF}
+              className="gap-2"
+              size="lg"
+            >
+              <Download className="w-4 h-4" />
+              Download PDF
+            </Button>
+          </div>
+          
+          <p className="text-sm text-muted-foreground mt-6">
+            Returning to overview in a moment...
           </p>
         </div>
       </div>
