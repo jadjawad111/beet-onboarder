@@ -867,13 +867,10 @@ This report will be used to brief the design team and guide future optimization 
       <ContentSlide title="What is a Bronze response?" layout="left">
         <div className="space-y-6">
           <p>
-            <strong className="text-foreground">A Bronze response is your attempt at producing the actual deliverable for a task.</strong>
+            <strong className="text-foreground">A Bronze response is your attempt at producing the actual deliverable for a task.</strong> While the model will not train directly on your deliverable, producing a Bronze response is critical because it forces you to deeply understand what a good output looks like, what truly matters in the task, and which elements should be captured and evaluated in the rubric.
           </p>
           <p>
-            The model will not train directly on your deliverable. Producing a Bronze response helps you build a strong understanding of what matters in the output, what a good response looks like, and which elements should be captured and evaluated in your rubric.
-          </p>
-          <p className="text-muted-foreground">
-            If you do not produce a Bronze response, or do not seriously attempt one, you will likely miss several key elements that are important for assessing model outputs.
+            Based on our review of thousands of these tasks, we consistently see that fellows who produce thoughtful, well-reasoned Bronze responses go on to create significantly higher-quality rubrics and tasks overall. If you do not produce a Bronze response, or do not seriously attempt one, you will likely miss key criteria and struggle to develop a satisfactory rubric for the task. <strong className="text-foreground">In our experience, those who invest care and effort into their Bronze responses score meaningfully higher.</strong>
           </p>
         </div>
       </ContentSlide>
