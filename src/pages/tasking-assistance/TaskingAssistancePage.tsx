@@ -1,13 +1,12 @@
 import { useState, useRef } from "react";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
-import { Send, Loader2, CheckCircle2, Upload, X, FileText, Image as ImageIcon } from "lucide-react";
-import beetIcon from "@/assets/beet-icon.png";
+import { Send, Loader2, CheckCircle2, Upload, X, FileText, Image as ImageIcon, Sparkles } from "lucide-react";
 
 interface UploadedFile {
   file: File;
@@ -15,8 +14,7 @@ interface UploadedFile {
 }
 
 const TaskingAssistancePage = () => {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
+  const [taskId, setTaskId] = useState("");
   const [promptText, setPromptText] = useState("");
   const [files, setFiles] = useState<UploadedFile[]>([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -27,7 +25,6 @@ const TaskingAssistancePage = () => {
   const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFiles = Array.from(e.target.files || []);
     
-    // Limit to 5 files
     if (files.length + selectedFiles.length > 5) {
       toast({
         title: "Too many files",
@@ -37,7 +34,6 @@ const TaskingAssistancePage = () => {
       return;
     }
 
-    // Check file sizes (max 10MB each)
     const validFiles = selectedFiles.filter(file => {
       if (file.size > 10 * 1024 * 1024) {
         toast({
@@ -57,7 +53,6 @@ const TaskingAssistancePage = () => {
 
     setFiles(prev => [...prev, ...newFiles]);
     
-    // Reset input
     if (fileInputRef.current) {
       fileInputRef.current.value = '';
     }
@@ -101,10 +96,10 @@ const TaskingAssistancePage = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!name.trim() || !promptText.trim()) {
+    if (!promptText.trim()) {
       toast({
         title: "Missing Information",
-        description: "Please enter your name and prompt text.",
+        description: "Please enter your prompt text.",
         variant: "destructive",
       });
       return;
@@ -113,12 +108,10 @@ const TaskingAssistancePage = () => {
     setIsSubmitting(true);
 
     try {
-      // Upload files first
       const attachmentUrls = files.length > 0 ? await uploadFiles() : [];
 
       const { data, error } = await supabase.from("prompt_submissions").insert({
-        submitter_name: name.trim(),
-        submitter_email: email.trim() || null,
+        task_id: taskId.trim() || null,
         prompt_text: promptText.trim(),
         submission_type: "prompt",
         attachment_urls: attachmentUrls,
@@ -134,8 +127,7 @@ const TaskingAssistancePage = () => {
           mode: "no-cors",
           body: JSON.stringify({
             id: data.id,
-            submitter_name: data.submitter_name,
-            submitter_email: data.submitter_email,
+            task_id: data.task_id,
             prompt_text: data.prompt_text,
             attachment_urls: data.attachment_urls,
             created_at: data.created_at,
@@ -148,18 +140,15 @@ const TaskingAssistancePage = () => {
       setIsSubmitted(true);
       toast({
         title: "Prompt Submitted!",
-        description: "Your prompt has been submitted for feedback. You'll receive a response soon.",
+        description: "Your prompt has been submitted for feedback.",
       });
 
-      // Cleanup file previews
       files.forEach(f => {
         if (f.preview) URL.revokeObjectURL(f.preview);
       });
 
-      // Reset form after short delay
       setTimeout(() => {
-        setName("");
-        setEmail("");
+        setTaskId("");
         setPromptText("");
         setFiles([]);
         setIsSubmitted(false);
@@ -182,180 +171,170 @@ const TaskingAssistancePage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background p-6 md:p-10">
-      <div className="max-w-2xl mx-auto">
+    <div className="min-h-screen bg-background flex flex-col items-center px-4 py-12">
+      <div className="w-full max-w-2xl">
         {/* Header */}
-        <div className="flex items-center gap-4 mb-8">
-          <img src={beetIcon} alt="Beet" className="w-12 h-12" />
-          <div>
-            <h1 className="text-3xl font-bold text-foreground">Beet Tasking Assistant</h1>
-            <p className="text-muted-foreground">Submit your prompts for automated feedback</p>
+        <div className="text-center mb-10">
+          <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-primary/10 mb-6">
+            <Sparkles className="h-6 w-6 text-primary" />
           </div>
+          <h1 className="text-3xl font-semibold text-foreground mb-3">
+            Beet Tasking Assistant
+          </h1>
+          <p className="text-muted-foreground">
+            Submit your prompt and input files for automated feedback
+          </p>
+          <p className="text-sm text-muted-foreground/70 mt-2 max-w-md mx-auto">
+            Note: This tool provides general direction on how to improve your task. 
+            It will not catch everything and may sometimes overflag issues.
+          </p>
         </div>
 
-        {/* Submission Form */}
-        <Card className="border-2">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Send className="h-5 w-5 text-primary" />
-              Submit a Prompt for Feedback
-            </CardTitle>
-            <CardDescription>
-              Enter your prompt below and our automated system will provide feedback to help you improve.
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <Label htmlFor="name">Your Name *</Label>
-                  <Input
-                    id="name"
-                    placeholder="Enter your name"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    disabled={isSubmitting}
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="email">Email (optional)</Label>
-                  <Input
-                    id="email"
-                    type="email"
-                    placeholder="your@email.com"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    disabled={isSubmitting}
-                  />
-                </div>
+        <form onSubmit={handleSubmit} className="space-y-6">
+          {/* Step 1: Task ID */}
+          <Card className="border bg-card/50">
+            <CardContent className="pt-6">
+              <div className="flex items-center gap-2 mb-4">
+                <span className="text-xs font-medium text-muted-foreground uppercase tracking-wide">
+                  Step 1
+                </span>
+                <span className="text-sm font-medium text-foreground">Task ID</span>
               </div>
+              <Input
+                id="taskId"
+                placeholder="Enter your task ID (optional)"
+                value={taskId}
+                onChange={(e) => setTaskId(e.target.value)}
+                disabled={isSubmitting}
+                className="bg-muted/30 border-muted"
+              />
+            </CardContent>
+          </Card>
 
-              <div className="space-y-2">
-                <Label htmlFor="prompt">Your Prompt *</Label>
-                <Textarea
-                  id="prompt"
-                  placeholder="Paste or type your prompt here..."
-                  value={promptText}
-                  onChange={(e) => setPromptText(e.target.value)}
-                  className="min-h-[200px] resize-y"
-                  disabled={isSubmitting}
+          {/* Step 2: Prompt */}
+          <Card className="border bg-card/50">
+            <CardContent className="pt-6">
+              <div className="flex items-center gap-2 mb-4">
+                <span className="text-xs font-medium text-muted-foreground uppercase tracking-wide">
+                  Step 2
+                </span>
+                <span className="text-sm font-medium text-foreground">Prompt</span>
+              </div>
+              <Textarea
+                id="prompt"
+                placeholder="Input your Prompt, Prompt Context, and Formatting Context here"
+                value={promptText}
+                onChange={(e) => setPromptText(e.target.value)}
+                className="min-h-[160px] resize-y bg-muted/30 border-muted"
+                disabled={isSubmitting}
+              />
+              <p className="text-xs text-muted-foreground mt-2">
+                {promptText.length} characters
+              </p>
+            </CardContent>
+          </Card>
+
+          {/* Step 3: File Upload */}
+          <Card className="border bg-card/50">
+            <CardContent className="pt-6">
+              <div className="flex items-center gap-2 mb-4">
+                <span className="text-xs font-medium text-muted-foreground uppercase tracking-wide">
+                  Step 3
+                </span>
+                <span className="text-sm font-medium text-foreground">Input Files</span>
+                <span className="text-xs text-muted-foreground">(optional)</span>
+              </div>
+              
+              <div 
+                className="border-2 border-dashed rounded-lg p-8 text-center hover:border-primary/30 transition-colors cursor-pointer bg-muted/20"
+                onClick={() => fileInputRef.current?.click()}
+              >
+                <input
+                  ref={fileInputRef}
+                  type="file"
+                  multiple
+                  onChange={handleFileSelect}
+                  className="hidden"
+                  accept=".pdf,.doc,.docx,.txt,.png,.jpg,.jpeg,.gif,.xlsx,.xls,.csv,.ppt,.pptx,.rtf,.odt,.ods,.odp,.json,.xml,.md,.html"
+                  disabled={isSubmitting || files.length >= 5}
                 />
-                <p className="text-xs text-muted-foreground">
-                  {promptText.length} characters
+                <Upload className="h-8 w-8 text-muted-foreground/50 mx-auto mb-3" />
+                <p className="text-sm text-muted-foreground">
+                  Click to upload a file
+                </p>
+                <p className="text-xs text-muted-foreground/70 mt-1">
+                  XLSX, PPTX, PDF, DOCX (max 10MB)
                 </p>
               </div>
 
-              {/* File Upload Section */}
-              <div className="space-y-3">
-                <Label>Attachments (optional)</Label>
-                <div className="border-2 border-dashed rounded-lg p-4 text-center hover:border-primary/50 transition-colors">
-                  <input
-                    ref={fileInputRef}
-                    type="file"
-                    multiple
-                    onChange={handleFileSelect}
-                    className="hidden"
-                    accept=".pdf,.doc,.docx,.txt,.png,.jpg,.jpeg,.gif,.xlsx,.xls,.csv,.ppt,.pptx,.rtf,.odt,.ods,.odp,.json,.xml,.md,.html"
-                    disabled={isSubmitting}
-                  />
-                  <Button
-                    type="button"
-                    variant="outline"
-                    onClick={() => fileInputRef.current?.click()}
-                    disabled={isSubmitting || files.length >= 5}
-                    className="gap-2"
-                  >
-                    <Upload className="h-4 w-4" />
-                    Upload Files
-                  </Button>
-                  <p className="text-xs text-muted-foreground mt-2">
-                    PDF, Word, Excel, PowerPoint, CSV, images, and more (max 10MB each, up to 5 files)
-                  </p>
-                </div>
-
-                {/* File List */}
-                {files.length > 0 && (
-                  <div className="space-y-2">
-                    {files.map((uploadedFile, index) => (
-                      <div
-                        key={index}
-                        className="flex items-center gap-3 p-2 rounded-lg bg-muted/50 border"
-                      >
-                        {uploadedFile.preview ? (
-                          <img
-                            src={uploadedFile.preview}
-                            alt={uploadedFile.file.name}
-                            className="w-10 h-10 object-cover rounded"
-                          />
-                        ) : (
-                          <div className="w-10 h-10 flex items-center justify-center bg-muted rounded">
-                            {getFileIcon(uploadedFile.file)}
-                          </div>
-                        )}
-                        <div className="flex-1 min-w-0">
-                          <p className="text-sm font-medium truncate">
-                            {uploadedFile.file.name}
-                          </p>
-                          <p className="text-xs text-muted-foreground">
-                            {(uploadedFile.file.size / 1024).toFixed(1)} KB
-                          </p>
+              {files.length > 0 && (
+                <div className="mt-4 space-y-2">
+                  {files.map((uploadedFile, index) => (
+                    <div
+                      key={index}
+                      className="flex items-center gap-3 p-3 rounded-lg bg-muted/30 border"
+                    >
+                      {uploadedFile.preview ? (
+                        <img
+                          src={uploadedFile.preview}
+                          alt={uploadedFile.file.name}
+                          className="w-10 h-10 object-cover rounded"
+                        />
+                      ) : (
+                        <div className="w-10 h-10 flex items-center justify-center bg-muted rounded">
+                          {getFileIcon(uploadedFile.file)}
                         </div>
-                        <Button
-                          type="button"
-                          variant="ghost"
-                          size="icon"
-                          onClick={() => removeFile(index)}
-                          disabled={isSubmitting}
-                          className="h-8 w-8"
-                        >
-                          <X className="h-4 w-4" />
-                        </Button>
+                      )}
+                      <div className="flex-1 min-w-0">
+                        <p className="text-sm font-medium truncate">
+                          {uploadedFile.file.name}
+                        </p>
+                        <p className="text-xs text-muted-foreground">
+                          {(uploadedFile.file.size / 1024).toFixed(1)} KB
+                        </p>
                       </div>
-                    ))}
-                  </div>
-                )}
-              </div>
+                      <Button
+                        type="button"
+                        variant="ghost"
+                        size="icon"
+                        onClick={() => removeFile(index)}
+                        disabled={isSubmitting}
+                        className="h-8 w-8"
+                      >
+                        <X className="h-4 w-4" />
+                      </Button>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </CardContent>
+          </Card>
 
-              <Button
-                type="submit"
-                className="w-full"
-                disabled={isSubmitting || isSubmitted}
-                size="lg"
-              >
-                {isSubmitting ? (
-                  <>
-                    <Loader2 className="h-4 w-4 animate-spin" />
-                    Submitting...
-                  </>
-                ) : isSubmitted ? (
-                  <>
-                    <CheckCircle2 className="h-4 w-4" />
-                    Submitted!
-                  </>
-                ) : (
-                  <>
-                    <Send className="h-4 w-4" />
-                    Submit for Feedback
-                  </>
-                )}
-              </Button>
-            </form>
-          </CardContent>
-        </Card>
-
-        {/* Info Card */}
-        <Card className="mt-6 bg-muted/50">
-          <CardContent className="pt-6">
-            <h3 className="font-semibold mb-2">How it works</h3>
-            <ol className="list-decimal list-inside space-y-1 text-sm text-muted-foreground">
-              <li>Enter your name and paste your prompt above</li>
-              <li>Optionally attach input files (PDFs, images, documents)</li>
-              <li>Click submit to send it for review</li>
-              <li>Our automated system will analyze your prompt</li>
-              <li>You'll receive feedback to help improve your prompt writing</li>
-            </ol>
-          </CardContent>
-        </Card>
+          {/* Submit Button */}
+          <Button
+            type="submit"
+            className="w-full h-12 text-base font-medium"
+            disabled={isSubmitting || isSubmitted}
+            size="lg"
+          >
+            {isSubmitting ? (
+              <>
+                <Loader2 className="h-5 w-5 animate-spin" />
+                Submitting...
+              </>
+            ) : isSubmitted ? (
+              <>
+                <CheckCircle2 className="h-5 w-5" />
+                Submitted!
+              </>
+            ) : (
+              <>
+                <Send className="h-5 w-5" />
+                Submit for Feedback
+              </>
+            )}
+          </Button>
+        </form>
       </div>
     </div>
   );
