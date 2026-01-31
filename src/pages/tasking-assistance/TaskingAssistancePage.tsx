@@ -3,10 +3,10 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { Send, Loader2, CheckCircle2, Upload, X, FileText, Image as ImageIcon, Sparkles } from "lucide-react";
+import FeedbackDisplay from "@/components/tasking-assistance/FeedbackDisplay";
 
 interface UploadedFile {
   file: File;
@@ -18,7 +18,7 @@ const TaskingAssistancePage = () => {
   const [promptText, setPromptText] = useState("");
   const [files, setFiles] = useState<UploadedFile[]>([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [submittedId, setSubmittedId] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const { toast } = useToast();
 
@@ -137,7 +137,7 @@ const TaskingAssistancePage = () => {
         console.error("Zapier webhook failed:", webhookError);
       }
 
-      setIsSubmitted(true);
+      setSubmittedId(data.id);
       toast({
         title: "Prompt Submitted!",
         description: "Your prompt has been submitted for feedback.",
@@ -146,13 +146,10 @@ const TaskingAssistancePage = () => {
       files.forEach(f => {
         if (f.preview) URL.revokeObjectURL(f.preview);
       });
-
-      setTimeout(() => {
-        setTaskId("");
-        setPromptText("");
-        setFiles([]);
-        setIsSubmitted(false);
-      }, 3000);
+      
+      setTaskId("");
+      setPromptText("");
+      setFiles([]);
     } catch (error) {
       console.error("Error submitting prompt:", error);
       toast({
@@ -314,7 +311,7 @@ const TaskingAssistancePage = () => {
           <Button
             type="submit"
             className="w-full h-12 text-base font-medium"
-            disabled={isSubmitting || isSubmitted}
+            disabled={isSubmitting || !!submittedId}
             size="lg"
           >
             {isSubmitting ? (
@@ -322,7 +319,7 @@ const TaskingAssistancePage = () => {
                 <Loader2 className="h-5 w-5 animate-spin" />
                 Submitting...
               </>
-            ) : isSubmitted ? (
+            ) : submittedId ? (
               <>
                 <CheckCircle2 className="h-5 w-5" />
                 Submitted!
@@ -334,6 +331,14 @@ const TaskingAssistancePage = () => {
               </>
             )}
           </Button>
+
+          {/* Feedback Display */}
+          {submittedId && (
+            <FeedbackDisplay
+              submissionId={submittedId}
+              onClose={() => setSubmittedId(null)}
+            />
+          )}
         </form>
       </div>
     </div>
