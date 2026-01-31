@@ -77,19 +77,21 @@ const PracticeOverlay = ({ onContinuePractice, onSkip }: PracticeOverlayProps) =
           <ArrowRight className="w-6 h-6" />
         </Button>
 
-        {/* Tiny No Button */}
-        <button
-          onClick={handleSkip}
-          onMouseEnter={() => setIsHoveredNo(true)}
-          onMouseLeave={() => setIsHoveredNo(false)}
-          className={cn(
-            "text-[10px] text-muted-foreground/50 hover:text-muted-foreground/70 transition-all mt-4",
-            "px-2 py-0.5 rounded",
-            isHoveredNo && "scale-90"
-          )}
-        >
-          no thanks, skip ahead
-        </button>
+        {/* Tiny No Button - in a box for visibility */}
+        <div className="mt-6 p-3 rounded-lg border border-dashed border-muted-foreground/20 bg-muted/30">
+          <button
+            onClick={handleSkip}
+            onMouseEnter={() => setIsHoveredNo(true)}
+            onMouseLeave={() => setIsHoveredNo(false)}
+            className={cn(
+              "text-[10px] text-muted-foreground/50 hover:text-muted-foreground/70 transition-all",
+              "px-2 py-0.5 rounded",
+              isHoveredNo && "scale-90"
+            )}
+          >
+            no thanks, skip ahead
+          </button>
+        </div>
       </div>
     </div>
   );
