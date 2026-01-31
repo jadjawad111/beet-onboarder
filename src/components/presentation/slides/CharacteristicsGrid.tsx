@@ -12,9 +12,10 @@ interface CharacteristicsGridProps {
   characteristics: Characteristic[];
   instruction?: string;
   onAllRevealed?: () => void;
+  onGateUnlock?: () => void;
 }
 
-const CharacteristicsGrid = ({ characteristics, instruction, onAllRevealed }: CharacteristicsGridProps) => {
+const CharacteristicsGrid = ({ characteristics, instruction, onAllRevealed, onGateUnlock }: CharacteristicsGridProps) => {
   const [revealed, setRevealed] = useState<Set<number>>(new Set());
 
   const toggleReveal = (index: number) => {
@@ -32,10 +33,11 @@ const CharacteristicsGrid = ({ characteristics, instruction, onAllRevealed }: Ch
   const allRevealed = revealed.size === characteristics.length;
 
   useEffect(() => {
-    if (allRevealed && onAllRevealed) {
-      onAllRevealed();
+    if (allRevealed) {
+      onAllRevealed?.();
+      onGateUnlock?.();
     }
-  }, [allRevealed, onAllRevealed]);
+  }, [allRevealed, onAllRevealed, onGateUnlock]);
 
   return (
     <div className="space-y-4">

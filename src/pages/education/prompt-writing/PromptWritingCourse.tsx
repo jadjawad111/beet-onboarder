@@ -15,6 +15,7 @@ import PromptExerciseQuiz from "@/components/presentation/slides/PromptExerciseQ
 import BronzeExampleSlide from "@/components/presentation/slides/BronzeExampleSlide";
 import RevealInsight from "@/components/presentation/slides/RevealInsight";
 import CharacteristicsGrid from "@/components/presentation/slides/CharacteristicsGrid";
+import DualGridGate from "@/components/presentation/slides/DualGridGate";
 import AITrainingProcess from "@/components/presentation/slides/AITrainingProcess";
 import CriterionErrorQuiz from "@/components/presentation/slides/CriterionErrorQuiz";
 import RubricLevelQuiz from "@/components/presentation/slides/RubricLevelQuiz";
@@ -1250,83 +1251,47 @@ This analysis will be stored on the concierge laptop as a Word file and will be 
     id: "rubrics-intuition",
     section: "Rubrics",
     title: "Intuition: Good Rubrics & Criteria",
+    gated: true,
     content: (
       <ContentSlide title="What really makes up a good Rubric and good Rubric Criterion?" layout="left">
-        <div className="space-y-8">
-          {/* Good Rubric section */}
-          <div className="space-y-3">
-            <div className="pb-2 border-b border-primary/30">
-              <h3 className="text-lg font-bold text-primary">What makes a good Rubric?</h3>
-              <p className="text-xs text-muted-foreground mt-1">Click each to learn more:</p>
-            </div>
-            <CharacteristicsGrid
-              characteristics={[
-                {
-                  title: "Coverage",
-                  description: "A good rubric is exhaustive. It covers the full breadth of what matters for evaluating the task. If something is important to quality, it should be reflected somewhere in the rubric.",
-                },
-                {
-                  title: "Professional Judgment",
-                  description: "A good rubric captures the nuanced taste and expertise of the profession — aspects of quality that are difficult to evaluate in isolation, but obvious to experienced practitioners.",
-                },
-                {
-                  title: "Evaluator Consistency",
-                  description: "A good rubric produces consistent results across evaluators. The majority of people evaluating the same output should arrive at the same score, allowing learning to converge.",
-                },
-              ]}
-            />
-          </div>
-
-          {/* Good Criterion section */}
-          <div className="space-y-3">
-            <div className="pb-2 border-b border-primary/30">
-              <h3 className="text-lg font-bold text-primary">What makes a good Criterion?</h3>
-            </div>
-            
-            <div className="text-sm text-muted-foreground space-y-2">
-              <p>
-                A good criterion is written such that a judge model will be able to evaluate its output.
-              </p>
-              <p>
-                Each criterion should measure one meaningful aspect of the output, provide enough clarity to judge it reliably, and be structured so it can be programmatically evaluated by a judge model.
-              </p>
-              <p>
-                Because criteria are evaluated automatically and in isolation, they must follow specific rules.
-              </p>
-            </div>
-            
-            <p className="text-xs text-muted-foreground pt-2">Click each to learn more:</p>
-            
-            <CharacteristicsGrid
-              characteristics={[
-                {
-                  title: "Not Stacked",
-                  description: "A good criterion evaluates one thing at a time. When multiple requirements are bundled, if one part fails the entire criterion fails — this makes it hard to assign accurate credit.",
-                },
-                {
-                  title: "Programmatically Verifiable",
-                  description: "A good criterion can be evaluated at scale. AI labs may need to apply thousands of criteria across millions of outputs, requiring automated or semi-automated evaluation.",
-                },
-                {
-                  title: "Consistently Evaluable",
-                  description: "A good criterion returns the same result when applied repeatedly to the same output. High variance across evaluations hinders model improvement.",
-                },
-                {
-                  title: "Self-contained",
-                  description: "A good criterion can be evaluated using only the deliverable itself. The evaluator doesn't have access to input files, so any necessary information must be included directly.",
-                },
-                {
-                  title: "… and more",
-                  description: "There are additional guidelines for writing effective criteria that we'll explore in depth throughout this course.",
-                },
-              ]}
-            />
-          </div>
-          
-          <p className="text-sm text-muted-foreground italic pt-4 border-t border-border">
-            This section gives you intuition for why these rules matter. Next, we will deep dive into each guideline with concrete definitions, good and bad examples, and common mistakes to avoid when writing criteria.
-          </p>
-        </div>
+        <DualGridGate
+          rubricCharacteristics={[
+            {
+              title: "Coverage",
+              description: "A good rubric is exhaustive. It covers the full breadth of what matters for evaluating the task. If something is important to quality, it should be reflected somewhere in the rubric.",
+            },
+            {
+              title: "Professional Judgment",
+              description: "A good rubric captures the nuanced taste and expertise of the profession — aspects of quality that are difficult to evaluate in isolation, but obvious to experienced practitioners.",
+            },
+            {
+              title: "Evaluator Consistency",
+              description: "A good rubric produces consistent results across evaluators. The majority of people evaluating the same output should arrive at the same score, allowing learning to converge.",
+            },
+          ]}
+          criterionCharacteristics={[
+            {
+              title: "Not Stacked",
+              description: "A good criterion evaluates one thing at a time. When multiple requirements are bundled, if one part fails the entire criterion fails — this makes it hard to assign accurate credit.",
+            },
+            {
+              title: "Programmatically Verifiable",
+              description: "A good criterion can be evaluated at scale. AI labs may need to apply thousands of criteria across millions of outputs, requiring automated or semi-automated evaluation.",
+            },
+            {
+              title: "Consistently Evaluable",
+              description: "A good criterion returns the same result when applied repeatedly to the same output. High variance across evaluations hinders model improvement.",
+            },
+            {
+              title: "Self-contained",
+              description: "A good criterion can be evaluated using only the deliverable itself. The evaluator doesn't have access to input files, so any necessary information must be included directly.",
+            },
+            {
+              title: "… and more",
+              description: "There are additional guidelines for writing effective criteria that we'll explore in depth throughout this course.",
+            },
+          ]}
+        />
       </ContentSlide>
     ),
   },
