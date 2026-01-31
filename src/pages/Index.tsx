@@ -1,10 +1,19 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowRight, Briefcase, GraduationCap, CheckCircle2, Clock, Lock, Mail, MessageCircle } from "lucide-react";
+import { ArrowRight, Briefcase, GraduationCap, CheckCircle2, Lock, Mail, MessageCircle } from "lucide-react";
 import beetIcon from "@/assets/beet-icon.png";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+} from "@/components/ui/dialog";
 
 const Index = () => {
   // Project Information is locked for dogfooding
   const isProjectInfoLocked = true;
+  const [showLockedDialog, setShowLockedDialog] = useState(false);
 
   return (
     <div className="min-h-screen">
@@ -40,7 +49,8 @@ const Index = () => {
           {/* Project Information Card - LOCKED */}
           {isProjectInfoLocked ? (
             <div 
-              className="relative p-6 rounded-2xl border border-border bg-muted/30 cursor-not-allowed opacity-60"
+              onClick={() => setShowLockedDialog(true)}
+              className="relative p-6 rounded-2xl border border-border bg-muted/30 cursor-pointer opacity-60 hover:opacity-70 transition-opacity"
             >
               {/* Lock badge */}
               <div className="absolute top-4 right-4 flex items-center gap-1.5 px-2 py-1 rounded-full bg-muted text-muted-foreground text-xs font-medium">
@@ -136,8 +146,37 @@ const Index = () => {
                 <p className="text-xs text-muted-foreground">Primary communication channel</p>
               </div>
             </a>
-          </div>
         </div>
+
+        {/* Locked Dialog */}
+        <Dialog open={showLockedDialog} onOpenChange={setShowLockedDialog}>
+          <DialogContent className="sm:max-w-md">
+            <DialogHeader>
+              <DialogTitle className="flex items-center gap-2">
+                <Lock className="w-5 h-5 text-primary" />
+                Thank You for Your Interest!
+              </DialogTitle>
+              <DialogDescription className="pt-4 text-base">
+                We will be sharing more details on the project via Discord.
+              </DialogDescription>
+            </DialogHeader>
+            <a
+              href="https://discord.gg/GbtUVawyrv"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-3 p-4 rounded-xl bg-[#5865F2]/10 hover:bg-[#5865F2]/20 transition-colors group mt-2"
+            >
+              <div className="w-10 h-10 rounded-lg bg-[#5865F2]/20 flex items-center justify-center">
+                <MessageCircle className="w-5 h-5 text-[#5865F2]" />
+              </div>
+              <div>
+                <p className="text-sm font-medium text-foreground group-hover:text-[#5865F2] transition-colors">Join our Discord</p>
+                <p className="text-xs text-muted-foreground">discord.gg/GbtUVawyrv</p>
+              </div>
+            </a>
+          </DialogContent>
+        </Dialog>
+      </div>
       </div>
     </div>
   );
