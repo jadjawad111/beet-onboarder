@@ -56,15 +56,9 @@ const Index = () => {
               <h3 className="text-xl font-semibold text-muted-foreground mb-2">
                 Project Information
               </h3>
-              <p className="text-muted-foreground/70 text-sm mb-4">
+              <p className="text-muted-foreground/70 text-sm">
                 Everything you need to know about Beet 2.0 - setup, workflow, tools, and FAQs.
               </p>
-              <div className="flex items-center gap-4 text-sm">
-                <span className="flex items-center gap-1.5 text-muted-foreground/70">
-                  <CheckCircle2 className="w-4 h-4" />
-                  0 of 5 complete
-                </span>
-              </div>
             </div>
           ) : (
             <Link 
