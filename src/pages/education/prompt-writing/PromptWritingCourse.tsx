@@ -1802,7 +1802,7 @@ This analysis will be stored on the concierge laptop as a Word file and will be 
             },
           ]}
           insightBox={{
-            title: "💡 Why This Criterion Is Too Restrictive",
+            title: "Why This Criterion Is Too Restrictive",
             paragraphs: [
               "Restrictive criteria often result from over-anchoring to a single output or an overly narrow reading of a prompt constraint. Here, \"under 500 words\" describes a broad range, not a precise target, yet the criterion treats it as one.",
               "This commonly happens when bronze or golden responses are used to define rubric criteria. Restrictiveness then emerges from overfitting to a priced or exemplar deliverable, rather than assessing whether the response meets the prompt's intent. The issue is not constraint adherence, but tying quality too tightly to a specific form instead of allowing reasonable variation.",
