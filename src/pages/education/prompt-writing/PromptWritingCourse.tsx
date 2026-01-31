@@ -744,6 +744,35 @@ The goal is to help improve how the team responds to customer concerns and incre
       />
     ),
   },
+  // Good Prompt Reveal #1 - After Quiz 1
+  {
+    id: "prompt-good-1",
+    section: "Prompt Writing",
+    title: "Good Prompt #1",
+    parentId: "prompt-quiz-intro",
+    content: (
+      <GoodPromptReveal
+        exerciseNumber={1}
+        promptParts={[
+          "You are a ",
+          h("retail general manager", "professionalRole"),
+          " at a ",
+          h("bridal store", "professionalRole"),
+          ". You need to teach your entire ",
+          h("bridal sales team", "professionalRole"),
+          " how to overcome objections and/or hesitations to the purchase of ",
+          h("bridalwear", "realistic"),
+          ".\n\n",
+          h("Create a Word document", "clearAsks"),
+          " to be used as a ",
+          h("brief training", "clearAsks"),
+          " on the topic of ",
+          h("overcoming sales objections", "unambiguous"),
+          ".",
+        ]}
+      />
+    ),
+  },
   {
     id: "prompt-quiz-2",
     section: "Prompt Writing",
@@ -789,82 +818,6 @@ Submit both documents when complete.`}
             explanation: "There are no constraints around scope, required sections, design rules, or level of detail.",
           },
         }}
-      />
-    ),
-  },
-  {
-    id: "prompt-quiz-3",
-    section: "Prompt Writing",
-    title: "Exercise #3",
-    parentId: "prompt-quiz-intro",
-    gated: true,
-    content: (
-      <PromptExerciseQuiz
-        key="prompt-quiz-3"
-        exerciseNumber={3}
-        promptExcerpt={`You are a 🟢Mechanical Engineer🟢 working at a small aerospace firm designing an experimental wing assembly for a next-generation aircraft.
-
-To support an 🟢internal design review🟢, create a flow simulation report using the attached CFD simulation results and CAD model.
-Summarize 🔴key performance metrics🔴 and discuss 🔴implications for aerodynamic performance🔴.
-Organize the report clearly and export it for internal use.
-
-This report will be used to brief the design team and guide future optimization work.`}
-        correctAnswers={["unambiguous", "clearAsks"]}
-        feedback={{
-          unambiguous: {
-            isIssue: true,
-            explanation: "🔴key performance metrics🔴 and 🔴implications for aerodynamic performance🔴 are vague. The prompt does not define which metrics matter or how success is evaluated.",
-          },
-          professional: {
-            isIssue: false,
-            explanation: "The role and audience are clearly established: 🟢Mechanical Engineer🟢 preparing for an 🟢internal design review🟢.",
-          },
-          realistic: {
-            isIssue: false,
-            explanation: "This reflects a real engineering workflow.",
-          },
-          timelessness: {
-            isIssue: false,
-            explanation: "The task does not rely on a time anchor.",
-          },
-          clearAsks: {
-            isIssue: true,
-            explanation: "The prompt does not specify output format (e.g., PDF), required sections, or tabular vs narrative expectations.",
-          },
-          clearConstraints: {
-            isIssue: false,
-            explanation: "The issue is lack of clarity, not missing tradeoffs or guardrails.",
-          },
-        }}
-      />
-    ),
-  },
-  // Good Prompt Reveal #1 - After Quiz 1
-  {
-    id: "prompt-good-1",
-    section: "Prompt Writing",
-    title: "Good Prompt #1",
-    parentId: "prompt-quiz-intro",
-    content: (
-      <GoodPromptReveal
-        exerciseNumber={1}
-        promptParts={[
-          "You are a ",
-          h("retail general manager", "professionalRole"),
-          " at a ",
-          h("bridal store", "professionalRole"),
-          ". You need to teach your entire ",
-          h("bridal sales team", "professionalRole"),
-          " how to overcome objections and/or hesitations to the purchase of ",
-          h("bridalwear", "realistic"),
-          ".\n\n",
-          h("Create a Word document", "clearAsks"),
-          " to be used as a ",
-          h("brief training", "clearAsks"),
-          " on the topic of ",
-          h("overcoming sales objections", "unambiguous"),
-          ".",
-        ]}
       />
     ),
   },
@@ -925,6 +878,53 @@ This report will be used to brief the design team and guide future optimization 
           h("Please submit the launch deck as a PDF", "clearAsks"),
           ".",
         ]}
+      />
+    ),
+  },
+  {
+    id: "prompt-quiz-3",
+    section: "Prompt Writing",
+    title: "Exercise #3",
+    parentId: "prompt-quiz-intro",
+    gated: true,
+    content: (
+      <PromptExerciseQuiz
+        key="prompt-quiz-3"
+        exerciseNumber={3}
+        promptExcerpt={`You are a 🟢Mechanical Engineer🟢 working at a small aerospace firm designing an experimental wing assembly for a next-generation aircraft.
+
+To support an 🟢internal design review🟢, create a flow simulation report using the attached CFD simulation results and CAD model.
+Summarize 🔴key performance metrics🔴 and discuss 🔴implications for aerodynamic performance🔴.
+Organize the report clearly and export it for internal use.
+
+This report will be used to brief the design team and guide future optimization work.`}
+        correctAnswers={["unambiguous", "clearAsks"]}
+        feedback={{
+          unambiguous: {
+            isIssue: true,
+            explanation: "🔴key performance metrics🔴 and 🔴implications for aerodynamic performance🔴 are vague. The prompt does not define which metrics matter or how success is evaluated.",
+          },
+          professional: {
+            isIssue: false,
+            explanation: "The role and audience are clearly established: 🟢Mechanical Engineer🟢 preparing for an 🟢internal design review🟢.",
+          },
+          realistic: {
+            isIssue: false,
+            explanation: "This reflects a real engineering workflow.",
+          },
+          timelessness: {
+            isIssue: false,
+            explanation: "The task does not rely on a time anchor.",
+          },
+          clearAsks: {
+            isIssue: true,
+            explanation: "The prompt does not specify output format (e.g., PDF), required sections, or tabular vs narrative expectations.",
+          },
+          clearConstraints: {
+            isIssue: false,
+            explanation: "The issue is lack of clarity, not missing tradeoffs or guardrails.",
+          },
+        }}
       />
     ),
   },
