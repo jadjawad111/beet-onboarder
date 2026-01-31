@@ -45,8 +45,8 @@ const elementBubbles: Record<ElementKey, { title: string; why: string; enables: 
   },
   clearConstraints: {
     title: "Clear Constraints",
-    why: "These constraints introduce real-world tradeoffs and guardrails that make the task meaningfully difficult.",
-    enables: "The model must prioritize, not just generate.",
+    why: "These constraints introduce real-world tradeoffs — resource limitations, competing priorities, business rules — that make the task meaningfully difficult.",
+    enables: "The model must navigate tradeoffs and prioritize, not just generate.",
   },
 };
 
