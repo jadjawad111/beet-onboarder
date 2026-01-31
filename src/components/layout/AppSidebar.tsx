@@ -85,7 +85,7 @@ const AppSidebar = ({ collapsed, onToggle }: AppSidebarProps) => {
       {/* Handshake AI Platform Link */}
       <div className="px-2 py-3 border-b border-border">
         <a
-          href="https://app.handshake.ai"
+          href="https://ai.joinhandshake.com/"
           target="_blank"
           rel="noopener noreferrer"
           className={cn(
