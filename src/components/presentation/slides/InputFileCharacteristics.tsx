@@ -134,33 +134,48 @@ const InputFileCharacteristics = () => {
           <h3 className="font-semibold text-foreground mb-4">
             Avoid These Input File Mistakes
           </h3>
-          <div className="space-y-3">
-            <div className="flex items-start gap-3">
-              <XCircle className="w-4 h-4 text-destructive mt-0.5 flex-shrink-0" />
-              <div>
+          <div className="space-y-4">
+            <div className="grid md:grid-cols-[1fr,2fr] gap-3 items-start pb-3 border-b border-destructive/10">
+              <div className="flex items-start gap-2">
+                <XCircle className="w-4 h-4 text-destructive mt-0.5 flex-shrink-0" />
                 <span className="text-sm text-foreground font-medium">Referencing data that wasn't provided</span>
-                <p className="text-xs text-muted-foreground italic mt-0.5">"Use the company's internal CRM data to…"</p>
+              </div>
+              <div className="bg-background/50 rounded p-2 text-sm">
+                <p className="text-destructive/80 italic">"Pull the customer list from our internal CRM and cross-reference with Q3 sales..."</p>
+                <p className="text-xs text-muted-foreground mt-1">❌ The model has no access to "your CRM". All data must be attached.</p>
               </div>
             </div>
-            <div className="flex items-start gap-3">
-              <XCircle className="w-4 h-4 text-destructive mt-0.5 flex-shrink-0" />
-              <div>
+            
+            <div className="grid md:grid-cols-[1fr,2fr] gap-3 items-start pb-3 border-b border-destructive/10">
+              <div className="flex items-start gap-2">
+                <XCircle className="w-4 h-4 text-destructive mt-0.5 flex-shrink-0" />
                 <span className="text-sm text-foreground font-medium">Asking the model to look things up</span>
-                <p className="text-xs text-muted-foreground italic mt-0.5">"Research current market rates online and…"</p>
+              </div>
+              <div className="bg-background/50 rounded p-2 text-sm">
+                <p className="text-destructive/80 italic">"Research current LIBOR rates online and use them in your calculations..."</p>
+                <p className="text-xs text-muted-foreground mt-1">❌ The task must be self-contained. Provide the rates in an attached file.</p>
               </div>
             </div>
-            <div className="flex items-start gap-3">
-              <XCircle className="w-4 h-4 text-destructive mt-0.5 flex-shrink-0" />
-              <div>
+            
+            <div className="grid md:grid-cols-[1fr,2fr] gap-3 items-start pb-3 border-b border-destructive/10">
+              <div className="flex items-start gap-2">
+                <XCircle className="w-4 h-4 text-destructive mt-0.5 flex-shrink-0" />
                 <span className="text-sm text-foreground font-medium">Being vague about which file to use</span>
-                <p className="text-xs text-muted-foreground italic mt-0.5">"Use the relevant data to complete the analysis…"</p>
+              </div>
+              <div className="bg-background/50 rounded p-2 text-sm">
+                <p className="text-destructive/80 italic">"Using the relevant data, complete the financial analysis..."</p>
+                <p className="text-xs text-muted-foreground mt-1">❌ Which data? Which file? The model shouldn't have to guess.</p>
               </div>
             </div>
-            <div className="flex items-start gap-3">
-              <XCircle className="w-4 h-4 text-destructive mt-0.5 flex-shrink-0" />
-              <div>
+            
+            <div className="grid md:grid-cols-[1fr,2fr] gap-3 items-start">
+              <div className="flex items-start gap-2">
+                <XCircle className="w-4 h-4 text-destructive mt-0.5 flex-shrink-0" />
                 <span className="text-sm text-foreground font-medium">Mentioning files for the first time mid-task</span>
-                <p className="text-xs text-muted-foreground italic mt-0.5">"…then in Step 5, refer to the Budget.xlsx file to…"</p>
+              </div>
+              <div className="bg-background/50 rounded p-2 text-sm">
+                <p className="text-destructive/80 italic">"Step 1: Summarize findings. Step 2: Create chart. Step 3: Now refer to Budget.xlsx for variance analysis..."</p>
+                <p className="text-xs text-muted-foreground mt-1">❌ Files should be introduced upfront, not appear unexpectedly in Step 3.</p>
               </div>
             </div>
           </div>
