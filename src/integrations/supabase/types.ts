@@ -25,6 +25,7 @@ export type Database = {
           submission_type: string
           submitter_email: string | null
           submitter_name: string
+          task_id: string | null
           updated_at: string
         }
         Insert: {
@@ -36,7 +37,8 @@ export type Database = {
           status?: string
           submission_type?: string
           submitter_email?: string | null
-          submitter_name: string
+          submitter_name?: string
+          task_id?: string | null
           updated_at?: string
         }
         Update: {
@@ -49,6 +51,7 @@ export type Database = {
           submission_type?: string
           submitter_email?: string | null
           submitter_name?: string
+          task_id?: string | null
           updated_at?: string
         }
         Relationships: []
