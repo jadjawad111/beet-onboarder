@@ -131,25 +131,37 @@ const InputFileCharacteristics = () => {
       {/* What NOT to do */}
       <Card className="border-destructive/20 bg-destructive/5">
         <CardContent className="p-6">
-          <h3 className="font-semibold text-foreground mb-3">
-            What Good Input References Never Do
+          <h3 className="font-semibold text-foreground mb-4">
+            Avoid These Input File Mistakes
           </h3>
-          <div className="grid md:grid-cols-2 gap-x-8 gap-y-2">
-            <div className="flex items-center gap-2">
-              <XCircle className="w-4 h-4 text-destructive flex-shrink-0" />
-              <span className="text-sm text-muted-foreground">Assume undocumented external data</span>
+          <div className="space-y-3">
+            <div className="flex items-start gap-3">
+              <XCircle className="w-4 h-4 text-destructive mt-0.5 flex-shrink-0" />
+              <div>
+                <span className="text-sm text-foreground font-medium">Referencing data that wasn't provided</span>
+                <p className="text-xs text-muted-foreground italic mt-0.5">"Use the company's internal CRM data to…"</p>
+              </div>
             </div>
-            <div className="flex items-center gap-2">
-              <XCircle className="w-4 h-4 text-destructive flex-shrink-0" />
-              <span className="text-sm text-muted-foreground">Require web browsing or research</span>
+            <div className="flex items-start gap-3">
+              <XCircle className="w-4 h-4 text-destructive mt-0.5 flex-shrink-0" />
+              <div>
+                <span className="text-sm text-foreground font-medium">Asking the model to look things up</span>
+                <p className="text-xs text-muted-foreground italic mt-0.5">"Research current market rates online and…"</p>
+              </div>
             </div>
-            <div className="flex items-center gap-2">
-              <XCircle className="w-4 h-4 text-destructive flex-shrink-0" />
-              <span className="text-sm text-muted-foreground">Leave the source of truth unclear</span>
+            <div className="flex items-start gap-3">
+              <XCircle className="w-4 h-4 text-destructive mt-0.5 flex-shrink-0" />
+              <div>
+                <span className="text-sm text-foreground font-medium">Being vague about which file to use</span>
+                <p className="text-xs text-muted-foreground italic mt-0.5">"Use the relevant data to complete the analysis…"</p>
+              </div>
             </div>
-            <div className="flex items-center gap-2">
-              <XCircle className="w-4 h-4 text-destructive flex-shrink-0" />
-              <span className="text-sm text-muted-foreground">Introduce files mid-execution unexpectedly</span>
+            <div className="flex items-start gap-3">
+              <XCircle className="w-4 h-4 text-destructive mt-0.5 flex-shrink-0" />
+              <div>
+                <span className="text-sm text-foreground font-medium">Mentioning files for the first time mid-task</span>
+                <p className="text-xs text-muted-foreground italic mt-0.5">"…then in Step 5, refer to the Budget.xlsx file to…"</p>
+              </div>
             </div>
           </div>
         </CardContent>
