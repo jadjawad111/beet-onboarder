@@ -167,6 +167,28 @@ const TaskingAssistancePage = () => {
     return <FileText className="h-4 w-4" />;
   };
 
+  // Show feedback view after submission
+  if (submittedId) {
+    return (
+      <div className="min-h-screen bg-background flex flex-col items-center px-4 py-12">
+        <div className="w-full max-w-2xl">
+          <div className="text-center mb-6">
+            <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-primary/10 mb-6">
+              <Sparkles className="h-6 w-6 text-primary" />
+            </div>
+            <h1 className="text-3xl font-semibold text-foreground mb-3">
+              Beet Tasking Assistant
+            </h1>
+          </div>
+          <FeedbackDisplay
+            submissionId={submittedId}
+            onClose={() => setSubmittedId(null)}
+          />
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-background flex flex-col items-center px-4 py-12">
       <div className="w-full max-w-2xl">
@@ -311,18 +333,13 @@ const TaskingAssistancePage = () => {
           <Button
             type="submit"
             className="w-full h-12 text-base font-medium"
-            disabled={isSubmitting || !!submittedId}
+            disabled={isSubmitting}
             size="lg"
           >
             {isSubmitting ? (
               <>
                 <Loader2 className="h-5 w-5 animate-spin" />
                 Submitting...
-              </>
-            ) : submittedId ? (
-              <>
-                <CheckCircle2 className="h-5 w-5" />
-                Submitted!
               </>
             ) : (
               <>
@@ -331,14 +348,6 @@ const TaskingAssistancePage = () => {
               </>
             )}
           </Button>
-
-          {/* Feedback Display */}
-          {submittedId && (
-            <FeedbackDisplay
-              submissionId={submittedId}
-              onClose={() => setSubmittedId(null)}
-            />
-          )}
         </form>
       </div>
     </div>
