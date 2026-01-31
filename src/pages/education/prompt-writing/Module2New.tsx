@@ -158,7 +158,7 @@ const BEET_ATTRIBUTES = [
   },
   {
     number: 5,
-    title: "Clear Asks",
+    title: "Clear Deliverable",
     definition: "Specifically defining the Output Format, Audience, and Quality Bar. The model shouldn't have to guess if you want a PDF, a CSV, or a Python script.",
     whyItMatters: "The format is often part of the work. A Python script is useless to a CEO who asked for a PowerPoint.",
     examples: [

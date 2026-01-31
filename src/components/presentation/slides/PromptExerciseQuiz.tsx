@@ -25,7 +25,7 @@ const elementLabels: Record<ElementKey, string> = {
   professional: "Professional Role & Context",
   realistic: "Realistic & Not Contrived",
   timelessness: "Timelessness (Relative Dating)",
-  clearAsks: "Clear Asks",
+  clearAsks: "Clear Deliverable",
   clearConstraints: "Clear Constraints",
 };
 

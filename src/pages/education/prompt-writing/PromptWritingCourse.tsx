@@ -554,7 +554,7 @@ const slides: Slide[] = [
                 <div>
                   <p className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Definition</p>
                   <p className="text-foreground">
-                    Clear asks explicitly define the output format, audience, and quality bar. The model should not have to guess whether the output is a PDF, CSV, or Python script.
+                    Clear deliverable explicitly defines the output format, audience, and quality bar. The model should not have to guess whether the output is a PDF, CSV, or Python script.
                   </p>
                 </div>
               </div>

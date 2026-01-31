@@ -22,7 +22,7 @@ export const elementKeyMap: Record<string, string> = {
   "Professional Role & Context": "professional",
   "Realistic & Not Contrived": "realistic",
   "Timelessness (Relative Dating)": "timelessness",
-  "Clear Asks": "clearAsks",
+  "Clear Deliverable": "clearAsks",
   "Clear Constraints": "clearConstraints",
 };
 
@@ -32,7 +32,7 @@ export const elementDisplayMap: Record<string, string> = {
   "professional": "Professional Role & Context",
   "realistic": "Realistic & Not Contrived",
   "timelessness": "Timelessness (Relative Dating)",
-  "clearAsks": "Clear Asks",
+  "clearAsks": "Clear Deliverable",
   "clearConstraints": "Clear Constraints",
 };
 
@@ -58,7 +58,7 @@ A member is currently staying at 🟢The Westin Verasa Napa🟢 in 🟢Napa Vall
 Each winery recommendation should include: 🔴name, grape varieties offered, a one- to two-sentence description of the winery, and address🔴.
 
 The purpose of this task is to present the information in a 🔴visually appealing🔴 document, enabling the member to compare options and make informed decisions.`,
-    correctSelections: ["Unambiguous", "Clear Asks", "Clear Constraints"],
+    correctSelections: ["Unambiguous", "Clear Deliverable", "Clear Constraints"],
     detailedFeedback: [
       {
         element: "unambiguous",
@@ -164,7 +164,7 @@ Because of your seniority, you've been asked to create a 🟢step-by-step instru
 Your guide should include 🔴steps required🔴 to open a new Rental Agreement and 🟢practical tips🟢 to help new clerks complete the process efficiently.
 
 The goal is to ensure 🟢smooth, accurate, and independent execution🟢 of the Rental Agreement process, even during peak hours.`,
-    correctSelections: ["Clear Asks", "Clear Constraints"],
+    correctSelections: ["Clear Deliverable", "Clear Constraints"],
     detailedFeedback: [
       {
         element: "unambiguous",
@@ -219,7 +219,7 @@ Create a 🔴report🔴 including 🔴daily activity and key trends🔴 and incl
 At the end of the report include 🔴brief observations🔴 relevant to management.
 
 Reference Material: 🟢Closed Rental Agreements - June 27, 2025.xlsx🟢`,
-    correctSelections: ["Unambiguous", "Clear Asks", "Clear Constraints"],
+    correctSelections: ["Unambiguous", "Clear Deliverable", "Clear Constraints"],
     detailedFeedback: [
       {
         element: "unambiguous",
@@ -274,7 +274,7 @@ Create a 🟢Service Request Form🟢 in 🟢Word🟢 using the provided informa
 Then analyze the attached file 🟢"Damage list.xlsx"🟢 and create a 🔴report🔴 summarizing 🔴damage revenue🔴 and 🔴conclusions🔴.
 
 The purpose is to help management track impact and support decision-making.`,
-    correctSelections: ["Timelessness (Relative Dating)", "Clear Asks", "Unambiguous"],
+    correctSelections: ["Timelessness (Relative Dating)", "Clear Deliverable", "Unambiguous"],
     detailedFeedback: [
       {
         element: "unambiguous",
@@ -321,7 +321,7 @@ Refer to the attached reference files: "MOVE_OUT RPT" and "NOTES".`,
 Please create an 🔴email🔴 to notify residents of the scheduled inspection and create a 🔴document🔴 that lists the 🟢unit #🟢, 🟢resident's name🟢, 🟢move-out date🟢 and 🟢scheduled inspection date🟢. The tentative move-out inspection will be scheduled for 🔴9/23🔴 unless residents ask for a different date.
 
 Refer to the attached reference files: 🟢"MOVE_OUT RPT"🟢 and 🟢"NOTES"🟢.`,
-    correctSelections: ["Timelessness (Relative Dating)", "Clear Asks"],
+    correctSelections: ["Timelessness (Relative Dating)", "Clear Deliverable"],
     detailedFeedback: [
       {
         element: "unambiguous",
@@ -419,7 +419,7 @@ Please draft an email responding to the client's requests. You may research and 
 A client who is a 🟢long-tenured military member transitioning to federal civilian service🟢 is preparing for retirement and wants a breakdown of investment funds available within the TSP.
 
 Please draft an 🔴email🔴 responding to the client's 🔴requests🔴. You may 🟢research and consult the open web🟢 for further reference and additional details.`,
-    correctSelections: ["Clear Asks", "Unambiguous"],
+    correctSelections: ["Clear Deliverable", "Unambiguous"],
     detailedFeedback: [
       {
         element: "unambiguous",
@@ -470,7 +470,7 @@ Create a 🔴quick training deck🔴 explaining 🟢financial exploitation and e
 Also create a 🟢second PDF🟢 that includes 🟢three fictional mutual fund accounts🟢 with 🟢red flags🟢 to use for 🟢role play🟢.
 
 Keep the tone 🔴practical and engaging🔴.`,
-    correctSelections: ["Clear Asks", "Clear Constraints", "Unambiguous"],
+    correctSelections: ["Clear Deliverable", "Clear Constraints", "Unambiguous"],
     detailedFeedback: [
       {
         element: "unambiguous",
@@ -564,7 +564,7 @@ Create a slide deck containing an agenda, purpose, and summary of results, as we
 The 🟢CEO🟢 has tasked you with reviewing the company's 🟢policy documentation🟢 and a 🟢sample of recent claims🟢 (both attached) to determine if they fall within the parameters for reimbursement.
 
 Create a 🔴slide deck🔴 containing an 🟢agenda🟢, 🟢purpose🟢, and 🔴summary of results🔴, as well as a 🔴recommendation🔴 for remediation and next steps.`,
-    correctSelections: ["Clear Asks", "Unambiguous", "Clear Constraints"],
+    correctSelections: ["Clear Deliverable", "Unambiguous", "Clear Constraints"],
     detailedFeedback: [
       {
         element: "unambiguous",
@@ -611,7 +611,7 @@ Create a document titled "Case Feedback" with your feedback for each case.`,
 A fellow representative shared 🟢three chat logs🟢 where he followed policies but got low customer satisfaction scores. Review each case and provide feedback on 🔴what he could have done differently🔴.
 
 Create a 🔴document🔴 titled 🟢"Case Feedback"🟢 with your feedback for each case.`,
-    correctSelections: ["Unambiguous", "Clear Asks", "Clear Constraints"],
+    correctSelections: ["Unambiguous", "Clear Deliverable", "Clear Constraints"],
     detailedFeedback: [
       {
         element: "unambiguous",

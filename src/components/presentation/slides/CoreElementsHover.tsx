@@ -6,7 +6,7 @@ const elements = [
   { id: 2, name: "Professional role & context" },
   { id: 3, name: "Realistic and not contrived" },
   { id: 4, name: "Timelessness (relative dating)" },
-  { id: 5, name: "Clear asks" },
+  { id: 5, name: "Clear deliverable" },
   { id: 6, name: "Clear constraints" },
 ];
 
