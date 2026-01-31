@@ -63,7 +63,7 @@ const CoreElementsHover = ({ onAllRevealed, onGateUnlock }: CoreElementsHoverPro
         allRevealed ? "text-primary" : "text-muted-foreground"
       )}>
         {allRevealed 
-          ? "✓ All elements revealed — you may continue" 
+          ? "✓ All elements revealed. You may continue" 
           : `Hover over each element to reveal (${revealed.size}/${elements.length})`
         }
       </p>

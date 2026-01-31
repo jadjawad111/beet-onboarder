@@ -62,7 +62,7 @@ const PracticeOverlay = ({ onContinuePractice, onSkip }: PracticeOverlayProps) =
 
       {/* Additional Info */}
       <p className="text-muted-foreground mb-8">
-        12 additional exercises are ready — covering concierge, rental, property management, and financial services scenarios.
+        12 additional exercises are ready, covering concierge, rental, property management, and financial services scenarios.
       </p>
 
       {/* Buttons */}

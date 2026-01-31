@@ -45,7 +45,7 @@ const elementBubbles: Record<ElementKey, { title: string; why: string; enables: 
   },
   clearConstraints: {
     title: "Clear Constraints",
-    why: "These constraints introduce real-world tradeoffs — resource limitations, competing priorities, business rules — that make the task meaningfully difficult.",
+    why: "These constraints introduce real-world tradeoffs: resource limitations, competing priorities, and business rules that make the task meaningfully difficult.",
     enables: "The model must navigate tradeoffs and prioritize, not just generate.",
   },
 };
@@ -167,7 +167,7 @@ const GoodPromptReveal = ({ exerciseNumber, promptParts, onGateUnlock }: GoodPro
         {allHovered && (
           <p className="text-sm text-green-600 mt-2 font-medium flex items-center gap-1">
             <CheckCircle2 className="w-4 h-4" />
-            All highlights reviewed — you may continue
+            All highlights reviewed. You may continue
           </p>
         )}
       </div>

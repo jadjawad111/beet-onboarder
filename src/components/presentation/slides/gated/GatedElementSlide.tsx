@@ -39,7 +39,7 @@ const GatedElementSlide = ({
   }, [revealedCount, examples.length, onGateUnlock]);
 
   return (
-    <ContentSlide title={`Element #${elementNumber} — ${elementName}`} layout="left">
+    <ContentSlide title={`Element #${elementNumber}: ${elementName}`} layout="left">
       <div className="space-y-6">
         {/* Definition Card */}
         <Card>
@@ -76,7 +76,7 @@ const GatedElementSlide = ({
           <p className="text-xs uppercase tracking-wide text-muted-foreground mb-4">
             Examples {revealedCount < examples.length && (
               <span className="text-primary ml-2">
-                (Hover all {examples.length} to continue — {revealedCount}/{examples.length})
+                (Hover all {examples.length} to continue: {revealedCount}/{examples.length})
               </span>
             )}
           </p>

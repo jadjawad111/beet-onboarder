@@ -97,7 +97,7 @@ const CharacteristicsGrid = ({ characteristics, instruction, onAllRevealed, onGa
       {allRevealed && (
         <div className="mt-4 p-3 rounded-lg bg-green-500/10 border border-green-500/20 text-center">
           <p className="text-sm text-green-600 dark:text-green-400 font-medium">
-            ✓ All Cards Revealed — you may continue
+            ✓ All Cards Revealed. You may continue
           </p>
         </div>
       )}

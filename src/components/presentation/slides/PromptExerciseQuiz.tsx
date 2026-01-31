@@ -284,7 +284,7 @@ const PromptExerciseQuiz = ({
                       </div>
                       <div className="flex-1">
                         <p className={cn("font-semibold", isIssue ? "text-destructive" : "text-green-600")}>
-                          {elementLabels[element]} — {isIssue ? "ERROR" : "NO ERROR"}
+                          {elementLabels[element]}: {isIssue ? "ERROR" : "NO ERROR"}
                         </p>
                         <p className="text-sm text-muted-foreground mt-1">
                           {renderFeedbackText(elementFeedback.explanation)}
