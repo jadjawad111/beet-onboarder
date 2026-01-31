@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
@@ -324,9 +324,8 @@ const RubricInteractiveQuiz = ({
                 const canSubmitThis = isCriterionAnswered(criterion.id) && !isThisSubmitted;
                 
                 return (
-                  <>
-                    <TableRow 
-                      key={criterion.id}
+                  <React.Fragment key={criterion.id}>
+                    <TableRow
                       className={cn(
                         "transition-colors",
                         isThisSubmitted && score === "full" && "bg-green-500/5",
@@ -463,7 +462,7 @@ const RubricInteractiveQuiz = ({
                         </TableCell>
                       </TableRow>
                     )}
-                  </>
+                  </React.Fragment>
                 );
               })}
             </TableBody>
