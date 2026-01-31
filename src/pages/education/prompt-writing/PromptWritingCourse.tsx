@@ -535,11 +535,11 @@ const slides: Slide[] = [
   {
     id: "element-5-clear-asks",
     section: "Prompt Writing",
-    title: "Element #5 — Clear Asks",
+    title: "Element #5 — Clear Deliverable",
     parentId: "prompt-6-elements",
     gated: true,
     content: (
-      <ContentSlide title="Element #5 — Clear Asks" layout="left">
+      <ContentSlide title="Element #5 — Clear Deliverable" layout="left">
         <div className="space-y-6">
           {/* Definition Card */}
           <Card>
