@@ -108,7 +108,9 @@ const PromptExerciseQuiz = ({
 }: PromptExerciseQuizProps) => {
   const [selected, setSelected] = useState<Set<ElementKey>>(new Set());
   const [submitted, setSubmitted] = useState(false);
-  const feedbackRef = useRef<HTMLDivElement>(null);
+  const [hasScrolledToBottom, setHasScrolledToBottom] = useState(false);
+  const feedbackEndRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   const toggleElement = (element: ElementKey) => {
     if (submitted) return;
@@ -123,18 +125,45 @@ const PromptExerciseQuiz = ({
 
   const handleSubmit = () => {
     setSubmitted(true);
+    onSubmit?.();
   };
 
+  // Track scroll to detect when user reaches the bottom
   useEffect(() => {
-    if (submitted) {
-      onSubmit?.();
+    if (!submitted) return;
+
+    const checkIfScrolledToBottom = () => {
+      if (!feedbackEndRef.current) return;
+      
+      const rect = feedbackEndRef.current.getBoundingClientRect();
+      // Check if the feedback end marker is visible in the viewport
+      const isVisible = rect.top < window.innerHeight && rect.bottom >= 0;
+      
+      if (isVisible && !hasScrolledToBottom) {
+        setHasScrolledToBottom(true);
+      }
+    };
+
+    // Check immediately in case content is already visible
+    setTimeout(checkIfScrolledToBottom, 150);
+
+    // Add scroll listener to the container or window
+    const container = containerRef.current?.closest('.overflow-auto') || window;
+    container.addEventListener('scroll', checkIfScrolledToBottom);
+    window.addEventListener('scroll', checkIfScrolledToBottom);
+
+    return () => {
+      container.removeEventListener('scroll', checkIfScrolledToBottom);
+      window.removeEventListener('scroll', checkIfScrolledToBottom);
+    };
+  }, [submitted, hasScrolledToBottom]);
+
+  // Unlock gate only when both submitted AND scrolled to bottom
+  useEffect(() => {
+    if (submitted && hasScrolledToBottom) {
       onGateUnlock?.();
-      // Scroll to feedback after a brief delay to ensure DOM has updated
-      setTimeout(() => {
-        feedbackRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
-      }, 100);
     }
-  }, [submitted, onSubmit, onGateUnlock]);
+  }, [submitted, hasScrolledToBottom, onGateUnlock]);
 
   const isCorrect = (element: ElementKey) => correctAnswers.includes(element);
   const wasSelected = (element: ElementKey) => selected.has(element);
@@ -233,10 +262,7 @@ const PromptExerciseQuiz = ({
 
         {/* Post-Submit Feedback */}
         {submitted && (
-          <div ref={feedbackRef}></div>
-        )}
-        {submitted && (
-          <div className="space-y-6 mt-8">
+          <div className="space-y-6 mt-8" ref={containerRef}>
             {/* Divider */}
             <div className="flex items-center gap-4">
               <div className="flex-1 h-px bg-border" />
@@ -307,6 +333,8 @@ const PromptExerciseQuiz = ({
                 );
               })}
             </div>
+            {/* Marker to detect scroll-to-bottom */}
+            <div ref={feedbackEndRef} className="h-1" />
           </div>
         )}
       </div>
