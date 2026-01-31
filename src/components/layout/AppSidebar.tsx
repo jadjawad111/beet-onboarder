@@ -7,7 +7,8 @@ import {
   HelpCircle,
   ChevronLeft,
   ChevronRight,
-  Bot
+  Bot,
+  Lock
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import beetIcon from "@/assets/beet-icon.png";
@@ -22,25 +23,29 @@ const primaryNav = [
     id: "home",
     label: "Home", 
     icon: Home, 
-    to: "/home" 
+    to: "/home",
+    locked: false,
   },
   { 
     id: "project-info",
     label: "Project Information", 
     icon: Briefcase, 
-    to: "/project-info" 
+    to: "/project-info",
+    locked: true, // LOCKED for dogfooding
   },
   { 
     id: "education",
     label: "Educational Modules", 
     icon: GraduationCap, 
-    to: "/education" 
+    to: "/education",
+    locked: false,
   },
   { 
     id: "tasking-assistance",
     label: "Beet Tasking Assistance", 
     icon: Bot, 
-    to: "/tasking-assistance" 
+    to: "/tasking-assistance",
+    locked: false,
   },
 ];
 
@@ -88,6 +93,35 @@ const AppSidebar = ({ collapsed, onToggle }: AppSidebarProps) => {
         {primaryNav.map((item) => {
           const Icon = item.icon;
           const active = isActive(item.to);
+          const isLocked = item.locked;
+          
+          if (isLocked) {
+            return (
+              <div
+                key={item.id}
+                className={cn(
+                  "flex items-center gap-3 px-3 py-3 rounded-lg transition-colors relative group cursor-not-allowed",
+                  "text-muted-foreground/50 bg-muted/30"
+                )}
+              >
+                <Icon className={cn("w-5 h-5 flex-shrink-0", collapsed && "mx-auto")} />
+                {!collapsed && (
+                  <>
+                    <span className="font-medium text-sm flex-1">{item.label}</span>
+                    <Lock className="w-4 h-4 text-muted-foreground/50" />
+                  </>
+                )}
+                
+                {/* Tooltip for collapsed state */}
+                {collapsed && (
+                  <div className="absolute left-full ml-2 px-2 py-1 bg-foreground text-background text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none flex items-center gap-1">
+                    <Lock className="w-3 h-3" />
+                    {item.label} (Locked)
+                  </div>
+                )}
+              </div>
+            );
+          }
           
           return (
             <Link
