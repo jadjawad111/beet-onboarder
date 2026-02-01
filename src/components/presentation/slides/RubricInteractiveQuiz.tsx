@@ -228,26 +228,7 @@ const RubricInteractiveQuiz = ({
       {/* Header */}
       <div>
         <h2 className="text-2xl font-bold mb-2">Exercise #{exerciseNumber}</h2>
-        <p className="text-muted-foreground">
-          Review each rubric criterion and identify any errors.
-        </p>
       </div>
-
-      {/* Instructions Card */}
-      <Card className="border-primary/30 bg-primary/5">
-        <CardContent className="p-4">
-          <div className="flex gap-3">
-            <Target className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
-            <div className="text-sm">
-              <p className="font-semibold text-foreground mb-1">Instructions</p>
-              <p className="text-muted-foreground">
-                For each criterion: select <strong>No</strong> or <strong>Yes</strong> for errors. 
-                If yes, choose the error type. You can check individual criteria or submit all at once.
-              </p>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
 
       {/* Prompt */}
       <Card>
