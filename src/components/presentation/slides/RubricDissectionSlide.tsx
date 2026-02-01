@@ -118,37 +118,49 @@ const RubricDissectionSlide = () => {
 
       {/* Main Content Stack with Annotations on sides */}
       <div className="relative">
-        {/* Left Annotations - Weight points to header, Criterion points to header */}
+        {/* Left Annotations - Weight → row 1 weight, Criterion → row 1 criterion */}
         <div
-          className="absolute left-0 top-0 bottom-0 w-[280px] -translate-x-full pr-8 hidden xl:flex flex-col gap-6"
-          style={{ paddingTop: "500px" }}
+          className="absolute left-0 top-0 bottom-0 w-[280px] -translate-x-full pr-8 hidden xl:flex flex-col gap-4"
+          style={{ paddingTop: "670px" }}
         >
-          {leftAnnotations.map((annotation) => {
+          {leftAnnotations.map((annotation, idx) => {
             const revealed = isRevealed(annotation.id);
-            // Position lines to point at table headers
-            const lineWidth = annotation.id === "weight" ? 320 : 400;
-            const lineGap = 12; // space between bubble edge and line start
+            // Weight points to row 1 weight column, Criterion points to row 1 criterion
+            const lineWidth = annotation.id === "weight" ? 340 : 420;
+            const lineGap = 12;
+            // Vertical offset so Weight points to row 1, Criterion points to row 2
+            const verticalOffset = idx === 0 ? -60 : 20;
             
             return (
               <div key={annotation.id} className="relative">
-                {/* Connecting Line (starts OUTSIDE bubble; may overlay table) */}
+                {/* Connecting Line with vertical segment */}
                 <div
                   className="absolute h-[2px] bg-primary z-30 pointer-events-none"
                   style={{
-                    top: "50%",
+                    top: `calc(50% + ${verticalOffset}px)`,
                     left: `calc(100% + ${lineGap}px)`,
                     width: `${lineWidth}px`,
-                    transform: "translateY(-50%)",
                   }}
                 />
                 <div
                   className="absolute w-4 h-4 rounded-full bg-primary z-30 pointer-events-none"
                   style={{
-                    top: "50%",
+                    top: `calc(50% + ${verticalOffset}px)`,
                     left: `calc(100% + ${lineGap + lineWidth}px)`,
                     transform: "translateY(-50%)",
                   }}
                 />
+                {/* Vertical connector from bubble to horizontal line */}
+                {Math.abs(verticalOffset) > 0 && (
+                  <div
+                    className="absolute w-[2px] bg-primary z-30 pointer-events-none"
+                    style={{
+                      top: verticalOffset < 0 ? `calc(50% + ${verticalOffset}px)` : "50%",
+                      left: `calc(100% + ${lineGap}px)`,
+                      height: `${Math.abs(verticalOffset)}px`,
+                    }}
+                  />
+                )}
                 
                 {/* Annotation Bubble */}
                 <button
@@ -186,48 +198,65 @@ const RubricDissectionSlide = () => {
           })}
         </div>
 
-        {/* Right Annotations - Category, Rationale, Citations point to example values */}
+        {/* Right Annotations - Category → row 1, Rationale → row 2, Citations → row 3 */}
         <div
-          className="absolute right-0 top-0 bottom-0 w-[280px] translate-x-full pl-8 hidden xl:flex flex-col gap-5"
-          style={{ paddingTop: "480px" }}
+          className="absolute right-0 top-0 bottom-0 w-[280px] translate-x-full pl-8 hidden xl:flex flex-col gap-3"
+          style={{ paddingTop: "660px" }}
         >
-          {rightAnnotations.map((annotation) => {
+          {rightAnnotations.map((annotation, idx) => {
             const revealed = isRevealed(annotation.id);
-            // Different line lengths to point at different columns
+            // Different line lengths to reach different columns
             const lineWidths: Record<string, number> = {
-              'category': 280,
-              'rationale': 180, 
-              'citations': 80
+              'category': 300,
+              'rationale': 200, 
+              'citations': 100
             };
             const lineWidth = lineWidths[annotation.id] || 150;
-            const lineGap = 12; // space between bubble edge and line start
+            const lineGap = 12;
+            // Vertical offsets: Category → row 1, Rationale → row 2, Citations → row 3
+            const verticalOffsets: Record<string, number> = {
+              'category': -80,
+              'rationale': -20,
+              'citations': 40
+            };
+            const verticalOffset = verticalOffsets[annotation.id] || 0;
             
             return (
               <div key={annotation.id} className="relative">
-                {/* Connecting Line (starts OUTSIDE bubble; may overlay table) */}
+                {/* Connecting Line */}
                 <div
                   className="absolute h-[2px] bg-primary z-30 pointer-events-none"
                   style={{
-                    top: "50%",
+                    top: `calc(50% + ${verticalOffset}px)`,
                     right: `calc(100% + ${lineGap}px)`,
                     width: `${lineWidth}px`,
-                    transform: "translateY(-50%)",
                   }}
                 />
                 <div
                   className="absolute w-4 h-4 rounded-full bg-primary z-30 pointer-events-none"
                   style={{
-                    top: "50%",
+                    top: `calc(50% + ${verticalOffset}px)`,
                     right: `calc(100% + ${lineGap + lineWidth}px)`,
                     transform: "translateY(-50%)",
                   }}
                 />
+                {/* Vertical connector from bubble to horizontal line */}
+                {verticalOffset !== 0 && (
+                  <div
+                    className="absolute w-[2px] bg-primary z-30 pointer-events-none"
+                    style={{
+                      top: verticalOffset < 0 ? `calc(50% + ${verticalOffset}px)` : "50%",
+                      right: `calc(100% + ${lineGap}px)`,
+                      height: `${Math.abs(verticalOffset)}px`,
+                    }}
+                  />
+                )}
                 
                 {/* Annotation Bubble */}
                 <button
                   onClick={() => toggleAnnotation(annotation.id)}
                   className={cn(
-                    "w-full p-5 rounded-xl border-2 text-left transition-all cursor-pointer relative z-40",
+                    "w-full p-4 rounded-xl border-2 text-left transition-all cursor-pointer relative z-40",
                     revealed
                       ? "border-primary bg-primary/10 shadow-lg"
                       : "border-muted-foreground/30 bg-muted/50 hover:border-primary/50 hover:shadow-md"
