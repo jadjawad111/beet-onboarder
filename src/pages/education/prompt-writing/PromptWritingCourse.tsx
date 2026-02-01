@@ -1638,47 +1638,6 @@ This report will be used to brief the design team and guide future optimization 
     ),
   },
   {
-    id: "input-files-example-2",
-    section: "Input Files",
-    title: "Example: Automotive NPV Analysis",
-    parentId: "input-files-overview",
-    content: (
-      <InputFileExampleSlide
-        exampleNumber={2}
-        title="Grouped File Reference"
-        domain="Automotive / Procurement"
-        promptExcerpt={
-          <div className="space-y-2 text-xs">
-            <p>
-              You're the category buyer for automotive electronics at LiIon Motors, leading the sourcing process for headlamps on Model I...
-            </p>
-            <p>
-              Create an Excel workbook with NPV calculation sheets for each vendor and a summary sheet for comparison...
-            </p>
-            <p className="bg-primary/10 border-l-2 border-primary pl-2 py-1">
-              <strong>All relevant documents</strong>, including vendor quotations and volume projections, <strong>are attached</strong>.
-            </p>
-          </div>
-        }
-        inputFileDescription="Vendor quotations and volume projections"
-        inputFileName="Multiple files (quotations, projections)"
-        inputFileUrl="https://drive.google.com/drive/folders/1O8aVfirvXI1rG-8bfGiuN71WjEKxOu1D?usp=sharing"
-        inputFileEmbedUrl="https://drive.google.com/embeddedfolderview?id=1O8aVfirvXI1rG-8bfGiuN71WjEKxOu1D#list"
-        referenceHighlights={[
-          {
-            quote: "All relevant documents... are attached",
-            explanation: "Files grouped but clearly scoped as attachments"
-          }
-        ]}
-        qualityNotes={[
-          "Model knows all attached files are inputs",
-          "Acceptable in professional workflows",
-          "Could list each file explicitly for more clarity"
-        ]}
-      />
-    ),
-  },
-  {
     id: "input-files-characteristics",
     section: "Input Files",
     title: "Best Practices",
