@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { FileText, MessageSquare, Scale, Tag, BookOpen, Eye, EyeOff, ChevronDown } from "lucide-react";
+import { FileText, MessageSquare, Scale, Tag, BookOpen } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 // NFT Photography Prompt text
@@ -34,70 +34,186 @@ const CRITERIA_DATA = [
   { num: 10, weight: 25, criterion: "All section or sub-section headings in the article are formatted in bold.", category: "Formatting", rationale: "It is important for the article to have bold section headings for readability." },
 ];
 
-// Annotation explanations for each column
-const ANNOTATIONS: Record<string, { icon: React.ReactNode; title: string; description: string }> = {
-  weight: {
-    icon: <Scale className="w-5 h-5" />,
+// Annotation definitions
+interface Annotation {
+  id: string;
+  icon: React.ReactNode;
+  title: string;
+  description: string;
+  side: "left" | "right";
+  targetColumn: string;
+}
+
+const ANNOTATIONS: Annotation[] = [
+  {
+    id: "weight",
+    icon: <Scale className="w-4 h-4" />,
     title: "Weight",
-    description: "A score from -100 to 100 that represents how important that criterion is relative to other criteria. Higher weight = more important to task success.",
+    description: "A score from -100 to 100 that represents how important that criterion is relative to others. Higher = more critical to task success.",
+    side: "left",
+    targetColumn: "Weight",
   },
-  criterion: {
-    icon: <FileText className="w-5 h-5" />,
+  {
+    id: "criterion",
+    icon: <FileText className="w-4 h-4" />,
     title: "Criterion",
-    description: "A binary true or false statement that measures something specific about the expected response. Must be evaluable by looking at the deliverable alone.",
+    description: "A binary true/false statement that measures something specific about the response. Must be evaluable from the deliverable alone.",
+    side: "left",
+    targetColumn: "Criterion",
   },
-  category: {
-    icon: <Tag className="w-5 h-5" />,
+  {
+    id: "category",
+    icon: <Tag className="w-4 h-4" />,
     title: "Category",
-    description: "What aspect of the deliverable the criterion evaluates — e.g., Instruction Following, Reasoning, Formatting, Domain Expertise.",
+    description: "What aspect of the deliverable this evaluates — e.g., Instruction Following, Reasoning, Formatting, Domain Expertise.",
+    side: "right",
+    targetColumn: "Category",
   },
-  rationale: {
-    icon: <BookOpen className="w-5 h-5" />,
+  {
+    id: "rationale",
+    icon: <BookOpen className="w-4 h-4" />,
     title: "Rationale",
-    description: "Your explanation for why the criterion exists and why it matters. Helps others understand your evaluation logic.",
+    description: "Your explanation for why this criterion exists and matters. Helps others understand your evaluation logic.",
+    side: "right",
+    targetColumn: "Rationale",
   },
-};
+];
 
 const RubricDissectionSlide = () => {
   const [revealedAnnotations, setRevealedAnnotations] = useState<Set<string>>(new Set());
 
-  const toggleAnnotation = (key: string) => {
+  const toggleAnnotation = (id: string) => {
     setRevealedAnnotations((prev) => {
       const next = new Set(prev);
-      if (next.has(key)) {
-        next.delete(key);
+      if (next.has(id)) {
+        next.delete(id);
       } else {
-        next.add(key);
+        next.add(id);
       }
       return next;
     });
   };
 
-  const isRevealed = (key: string) => revealedAnnotations.has(key);
+  const isRevealed = (id: string) => revealedAnnotations.has(id);
+
+  const leftAnnotations = ANNOTATIONS.filter((a) => a.side === "left");
+  const rightAnnotations = ANNOTATIONS.filter((a) => a.side === "right");
 
   return (
-    <div className="w-full max-w-7xl mx-auto space-y-6">
+    <div className="w-full max-w-6xl mx-auto">
       {/* Header */}
-      <div className="text-center mb-4">
+      <div className="text-center mb-6">
         <p className="text-xs uppercase tracking-widest text-muted-foreground mb-1">Anatomy of a Rubric</p>
         <h2 className="text-2xl font-bold text-foreground">Dissecting a Real Rubric</h2>
-        <p className="text-sm text-muted-foreground mt-2">Click each column header annotation to reveal what it means</p>
+        <p className="text-sm text-muted-foreground mt-1">Click each annotation bubble to reveal its meaning</p>
       </div>
 
-      {/* Two Column Layout: Left = Prompt + Model Response, Right = Rubric Table */}
-      <div className="grid lg:grid-cols-2 gap-6">
-        {/* Left Column: Prompt + Model Response Placeholder */}
+      {/* Main Content Stack with Annotations on sides */}
+      <div className="relative">
+        {/* Left Annotations */}
+        <div className="absolute left-0 top-0 bottom-0 w-[140px] -translate-x-full pr-4 hidden xl:flex flex-col justify-end pb-32 gap-6">
+          {leftAnnotations.map((annotation, idx) => {
+            const revealed = isRevealed(annotation.id);
+            return (
+              <div key={annotation.id} className="relative">
+                {/* Connecting Line */}
+                <div className="absolute right-0 top-1/2 w-8 h-px bg-border" />
+                <div className="absolute right-0 top-1/2 w-2 h-2 rounded-full bg-primary -translate-y-1/2 translate-x-1" />
+                
+                {/* Annotation Bubble */}
+                <button
+                  onClick={() => toggleAnnotation(annotation.id)}
+                  className={cn(
+                    "w-full p-3 rounded-lg border-2 text-left transition-all cursor-pointer mr-4",
+                    revealed
+                      ? "border-primary bg-primary/10"
+                      : "border-muted-foreground/30 bg-muted/50 hover:border-primary/50"
+                  )}
+                >
+                  <div className="flex items-center gap-2 mb-1">
+                    <div className={cn(
+                      "w-5 h-5 rounded flex items-center justify-center",
+                      revealed ? "bg-primary/20 text-primary" : "bg-muted text-muted-foreground"
+                    )}>
+                      {annotation.icon}
+                    </div>
+                    <span className={cn(
+                      "text-xs font-bold uppercase tracking-wide",
+                      revealed ? "text-primary" : "text-muted-foreground"
+                    )}>
+                      {annotation.title}
+                    </span>
+                  </div>
+                  <p className={cn(
+                    "text-xs leading-relaxed transition-all",
+                    revealed ? "text-foreground" : "text-muted-foreground/40 blur-[3px] select-none"
+                  )}>
+                    {annotation.description}
+                  </p>
+                </button>
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Right Annotations */}
+        <div className="absolute right-0 top-0 bottom-0 w-[140px] translate-x-full pl-4 hidden xl:flex flex-col justify-end pb-32 gap-6">
+          {rightAnnotations.map((annotation, idx) => {
+            const revealed = isRevealed(annotation.id);
+            return (
+              <div key={annotation.id} className="relative">
+                {/* Connecting Line */}
+                <div className="absolute left-0 top-1/2 w-8 h-px bg-border" />
+                <div className="absolute left-0 top-1/2 w-2 h-2 rounded-full bg-primary -translate-y-1/2 -translate-x-1" />
+                
+                {/* Annotation Bubble */}
+                <button
+                  onClick={() => toggleAnnotation(annotation.id)}
+                  className={cn(
+                    "w-full p-3 rounded-lg border-2 text-left transition-all cursor-pointer ml-4",
+                    revealed
+                      ? "border-primary bg-primary/10"
+                      : "border-muted-foreground/30 bg-muted/50 hover:border-primary/50"
+                  )}
+                >
+                  <div className="flex items-center gap-2 mb-1">
+                    <div className={cn(
+                      "w-5 h-5 rounded flex items-center justify-center",
+                      revealed ? "bg-primary/20 text-primary" : "bg-muted text-muted-foreground"
+                    )}>
+                      {annotation.icon}
+                    </div>
+                    <span className={cn(
+                      "text-xs font-bold uppercase tracking-wide",
+                      revealed ? "text-primary" : "text-muted-foreground"
+                    )}>
+                      {annotation.title}
+                    </span>
+                  </div>
+                  <p className={cn(
+                    "text-xs leading-relaxed transition-all",
+                    revealed ? "text-foreground" : "text-muted-foreground/40 blur-[3px] select-none"
+                  )}>
+                    {annotation.description}
+                  </p>
+                </button>
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Center Content: Vertical Stack */}
         <div className="space-y-4">
-          {/* Prompt */}
+          {/* 1. Prompt Box */}
           <div>
             <div className="flex items-center gap-2 text-sm font-medium text-muted-foreground mb-2">
               <FileText className="w-4 h-4" />
-              The Prompt
+              Prompt
             </div>
             <Card className="border-2 border-primary/30">
               <CardContent className="p-0">
-                <ScrollArea className="h-[200px]">
-                  <div className="p-4 text-sm leading-relaxed text-foreground whitespace-pre-wrap">
+                <ScrollArea className="h-[120px]">
+                  <div className="p-4 text-xs leading-relaxed text-foreground whitespace-pre-wrap">
                     {NFT_PROMPT}
                   </div>
                 </ScrollArea>
@@ -105,17 +221,14 @@ const RubricDissectionSlide = () => {
             </Card>
           </div>
 
-          {/* Model Response Placeholder */}
+          {/* 2. Golden Example Deliverable Box */}
           <div>
             <div className="flex items-center gap-2 text-sm font-medium text-muted-foreground mb-2">
               <MessageSquare className="w-4 h-4" />
               Golden Example Deliverable
             </div>
             <Card className="border-2 border-dashed border-muted-foreground/30 bg-muted/20">
-              <CardContent className="p-6 text-center">
-                <div className="w-12 h-12 rounded-full bg-muted/50 flex items-center justify-center mx-auto mb-3">
-                  <MessageSquare className="w-6 h-6 text-muted-foreground/50" />
-                </div>
+              <CardContent className="p-4 text-center">
                 <p className="text-sm text-muted-foreground italic">
                   Model response will appear here
                 </p>
@@ -125,108 +238,92 @@ const RubricDissectionSlide = () => {
               </CardContent>
             </Card>
           </div>
+
+          {/* 3. Evaluation Rubric Table */}
+          <div>
+            <div className="flex items-center gap-2 text-sm font-medium text-muted-foreground mb-2">
+              <Scale className="w-4 h-4" />
+              Evaluation Rubric
+            </div>
+            <Card className="border-2 overflow-hidden">
+              <ScrollArea className="h-[280px]">
+                <Table>
+                  <TableHeader>
+                    <TableRow className="bg-muted/50">
+                      <TableHead className="w-[40px] text-center font-bold text-foreground">#</TableHead>
+                      <TableHead className="w-[70px] text-center font-bold text-foreground">Weight</TableHead>
+                      <TableHead className="font-bold text-foreground">Criterion</TableHead>
+                      <TableHead className="w-[130px] font-bold text-foreground">Category</TableHead>
+                      <TableHead className="w-[160px] font-bold text-foreground">Rationale</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {CRITERIA_DATA.map((row) => (
+                      <TableRow key={row.num} className="text-xs">
+                        <TableCell className="text-center font-medium text-muted-foreground">{row.num}</TableCell>
+                        <TableCell className="text-center font-semibold text-foreground">{row.weight}</TableCell>
+                        <TableCell className="text-foreground leading-tight">{row.criterion}</TableCell>
+                        <TableCell className="text-muted-foreground text-xs">{row.category}</TableCell>
+                        <TableCell className="text-muted-foreground italic text-xs">{row.rationale}</TableCell>
+                      </TableRow>
+                    ))}
+                    {/* Ellipsis Row */}
+                    <TableRow>
+                      <TableCell colSpan={5} className="text-center py-3">
+                        <span className="text-lg tracking-widest text-muted-foreground">• • •</span>
+                      </TableCell>
+                    </TableRow>
+                    {/* ~100 indicator */}
+                    <TableRow className="bg-muted/30">
+                      <TableCell colSpan={5} className="text-center py-2">
+                        <span className="text-sm font-medium text-muted-foreground">~100 criteria total</span>
+                      </TableCell>
+                    </TableRow>
+                  </TableBody>
+                </Table>
+              </ScrollArea>
+            </Card>
+          </div>
         </div>
 
-        {/* Right Column: Rubric Table with Annotations */}
-        <div>
-          <div className="flex items-center gap-2 text-sm font-medium text-muted-foreground mb-2">
-            <Scale className="w-4 h-4" />
-            Evaluation Rubric
-          </div>
-
-          {/* Annotation Cards Row */}
-          <div className="grid grid-cols-4 gap-2 mb-3">
-            {(["weight", "criterion", "category", "rationale"] as const).map((key) => {
-              const annotation = ANNOTATIONS[key];
-              const revealed = isRevealed(key);
-              
-              return (
-                <button
-                  key={key}
-                  onClick={() => toggleAnnotation(key)}
-                  className={cn(
-                    "relative p-3 rounded-lg border-2 text-left transition-all cursor-pointer",
-                    revealed
-                      ? "border-primary bg-primary/5"
-                      : "border-muted-foreground/20 bg-muted/30 hover:border-primary/50"
-                  )}
-                >
-                  <div className="flex items-center gap-2 mb-1">
-                    <div className={cn(
-                      "w-6 h-6 rounded flex items-center justify-center",
-                      revealed ? "bg-primary/20 text-primary" : "bg-muted text-muted-foreground"
-                    )}>
-                      {annotation.icon}
-                    </div>
-                    <span className={cn(
-                      "text-xs font-semibold uppercase tracking-wide",
-                      revealed ? "text-foreground" : "text-muted-foreground"
-                    )}>
-                      {annotation.title}
-                    </span>
-                    <ChevronDown className={cn(
-                      "w-3 h-3 ml-auto transition-transform",
-                      revealed ? "rotate-180 text-primary" : "text-muted-foreground"
-                    )} />
-                  </div>
-                  
-                  {/* Blurred / Revealed Description */}
+        {/* Mobile/Tablet Annotations (shown below on smaller screens) */}
+        <div className="xl:hidden mt-6 grid grid-cols-2 gap-3">
+          {ANNOTATIONS.map((annotation) => {
+            const revealed = isRevealed(annotation.id);
+            return (
+              <button
+                key={annotation.id}
+                onClick={() => toggleAnnotation(annotation.id)}
+                className={cn(
+                  "p-3 rounded-lg border-2 text-left transition-all cursor-pointer",
+                  revealed
+                    ? "border-primary bg-primary/10"
+                    : "border-muted-foreground/30 bg-muted/50 hover:border-primary/50"
+                )}
+              >
+                <div className="flex items-center gap-2 mb-1">
                   <div className={cn(
-                    "text-xs leading-relaxed transition-all",
-                    revealed 
-                      ? "text-foreground" 
-                      : "text-muted-foreground/50 blur-[3px] select-none"
+                    "w-5 h-5 rounded flex items-center justify-center",
+                    revealed ? "bg-primary/20 text-primary" : "bg-muted text-muted-foreground"
                   )}>
-                    {annotation.description}
+                    {annotation.icon}
                   </div>
-                </button>
-              );
-            })}
-          </div>
-
-          {/* Rubric Table */}
-          <Card className="border-2 overflow-hidden">
-            <ScrollArea className="h-[340px]">
-              <Table>
-                <TableHeader>
-                  <TableRow className="bg-muted/50">
-                    <TableHead className="w-[40px] text-center font-bold text-foreground">#</TableHead>
-                    <TableHead className="w-[60px] text-center font-bold text-foreground">Weight</TableHead>
-                    <TableHead className="font-bold text-foreground">Criterion</TableHead>
-                    <TableHead className="w-[140px] font-bold text-foreground">Category</TableHead>
-                    <TableHead className="w-[180px] font-bold text-foreground">Rationale</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {CRITERIA_DATA.map((row) => (
-                    <TableRow key={row.num} className="text-xs">
-                      <TableCell className="text-center font-medium text-muted-foreground">{row.num}</TableCell>
-                      <TableCell className="text-center font-semibold text-foreground">{row.weight}</TableCell>
-                      <TableCell className="text-foreground leading-tight">{row.criterion}</TableCell>
-                      <TableCell className="text-muted-foreground">{row.category}</TableCell>
-                      <TableCell className="text-muted-foreground italic">{row.rationale}</TableCell>
-                    </TableRow>
-                  ))}
-                  {/* Ellipsis Row */}
-                  <TableRow>
-                    <TableCell colSpan={5} className="text-center py-4">
-                      <div className="flex items-center justify-center gap-2 text-muted-foreground">
-                        <span className="text-lg tracking-widest">• • •</span>
-                      </div>
-                    </TableCell>
-                  </TableRow>
-                  {/* ~100 indicator */}
-                  <TableRow className="bg-muted/30">
-                    <TableCell colSpan={5} className="text-center py-3">
-                      <span className="text-sm font-medium text-muted-foreground">
-                        ~100 criteria total
-                      </span>
-                    </TableCell>
-                  </TableRow>
-                </TableBody>
-              </Table>
-            </ScrollArea>
-          </Card>
+                  <span className={cn(
+                    "text-xs font-bold uppercase tracking-wide",
+                    revealed ? "text-primary" : "text-muted-foreground"
+                  )}>
+                    {annotation.title}
+                  </span>
+                </div>
+                <p className={cn(
+                  "text-xs leading-relaxed transition-all",
+                  revealed ? "text-foreground" : "text-muted-foreground/40 blur-[3px] select-none"
+                )}>
+                  {annotation.description}
+                </p>
+              </button>
+            );
+          })}
         </div>
       </div>
     </div>
