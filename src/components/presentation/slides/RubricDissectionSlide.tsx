@@ -120,23 +120,6 @@ const RubricDissectionSlide = () => {
           </Card>
         </div>
 
-        {/* 2. Golden Example Deliverable Box */}
-        <div>
-          <div className="flex items-center gap-2 text-sm font-medium text-muted-foreground mb-2">
-            <MessageSquare className="w-4 h-4" />
-            Golden Example Deliverable
-          </div>
-          <Card className="border-2 border-muted-foreground/30 overflow-hidden">
-            <CardContent className="p-0">
-              <iframe
-                src="https://docs.google.com/document/d/1U3iBkJkL0StOWUzrRtFo4HxcXt7q28yL/edit?usp=sharing&ouid=109946200030023295969&rtpof=true&sd=true"
-                className="w-full h-[300px] border-0"
-                allow="autoplay"
-                title="Golden Example Deliverable"
-              />
-            </CardContent>
-          </Card>
-        </div>
 
         {/* 3. Annotation Cards - Vertical Stack */}
         <div>
