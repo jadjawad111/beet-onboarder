@@ -1661,6 +1661,7 @@ This report will be used to brief the design team and guide future optimization 
           </div>
         }
         inputFileDescription="Vendor quotations and volume projections"
+        inputFileEmbedUrl="https://drive.google.com/file/d/1IxXQG5VWWzYNe0rNsqG8I1YPc1q7FHuW/preview"
         referenceHighlights={[
           {
             quote: "All relevant documents... are attached",
