@@ -97,7 +97,7 @@ const Index = () => {
 
               {/* Training Course Card */}
               <Link 
-                to="/education/prompt-writing/course"
+                to="/education/beet"
                 className="group relative p-6 rounded-2xl border border-border bg-card hover:border-primary/30 hover:shadow-lg transition-all"
               >
                 {/* Required Badge */}

@@ -97,6 +97,9 @@ const App = () => (
             <Route path="/tools" element={<Navigate to="/project-info" replace />} />
           </Route>
           
+          {/* Redirect old course route to new one */}
+          <Route path="/education/prompt-writing/course" element={<Navigate to="/education/beet" replace />} />
+          
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
