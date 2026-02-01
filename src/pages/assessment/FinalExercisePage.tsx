@@ -60,67 +60,8 @@ const exercise2Criteria: CriterionData[] = [
   },
 ];
 
-// Title slide component
-const TitleSlide = () => (
-  <div className="flex flex-col items-center justify-center text-center min-h-[60vh]">
-    <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-6 tracking-tight">
-      Project Beet 2.0 Final Exercise
-    </h1>
-    <p className="text-xl text-muted-foreground max-w-2xl">
-      Complete the following exercises to demonstrate your understanding of rubric quality evaluation.
-    </p>
-  </div>
-);
-
-// Instructions slide
-const InstructionsSlide = () => (
-  <div className="text-left max-w-3xl mx-auto space-y-6">
-    <h2 className="text-3xl font-bold text-foreground mb-8">Instructions</h2>
-    
-    <div className="space-y-4">
-      <div className="p-4 bg-card border border-border rounded-lg">
-        <h3 className="font-semibold text-foreground mb-2">Exercise Format</h3>
-        <p className="text-muted-foreground">
-          Each exercise presents a prompt, deliverable, and rubric criteria. Your task is to identify which criteria contain errors.
-        </p>
-      </div>
-      
-      <div className="p-4 bg-card border border-border rounded-lg">
-        <h3 className="font-semibold text-foreground mb-2">How to Complete</h3>
-        <ul className="text-muted-foreground space-y-2 list-disc list-inside">
-          <li>Review the prompt and deliverable carefully</li>
-          <li>For each criterion, determine if it has an error</li>
-          <li>If there's an error, select the error type</li>
-          <li>Submit your answers when ready</li>
-        </ul>
-      </div>
-      
-      <div className="p-4 bg-primary/5 border border-primary/20 rounded-lg">
-        <h3 className="font-semibold text-foreground mb-2">Note</h3>
-        <p className="text-muted-foreground">
-          Take your time. This is an assessment of your rubric evaluation skills.
-        </p>
-      </div>
-    </div>
-  </div>
-);
-
-// Define all slides
+// Define all slides - just the two exercises
 const assessmentSlides: Slide[] = [
-  {
-    id: "title",
-    section: "Introduction",
-    title: "Welcome",
-    content: <TitleSlide />,
-    gated: false,
-  },
-  {
-    id: "instructions",
-    section: "Introduction",
-    title: "Instructions",
-    content: <InstructionsSlide />,
-    gated: false,
-  },
   {
     id: "exercise-1",
     section: "Exercise 1",
