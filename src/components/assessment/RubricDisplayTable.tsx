@@ -47,7 +47,7 @@ const RubricDisplayTable: React.FC<RubricDisplayTableProps> = ({
   };
 
   return (
-    <div>
+    <div className="w-full">
       {/* Warning Banner */}
       <div className="flex items-center gap-2 bg-amber-50 border border-amber-200 text-amber-800 px-4 py-3 rounded-lg mb-4">
         <AlertTriangle className="w-5 h-5 flex-shrink-0" />
@@ -57,8 +57,8 @@ const RubricDisplayTable: React.FC<RubricDisplayTableProps> = ({
       </div>
 
       {title && <h3 className="text-lg font-semibold mb-3">{title}</h3>}
-      <div className="border rounded-lg overflow-hidden">
-        <Table>
+      <div className="border rounded-lg overflow-x-auto">
+        <Table className="min-w-[900px]">
           <TableHeader>
             <TableRow className="bg-muted/50">
               <TableHead className="w-12 text-center">#</TableHead>
