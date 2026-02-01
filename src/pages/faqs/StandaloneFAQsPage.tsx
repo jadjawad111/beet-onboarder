@@ -1,6 +1,8 @@
 import { HelpCircle, Mail, MessageSquare, ExternalLink, FileText, DollarSign, Clock, UserCheck, AlertTriangle } from "lucide-react";
 import ContentHeader from "@/components/layout/ContentHeader";
 
+const DISCORD_LINK = "https://discord.gg/GbtUVawyrv";
+
 const primaryResources = [
   {
     name: "Official Email",
@@ -13,12 +15,6 @@ const primaryResources = [
     description: "For missing payments or payout issues",
     link: "https://docs.google.com/forms/d/e/1FAIpQLSfu4Se-oUxcjWk82Ro7gGbzVy5HX4lIdczadNtAQgZGewBFxQ/viewform",
     linkText: "Submit Form"
-  },
-  {
-    name: "Discord Channel",
-    description: "Community for questions and updates",
-    link: "https://discord.gg/GbtUVawyrv",
-    linkText: "Join Discord"
   },
   {
     name: "Fellow Support Guide",
@@ -138,6 +134,27 @@ const generalFaqs = [
   },
 ];
 
+// Helper function to highlight Discord mentions and make them clickable
+const highlightDiscord = (text: string) => {
+  const parts = text.split(/(Discord)/gi);
+  return parts.map((part, index) => {
+    if (part.toLowerCase() === 'discord') {
+      return (
+        <a
+          key={index}
+          href={DISCORD_LINK}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-primary font-semibold hover:underline"
+        >
+          Discord
+        </a>
+      );
+    }
+    return part;
+  });
+};
+
 const FAQSection = ({ 
   title, 
   icon: Icon, 
@@ -155,8 +172,8 @@ const FAQSection = ({
     <div className="space-y-3">
       {faqs.map((faq, index) => (
         <div key={index} className="p-4 rounded-xl border border-border bg-card">
-          <h3 className="font-semibold text-foreground mb-2">{faq.q}</h3>
-          <p className="text-sm text-muted-foreground">{faq.a}</p>
+          <h3 className="font-semibold text-foreground mb-2">{highlightDiscord(faq.q)}</h3>
+          <p className="text-sm text-muted-foreground">{highlightDiscord(faq.a)}</p>
         </div>
       ))}
     </div>
@@ -181,6 +198,26 @@ const StandaloneFAQsPage = () => {
               <h2 className="text-xl font-bold text-foreground">Primary Resources</h2>
             </div>
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
+              {/* Discord Card - Featured */}
+              <a
+                href={DISCORD_LINK}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-4 rounded-xl border-2 border-primary bg-primary/5 hover:bg-primary/10 transition-colors group sm:col-span-2 lg:col-span-1"
+              >
+                <div className="flex items-center gap-2 mb-1">
+                  <MessageSquare className="w-5 h-5 text-primary" />
+                  <h3 className="font-semibold text-primary">
+                    Discord Channel
+                  </h3>
+                </div>
+                <p className="text-xs text-muted-foreground mb-2">Community for questions and updates</p>
+                <span className="text-sm text-primary font-semibold flex items-center gap-1">
+                  discord.gg/GbtUVawyrv
+                  <ExternalLink className="w-3 h-3" />
+                </span>
+              </a>
+              
               {primaryResources.map((resource, index) => (
                 <a
                   key={index}
@@ -236,18 +273,22 @@ const StandaloneFAQsPage = () => {
             <h2 className="text-xl font-bold text-foreground mb-4">Still Have Questions?</h2>
             <div className="grid md:grid-cols-2 gap-4">
               <a 
-                href="https://discord.gg/GbtUVawyrv"
+                href={DISCORD_LINK}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-5 rounded-xl border border-border bg-card hover:border-primary/50 transition-colors block"
+                className="p-5 rounded-xl border-2 border-primary bg-primary/5 hover:bg-primary/10 transition-colors block"
               >
                 <div className="flex items-center gap-2 mb-3">
                   <MessageSquare className="w-5 h-5 text-primary" />
-                  <h3 className="font-semibold text-foreground">Discord</h3>
+                  <h3 className="font-semibold text-primary">Discord</h3>
                 </div>
-                <p className="text-sm text-muted-foreground">
+                <p className="text-sm text-muted-foreground mb-2">
                   Once you have access, ask questions in the designated channel. The community and team are responsive.
                 </p>
+                <span className="text-sm text-primary font-semibold flex items-center gap-1">
+                  discord.gg/GbtUVawyrv
+                  <ExternalLink className="w-4 h-4" />
+                </span>
               </a>
               <div className="p-5 rounded-xl border border-border bg-card">
                 <div className="flex items-center gap-2 mb-3">
