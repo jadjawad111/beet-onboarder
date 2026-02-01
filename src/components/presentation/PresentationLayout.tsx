@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback, useMemo, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { ChevronLeft, ChevronRight, X, Check, ChevronDown, Lock, Download, FileText } from "lucide-react";
+import { ChevronLeft, ChevronRight, X, Check, ChevronDown, Lock, Download, FileText, Edit3 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import beetIcon from "@/assets/beet-icon.png";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
@@ -80,6 +80,13 @@ const PresentationLayout = ({
   });
   const [openSections, setOpenSections] = useState<Set<string>>(new Set());
   const [sidebarCollapsed, setSidebarCollapsed] = useState(defaultSidebarCollapsed);
+  const [editorMode, setEditorMode] = useState(() => {
+    try {
+      return localStorage.getItem('course-editor-mode') === 'true';
+    } catch {
+      return false;
+    }
+  });
   
   // Persist unlocked slides in localStorage so they stay unlocked between sessions
   const [unlockedSlides, setUnlockedSlides] = useState<Set<string>>(() => {
@@ -162,8 +169,19 @@ const PresentationLayout = ({
   const currentSlideData = slides[currentSlide];
   const isCurrentSlideGated = currentSlideData?.gated ?? false;
   const isCurrentSlideUnlocked = unlockedSlides.has(currentSlideData?.id ?? '');
-  // GATE ON - gating is enabled
-  const canContinue = !isCurrentSlideGated || isCurrentSlideUnlocked;
+  // Editor mode bypasses all gates
+  const canContinue = editorMode || !isCurrentSlideGated || isCurrentSlideUnlocked;
+
+  // Toggle editor mode
+  const toggleEditorMode = useCallback(() => {
+    setEditorMode(prev => {
+      const newValue = !prev;
+      try {
+        localStorage.setItem('course-editor-mode', String(newValue));
+      } catch {}
+      return newValue;
+    });
+  }, []);
 
   // Function to unlock the current slide (passed to children)
   const unlockCurrentSlide = useCallback(() => {
@@ -435,19 +453,46 @@ const PresentationLayout = ({
           </div>
         </div>
 
-        {/* Progress indicator - conditionally hidden */}
-        {!hideProgress && !sidebarCollapsed && (
-          <div className="p-4 border-b border-border">
-            <div className="flex items-center justify-between mb-2">
-              <span className="text-xs font-medium text-muted-foreground hidden lg:inline">Progress</span>
-              <span className="text-xs font-bold text-primary">{Math.round(progress)}%</span>
-            </div>
-            <div className="h-1.5 bg-muted rounded-full overflow-hidden">
-              <div 
-                className="h-full bg-gradient-to-r from-primary to-secondary rounded-full transition-all duration-500"
-                style={{ width: `${progress}%` }}
-              />
-            </div>
+        {/* Editor Mode Toggle & Progress */}
+        {!sidebarCollapsed && (
+          <div className="p-4 border-b border-border space-y-3">
+            {/* Editor Mode Toggle */}
+            <button
+              onClick={toggleEditorMode}
+              className={cn(
+                "w-full flex items-center justify-between px-3 py-2 rounded-lg text-xs font-medium transition-colors",
+                editorMode 
+                  ? "bg-amber-500/10 text-amber-600 border border-amber-500/30" 
+                  : "bg-muted/50 text-muted-foreground hover:bg-muted"
+              )}
+            >
+              <span className="flex items-center gap-2">
+                <Edit3 className="w-3.5 h-3.5" />
+                Editor Mode
+              </span>
+              <span className={cn(
+                "px-1.5 py-0.5 rounded text-[10px] font-bold uppercase",
+                editorMode ? "bg-amber-500 text-white" : "bg-muted-foreground/20"
+              )}>
+                {editorMode ? "ON" : "OFF"}
+              </span>
+            </button>
+            
+            {/* Progress indicator - conditionally hidden */}
+            {!hideProgress && (
+              <>
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-xs font-medium text-muted-foreground hidden lg:inline">Progress</span>
+                  <span className="text-xs font-bold text-primary">{Math.round(progress)}%</span>
+                </div>
+                <div className="h-1.5 bg-muted rounded-full overflow-hidden">
+                  <div 
+                    className="h-full bg-gradient-to-r from-primary to-secondary rounded-full transition-all duration-500"
+                    style={{ width: `${progress}%` }}
+                  />
+                </div>
+              </>
+            )}
           </div>
         )}
 
@@ -499,14 +544,14 @@ const PresentationLayout = ({
                       {/* Clickable section name - navigates to first slide */}
                       <button
                         onClick={() => {
-                          if (isSectionVisited) {
+                          if (editorMode || isSectionVisited) {
                             goToSlide(firstSlideIndex, firstSlideIndex > currentSlide ? 'next' : 'prev');
                           }
                         }}
-                        disabled={!isSectionVisited}
+                        disabled={!editorMode && !isSectionVisited}
                         className={cn(
                           "flex items-center gap-2 text-left flex-1",
-                          !isSectionVisited && "opacity-50 cursor-not-allowed"
+                          !editorMode && !isSectionVisited && "opacity-50 cursor-not-allowed"
                         )}
                       >
                         {sectionComplete ? (
@@ -579,13 +624,13 @@ const PresentationLayout = ({
                                 return (
                                   <div key={slide.id}>
                                     <button
-                                      onClick={() => isVisited && goToSlide(index, index > currentSlide ? 'next' : 'prev')}
-                                      disabled={!isVisited}
+                                      onClick={() => (editorMode || isVisited) && goToSlide(index, index > currentSlide ? 'next' : 'prev')}
+                                      disabled={!editorMode && !isVisited}
                                       className={cn(
                                         "w-full flex items-center gap-2 px-2 py-1.5 rounded-md transition-all text-left",
                                         (isCurrent || childIsCurrent) && "bg-primary/10 text-primary",
-                                        !isCurrent && !childIsCurrent && isVisited && "hover:bg-muted cursor-pointer",
-                                        !isVisited && "opacity-50 cursor-not-allowed"
+                                        !isCurrent && !childIsCurrent && (editorMode || isVisited) && "hover:bg-muted cursor-pointer",
+                                        !editorMode && !isVisited && "opacity-50 cursor-not-allowed"
                                       )}
                                     >
                                       <div className={cn(
@@ -620,13 +665,13 @@ const PresentationLayout = ({
                                           return (
                                             <button
                                               key={childSlide.id}
-                                              onClick={() => isChildVisited && goToSlide(childIndex, childIndex > currentSlide ? 'next' : 'prev')}
-                                              disabled={!isChildVisited}
+                                              onClick={() => (editorMode || isChildVisited) && goToSlide(childIndex, childIndex > currentSlide ? 'next' : 'prev')}
+                                              disabled={!editorMode && !isChildVisited}
                                               className={cn(
                                                 "w-full flex items-center gap-2 px-2 py-1 rounded-md transition-all text-left",
                                                 isChildCurrent && "bg-primary/10 text-primary",
-                                                !isChildCurrent && isChildVisited && "hover:bg-muted cursor-pointer",
-                                                !isChildVisited && "opacity-50 cursor-not-allowed"
+                                                !isChildCurrent && (editorMode || isChildVisited) && "hover:bg-muted cursor-pointer",
+                                                !editorMode && !isChildVisited && "opacity-50 cursor-not-allowed"
                                               )}
                                             >
                                               <div className={cn(
@@ -712,13 +757,13 @@ const PresentationLayout = ({
                                         return (
                                           <button
                                             key={slide.id}
-                                            onClick={() => isVisited && goToSlide(index, index > currentSlide ? 'next' : 'prev')}
-                                            disabled={!isVisited}
+                                            onClick={() => (editorMode || isVisited) && goToSlide(index, index > currentSlide ? 'next' : 'prev')}
+                                            disabled={!editorMode && !isVisited}
                                             className={cn(
                                               "w-full flex items-center gap-2 px-2 py-1 rounded-md transition-all text-left",
                                               isCurrent && "bg-primary/10 text-primary",
-                                              !isCurrent && isVisited && "hover:bg-muted cursor-pointer",
-                                              !isVisited && "opacity-50 cursor-not-allowed"
+                                              !isCurrent && (editorMode || isVisited) && "hover:bg-muted cursor-pointer",
+                                              !editorMode && !isVisited && "opacity-50 cursor-not-allowed"
                                             )}
                                           >
                                             <div className={cn(
