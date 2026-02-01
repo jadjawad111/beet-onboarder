@@ -47,7 +47,7 @@ const ANNOTATIONS: Annotation[] = [
     id: "weight",
     icon: <Scale className="w-5 h-5" />,
     title: "Weight",
-    description: "A score from -100 to 100 representing relative importance. Higher values = more critical to task success. Negative weights penalize unwanted behaviors.",
+    description: "A score from a range (this will be provided to you) representing relative importance. Higher values = more critical to task success. Negative weights penalize unwanted behaviors.",
   },
   {
     id: "criterion",
