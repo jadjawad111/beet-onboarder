@@ -1,10 +1,14 @@
 import React, { useState, useMemo } from "react";
 import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { 
   FileText, 
   ExternalLink,
-  ChevronDown
+  Check,
+  X,
+  AlertCircle,
+  CheckCircle2,
 } from "lucide-react";
 import {
   Table,
@@ -21,6 +25,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@/components/ui/collapsible";
 
 export type ErrorType = 
   | "ambiguous" 
@@ -116,10 +125,42 @@ const RubricInteractiveQuiz = ({
     return initial;
   });
 
+  // Track which rows have been checked
+  const [checkedRows, setCheckedRows] = useState<Record<number, boolean>>(() => {
+    const initial: Record<number, boolean> = {};
+    criteria.forEach(c => {
+      initial[c.id] = false;
+    });
+    return initial;
+  });
+
   // Count answered questions
   const answeredCount = useMemo(() => {
     return Object.values(answers).filter(a => a !== null).length;
   }, [answers]);
+
+  // Count checked questions
+  const checkedCount = useMemo(() => {
+    return Object.values(checkedRows).filter(c => c).length;
+  }, [checkedRows]);
+
+  // Calculate score
+  const score = useMemo(() => {
+    let correct = 0;
+    let total = 0;
+    criteria.forEach(c => {
+      if (checkedRows[c.id]) {
+        total++;
+        const userSaysError = answers[c.id];
+        const actualHasError = c.hasError;
+        const errorTypeCorrect = !actualHasError || (selectedErrorTypes[c.id] === c.errorType);
+        if (userSaysError === actualHasError && errorTypeCorrect) {
+          correct++;
+        }
+      }
+    });
+    return { correct, total };
+  }, [checkedRows, answers, selectedErrorTypes, criteria]);
 
   const handleAnswerChange = (criterionId: number, hasError: boolean) => {
     setAnswers(prev => ({
@@ -134,10 +175,33 @@ const RubricInteractiveQuiz = ({
         [criterionId]: null,
       }));
     }
+  };
 
-    // Check if all answered after this change
-    const newAnswers = { ...answers, [criterionId]: hasError };
-    const allAnswered = Object.values(newAnswers).every(a => a !== null);
+  const handleErrorTypeChange = (criterionId: number, errorType: ErrorType) => {
+    setSelectedErrorTypes(prev => ({
+      ...prev,
+      [criterionId]: errorType,
+    }));
+  };
+
+  const handleCheckRow = (criterionId: number) => {
+    setCheckedRows(prev => ({
+      ...prev,
+      [criterionId]: true,
+    }));
+  };
+
+  const handleSubmitAll = () => {
+    const newCheckedRows: Record<number, boolean> = {};
+    criteria.forEach(c => {
+      if (answers[c.id] !== null) {
+        newCheckedRows[c.id] = true;
+      }
+    });
+    setCheckedRows(prev => ({ ...prev, ...newCheckedRows }));
+
+    // Trigger completion callbacks
+    const allAnswered = Object.values(answers).every(a => a !== null);
     if (allAnswered && onComplete) {
       onComplete();
     }
@@ -146,11 +210,18 @@ const RubricInteractiveQuiz = ({
     }
   };
 
-  const handleErrorTypeChange = (criterionId: number, errorType: ErrorType) => {
-    setSelectedErrorTypes(prev => ({
-      ...prev,
-      [criterionId]: errorType,
-    }));
+  const isRowCorrect = (criterion: CriterionData) => {
+    const userSaysError = answers[criterion.id];
+    const actualHasError = criterion.hasError;
+    
+    if (userSaysError !== actualHasError) return false;
+    
+    // If actual has error, also check error type
+    if (actualHasError) {
+      return selectedErrorTypes[criterion.id] === criterion.errorType;
+    }
+    
+    return true;
   };
 
   const getEmbedUrl = (url: string) => {
@@ -213,9 +284,24 @@ const RubricInteractiveQuiz = ({
         </Card>
       ))}
 
-      {/* Progress */}
-      <div className="text-sm text-muted-foreground">
-        Progress: <span className="font-bold text-foreground">{answeredCount}</span> / {criteria.length} answered
+      {/* Progress and Score */}
+      <div className="flex items-center justify-between">
+        <div className="text-sm text-muted-foreground">
+          Progress: <span className="font-bold text-foreground">{answeredCount}</span> / {criteria.length} answered
+          {checkedCount > 0 && (
+            <span className="ml-4">
+              Score: <span className="font-bold text-foreground">{score.correct}</span> / {score.total} correct
+            </span>
+          )}
+        </div>
+        <Button 
+          onClick={handleSubmitAll}
+          disabled={answeredCount === 0}
+          className="gap-2"
+        >
+          <Check className="w-4 h-4" />
+          Submit All
+        </Button>
       </div>
 
       {/* Rubric Criteria Table */}
@@ -231,77 +317,175 @@ const RubricInteractiveQuiz = ({
                 <TableHead className="w-40">Category</TableHead>
                 <TableHead className="w-28 text-center">Error?</TableHead>
                 <TableHead className="min-w-[180px]">Error Type</TableHead>
+                <TableHead className="w-24 text-center">Check</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
-              {criteria.map((criterion) => (
-                <TableRow key={criterion.id}>
-                  <TableCell className="text-center font-medium text-muted-foreground">
-                    {criterion.id}
-                  </TableCell>
-                  <TableCell>
-                    <span className="text-sm">{criterion.text}</span>
-                  </TableCell>
-                  <TableCell className="text-center">
-                    <span className="text-sm font-medium">{criterion.weight}</span>
-                  </TableCell>
-                  <TableCell>
-                    <span className={cn(
-                      "text-xs px-2 py-1 rounded-full whitespace-nowrap",
-                      categoryColors[criterion.category]
+              {criteria.map((criterion) => {
+                const isChecked = checkedRows[criterion.id];
+                const isCorrect = isChecked ? isRowCorrect(criterion) : null;
+                
+                return (
+                  <React.Fragment key={criterion.id}>
+                    <TableRow className={cn(
+                      isChecked && isCorrect && "bg-green-50 dark:bg-green-900/10",
+                      isChecked && !isCorrect && "bg-red-50 dark:bg-red-900/10"
                     )}>
-                      {criterion.category}
-                    </span>
-                  </TableCell>
-                  <TableCell>
-                    <div className="flex items-center justify-center gap-1">
-                      <button
-                        onClick={() => handleAnswerChange(criterion.id, false)}
-                        className={cn(
-                          "px-3 py-1 text-xs font-medium rounded-l-md border transition-colors",
-                          answers[criterion.id] === false
-                            ? "bg-muted text-foreground border-border"
-                            : "bg-background text-muted-foreground border-border hover:bg-muted/50"
+                      <TableCell className="text-center font-medium text-muted-foreground">
+                        {criterion.id}
+                      </TableCell>
+                      <TableCell>
+                        <span className="text-sm">{criterion.text}</span>
+                      </TableCell>
+                      <TableCell className="text-center">
+                        <span className="text-sm font-medium">{criterion.weight}</span>
+                      </TableCell>
+                      <TableCell>
+                        <span className={cn(
+                          "text-xs px-2 py-1 rounded-full whitespace-nowrap",
+                          categoryColors[criterion.category]
+                        )}>
+                          {criterion.category}
+                        </span>
+                      </TableCell>
+                      <TableCell>
+                        <div className="flex items-center justify-center gap-1">
+                          <button
+                            onClick={() => handleAnswerChange(criterion.id, false)}
+                            disabled={isChecked}
+                            className={cn(
+                              "px-3 py-1 text-xs font-medium rounded-l-md border transition-colors",
+                              answers[criterion.id] === false
+                                ? "bg-muted text-foreground border-border"
+                                : "bg-background text-muted-foreground border-border hover:bg-muted/50",
+                              isChecked && "opacity-60 cursor-not-allowed"
+                            )}
+                          >
+                            No
+                          </button>
+                          <button
+                            onClick={() => handleAnswerChange(criterion.id, true)}
+                            disabled={isChecked}
+                            className={cn(
+                              "px-3 py-1 text-xs font-medium rounded-r-md border-t border-r border-b transition-colors",
+                              answers[criterion.id] === true
+                                ? "bg-muted text-foreground border-border"
+                                : "bg-background text-muted-foreground border-border hover:bg-muted/50",
+                              isChecked && "opacity-60 cursor-not-allowed"
+                            )}
+                          >
+                            Yes
+                          </button>
+                        </div>
+                      </TableCell>
+                      <TableCell>
+                        {answers[criterion.id] === true ? (
+                          <Select
+                            value={selectedErrorTypes[criterion.id] || ""}
+                            onValueChange={(value) => handleErrorTypeChange(criterion.id, value as ErrorType)}
+                            disabled={isChecked}
+                          >
+                            <SelectTrigger className={cn("h-8 text-xs", isChecked && "opacity-60")}>
+                              <SelectValue placeholder="Select error type..." />
+                            </SelectTrigger>
+                            <SelectContent>
+                              {Object.entries(errorTypeLabels).map(([value, label]) => (
+                                <SelectItem key={value} value={value} className="text-xs">
+                                  {label}
+                                </SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
+                        ) : (
+                          <span className="text-muted-foreground">—</span>
                         )}
-                      >
-                        No
-                      </button>
-                      <button
-                        onClick={() => handleAnswerChange(criterion.id, true)}
-                        className={cn(
-                          "px-3 py-1 text-xs font-medium rounded-r-md border-t border-r border-b transition-colors",
-                          answers[criterion.id] === true
-                            ? "bg-muted text-foreground border-border"
-                            : "bg-background text-muted-foreground border-border hover:bg-muted/50"
+                      </TableCell>
+                      <TableCell className="text-center">
+                        {isChecked ? (
+                          <div className="flex items-center justify-center">
+                            {isCorrect ? (
+                              <CheckCircle2 className="w-5 h-5 text-green-600" />
+                            ) : (
+                              <X className="w-5 h-5 text-red-600" />
+                            )}
+                          </div>
+                        ) : (
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            onClick={() => handleCheckRow(criterion.id)}
+                            disabled={answers[criterion.id] === null}
+                            className="h-7 text-xs"
+                          >
+                            Check
+                          </Button>
                         )}
-                      >
-                        Yes
-                      </button>
-                    </div>
-                  </TableCell>
-                  <TableCell>
-                    {answers[criterion.id] === true ? (
-                      <Select
-                        value={selectedErrorTypes[criterion.id] || ""}
-                        onValueChange={(value) => handleErrorTypeChange(criterion.id, value as ErrorType)}
-                      >
-                        <SelectTrigger className="h-8 text-xs">
-                          <SelectValue placeholder="Select error type..." />
-                        </SelectTrigger>
-                        <SelectContent>
-                          {Object.entries(errorTypeLabels).map(([value, label]) => (
-                            <SelectItem key={value} value={value} className="text-xs">
-                              {label}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                    ) : (
-                      <span className="text-muted-foreground">—</span>
+                      </TableCell>
+                    </TableRow>
+                    
+                    {/* Feedback row - shows when checked and incorrect */}
+                    {isChecked && !isCorrect && (
+                      <TableRow className="bg-red-50/50 dark:bg-red-900/5">
+                        <TableCell colSpan={7} className="py-3">
+                          <div className="flex gap-3 items-start">
+                            <AlertCircle className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" />
+                            <div className="space-y-2 text-sm">
+                              <div>
+                                <span className="font-medium">Correct answer: </span>
+                                {criterion.hasError ? (
+                                  <span>
+                                    Yes — <span className="font-medium">{errorTypeLabels[criterion.errorType!]}</span>
+                                  </span>
+                                ) : (
+                                  <span>No (this criterion is well-formed)</span>
+                                )}
+                              </div>
+                              {criterion.explanation && (
+                                <div className="text-muted-foreground">
+                                  <span className="font-medium text-foreground">Why: </span>
+                                  {criterion.explanation}
+                                </div>
+                              )}
+                              {criterion.howToFix && (
+                                <div className="text-muted-foreground">
+                                  <span className="font-medium text-foreground">How to fix: </span>
+                                  {criterion.howToFix}
+                                </div>
+                              )}
+                            </div>
+                          </div>
+                        </TableCell>
+                      </TableRow>
                     )}
-                  </TableCell>
-                </TableRow>
-              ))}
+                    
+                    {/* Feedback row - shows when checked and correct but has error (show explanation anyway) */}
+                    {isChecked && isCorrect && criterion.hasError && (
+                      <TableRow className="bg-green-50/50 dark:bg-green-900/5">
+                        <TableCell colSpan={7} className="py-3">
+                          <div className="flex gap-3 items-start">
+                            <CheckCircle2 className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+                            <div className="space-y-2 text-sm">
+                              <div className="font-medium text-green-700 dark:text-green-400">Correct!</div>
+                              {criterion.explanation && (
+                                <div className="text-muted-foreground">
+                                  <span className="font-medium text-foreground">Explanation: </span>
+                                  {criterion.explanation}
+                                </div>
+                              )}
+                              {criterion.howToFix && (
+                                <div className="text-muted-foreground">
+                                  <span className="font-medium text-foreground">How to fix: </span>
+                                  {criterion.howToFix}
+                                </div>
+                              )}
+                            </div>
+                          </div>
+                        </TableCell>
+                      </TableRow>
+                    )}
+                  </React.Fragment>
+                );
+              })}
             </TableBody>
           </Table>
         </div>
