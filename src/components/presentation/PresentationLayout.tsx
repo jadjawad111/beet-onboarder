@@ -453,30 +453,9 @@ const PresentationLayout = ({
           </div>
         </div>
 
-        {/* Editor Mode Toggle & Progress */}
+        {/* Progress */}
         {!sidebarCollapsed && (
           <div className="p-4 border-b border-border space-y-3">
-            {/* Editor Mode Toggle */}
-            <button
-              onClick={toggleEditorMode}
-              className={cn(
-                "w-full flex items-center justify-between px-3 py-2 rounded-lg text-xs font-medium transition-colors",
-                editorMode 
-                  ? "bg-amber-500/10 text-amber-600 border border-amber-500/30" 
-                  : "bg-muted/50 text-muted-foreground hover:bg-muted"
-              )}
-            >
-              <span className="flex items-center gap-2">
-                <Edit3 className="w-3.5 h-3.5" />
-                Editor Mode
-              </span>
-              <span className={cn(
-                "px-1.5 py-0.5 rounded text-[10px] font-bold uppercase",
-                editorMode ? "bg-amber-500 text-white" : "bg-muted-foreground/20"
-              )}>
-                {editorMode ? "ON" : "OFF"}
-              </span>
-            </button>
             
             {/* Progress indicator - conditionally hidden */}
             {!hideProgress && (
