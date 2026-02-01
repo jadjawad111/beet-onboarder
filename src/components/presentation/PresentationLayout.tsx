@@ -260,10 +260,10 @@ const PresentationLayout = ({
     };
 
     const handlePracticeSkip = () => {
-      // Find the Bronze section start (skip all practice exercises)
-      const bronzeIndex = slides.findIndex(s => s.section === '"Bronze" Response');
-      if (bronzeIndex !== -1 && bronzeIndex > currentSlide) {
-        goToSlide(bronzeIndex, 'next');
+      // Find the Input Files section start (skip all practice exercises)
+      const inputFilesIndex = slides.findIndex(s => s.section === 'Input Files');
+      if (inputFilesIndex !== -1 && inputFilesIndex > currentSlide) {
+        goToSlide(inputFilesIndex, 'next');
       } else {
         // Fallback: just go to next slide
         handleNext();
