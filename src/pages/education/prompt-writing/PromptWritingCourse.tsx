@@ -26,6 +26,7 @@ import InputFileCharacteristics from "@/components/presentation/slides/InputFile
 import GoodPromptReveal, { h } from "@/components/presentation/slides/GoodPromptReveal";
 import PracticeOverlay from "@/components/presentation/slides/PracticeOverlay";
 import RubricDissectionSlide from "@/components/presentation/slides/RubricDissectionSlide";
+import UsingLinksSlide from "@/components/presentation/slides/UsingLinksSlide";
 import { exercise1Prompt, exercise1DeliverableUrl, exercise1Criteria } from "@/data/rubricQuizExercise1";
 import { exercise2Prompt, exercise2DeliverableUrl, exercise2Criteria } from "@/data/rubricQuizExercise2";
 import { additionalExercises, elementKeyMap } from "@/data/additionalPromptExercises";
@@ -1888,6 +1889,16 @@ This report will be used to brief the design team and guide future optimization 
     content: (
       <ContentSlide title="" layout="center">
         <RubricDissectionSlide />
+      </ContentSlide>
+    ),
+  },
+  {
+    id: "rubrics-using-links",
+    section: "Rubrics",
+    title: "Using Links in Prompts",
+    content: (
+      <ContentSlide title="" layout="center">
+        <UsingLinksSlide />
       </ContentSlide>
     ),
   },
