@@ -2594,22 +2594,6 @@ This report will be used to brief the design team and guide future optimization 
             </p>
           </div>
 
-          {/* Block 4: Goal of Dogfooding */}
-          <div className="bg-card border-l-4 border-muted-foreground/30 rounded-r-lg p-6">
-            <p className="text-xs uppercase tracking-wider text-muted-foreground mb-3">What the Goal of Dogfooding Is</p>
-            <p className="text-foreground leading-relaxed mb-4">
-              The goal of dogfooding is to confirm that:
-            </p>
-            <ul className="list-disc list-outside ml-6 space-y-2 text-foreground">
-              <li>The rubric is generalizable</li>
-              <li>It behaves as intended across different styles and structures</li>
-              <li>Good responses consistently score well</li>
-              <li>Bad responses consistently score poorly</li>
-            </ul>
-            <p className="text-foreground leading-relaxed mt-4">
-              If the rubric does not behave this way, it needs revision.
-            </p>
-          </div>
 
           {/* Block 5: What to Dogfood */}
           <div className="bg-card border-l-4 border-muted-foreground/30 rounded-r-lg p-6">
