@@ -138,13 +138,13 @@ const RubricDissectionSlide = () => {
           </Card>
         </div>
 
-        {/* 3. Annotation Cards - Horizontal Stacked */}
+        {/* 3. Annotation Cards - Vertical Stack */}
         <div>
           <div className="flex items-center gap-2 text-sm font-medium text-muted-foreground mb-2">
             <BookOpen className="w-4 h-4" />
             Rubric Components
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
+          <div className="space-y-3">
             {ANNOTATIONS.map((annotation) => {
               const revealed = isRevealed(annotation.id);
               return (
@@ -152,32 +152,34 @@ const RubricDissectionSlide = () => {
                   key={annotation.id}
                   onClick={() => toggleAnnotation(annotation.id)}
                   className={cn(
-                    "p-4 rounded-xl border-2 text-left transition-all cursor-pointer",
+                    "w-full p-4 rounded-xl border-2 text-left transition-all cursor-pointer",
                     revealed
                       ? "border-primary bg-primary/10 shadow-lg"
                       : "border-muted-foreground/30 bg-muted/50 hover:border-primary/50 hover:shadow-md"
                   )}
                 >
-                  <div className="flex items-center gap-2 mb-2">
+                  <div className="flex items-start gap-4">
                     <div className={cn(
-                      "w-8 h-8 rounded-lg flex items-center justify-center",
+                      "w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0",
                       revealed ? "bg-primary/20 text-primary" : "bg-muted text-muted-foreground"
                     )}>
                       {annotation.icon}
                     </div>
-                    <span className={cn(
-                      "text-sm font-bold uppercase tracking-wide",
-                      revealed ? "text-primary" : "text-muted-foreground"
-                    )}>
-                      {annotation.title}
-                    </span>
+                    <div className="flex-1">
+                      <span className={cn(
+                        "text-sm font-bold uppercase tracking-wide block mb-1",
+                        revealed ? "text-primary" : "text-muted-foreground"
+                      )}>
+                        {annotation.title}
+                      </span>
+                      <p className={cn(
+                        "text-sm leading-relaxed transition-all",
+                        revealed ? "text-foreground" : "text-muted-foreground/40 blur-[3px] select-none"
+                      )}>
+                        {annotation.description}
+                      </p>
+                    </div>
                   </div>
-                  <p className={cn(
-                    "text-xs leading-relaxed transition-all",
-                    revealed ? "text-foreground" : "text-muted-foreground/40 blur-[3px] select-none"
-                  )}>
-                    {annotation.description}
-                  </p>
                 </button>
               );
             })}
