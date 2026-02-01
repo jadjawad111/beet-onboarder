@@ -1877,41 +1877,6 @@ This report will be used to brief the design team and guide future optimization 
             </p>
           </div>
 
-          {/* Criterion Components */}
-          <div>
-            <p className="text-sm text-muted-foreground mb-3">Each criterion (a row in a rubric) includes the following components:</p>
-            <div className="space-y-3">
-              {/* Criterion */}
-              <div className="p-4 rounded-lg border bg-card">
-                <p className="font-semibold text-foreground">Criterion</p>
-                <p className="text-sm text-muted-foreground">A binary true or false statement that measures something about the expected response.</p>
-              </div>
-
-              {/* Weight */}
-              <div className="p-4 rounded-lg border bg-card">
-                <p className="font-semibold text-foreground">Weight</p>
-                <p className="text-sm text-muted-foreground">A score from -100 to 100 that represents how important that criterion is.</p>
-              </div>
-
-              {/* Category */}
-              <div className="p-4 rounded-lg border bg-card">
-                <p className="font-semibold text-foreground">Category</p>
-                <p className="text-sm text-muted-foreground">What aspect of the deliverable the criterion evaluates.</p>
-              </div>
-
-              {/* Rationale */}
-              <div className="p-4 rounded-lg border bg-card">
-                <p className="font-semibold text-foreground">Rationale</p>
-                <p className="text-sm text-muted-foreground">Your explanation for why the criterion exists and why it matters to evaluate.</p>
-              </div>
-
-              {/* Implicit or Explicit */}
-              <div className="p-4 rounded-lg border bg-card">
-                <p className="font-semibold text-foreground">Implicit or Explicit</p>
-                <p className="text-sm text-muted-foreground">Whether the criterion measures something explicitly asked for in the prompt, or something implied that requires expert judgment.</p>
-              </div>
-            </div>
-          </div>
         </div>
       </ContentSlide>
     ),
