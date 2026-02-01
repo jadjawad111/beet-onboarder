@@ -105,9 +105,32 @@ const slides: Slide[] = [
       </ContentSlide>
     ),
   },
+
+  // ═══════════════════════════════════════════════════════════════
+  // SECTION 2: Prompt Writing
+  // ═══════════════════════════════════════════════════════════════
+  {
+    id: "prompt-intro",
+    section: "Prompt Writing",
+    title: "Introduction",
+    content: (
+      <SectionDividerSlide 
+        moduleNumber={2}
+        title="Prompt Writing"
+        subtitle="Crafting effective prompts for professional tasks"
+        topics={[
+          "What is a prompt?",
+          'What makes a prompt "good"',
+          "The 6 core elements of quality prompts",
+          "Deep dive into each element with examples",
+          "Interactive exercises to test your understanding",
+        ]}
+      />
+    ),
+  },
   {
     id: "overview-accomplish-goal",
-    section: "Overview of Project Beet",
+    section: "Prompt Writing",
     title: "Your contribution",
     content: (
       <ContentSlide title="How does what you do accomplish the goal?" layout="left">
@@ -132,29 +155,6 @@ const slides: Slide[] = [
           </div>
         </div>
       </ContentSlide>
-    ),
-  },
-
-  // ═══════════════════════════════════════════════════════════════
-  // SECTION 2: Prompt Writing
-  // ═══════════════════════════════════════════════════════════════
-  {
-    id: "prompt-intro",
-    section: "Prompt Writing",
-    title: "Introduction",
-    content: (
-      <SectionDividerSlide 
-        moduleNumber={2}
-        title="Prompt Writing"
-        subtitle="Crafting effective prompts for professional tasks"
-        topics={[
-          "What is a prompt?",
-          'What makes a prompt "good"',
-          "The 6 core elements of quality prompts",
-          "Deep dive into each element with examples",
-          "Interactive exercises to test your understanding",
-        ]}
-      />
     ),
   },
   {
