@@ -183,8 +183,8 @@ const assessmentSlides: Slide[] = [
     title: "Exercise #1",
     content: (
       <ContentSlide title="" layout="full">
-        <ScrollArea className="h-[calc(100vh-120px)]">
-          <div className="space-y-6 pr-4">
+        <ScrollArea className="h-[calc(100vh-200px)] w-full">
+          <div className="space-y-6 max-w-5xl mx-auto px-4">
             {/* Prompt Section */}
             <div>
               <h3 className="text-lg font-semibold mb-2">Prompt</h3>
@@ -239,8 +239,8 @@ const assessmentSlides: Slide[] = [
     title: "Exercise #2",
     content: (
       <ContentSlide title="" layout="full">
-        <ScrollArea className="h-[calc(100vh-120px)]">
-          <div className="space-y-6 pr-4">
+        <ScrollArea className="h-[calc(100vh-200px)] w-full">
+          <div className="space-y-6 max-w-5xl mx-auto px-4">
             {/* Prompt Section */}
             <div>
               <h3 className="text-lg font-semibold mb-2">Prompt</h3>
