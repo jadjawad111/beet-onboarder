@@ -159,62 +159,72 @@ const UsingLinksSlide = () => {
       </Card>
 
       {/* Bad Examples */}
-      <Card className="border-destructive/20 bg-destructive/5">
+      <Card>
         <CardContent className="p-5">
           <h3 className="font-semibold text-foreground mb-4 flex items-center gap-2 text-base">
             <XCircle className="w-5 h-5 text-destructive" />
             Bad Examples (and what to do instead)
           </h3>
-          <div className="space-y-5">
+          <div className="space-y-4">
             {/* Bad Example 1 */}
-            <div className="bg-background/50 rounded-lg p-4 border border-destructive/20">
-              <p className="text-xs font-semibold text-destructive mb-2 uppercase tracking-wide">Bad Example 1: Paywalled / gated link is required</p>
-              <div className="bg-destructive/10 rounded p-3 border border-destructive/20 mb-3">
-                <p className="text-xs font-medium text-muted-foreground mb-1">Bad Prompt:</p>
-                <p className="text-sm italic leading-relaxed">
+            <div className="rounded-lg p-4 border bg-muted/30">
+              <p className="text-xs font-semibold text-destructive mb-3 uppercase tracking-wide text-center">
+                Bad Example 1: Paywalled / Gated Link is Required
+              </p>
+              <div className="bg-background rounded-lg p-3 border mb-3">
+                <p className="text-xs text-muted-foreground mb-1 text-center">Bad Prompt:</p>
+                <p className="text-sm italic text-center">
                   "Read this Bloomberg article and summarize it: [link]"
                 </p>
               </div>
-              <div className="flex items-start gap-2">
+              <div className="flex items-start gap-2 justify-center">
                 <AlertTriangle className="w-4 h-4 text-destructive flex-shrink-0 mt-0.5" />
-                <p className="text-sm text-muted-foreground"><strong>Why it breaks:</strong> Access is not guaranteed. Bloomberg articles are often paywalled.</p>
+                <p className="text-sm text-muted-foreground">
+                  <strong>Why it breaks:</strong> Access is not guaranteed. Bloomberg articles are often paywalled.
+                </p>
               </div>
             </div>
 
             {/* Bad Example 2 */}
-            <div className="bg-background/50 rounded-lg p-4 border border-destructive/20">
-              <p className="text-xs font-semibold text-destructive mb-2 uppercase tracking-wide">Bad Example 2: Vague "use this link" with no direction</p>
-              <div className="bg-destructive/10 rounded p-3 border border-destructive/20 mb-3">
-                <p className="text-xs font-medium text-muted-foreground mb-1">Bad Prompt:</p>
-                <p className="text-sm italic leading-relaxed">
+            <div className="rounded-lg p-4 border bg-muted/30">
+              <p className="text-xs font-semibold text-destructive mb-3 uppercase tracking-wide text-center">
+                Bad Example 2: Vague "use this link" with no direction
+              </p>
+              <div className="bg-background rounded-lg p-3 border mb-3">
+                <p className="text-xs text-muted-foreground mb-1 text-center">Bad Prompt:</p>
+                <p className="text-sm italic text-center">
                   "Use this website to complete the task: https://example.com"
                 </p>
               </div>
-              <div className="flex items-start gap-2">
+              <div className="flex items-start gap-2 justify-center">
                 <AlertTriangle className="w-4 h-4 text-destructive flex-shrink-0 mt-0.5" />
-                <p className="text-sm text-muted-foreground"><strong>Why it breaks:</strong> No scope: what to pull, what matters, what format, what output?</p>
+                <p className="text-sm text-muted-foreground">
+                  <strong>Why it breaks:</strong> No scope: what to pull, what matters, what format, what output?
+                </p>
               </div>
             </div>
 
             {/* Bad Example 3 */}
-            <div className="bg-background/50 rounded-lg p-4 border border-destructive/20">
-              <p className="text-xs font-semibold text-destructive mb-2 uppercase tracking-wide">Bad Example 3: Real-time web state treated as reproducible</p>
-              <div className="bg-destructive/10 rounded p-3 border border-destructive/20 mb-3">
-                <p className="text-xs font-medium text-muted-foreground mb-1">Bad Prompt:</p>
-                <p className="text-sm italic leading-relaxed">
+            <div className="rounded-lg p-4 border bg-muted/30">
+              <p className="text-xs font-semibold text-destructive mb-3 uppercase tracking-wide text-center">
+                Bad Example 3: Real-time web state treated as reproducible
+              </p>
+              <div className="bg-background rounded-lg p-3 border mb-3">
+                <p className="text-xs text-muted-foreground mb-1 text-center">Bad Prompt:</p>
+                <p className="text-sm italic text-center">
                   "Check current listings on LoopNet and summarize the top 10…"
                 </p>
               </div>
-              <div className="flex items-start gap-2">
-                <AlertTriangle className="w-4 h-4 text-destructive flex-shrink-0 mt-0.5" />
-                <div className="text-sm text-muted-foreground">
-                  <p><strong>Why it breaks:</strong></p>
-                  <ul className="mt-1 space-y-1">
-                    <li>• Results can change run-to-run</li>
-                    <li>• "Top 10" is not stable without filters + time + explicit variability</li>
-                    <li>• Task becomes not timeless!</li>
-                  </ul>
+              <div className="flex flex-col items-center gap-1">
+                <div className="flex items-center gap-2">
+                  <AlertTriangle className="w-4 h-4 text-destructive flex-shrink-0" />
+                  <p className="text-sm font-medium text-muted-foreground">Why it breaks:</p>
                 </div>
+                <ul className="text-sm text-muted-foreground space-y-0.5 text-center">
+                  <li>• Results can change run-to-run</li>
+                  <li>• "Top 10" is not stable without filters + time + explicit variability</li>
+                  <li>• Task becomes not timeless!</li>
+                </ul>
               </div>
             </div>
           </div>
