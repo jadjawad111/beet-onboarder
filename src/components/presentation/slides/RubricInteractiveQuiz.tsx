@@ -1,14 +1,15 @@
-import React, { useState, useMemo } from "react";
-import { Card, CardContent } from "@/components/ui/card";
+import React, { useState, useMemo, useEffect } from "react";
 import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { 
+  CheckCircle2, 
+  XCircle, 
+  AlertTriangle, 
   FileText, 
   ExternalLink,
-  Check,
-  X,
-  AlertCircle,
-  CheckCircle2,
+  Trophy,
+  Target
 } from "lucide-react";
 import {
   Table,
@@ -18,18 +19,6 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from "@/components/ui/collapsible";
 
 export type ErrorType = 
   | "ambiguous" 
@@ -66,6 +55,22 @@ interface RubricInteractiveQuizProps {
   onGateUnlock?: () => void;
 }
 
+const errorTypeLabels: Record<ErrorType, string> = {
+  "ambiguous": "Ambiguous",
+  "not-self-contained": "Not self-contained",
+  "stacked": "Stacked",
+  "convoluted-phrasing": "Convoluted phrasing",
+  "process-words": "Process words",
+};
+
+const errorTypeOptions: ErrorType[] = [
+  "ambiguous",
+  "not-self-contained",
+  "stacked",
+  "convoluted-phrasing",
+  "process-words",
+];
+
 const categoryColors: Record<string, string> = {
   "Instruction Following": "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400",
   "Formatting": "bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-400",
@@ -78,13 +83,10 @@ const categoryColors: Record<string, string> = {
   "Extraction": "bg-cyan-100 text-cyan-700 dark:bg-cyan-900/30 dark:text-cyan-400",
 };
 
-const errorTypeLabels: Record<ErrorType, string> = {
-  "ambiguous": "Ambiguous",
-  "not-self-contained": "Not self-contained",
-  "stacked": "Stacked",
-  "convoluted-phrasing": "Convoluted phrasing",
-  "process-words": "Process words",
-};
+interface CriterionAnswer {
+  hasError: "yes" | "no" | null;
+  errorType: ErrorType | null;
+}
 
 const RubricInteractiveQuiz = ({
   exerciseNumber,
@@ -107,122 +109,133 @@ const RubricInteractiveQuiz = ({
     return [];
   }, [deliverables, deliverableUrl, deliverableTitle]);
 
-  // Track user answers: null = not answered, true = has error, false = no error
-  const [answers, setAnswers] = useState<Record<number, boolean | null>>(() => {
-    const initial: Record<number, boolean | null> = {};
+  const [answers, setAnswers] = useState<Record<number, CriterionAnswer>>(() => {
+    const initial: Record<number, CriterionAnswer> = {};
     criteria.forEach(c => {
-      initial[c.id] = null;
+      initial[c.id] = { hasError: null, errorType: null };
     });
     return initial;
   });
+  
+  const [submitted, setSubmitted] = useState(false);
+  const [submittedCriteria, setSubmittedCriteria] = useState<Set<number>>(new Set());
 
-  // Track selected error types
-  const [selectedErrorTypes, setSelectedErrorTypes] = useState<Record<number, ErrorType | null>>(() => {
-    const initial: Record<number, ErrorType | null> = {};
-    criteria.forEach(c => {
-      initial[c.id] = null;
-    });
-    return initial;
-  });
-
-  // Track which rows have been checked
-  const [checkedRows, setCheckedRows] = useState<Record<number, boolean>>(() => {
-    const initial: Record<number, boolean> = {};
-    criteria.forEach(c => {
-      initial[c.id] = false;
-    });
-    return initial;
-  });
-
-  // Count answered questions
-  const answeredCount = useMemo(() => {
-    return Object.values(answers).filter(a => a !== null).length;
-  }, [answers]);
-
-  // Count checked questions
-  const checkedCount = useMemo(() => {
-    return Object.values(checkedRows).filter(c => c).length;
-  }, [checkedRows]);
-
-  // Calculate score
-  const score = useMemo(() => {
-    let correct = 0;
-    let total = 0;
-    criteria.forEach(c => {
-      if (checkedRows[c.id]) {
-        total++;
-        const userSaysError = answers[c.id];
-        const actualHasError = c.hasError;
-        const errorTypeCorrect = !actualHasError || (selectedErrorTypes[c.id] === c.errorType);
-        if (userSaysError === actualHasError && errorTypeCorrect) {
-          correct++;
-        }
-      }
-    });
-    return { correct, total };
-  }, [checkedRows, answers, selectedErrorTypes, criteria]);
-
-  const handleAnswerChange = (criterionId: number, hasError: boolean) => {
+  const handleHasErrorChange = (criterionId: number, value: "yes" | "no") => {
+    if (submitted) return;
     setAnswers(prev => ({
       ...prev,
-      [criterionId]: hasError,
+      [criterionId]: {
+        hasError: value,
+        errorType: value === "no" ? null : prev[criterionId].errorType,
+      },
     }));
-
-    // Clear error type if user selects "No"
-    if (!hasError) {
-      setSelectedErrorTypes(prev => ({
-        ...prev,
-        [criterionId]: null,
-      }));
-    }
   };
 
-  const handleErrorTypeChange = (criterionId: number, errorType: ErrorType) => {
-    setSelectedErrorTypes(prev => ({
+  const handleErrorTypeChange = (criterionId: number, value: ErrorType) => {
+    if (submitted) return;
+    setAnswers(prev => ({
       ...prev,
-      [criterionId]: errorType,
+      [criterionId]: {
+        ...prev[criterionId],
+        errorType: value,
+      },
     }));
   };
 
-  const handleCheckRow = (criterionId: number) => {
-    setCheckedRows(prev => ({
-      ...prev,
-      [criterionId]: true,
-    }));
-  };
-
-  const handleSubmitAll = () => {
-    const newCheckedRows: Record<number, boolean> = {};
-    criteria.forEach(c => {
-      if (answers[c.id] !== null) {
-        newCheckedRows[c.id] = true;
-      }
-    });
-    setCheckedRows(prev => ({ ...prev, ...newCheckedRows }));
-
-    // Trigger completion callbacks
-    const allAnswered = Object.values(answers).every(a => a !== null);
-    if (allAnswered && onComplete) {
-      onComplete();
-    }
-    if (allAnswered && onGateUnlock) {
-      onGateUnlock();
-    }
-  };
-
-  const isRowCorrect = (criterion: CriterionData) => {
-    const userSaysError = answers[criterion.id];
-    const actualHasError = criterion.hasError;
-    
-    if (userSaysError !== actualHasError) return false;
-    
-    // If actual has error, also check error type
-    if (actualHasError) {
-      return selectedErrorTypes[criterion.id] === criterion.errorType;
-    }
-    
+  const isCriterionAnswered = (criterionId: number): boolean => {
+    const answer = answers[criterionId];
+    if (answer.hasError === null) return false;
+    if (answer.hasError === "yes" && answer.errorType === null) return false;
     return true;
   };
+
+  const allAnswered = useMemo(() => {
+    return criteria.every(c => isCriterionAnswered(c.id));
+  }, [answers, criteria]);
+
+  const handleSubmitAll = () => {
+    if (!allAnswered) return;
+    setSubmitted(true);
+    setSubmittedCriteria(new Set(criteria.map(c => c.id)));
+  };
+
+  const handleSubmitCriterion = (criterionId: number) => {
+    if (!isCriterionAnswered(criterionId)) return;
+    setSubmittedCriteria(prev => new Set(prev).add(criterionId));
+  };
+
+  const isCriterionSubmitted = (criterionId: number): boolean => {
+    return submitted || submittedCriteria.has(criterionId);
+  };
+
+  useEffect(() => {
+    const allSubmittedIndividually = criteria.every(c => submittedCriteria.has(c.id));
+    if (submitted || allSubmittedIndividually) {
+      onComplete?.();
+      onGateUnlock?.();
+    }
+  }, [submitted, submittedCriteria, criteria, onComplete, onGateUnlock]);
+
+  const getScore = (criterion: CriterionData, answer: CriterionAnswer): "full" | "partial" | "none" => {
+    const userSaysError = answer.hasError === "yes";
+    const actuallyHasError = criterion.hasError ?? false;
+
+    if (userSaysError === actuallyHasError) {
+      if (!actuallyHasError) {
+        return "full";
+      } else {
+        if (answer.errorType === criterion.errorType) {
+          return "full";
+        } else {
+          return "partial";
+        }
+      }
+    }
+    return "none";
+  };
+
+  const results = useMemo(() => {
+    if (!submitted) return null;
+    
+    let fullCredit = 0;
+    let partialCredit = 0;
+    let noCredit = 0;
+    const missedErrorTypes: Record<ErrorType, number> = {
+      "ambiguous": 0,
+      "not-self-contained": 0,
+      "stacked": 0,
+      "convoluted-phrasing": 0,
+      "process-words": 0,
+    };
+
+    criteria.forEach(c => {
+      const score = getScore(c, answers[c.id]);
+      if (score === "full") fullCredit++;
+      else if (score === "partial") partialCredit++;
+      else noCredit++;
+
+      const actuallyHasError = c.hasError ?? false;
+      if (actuallyHasError && answers[c.id].hasError === "no") {
+        missedErrorTypes[c.errorType!]++;
+      } else if (actuallyHasError && answers[c.id].errorType !== c.errorType) {
+        missedErrorTypes[c.errorType!]++;
+      }
+    });
+
+    const mostMissed = Object.entries(missedErrorTypes)
+      .filter(([_, count]) => count > 0)
+      .sort((a, b) => b[1] - a[1])[0];
+
+    return {
+      total: criteria.length,
+      fullCredit,
+      partialCredit,
+      noCredit,
+      criteriaWithErrors: criteria.filter(c => c.hasError).length,
+      mostMissedType: mostMissed ? mostMissed[0] as ErrorType : null,
+      mostMissedCount: mostMissed ? mostMissed[1] : 0,
+    };
+  }, [submitted, criteria, answers]);
 
   const getEmbedUrl = (url: string) => {
     const match = url.match(/\/d\/([a-zA-Z0-9_-]+)/);
@@ -232,12 +245,33 @@ const RubricInteractiveQuiz = ({
     return url;
   };
 
+  const answeredCount = criteria.filter(c => isCriterionAnswered(c.id)).length;
+
   return (
     <div className="space-y-6 w-full">
       {/* Header */}
       <div>
         <h2 className="text-2xl font-bold mb-2">Exercise #{exerciseNumber}</h2>
+        <p className="text-muted-foreground">
+          Review each rubric criterion and identify any errors.
+        </p>
       </div>
+
+      {/* Instructions Card */}
+      <Card className="bg-muted/30">
+        <CardContent className="p-4">
+          <div className="flex items-start gap-3">
+            <Target className="w-5 h-5 text-primary mt-0.5" />
+            <div>
+              <h4 className="font-medium mb-1">Instructions</h4>
+              <p className="text-sm text-muted-foreground">
+                For each criterion: select No or Yes for errors. 
+                If yes, choose the error type. You can check individual criteria or submit all at once.
+              </p>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
 
       {/* Prompt */}
       <Card>
@@ -284,24 +318,14 @@ const RubricInteractiveQuiz = ({
         </Card>
       ))}
 
-      {/* Progress and Score */}
-      <div className="flex items-center justify-between">
-        <div className="text-sm text-muted-foreground">
-          Progress: <span className="font-bold text-foreground">{answeredCount}</span> / {criteria.length} answered
-          {checkedCount > 0 && (
-            <span className="ml-4">
-              Score: <span className="font-bold text-foreground">{score.correct}</span> / {score.total} correct
-            </span>
-          )}
-        </div>
-        <Button 
-          onClick={handleSubmitAll}
-          disabled={answeredCount === 0}
-          className="gap-2"
-        >
-          <Check className="w-4 h-4" />
-          Submit All
-        </Button>
+      {/* Progress indicator */}
+      <div className="flex items-center justify-between text-sm">
+        <span className="text-muted-foreground">
+          Progress: <strong>{answeredCount}</strong> / {criteria.length} answered
+        </span>
+        {!submitted && answeredCount === criteria.length && (
+          <span className="text-green-600 font-medium">Ready to submit!</span>
+        )}
       </div>
 
       {/* Rubric Criteria Table */}
@@ -312,25 +336,31 @@ const RubricInteractiveQuiz = ({
             <TableHeader>
               <TableRow className="bg-muted/50">
                 <TableHead className="w-12 text-center">#</TableHead>
-                <TableHead className="min-w-[250px]">Criterion</TableHead>
-                <TableHead className="w-20 text-center">Weight</TableHead>
-                <TableHead className="w-40">Category</TableHead>
+                <TableHead className="min-w-[300px]">Criterion</TableHead>
+                <TableHead className="w-16 text-center">Weight</TableHead>
+                <TableHead className="w-36">Category</TableHead>
                 <TableHead className="w-28 text-center">Error?</TableHead>
                 <TableHead className="min-w-[180px]">Error Type</TableHead>
-                <TableHead className="w-24 text-center">Check</TableHead>
+                <TableHead className="w-24 text-center">Action</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
               {criteria.map((criterion) => {
-                const isChecked = checkedRows[criterion.id];
-                const isCorrect = isChecked ? isRowCorrect(criterion) : null;
+                const answer = answers[criterion.id];
+                const isThisSubmitted = isCriterionSubmitted(criterion.id);
+                const score = isThisSubmitted ? getScore(criterion, answer) : null;
+                const canSubmitThis = isCriterionAnswered(criterion.id) && !isThisSubmitted;
                 
                 return (
                   <React.Fragment key={criterion.id}>
-                    <TableRow className={cn(
-                      isChecked && isCorrect && "bg-green-50 dark:bg-green-900/10",
-                      isChecked && !isCorrect && "bg-red-50 dark:bg-red-900/10"
-                    )}>
+                    <TableRow
+                      className={cn(
+                        "transition-colors",
+                        isThisSubmitted && score === "full" && "bg-green-500/5",
+                        isThisSubmitted && score === "partial" && "bg-amber-500/5",
+                        isThisSubmitted && score === "none" && "bg-destructive/5"
+                      )}
+                    >
                       <TableCell className="text-center font-medium text-muted-foreground">
                         {criterion.id}
                       </TableCell>
@@ -349,29 +379,29 @@ const RubricInteractiveQuiz = ({
                         </span>
                       </TableCell>
                       <TableCell>
-                        <div className="flex items-center justify-center gap-1">
+                        <div className="flex justify-center gap-1">
                           <button
-                            onClick={() => handleAnswerChange(criterion.id, false)}
-                            disabled={isChecked}
+                            onClick={() => handleHasErrorChange(criterion.id, "no")}
+                            disabled={isThisSubmitted}
                             className={cn(
-                              "px-3 py-1 text-xs font-medium rounded-l-md border transition-colors",
-                              answers[criterion.id] === false
-                                ? "bg-muted text-foreground border-border"
-                                : "bg-background text-muted-foreground border-border hover:bg-muted/50",
-                              isChecked && "opacity-60 cursor-not-allowed"
+                              "px-2 py-1 text-xs rounded transition-all",
+                              answer.hasError === "no" 
+                                ? "bg-green-500 text-white" 
+                                : "bg-muted hover:bg-muted/80 text-muted-foreground",
+                              isThisSubmitted && "cursor-default opacity-70"
                             )}
                           >
                             No
                           </button>
                           <button
-                            onClick={() => handleAnswerChange(criterion.id, true)}
-                            disabled={isChecked}
+                            onClick={() => handleHasErrorChange(criterion.id, "yes")}
+                            disabled={isThisSubmitted}
                             className={cn(
-                              "px-3 py-1 text-xs font-medium rounded-r-md border-t border-r border-b transition-colors",
-                              answers[criterion.id] === true
-                                ? "bg-muted text-foreground border-border"
-                                : "bg-background text-muted-foreground border-border hover:bg-muted/50",
-                              isChecked && "opacity-60 cursor-not-allowed"
+                              "px-2 py-1 text-xs rounded transition-all",
+                              answer.hasError === "yes" 
+                                ? "bg-destructive text-white" 
+                                : "bg-muted hover:bg-muted/80 text-muted-foreground",
+                              isThisSubmitted && "cursor-default opacity-70"
                             )}
                           >
                             Yes
@@ -379,104 +409,82 @@ const RubricInteractiveQuiz = ({
                         </div>
                       </TableCell>
                       <TableCell>
-                        {answers[criterion.id] === true ? (
-                          <Select
-                            value={selectedErrorTypes[criterion.id] || ""}
-                            onValueChange={(value) => handleErrorTypeChange(criterion.id, value as ErrorType)}
-                            disabled={isChecked}
+                        {answer.hasError === "yes" && !isThisSubmitted && (
+                          <select
+                            value={answer.errorType ?? ""}
+                            onChange={(e) => handleErrorTypeChange(criterion.id, e.target.value as ErrorType)}
+                            className={cn(
+                              "w-full text-xs p-1.5 rounded border bg-background",
+                              !answer.errorType && "text-muted-foreground"
+                            )}
                           >
-                            <SelectTrigger className={cn("h-8 text-xs", isChecked && "opacity-60")}>
-                              <SelectValue placeholder="Select error type..." />
-                            </SelectTrigger>
-                            <SelectContent>
-                              {Object.entries(errorTypeLabels).map(([value, label]) => (
-                                <SelectItem key={value} value={value} className="text-xs">
-                                  {label}
-                                </SelectItem>
-                              ))}
-                            </SelectContent>
-                          </Select>
-                        ) : (
-                          <span className="text-muted-foreground">—</span>
+                            <option value="">Select...</option>
+                            {errorTypeOptions.map((type) => (
+                              <option key={type} value={type}>
+                                {errorTypeLabels[type]}
+                              </option>
+                            ))}
+                          </select>
+                        )}
+                        {answer.hasError === "yes" && isThisSubmitted && (
+                          <span className="text-xs">{answer.errorType ? errorTypeLabels[answer.errorType] : "—"}</span>
+                        )}
+                        {answer.hasError === "no" && (
+                          <span className="text-xs text-muted-foreground">—</span>
+                        )}
+                        {answer.hasError === null && (
+                          <span className="text-xs text-muted-foreground">—</span>
                         )}
                       </TableCell>
                       <TableCell className="text-center">
-                        {isChecked ? (
-                          <div className="flex items-center justify-center">
-                            {isCorrect ? (
-                              <CheckCircle2 className="w-5 h-5 text-green-600" />
-                            ) : (
-                              <X className="w-5 h-5 text-red-600" />
-                            )}
+                        {isThisSubmitted ? (
+                          <div className="flex justify-center">
+                            {score === "full" && <CheckCircle2 className="w-5 h-5 text-green-500" />}
+                            {score === "partial" && <AlertTriangle className="w-5 h-5 text-amber-500" />}
+                            {score === "none" && <XCircle className="w-5 h-5 text-destructive" />}
                           </div>
-                        ) : (
+                        ) : canSubmitThis ? (
                           <Button
                             size="sm"
                             variant="outline"
-                            onClick={() => handleCheckRow(criterion.id)}
-                            disabled={answers[criterion.id] === null}
-                            className="h-7 text-xs"
+                            onClick={() => handleSubmitCriterion(criterion.id)}
+                            className="text-xs h-7 px-2"
                           >
                             Check
                           </Button>
+                        ) : (
+                          <span className="text-xs text-muted-foreground">—</span>
                         )}
                       </TableCell>
                     </TableRow>
                     
-                    {/* Feedback row - shows when checked and incorrect */}
-                    {isChecked && !isCorrect && (
-                      <TableRow className="bg-red-50/50 dark:bg-red-900/5">
-                        <TableCell colSpan={7} className="py-3">
-                          <div className="flex gap-3 items-start">
-                            <AlertCircle className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" />
-                            <div className="space-y-2 text-sm">
-                              <div>
-                                <span className="font-medium">Correct answer: </span>
+                    {/* Feedback row */}
+                    {isThisSubmitted && (
+                      <TableRow key={`${criterion.id}-feedback`}>
+                        <TableCell colSpan={7} className="bg-muted/30 p-0">
+                          <div className={cn(
+                            "p-3 border-l-4",
+                            score === "full" && "border-l-green-500",
+                            score === "partial" && "border-l-amber-500",
+                            score === "none" && "border-l-destructive"
+                          )}>
+                            <div className="space-y-1.5 text-sm">
+                              <p className="font-medium">
                                 {criterion.hasError ? (
-                                  <span>
-                                    Yes — <span className="font-medium">{errorTypeLabels[criterion.errorType!]}</span>
-                                  </span>
+                                  <>Correct: <span className="text-destructive">{errorTypeLabels[criterion.errorType!]}</span></>
                                 ) : (
-                                  <span>No (this criterion is well-formed)</span>
+                                  <span className="text-green-600">No error — criterion is correct</span>
                                 )}
-                              </div>
+                              </p>
                               {criterion.explanation && (
-                                <div className="text-muted-foreground">
-                                  <span className="font-medium text-foreground">Why: </span>
-                                  {criterion.explanation}
-                                </div>
+                                <p className="text-muted-foreground text-xs">
+                                  <strong>Why:</strong> {criterion.explanation}
+                                </p>
                               )}
                               {criterion.howToFix && (
-                                <div className="text-muted-foreground">
-                                  <span className="font-medium text-foreground">How to fix: </span>
-                                  {criterion.howToFix}
-                                </div>
-                              )}
-                            </div>
-                          </div>
-                        </TableCell>
-                      </TableRow>
-                    )}
-                    
-                    {/* Feedback row - shows when checked and correct but has error (show explanation anyway) */}
-                    {isChecked && isCorrect && criterion.hasError && (
-                      <TableRow className="bg-green-50/50 dark:bg-green-900/5">
-                        <TableCell colSpan={7} className="py-3">
-                          <div className="flex gap-3 items-start">
-                            <CheckCircle2 className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
-                            <div className="space-y-2 text-sm">
-                              <div className="font-medium text-green-700 dark:text-green-400">Correct!</div>
-                              {criterion.explanation && (
-                                <div className="text-muted-foreground">
-                                  <span className="font-medium text-foreground">Explanation: </span>
-                                  {criterion.explanation}
-                                </div>
-                              )}
-                              {criterion.howToFix && (
-                                <div className="text-muted-foreground">
-                                  <span className="font-medium text-foreground">How to fix: </span>
-                                  {criterion.howToFix}
-                                </div>
+                                <p className="text-muted-foreground text-xs">
+                                  <strong>Fix:</strong> {criterion.howToFix}
+                                </p>
                               )}
                             </div>
                           </div>
@@ -490,6 +498,74 @@ const RubricInteractiveQuiz = ({
           </Table>
         </div>
       </div>
+
+      {/* Submit All Button */}
+      {!submitted && (
+        <div className="mt-6">
+          <Button 
+            onClick={handleSubmitAll} 
+            size="lg" 
+            className="w-full text-lg py-6"
+            disabled={!allAnswered}
+          >
+            {allAnswered 
+              ? "Submit All Answers" 
+              : `Complete all criteria to submit (${answeredCount}/${criteria.length})`
+            }
+          </Button>
+        </div>
+      )}
+
+      {/* Summary Screen */}
+      {submitted && results && (
+        <Card className="border-2 border-primary/30">
+          <CardContent className="p-6">
+            <div className="flex items-center gap-4 mb-6">
+              <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
+                <Trophy className="w-6 h-6 text-primary" />
+              </div>
+              <div>
+                <h3 className="text-xl font-bold">Exercise Complete</h3>
+                <p className="text-muted-foreground">Final Results</p>
+              </div>
+            </div>
+
+            <div className="grid md:grid-cols-3 gap-4 mb-6">
+              <div className="p-4 rounded-lg bg-green-500/10 border border-green-500/30 text-center">
+                <p className="text-3xl font-bold text-green-600">{results.fullCredit}</p>
+                <p className="text-sm text-muted-foreground">Full Credit</p>
+              </div>
+              <div className="p-4 rounded-lg bg-amber-500/10 border border-amber-500/30 text-center">
+                <p className="text-3xl font-bold text-amber-600">{results.partialCredit}</p>
+                <p className="text-sm text-muted-foreground">Partial Credit</p>
+              </div>
+              <div className="p-4 rounded-lg bg-destructive/10 border border-destructive/30 text-center">
+                <p className="text-3xl font-bold text-destructive">{results.noCredit}</p>
+                <p className="text-sm text-muted-foreground">No Credit</p>
+              </div>
+            </div>
+
+            <div className="space-y-2 text-sm">
+              <div className="flex justify-between py-2 border-b">
+                <span className="text-muted-foreground">Total criteria</span>
+                <span className="font-medium">{results.total}</span>
+              </div>
+              <div className="flex justify-between py-2 border-b">
+                <span className="text-muted-foreground">Criteria with errors</span>
+                <span className="font-medium">{results.criteriaWithErrors}</span>
+              </div>
+              {results.mostMissedType && (
+                <div className="flex justify-between py-2">
+                  <span className="text-muted-foreground">Most frequently missed</span>
+                  <span className="font-medium text-destructive">
+                    {errorTypeLabels[results.mostMissedType]} ({results.mostMissedCount})
+                  </span>
+                </div>
+              )}
+            </div>
+          </CardContent>
+        </Card>
+      )}
     </div>
   );
 };
