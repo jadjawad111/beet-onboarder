@@ -132,8 +132,8 @@ const Index = () => {
                     <Mail className="w-5 h-5 text-primary" />
                   </div>
                   <div>
-                    <p className="text-sm font-medium text-foreground group-hover:text-primary transition-colors">Support Email</p>
-                    <p className="text-xs text-muted-foreground">projectbeet@joinhandshake.com</p>
+                    <p className="text-base font-medium text-foreground group-hover:text-primary transition-colors">Support Email</p>
+                    <p className="text-sm text-muted-foreground">projectbeet@joinhandshake.com</p>
                   </div>
                 </a>
                 <a 
@@ -146,8 +146,8 @@ const Index = () => {
                     <MessageCircle className="w-5 h-5 text-[#5865F2]" />
                   </div>
                   <div>
-                    <p className="text-sm font-medium text-foreground group-hover:text-[#5865F2] transition-colors">Discord Community</p>
-                    <p className="text-xs text-muted-foreground">Primary communication channel</p>
+                    <p className="text-base font-medium text-foreground group-hover:text-[#5865F2] transition-colors">Discord Community</p>
+                    <p className="text-sm text-muted-foreground">Primary communication channel</p>
                   </div>
                 </a>
               </div>
