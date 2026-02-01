@@ -759,7 +759,8 @@ const PresentationLayout = ({
         </nav>
         )}
 
-        {/* Exit button */}
+        {/* Exit button - hidden when sidebar collapsed */}
+        {!sidebarCollapsed && (
         <div className="p-4 border-t border-border">
           <button
             onClick={handleExit}
@@ -769,6 +770,7 @@ const PresentationLayout = ({
             <span className="hidden lg:inline">{exitLabel}</span>
           </button>
         </div>
+        )}
       </aside>
 
       {/* Main content area */}
