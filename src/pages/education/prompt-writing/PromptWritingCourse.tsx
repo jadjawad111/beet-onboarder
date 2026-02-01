@@ -111,13 +111,25 @@ const slides: Slide[] = [
     title: "Your contribution",
     content: (
       <ContentSlide title="How does what you do accomplish the goal?" layout="left">
-        <div className="space-y-6">
-          <p>
-            You will be designing realistic tasks that represent your expertise in your domain.
-          </p>
-          <p>
-            You will be training models by coming up with realistic tasks and thoughtful rubrics that evaluate different responses from models in a more programmatic way.
-          </p>
+        <div className="space-y-8">
+          <div className="space-y-4">
+            <p className="text-lg">
+              You will be designing realistic tasks that represent your expertise in your domain.
+            </p>
+            <p className="text-lg">
+              You will be training models by coming up with realistic tasks and thoughtful rubrics that evaluate different responses from models in a more programmatic way.
+            </p>
+          </div>
+          
+          <div className="mt-6">
+            <p className="text-sm uppercase tracking-wide text-muted-foreground font-medium mb-4">The Task Process</p>
+            <TaskProcessOverview 
+              prompt={{}}
+              inputFiles={{}}
+              deliverable={{}}
+              rubric={{}}
+            />
+          </div>
         </div>
       </ContentSlide>
     ),
@@ -201,22 +213,6 @@ const slides: Slide[] = [
             </Card>
           </div>
         </div>
-      </ContentSlide>
-    ),
-  },
-  // Step 5: Show the full Task Process overview first
-  {
-    id: "task-process-overview",
-    section: "Prompt Writing",
-    title: "The Task Process",
-    content: (
-      <ContentSlide title="" layout="center">
-        <TaskProcessOverview 
-          prompt={{}}
-          inputFiles={{}}
-          deliverable={{}}
-          rubric={{}}
-        />
       </ContentSlide>
     ),
   },
