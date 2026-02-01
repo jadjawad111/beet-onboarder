@@ -2,7 +2,8 @@ import { useState } from "react";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { CheckCircle2, XCircle } from "lucide-react";
+import { CheckCircle2, XCircle, SkipForward } from "lucide-react";
+import { PRACTICE_SKIP_EVENT } from "./PracticeOverlay";
 
 type ElementKey = "unambiguous" | "professional" | "realistic" | "timelessness" | "clearAsks" | "clearConstraints";
 
@@ -18,6 +19,8 @@ interface PromptExerciseQuizProps {
   feedback: Record<ElementKey, ElementFeedback>;
   onSubmit?: () => void;
   onGateUnlock?: () => void; // Alternative prop name for gate system
+  showSkipButton?: boolean; // Show "skip to next section" button
+  skipButtonLabel?: string; // Custom label for skip button
 }
 
 const elementLabels: Record<ElementKey, string> = {
@@ -105,6 +108,8 @@ const PromptExerciseQuiz = ({
   feedback,
   onSubmit,
   onGateUnlock,
+  showSkipButton = false,
+  skipButtonLabel = "I'm done practicing, skip to next section",
 }: PromptExerciseQuizProps) => {
   const [selected, setSelected] = useState<Set<ElementKey>>(new Set());
   const [submitted, setSubmitted] = useState(false);
@@ -125,6 +130,10 @@ const PromptExerciseQuiz = ({
     onSubmit?.();
     // Gate unlock: submitting the response is sufficient (no scroll requirement)
     onGateUnlock?.();
+  };
+
+  const handleSkipSection = () => {
+    window.dispatchEvent(new CustomEvent(PRACTICE_SKIP_EVENT));
   };
 
   const isCorrect = (element: ElementKey) => correctAnswers.includes(element);
@@ -295,6 +304,21 @@ const PromptExerciseQuiz = ({
                 );
               })}
             </div>
+          </div>
+        )}
+
+        {/* Skip Section Button */}
+        {showSkipButton && (
+          <div className="mt-6 pt-4 border-t border-border">
+            <Button
+              onClick={handleSkipSection}
+              variant="outline"
+              size="sm"
+              className="w-full gap-2 text-muted-foreground hover:text-foreground"
+            >
+              <SkipForward className="w-4 h-4" />
+              {skipButtonLabel}
+            </Button>
           </div>
         )}
       </div>

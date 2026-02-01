@@ -1534,6 +1534,8 @@ This report will be used to brief the design team and guide future optimization 
             explanation: exercise.detailedFeedback.find(f => f.element === "clearConstraints")?.text || "",
           },
         }}
+        showSkipButton={true}
+        skipButtonLabel="I'm done practicing, teach me about input files"
       />
     ),
   })),
