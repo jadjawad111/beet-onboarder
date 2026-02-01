@@ -4,7 +4,23 @@ import type { Slide } from "@/components/presentation/PresentationLayout";
 import RubricDisplayTable from "@/components/assessment/RubricDisplayTable";
 import type { RubricCriterion } from "@/components/assessment/RubricDisplayTable";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { ExternalLink } from "lucide-react";
+import { Card, CardContent } from "@/components/ui/card";
+import { ExternalLink, FileText } from "lucide-react";
+
+// Helper to convert Google Drive/Docs URLs to embeddable format
+const getEmbedUrl = (url: string) => {
+  // Google Drive file
+  const driveMatch = url.match(/\/d\/([a-zA-Z0-9_-]+)/);
+  if (driveMatch) {
+    return `https://drive.google.com/file/d/${driveMatch[1]}/preview`;
+  }
+  // Google Docs
+  const docsMatch = url.match(/docs\.google\.com\/document\/d\/([a-zA-Z0-9_-]+)/);
+  if (docsMatch) {
+    return `https://docs.google.com/document/d/${docsMatch[1]}/preview`;
+  }
+  return url;
+};
 // Exercise 1 content
 const exercise1Prompt = `You're a Senior Customer Service Representative who's been asked to help train new hires at your financial services contact center. Lately, a few trainees have pulled you aside and said they're struggling to spot the signs of possible elder abuse or financial exploitation during calls. They've asked for clearer examples and a more direct explanation of what to watch for and how to respond when something feels off.
 
@@ -177,26 +193,37 @@ const assessmentSlides: Slide[] = [
               </div>
             </div>
 
-            {/* Deliverable Links */}
-            <div>
-              <h3 className="text-lg font-semibold mb-2">Deliverables</h3>
-              <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-                <div className="flex flex-col gap-3">
-                  {exercise1Deliverables.map((d, idx) => (
+            {/* Deliverables with iframes */}
+            {exercise1Deliverables.map((deliverable, index) => (
+              <Card key={index}>
+                <CardContent className="p-4">
+                  <div className="flex items-center justify-between mb-3">
+                    <div className="flex items-center gap-2">
+                      <FileText className="w-4 h-4 text-muted-foreground" />
+                      <span className="font-medium text-sm">
+                        Deliverable {index + 1}: {deliverable.title}
+                      </span>
+                    </div>
                     <a
-                      key={idx}
-                      href={d.url}
+                      href={deliverable.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 text-blue-700 hover:text-blue-900 hover:underline font-medium"
+                      className="text-xs text-primary hover:underline flex items-center gap-1"
                     >
-                      <ExternalLink className="w-4 h-4" />
-                      {d.title}
+                      Open in new tab <ExternalLink className="w-3 h-3" />
                     </a>
-                  ))}
-                </div>
-              </div>
-            </div>
+                  </div>
+                  <div className="rounded-lg overflow-hidden border bg-white">
+                    <iframe
+                      src={getEmbedUrl(deliverable.url)}
+                      className="w-full h-[600px]"
+                      allow="autoplay"
+                      title={deliverable.title}
+                    />
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
 
             {/* Rubric Table */}
             <RubricDisplayTable criteria={exercise1Criteria} title="Rubric Criteria" />
@@ -222,21 +249,33 @@ const assessmentSlides: Slide[] = [
               </div>
             </div>
 
-            {/* Deliverable Link */}
-            <div>
-              <h3 className="text-lg font-semibold mb-2">Deliverable</h3>
-              <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-                <a
-                  href={exercise2DeliverableUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 text-blue-700 hover:text-blue-900 hover:underline font-medium"
-                >
-                  <ExternalLink className="w-4 h-4" />
-                  {exercise2DeliverableTitle}
-                </a>
-              </div>
-            </div>
+            {/* Deliverable with iframe */}
+            <Card>
+              <CardContent className="p-4">
+                <div className="flex items-center justify-between mb-3">
+                  <div className="flex items-center gap-2">
+                    <FileText className="w-4 h-4 text-muted-foreground" />
+                    <span className="font-medium text-sm">Deliverable: {exercise2DeliverableTitle}</span>
+                  </div>
+                  <a
+                    href={exercise2DeliverableUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-xs text-primary hover:underline flex items-center gap-1"
+                  >
+                    Open in new tab <ExternalLink className="w-3 h-3" />
+                  </a>
+                </div>
+                <div className="rounded-lg overflow-hidden border bg-white">
+                  <iframe
+                    src={getEmbedUrl(exercise2DeliverableUrl)}
+                    className="w-full h-[600px]"
+                    allow="autoplay"
+                    title={exercise2DeliverableTitle}
+                  />
+                </div>
+              </CardContent>
+            </Card>
 
             {/* Rubric Table */}
             <RubricDisplayTable criteria={exercise2Criteria} title="Rubric Criteria" />
