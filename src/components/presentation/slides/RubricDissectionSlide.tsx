@@ -22,16 +22,16 @@ You should link to any relevant news articles (using SEO-friendly anchors) throu
 
 // First 10 criteria from the rubric
 const CRITERIA_DATA = [
-  { num: 1, weight: 100, criterion: 'The article title is "What is NFT Photography? An Introductory Guide".', category: "Instruction Following", rationale: "The prompt requests this title" },
-  { num: 2, weight: 90, criterion: "The article includes a subtitle that refers to NFT photography or to its value for photographers.", category: "Instruction Following", rationale: "The prompt asks for a subheading" },
-  { num: 3, weight: 70, criterion: 'Every domain-specific term (for example "NFT", "blockchain", "ETH", "on-chain") is defined or explained in the body text of the article.', category: "Reasoning", rationale: "This is an introductory article, so it follows that uncommon terms be defined." },
-  { num: 4, weight: 85, criterion: "The article includes at least one sentence stating that NFTs benefit photographers because they provide verifiable ownership of their photographic works.", category: "Instruction Following", rationale: "Instruction Following" },
-  { num: 5, weight: 85, criterion: "The article includes at least one sentence stating that NFTs benefit photographers because they provide verifiable provenance for their photographic works.", category: "Instruction Following", rationale: "Instruction Following" },
-  { num: 6, weight: 100, criterion: "The article's word count is between 1,350 to 1,650 words.", category: "Instruction Following; Reasoning", rationale: "The prompt requests the article be 1,500 words (with a 10% leeway either side)" },
-  { num: 7, weight: 90, criterion: "All major section titles in the article are presented using Heading 2 headers.", category: "Instruction Following", rationale: "The prompt requests using H2 and H3 headers to break up the text adequately and add a subheading." },
-  { num: 8, weight: 90, criterion: "All sub-section titles in the article are formatted using the Heading 3 headers.", category: "Instruction Following", rationale: "Instruction Following" },
-  { num: 9, weight: 25, criterion: "The article title is formatted in bold.", category: "Formatting", rationale: "It is important for the article to have the title in bold for readability." },
-  { num: 10, weight: 25, criterion: "All section or sub-section headings in the article are formatted in bold.", category: "Formatting", rationale: "It is important for the article to have bold section headings for readability." },
+  { num: 1, weight: 100, criterion: 'The article title is "What is NFT Photography? An Introductory Guide".', category: "Instruction Following", rationale: "The prompt requests this title", citations: "—" },
+  { num: 2, weight: 90, criterion: "The article includes a subtitle that refers to NFT photography or to its value for photographers.", category: "Instruction Following", rationale: "The prompt asks for a subheading", citations: "—" },
+  { num: 3, weight: 70, criterion: 'Every domain-specific term (e.g. "NFT", "blockchain") is defined in the article.', category: "Reasoning", rationale: "Introductory article requires term definitions.", citations: "—" },
+  { num: 4, weight: 85, criterion: "The article states NFTs provide verifiable ownership for photographers.", category: "Instruction Following", rationale: "Prompt requires ownership benefit.", citations: "—" },
+  { num: 5, weight: 85, criterion: "The article states NFTs provide verifiable provenance for photographers.", category: "Instruction Following", rationale: "Prompt requires provenance benefit.", citations: "—" },
+  { num: 6, weight: 100, criterion: "Word count is between 1,350–1,650 words.", category: "Instruction Following", rationale: "Prompt: 1,500 words ±10%", citations: "—" },
+  { num: 7, weight: 90, criterion: "Major section titles use Heading 2 formatting.", category: "Instruction Following", rationale: "Prompt requests H2/H3 headers.", citations: "—" },
+  { num: 8, weight: 90, criterion: "Sub-section titles use Heading 3 formatting.", category: "Instruction Following", rationale: "Prompt requests H2/H3 headers.", citations: "—" },
+  { num: 9, weight: 25, criterion: "The article title is formatted in bold.", category: "Formatting", rationale: "Readability requirement.", citations: "—" },
+  { num: 10, weight: 25, criterion: "All headings are formatted in bold.", category: "Formatting", rationale: "Readability requirement.", citations: "—" },
 ];
 
 // Annotation definitions
@@ -47,35 +47,43 @@ interface Annotation {
 const ANNOTATIONS: Annotation[] = [
   {
     id: "weight",
-    icon: <Scale className="w-4 h-4" />,
+    icon: <Scale className="w-5 h-5" />,
     title: "Weight",
-    description: "A score from -100 to 100 that represents how important that criterion is relative to others. Higher = more critical to task success.",
+    description: "A score from -100 to 100 representing relative importance. Higher values = more critical to task success. Negative weights penalize unwanted behaviors.",
     side: "left",
     targetColumn: "Weight",
   },
   {
     id: "criterion",
-    icon: <FileText className="w-4 h-4" />,
+    icon: <FileText className="w-5 h-5" />,
     title: "Criterion",
-    description: "A binary true/false statement that measures something specific about the response. Must be evaluable from the deliverable alone.",
+    description: "A binary true/false statement measuring something specific about the response. Must be evaluable from the deliverable alone — no external context needed.",
     side: "left",
     targetColumn: "Criterion",
   },
   {
     id: "category",
-    icon: <Tag className="w-4 h-4" />,
+    icon: <Tag className="w-5 h-5" />,
     title: "Category",
-    description: "What aspect of the deliverable this evaluates — e.g., Instruction Following, Reasoning, Formatting, Domain Expertise.",
+    description: "What aspect of the deliverable this evaluates: Instruction Following, Reasoning, Formatting, Domain Expertise, etc. Helps organize and balance rubrics.",
     side: "right",
     targetColumn: "Category",
   },
   {
     id: "rationale",
-    icon: <BookOpen className="w-4 h-4" />,
+    icon: <BookOpen className="w-5 h-5" />,
     title: "Rationale",
-    description: "Your explanation for why this criterion exists and matters. Helps others understand your evaluation logic.",
+    description: "Your explanation for why this criterion exists. Justifies the evaluation logic and helps others understand your reasoning.",
     side: "right",
     targetColumn: "Rationale",
+  },
+  {
+    id: "citations",
+    icon: <MessageSquare className="w-5 h-5" />,
+    title: "Citations",
+    description: "References to authoritative sources that justify the criterion. Particularly important for medical, legal, and technical domains where accuracy is critical.",
+    side: "right",
+    targetColumn: "Citations",
   },
 ];
 
@@ -100,9 +108,9 @@ const RubricDissectionSlide = () => {
   const rightAnnotations = ANNOTATIONS.filter((a) => a.side === "right");
 
   return (
-    <div className="w-full max-w-6xl mx-auto">
+    <div className="w-full max-w-7xl mx-auto px-4">
       {/* Header */}
-      <div className="text-center mb-6">
+      <div className="text-center mb-4">
         <p className="text-xs uppercase tracking-widest text-muted-foreground mb-1">Anatomy of a Rubric</p>
         <h2 className="text-2xl font-bold text-foreground">Dissecting a Real Rubric</h2>
         <p className="text-sm text-muted-foreground mt-1">Click each annotation bubble to reveal its meaning</p>
@@ -111,41 +119,41 @@ const RubricDissectionSlide = () => {
       {/* Main Content Stack with Annotations on sides */}
       <div className="relative">
         {/* Left Annotations */}
-        <div className="absolute left-0 top-0 bottom-0 w-[140px] -translate-x-full pr-4 hidden xl:flex flex-col justify-end pb-32 gap-6">
-          {leftAnnotations.map((annotation, idx) => {
+        <div className="absolute left-0 top-0 bottom-0 w-[200px] -translate-x-full pr-6 hidden xl:flex flex-col justify-center gap-8">
+          {leftAnnotations.map((annotation) => {
             const revealed = isRevealed(annotation.id);
             return (
               <div key={annotation.id} className="relative">
                 {/* Connecting Line */}
-                <div className="absolute right-0 top-1/2 w-8 h-px bg-border" />
-                <div className="absolute right-0 top-1/2 w-2 h-2 rounded-full bg-primary -translate-y-1/2 translate-x-1" />
+                <div className="absolute right-0 top-1/2 w-10 h-px bg-primary/40" />
+                <div className="absolute right-0 top-1/2 w-3 h-3 rounded-full bg-primary -translate-y-1/2 translate-x-1.5" />
                 
                 {/* Annotation Bubble */}
                 <button
                   onClick={() => toggleAnnotation(annotation.id)}
                   className={cn(
-                    "w-full p-3 rounded-lg border-2 text-left transition-all cursor-pointer mr-4",
+                    "w-full p-4 rounded-xl border-2 text-left transition-all cursor-pointer mr-6",
                     revealed
-                      ? "border-primary bg-primary/10"
-                      : "border-muted-foreground/30 bg-muted/50 hover:border-primary/50"
+                      ? "border-primary bg-primary/10 shadow-lg"
+                      : "border-muted-foreground/30 bg-muted/50 hover:border-primary/50 hover:shadow-md"
                   )}
                 >
-                  <div className="flex items-center gap-2 mb-1">
+                  <div className="flex items-center gap-2 mb-2">
                     <div className={cn(
-                      "w-5 h-5 rounded flex items-center justify-center",
+                      "w-7 h-7 rounded-lg flex items-center justify-center",
                       revealed ? "bg-primary/20 text-primary" : "bg-muted text-muted-foreground"
                     )}>
                       {annotation.icon}
                     </div>
                     <span className={cn(
-                      "text-xs font-bold uppercase tracking-wide",
+                      "text-sm font-bold uppercase tracking-wide",
                       revealed ? "text-primary" : "text-muted-foreground"
                     )}>
                       {annotation.title}
                     </span>
                   </div>
                   <p className={cn(
-                    "text-xs leading-relaxed transition-all",
+                    "text-sm leading-relaxed transition-all",
                     revealed ? "text-foreground" : "text-muted-foreground/40 blur-[3px] select-none"
                   )}>
                     {annotation.description}
@@ -157,41 +165,41 @@ const RubricDissectionSlide = () => {
         </div>
 
         {/* Right Annotations */}
-        <div className="absolute right-0 top-0 bottom-0 w-[140px] translate-x-full pl-4 hidden xl:flex flex-col justify-end pb-32 gap-6">
-          {rightAnnotations.map((annotation, idx) => {
+        <div className="absolute right-0 top-0 bottom-0 w-[200px] translate-x-full pl-6 hidden xl:flex flex-col justify-center gap-6">
+          {rightAnnotations.map((annotation) => {
             const revealed = isRevealed(annotation.id);
             return (
               <div key={annotation.id} className="relative">
                 {/* Connecting Line */}
-                <div className="absolute left-0 top-1/2 w-8 h-px bg-border" />
-                <div className="absolute left-0 top-1/2 w-2 h-2 rounded-full bg-primary -translate-y-1/2 -translate-x-1" />
+                <div className="absolute left-0 top-1/2 w-10 h-px bg-primary/40" />
+                <div className="absolute left-0 top-1/2 w-3 h-3 rounded-full bg-primary -translate-y-1/2 -translate-x-1.5" />
                 
                 {/* Annotation Bubble */}
                 <button
                   onClick={() => toggleAnnotation(annotation.id)}
                   className={cn(
-                    "w-full p-3 rounded-lg border-2 text-left transition-all cursor-pointer ml-4",
+                    "w-full p-4 rounded-xl border-2 text-left transition-all cursor-pointer ml-6",
                     revealed
-                      ? "border-primary bg-primary/10"
-                      : "border-muted-foreground/30 bg-muted/50 hover:border-primary/50"
+                      ? "border-primary bg-primary/10 shadow-lg"
+                      : "border-muted-foreground/30 bg-muted/50 hover:border-primary/50 hover:shadow-md"
                   )}
                 >
-                  <div className="flex items-center gap-2 mb-1">
+                  <div className="flex items-center gap-2 mb-2">
                     <div className={cn(
-                      "w-5 h-5 rounded flex items-center justify-center",
+                      "w-7 h-7 rounded-lg flex items-center justify-center",
                       revealed ? "bg-primary/20 text-primary" : "bg-muted text-muted-foreground"
                     )}>
                       {annotation.icon}
                     </div>
                     <span className={cn(
-                      "text-xs font-bold uppercase tracking-wide",
+                      "text-sm font-bold uppercase tracking-wide",
                       revealed ? "text-primary" : "text-muted-foreground"
                     )}>
                       {annotation.title}
                     </span>
                   </div>
                   <p className={cn(
-                    "text-xs leading-relaxed transition-all",
+                    "text-sm leading-relaxed transition-all",
                     revealed ? "text-foreground" : "text-muted-foreground/40 blur-[3px] select-none"
                   )}>
                     {annotation.description}
@@ -203,17 +211,17 @@ const RubricDissectionSlide = () => {
         </div>
 
         {/* Center Content: Vertical Stack */}
-        <div className="space-y-4">
+        <div className="space-y-3">
           {/* 1. Prompt Box */}
           <div>
-            <div className="flex items-center gap-2 text-sm font-medium text-muted-foreground mb-2">
-              <FileText className="w-4 h-4" />
+            <div className="flex items-center gap-2 text-xs font-medium text-muted-foreground mb-1">
+              <FileText className="w-3 h-3" />
               Prompt
             </div>
-            <Card className="border-2 border-primary/30">
+            <Card className="border border-primary/30">
               <CardContent className="p-0">
-                <ScrollArea className="h-[120px]">
-                  <div className="p-4 text-xs leading-relaxed text-foreground whitespace-pre-wrap">
+                <ScrollArea className="h-[80px]">
+                  <div className="p-3 text-xs leading-relaxed text-foreground whitespace-pre-wrap">
                     {NFT_PROMPT}
                   </div>
                 </ScrollArea>
@@ -223,71 +231,72 @@ const RubricDissectionSlide = () => {
 
           {/* 2. Golden Example Deliverable Box */}
           <div>
-            <div className="flex items-center gap-2 text-sm font-medium text-muted-foreground mb-2">
-              <MessageSquare className="w-4 h-4" />
+            <div className="flex items-center gap-2 text-xs font-medium text-muted-foreground mb-1">
+              <MessageSquare className="w-3 h-3" />
               Golden Example Deliverable
             </div>
-            <Card className="border-2 border-dashed border-muted-foreground/30 bg-muted/20">
-              <CardContent className="p-4 text-center">
-                <p className="text-sm text-muted-foreground italic">
-                  Model response will appear here
-                </p>
-                <p className="text-xs text-muted-foreground/70 mt-1">
-                  (Content to be provided)
+            <Card className="border border-dashed border-muted-foreground/30 bg-muted/20">
+              <CardContent className="py-2 px-3 text-center">
+                <p className="text-xs text-muted-foreground italic">
+                  Model response will appear here (content to be provided)
                 </p>
               </CardContent>
             </Card>
           </div>
 
-          {/* 3. Evaluation Rubric Table */}
+          {/* 3. Evaluation Rubric Table - NO SCROLL */}
           <div>
-            <div className="flex items-center gap-2 text-sm font-medium text-muted-foreground mb-2">
-              <Scale className="w-4 h-4" />
+            <div className="flex items-center gap-2 text-xs font-medium text-muted-foreground mb-1">
+              <Scale className="w-3 h-3" />
               Evaluation Rubric
             </div>
             <Card className="border-2 overflow-hidden">
-              <ScrollArea className="h-[280px]">
-                <Table>
-                  <TableHeader>
-                    <TableRow className="bg-muted/50">
-                      <TableHead className="w-[40px] text-center font-bold text-foreground">#</TableHead>
-                      <TableHead className="w-[70px] text-center font-bold text-foreground">Weight</TableHead>
-                      <TableHead className="font-bold text-foreground">Criterion</TableHead>
-                      <TableHead className="w-[130px] font-bold text-foreground">Category</TableHead>
-                      <TableHead className="w-[160px] font-bold text-foreground">Rationale</TableHead>
+              <Table>
+                <TableHeader>
+                  <TableRow className="bg-muted/50">
+                    <TableHead className="w-[32px] text-center font-bold text-foreground py-2 text-xs">#</TableHead>
+                    <TableHead className="w-[60px] text-center font-bold text-foreground py-2 text-xs">Weight</TableHead>
+                    <TableHead className="font-bold text-foreground py-2 text-xs">Criterion</TableHead>
+                    <TableHead className="w-[100px] font-bold text-foreground py-2 text-xs">Category</TableHead>
+                    <TableHead className="w-[120px] font-bold text-foreground py-2 text-xs">Rationale</TableHead>
+                    <TableHead className="w-[80px] font-bold text-foreground py-2 text-xs">Citations</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {CRITERIA_DATA.map((row) => (
+                    <TableRow key={row.num} className="text-xs">
+                      <TableCell className="text-center font-medium text-muted-foreground py-1.5">{row.num}</TableCell>
+                      <TableCell className="text-center font-semibold text-foreground py-1.5">{row.weight}</TableCell>
+                      <TableCell className="text-foreground leading-tight py-1.5 text-xs">{row.criterion}</TableCell>
+                      <TableCell className="text-muted-foreground text-xs py-1.5">{row.category}</TableCell>
+                      <TableCell className="text-muted-foreground italic text-xs py-1.5">{row.rationale}</TableCell>
+                      <TableCell className="text-muted-foreground text-xs py-1.5 text-center">{row.citations}</TableCell>
                     </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {CRITERIA_DATA.map((row) => (
-                      <TableRow key={row.num} className="text-xs">
-                        <TableCell className="text-center font-medium text-muted-foreground">{row.num}</TableCell>
-                        <TableCell className="text-center font-semibold text-foreground">{row.weight}</TableCell>
-                        <TableCell className="text-foreground leading-tight">{row.criterion}</TableCell>
-                        <TableCell className="text-muted-foreground text-xs">{row.category}</TableCell>
-                        <TableCell className="text-muted-foreground italic text-xs">{row.rationale}</TableCell>
-                      </TableRow>
-                    ))}
-                    {/* Ellipsis Row */}
-                    <TableRow>
-                      <TableCell colSpan={5} className="text-center py-3">
-                        <span className="text-lg tracking-widest text-muted-foreground">• • •</span>
-                      </TableCell>
-                    </TableRow>
-                    {/* ~100 indicator */}
-                    <TableRow className="bg-muted/30">
-                      <TableCell colSpan={5} className="text-center py-2">
-                        <span className="text-sm font-medium text-muted-foreground">~100 criteria total</span>
-                      </TableCell>
-                    </TableRow>
-                  </TableBody>
-                </Table>
-              </ScrollArea>
+                  ))}
+                  {/* Vertical Ellipsis Row */}
+                  <TableRow>
+                    <TableCell colSpan={6} className="text-center py-2">
+                      <div className="flex flex-col items-center gap-0.5">
+                        <span className="text-muted-foreground text-lg">•</span>
+                        <span className="text-muted-foreground text-lg">•</span>
+                        <span className="text-muted-foreground text-lg">•</span>
+                      </div>
+                    </TableCell>
+                  </TableRow>
+                  {/* ~100 indicator */}
+                  <TableRow className="bg-muted/30">
+                    <TableCell colSpan={6} className="text-center py-1.5">
+                      <span className="text-xs font-medium text-muted-foreground">~100 criteria total</span>
+                    </TableCell>
+                  </TableRow>
+                </TableBody>
+              </Table>
             </Card>
           </div>
         </div>
 
         {/* Mobile/Tablet Annotations (shown below on smaller screens) */}
-        <div className="xl:hidden mt-6 grid grid-cols-2 gap-3">
+        <div className="xl:hidden mt-4 grid grid-cols-2 sm:grid-cols-3 gap-3">
           {ANNOTATIONS.map((annotation) => {
             const revealed = isRevealed(annotation.id);
             return (
@@ -295,15 +304,15 @@ const RubricDissectionSlide = () => {
                 key={annotation.id}
                 onClick={() => toggleAnnotation(annotation.id)}
                 className={cn(
-                  "p-3 rounded-lg border-2 text-left transition-all cursor-pointer",
+                  "p-3 rounded-xl border-2 text-left transition-all cursor-pointer",
                   revealed
-                    ? "border-primary bg-primary/10"
-                    : "border-muted-foreground/30 bg-muted/50 hover:border-primary/50"
+                    ? "border-primary bg-primary/10 shadow-lg"
+                    : "border-muted-foreground/30 bg-muted/50 hover:border-primary/50 hover:shadow-md"
                 )}
               >
-                <div className="flex items-center gap-2 mb-1">
+                <div className="flex items-center gap-2 mb-2">
                   <div className={cn(
-                    "w-5 h-5 rounded flex items-center justify-center",
+                    "w-6 h-6 rounded-lg flex items-center justify-center",
                     revealed ? "bg-primary/20 text-primary" : "bg-muted text-muted-foreground"
                   )}>
                     {annotation.icon}
