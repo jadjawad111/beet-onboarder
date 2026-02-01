@@ -14,6 +14,15 @@ const UsingLinksSlide = () => {
         </h2>
       </div>
 
+      {/* Intro Card */}
+      <Card>
+        <CardContent className="p-4">
+          <p className="text-sm text-muted-foreground">
+            Some prompts include links as a source of information (e.g., a policy page, documentation, or background reading). Links can be helpful, but only if the prompt is explicit about how the link should be used and avoids common access issues.
+          </p>
+        </CardContent>
+      </Card>
+
       {/* Do / Don't Cards */}
       <div className="grid md:grid-cols-2 gap-4">
         <Card>
