@@ -150,67 +150,67 @@ const InputFileCharacteristics = () => {
         </CardContent>
       </Card>
 
-      {/* Real Examples */}
-      <Card>
-        <CardContent className="p-5">
-          <h3 className="font-semibold text-foreground mb-2 flex items-center gap-2">
-            <FileText className="w-5 h-5 text-primary" />
+      {/* Real Examples - MAIN SECTION */}
+      <Card className="border-2 border-primary/30">
+        <CardContent className="p-6">
+          <h3 className="text-xl font-bold text-foreground mb-3 flex items-center gap-3">
+            <FileText className="w-6 h-6 text-primary" />
             What This Looks Like in Real Prompts
           </h3>
-          <p className="text-sm text-muted-foreground mb-4">Concrete examples from quality prompts, highlighting the structure.</p>
+          <p className="text-base text-muted-foreground mb-6">Concrete examples from quality prompts, highlighting the structure.</p>
           
-          <div className="grid md:grid-cols-2 gap-3">
-            <div className="bg-muted/30 rounded-lg p-3 border border-border">
-              <p className="text-xs font-medium text-primary mb-1">Example 1 – Explicit, early declaration</p>
-              <p className="text-xs text-muted-foreground italic mb-2">"The attached spreadsheet titled 'Population' contains Anti-Financial Crime Risk Metrics…"</p>
+          <div className="grid md:grid-cols-2 gap-4">
+            <div className="bg-muted/30 rounded-xl p-5 border-2 border-border hover:border-primary/40 transition-colors">
+              <p className="text-base font-semibold text-primary mb-2">Example 1 – Explicit, early declaration</p>
+              <p className="text-base text-muted-foreground italic mb-4 leading-relaxed">"The attached spreadsheet titled 'Population' contains Anti-Financial Crime Risk Metrics…"</p>
               <div className="flex gap-2 flex-wrap">
-                <span className="text-xs bg-primary/10 text-primary px-1.5 py-0.5 rounded">✔ File declared before steps</span>
-                <span className="text-xs bg-primary/10 text-primary px-1.5 py-0.5 rounded">✔ Reused throughout</span>
+                <span className="text-sm bg-primary/15 text-primary px-3 py-1.5 rounded-full font-medium">✔ File declared before steps</span>
+                <span className="text-sm bg-primary/15 text-primary px-3 py-1.5 rounded-full font-medium">✔ Reused throughout</span>
               </div>
             </div>
 
-            <div className="bg-muted/30 rounded-lg p-3 border border-border">
-              <p className="text-xs font-medium text-primary mb-1">Example 2 – Grouped inputs, still upfront</p>
-              <p className="text-xs text-muted-foreground italic mb-2">"Use the attached reference files, which include income, costs, and tax withholding data…"</p>
+            <div className="bg-muted/30 rounded-xl p-5 border-2 border-border hover:border-primary/40 transition-colors">
+              <p className="text-base font-semibold text-primary mb-2">Example 2 – Grouped inputs, still upfront</p>
+              <p className="text-base text-muted-foreground italic mb-4 leading-relaxed">"Use the attached reference files, which include income, costs, and tax withholding data…"</p>
               <div className="flex gap-2 flex-wrap">
-                <span className="text-xs bg-primary/10 text-primary px-1.5 py-0.5 rounded">✔ Files scoped before instructions</span>
-                <span className="text-xs bg-primary/10 text-primary px-1.5 py-0.5 rounded">✔ No guessing required</span>
+                <span className="text-sm bg-primary/15 text-primary px-3 py-1.5 rounded-full font-medium">✔ Files scoped before instructions</span>
+                <span className="text-sm bg-primary/15 text-primary px-3 py-1.5 rounded-full font-medium">✔ No guessing required</span>
               </div>
             </div>
 
-            <div className="bg-muted/30 rounded-lg p-3 border border-border">
-              <p className="text-xs font-medium text-primary mb-1">Example 3 – Template + data both declared early</p>
-              <p className="text-xs text-muted-foreground italic mb-2">"Using the attached Word template titled 'Social Developmental History Template' and the notes document…"</p>
+            <div className="bg-muted/30 rounded-xl p-5 border-2 border-border hover:border-primary/40 transition-colors">
+              <p className="text-base font-semibold text-primary mb-2">Example 3 – Template + data both declared early</p>
+              <p className="text-base text-muted-foreground italic mb-4 leading-relaxed">"Using the attached Word template titled 'Social Developmental History Template' and the notes document…"</p>
               <div className="flex gap-2 flex-wrap">
-                <span className="text-xs bg-primary/10 text-primary px-1.5 py-0.5 rounded">✔ Multiple inputs, clear roles</span>
-                <span className="text-xs bg-primary/10 text-primary px-1.5 py-0.5 rounded">✔ No mid-task discovery</span>
+                <span className="text-sm bg-primary/15 text-primary px-3 py-1.5 rounded-full font-medium">✔ Multiple inputs, clear roles</span>
+                <span className="text-sm bg-primary/15 text-primary px-3 py-1.5 rounded-full font-medium">✔ No mid-task discovery</span>
               </div>
             </div>
 
-            <div className="bg-muted/30 rounded-lg p-3 border border-border">
-              <p className="text-xs font-medium text-primary mb-1">Example 4 – Primary + supporting files</p>
-              <p className="text-xs text-muted-foreground italic mb-2">"Use Aurisic_Financials_3-25-1.xlsx as your primary template… The following April source files are also attached…"</p>
+            <div className="bg-muted/30 rounded-xl p-5 border-2 border-border hover:border-primary/40 transition-colors">
+              <p className="text-base font-semibold text-primary mb-2">Example 4 – Primary + supporting files</p>
+              <p className="text-base text-muted-foreground italic mb-4 leading-relaxed">"Use Aurisic_Financials_3-25-1.xlsx as your primary template… The following April source files are also attached…"</p>
               <div className="flex gap-2 flex-wrap">
-                <span className="text-xs bg-primary/10 text-primary px-1.5 py-0.5 rounded">✔ Hierarchy of inputs</span>
-                <span className="text-xs bg-primary/10 text-primary px-1.5 py-0.5 rounded">✔ Fully declared upfront</span>
+                <span className="text-sm bg-primary/15 text-primary px-3 py-1.5 rounded-full font-medium">✔ Hierarchy of inputs</span>
+                <span className="text-sm bg-primary/15 text-primary px-3 py-1.5 rounded-full font-medium">✔ Fully declared upfront</span>
               </div>
             </div>
 
-            <div className="bg-muted/30 rounded-lg p-3 border border-border">
-              <p className="text-xs font-medium text-primary mb-1">Example 5 – Creative/audio task</p>
-              <p className="text-xs text-muted-foreground italic mb-2">"You have been provided with a drum track (see attached, DRUM REFERENCE TRACK.WAV)."</p>
+            <div className="bg-muted/30 rounded-xl p-5 border-2 border-border hover:border-primary/40 transition-colors">
+              <p className="text-base font-semibold text-primary mb-2">Example 5 – Creative/audio task</p>
+              <p className="text-base text-muted-foreground italic mb-4 leading-relaxed">"You have been provided with a drum track (see attached, DRUM REFERENCE TRACK.WAV)."</p>
               <div className="flex gap-2 flex-wrap">
-                <span className="text-xs bg-primary/10 text-primary px-1.5 py-0.5 rounded">✔ Input declared before composition</span>
-                <span className="text-xs bg-primary/10 text-primary px-1.5 py-0.5 rounded">✔ File is operational</span>
+                <span className="text-sm bg-primary/15 text-primary px-3 py-1.5 rounded-full font-medium">✔ Input declared before composition</span>
+                <span className="text-sm bg-primary/15 text-primary px-3 py-1.5 rounded-full font-medium">✔ File is operational</span>
               </div>
             </div>
 
-            <div className="bg-muted/30 rounded-lg p-3 border border-border">
-              <p className="text-xs font-medium text-primary mb-1">Example 6 – Open-world task (intentionally different)</p>
-              <p className="text-xs text-muted-foreground italic mb-2">"Conduct SEO research and choose four related keywords…"</p>
+            <div className="bg-muted/30 rounded-xl p-5 border-2 border-border hover:border-primary/40 transition-colors">
+              <p className="text-base font-semibold text-primary mb-2">Example 6 – Open-world task (intentionally different)</p>
+              <p className="text-base text-muted-foreground italic mb-4 leading-relaxed">"Conduct SEO research and choose four related keywords…"</p>
               <div className="flex gap-2 flex-wrap">
-                <span className="text-xs bg-primary/10 text-primary px-1.5 py-0.5 rounded">✔ Explicitly allows external lookup</span>
-                <span className="text-xs bg-primary/10 text-primary px-1.5 py-0.5 rounded">✔ Not pretending to be file-based</span>
+                <span className="text-sm bg-primary/15 text-primary px-3 py-1.5 rounded-full font-medium">✔ Explicitly allows external lookup</span>
+                <span className="text-sm bg-primary/15 text-primary px-3 py-1.5 rounded-full font-medium">✔ Not pretending to be file-based</span>
               </div>
             </div>
           </div>
