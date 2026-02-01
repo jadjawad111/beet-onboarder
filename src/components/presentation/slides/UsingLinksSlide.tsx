@@ -1,261 +1,234 @@
 import { Card, CardContent } from "@/components/ui/card";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import { Link, CheckCircle2, XCircle, AlertTriangle, Lightbulb } from "lucide-react";
 
 const UsingLinksSlide = () => {
   return (
-    <div className="w-full max-w-5xl mx-auto px-4">
+    <div className="w-full max-w-5xl mx-auto space-y-6">
       {/* Header */}
       <div className="text-center mb-6">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-medium mb-2">
-          <Link className="w-3 h-3" />
-          Best Practices
-        </div>
-        <h2 className="text-2xl md:text-3xl font-bold text-foreground">Using Links in Prompts</h2>
-        <p className="text-muted-foreground mt-2 max-w-2xl mx-auto">
-          Some prompts include links as a source of information (e.g., a policy page, documentation, or background reading). Links can be helpful — but only if the prompt is explicit about how the link should be used and avoids common access issues.
+        <p className="text-xs uppercase tracking-widest text-muted-foreground mb-2">
+          Using Links in Prompts
+        </p>
+        <h2 className="text-2xl md:text-3xl font-bold text-foreground">
+          When and How to Include Links
+        </h2>
+        <p className="text-muted-foreground mt-2 max-w-2xl mx-auto text-sm">
+          Some prompts include links as a source of information (e.g., a policy page, documentation, or background reading). Links can be helpful, but only if the prompt is explicit about how the link should be used and avoids common access issues.
         </p>
       </div>
 
-      <ScrollArea className="h-[calc(100vh-280px)]">
-        <div className="space-y-6 pr-4">
-          {/* What links are good for */}
-          <Card className="border-l-4 border-l-green-500">
-            <CardContent className="p-5">
-              <div className="flex items-start gap-3">
-                <CheckCircle2 className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
-                <div>
-                  <h3 className="font-semibold text-foreground mb-2">What links are good for</h3>
-                  <p className="text-sm text-muted-foreground mb-3">Use links when they are:</p>
-                  <ul className="space-y-1 text-sm text-foreground">
-                    <li>• Reference / context (helpful, not required)</li>
-                    <li>• A public standard you want followed (and you state the requirements in the prompt)</li>
-                    <li>• Supplementary information that supports the task</li>
-                  </ul>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Big NOs */}
-          <Card className="border-l-4 border-l-destructive">
-            <CardContent className="p-5">
-              <div className="flex items-start gap-3">
-                <XCircle className="w-5 h-5 text-destructive flex-shrink-0 mt-0.5" />
-                <div>
-                  <h3 className="font-semibold text-foreground mb-2">Big NOs (Avoid these)</h3>
-                  <p className="text-sm text-muted-foreground mb-3">
-                    These patterns commonly break prompts because the content may not be accessible or stable:
-                  </p>
-                  <ul className="space-y-1 text-sm text-foreground">
-                    <li>• Paywalled links (news sites, subscription research, gated reports)</li>
-                    <li>• Login-required content (company portals, Google Docs without public access, internal tools)</li>
-                    <li>• Unstable / changing pages used as if results are reproducible (real-time search results with no scoping)</li>
-                  </ul>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Good Examples Section */}
-          <div>
-            <h3 className="text-lg font-semibold text-green-600 mb-3 flex items-center gap-2">
-              <CheckCircle2 className="w-5 h-5" />
-              Good Examples (and why they work)
+      {/* What links are good for + Big NOs side by side */}
+      <div className="grid md:grid-cols-2 gap-4">
+        {/* What links are good for */}
+        <Card>
+          <CardContent className="p-5">
+            <h3 className="font-semibold text-foreground mb-4 flex items-center gap-2">
+              <CheckCircle2 className="w-5 h-5 text-primary" />
+              What Links Are Good For
             </h3>
-            <div className="space-y-4">
-              {/* Good Example 1 */}
-              <Card className="border-green-200 bg-green-50/50 dark:bg-green-950/20">
-                <CardContent className="p-4">
-                  <p className="text-sm font-semibold text-green-700 dark:text-green-400 mb-2">
-                    Good Example 1: Link is optional context
-                  </p>
-                  <div className="bg-white dark:bg-card rounded-md p-3 border mb-3">
-                    <p className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Prompt</p>
-                    <p className="text-sm text-foreground">
-                      "Write a 1-page summary of the AI Risk Management approach.<br/>
-                      Optional background link (for context): https://www.nist.gov/itl/ai-risk-management-framework<br/>
-                      Deliverable: 5 bullets + 2 risks + 2 recommendations."
-                    </p>
-                  </div>
-                  <div className="flex items-start gap-2">
-                    <Lightbulb className="w-4 h-4 text-green-600 flex-shrink-0 mt-0.5" />
-                    <div className="text-sm text-muted-foreground">
-                      <span className="font-medium text-foreground">Why it works:</span>
-                      <ul className="mt-1 space-y-0.5">
-                        <li>• The task is clear even without the link</li>
-                        <li>• The link's role is labeled (optional background)</li>
-                        <li>• The output format is defined</li>
-                      </ul>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
+            <p className="text-sm text-muted-foreground mb-3">Use links when they are:</p>
+            <div className="space-y-3">
+              <div className="flex items-start gap-2">
+                <CheckCircle2 className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
+                <div>
+                  <span className="text-sm font-medium text-foreground">Reference / context (helpful, not required)</span>
+                </div>
+              </div>
+              <div className="flex items-start gap-2">
+                <CheckCircle2 className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
+                <div>
+                  <span className="text-sm font-medium text-foreground">A public standard you want followed</span>
+                  <p className="text-xs text-muted-foreground">And you state the requirements in the prompt</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-2">
+                <CheckCircle2 className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
+                <div>
+                  <span className="text-sm font-medium text-foreground">Supplementary information that supports the task</span>
+                </div>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
 
-              {/* Good Example 2 */}
-              <Card className="border-green-200 bg-green-50/50 dark:bg-green-950/20">
-                <CardContent className="p-4">
-                  <p className="text-sm font-semibold text-green-700 dark:text-green-400 mb-2">
-                    Good Example 2: Link is a reference standard (but requirements are still in the prompt)
-                  </p>
-                  <div className="bg-white dark:bg-card rounded-md p-3 border mb-3">
-                    <p className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Prompt</p>
-                    <p className="text-sm text-foreground">
-                      "Draft a short policy memo that follows the principles of the AI RMF (reference): https://www.nist.gov/itl/ai-risk-management-framework<br/>
-                      Include:<br/>
-                      • a 2–3 sentence executive summary<br/>
-                      • 3 recommendations<br/>
-                      • 2 implementation risks."
-                    </p>
-                  </div>
-                  <div className="flex items-start gap-2">
-                    <Lightbulb className="w-4 h-4 text-green-600 flex-shrink-0 mt-0.5" />
-                    <div className="text-sm text-muted-foreground">
-                      <span className="font-medium text-foreground">Why it works:</span>
-                      <ul className="mt-1 space-y-0.5">
-                        <li>• The link is clearly a reference standard</li>
-                        <li>• The prompt still contains the actual deliverable requirements</li>
-                      </ul>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
+        {/* Big NOs */}
+        <Card className="border-destructive/20 bg-destructive/5">
+          <CardContent className="p-5">
+            <h3 className="font-semibold text-foreground mb-4 flex items-center gap-2">
+              <XCircle className="w-5 h-5 text-destructive" />
+              Big NOs (Avoid These)
+            </h3>
+            <p className="text-sm text-muted-foreground mb-3">These patterns commonly break prompts:</p>
+            <div className="space-y-3">
+              <div className="flex items-start gap-2">
+                <XCircle className="w-4 h-4 text-destructive mt-0.5 flex-shrink-0" />
+                <div>
+                  <span className="text-sm font-medium text-foreground">Paywalled links</span>
+                  <p className="text-xs text-muted-foreground">News sites, subscription research, gated reports</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-2">
+                <XCircle className="w-4 h-4 text-destructive mt-0.5 flex-shrink-0" />
+                <div>
+                  <span className="text-sm font-medium text-foreground">Login-required content</span>
+                  <p className="text-xs text-muted-foreground">Company portals, Google Docs without public access, internal tools</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-2">
+                <XCircle className="w-4 h-4 text-destructive mt-0.5 flex-shrink-0" />
+                <div>
+                  <span className="text-sm font-medium text-foreground">Unstable / changing pages</span>
+                  <p className="text-xs text-muted-foreground">Real-time search results with no scoping</p>
+                </div>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
 
-              {/* Good Example 3 */}
-              <Card className="border-green-200 bg-green-50/50 dark:bg-green-950/20">
-                <CardContent className="p-4">
-                  <p className="text-sm font-semibold text-green-700 dark:text-green-400 mb-2">
-                    Good Example 3: If the link matters, include the key points inline
-                  </p>
-                  <div className="bg-white dark:bg-card rounded-md p-3 border mb-3">
-                    <p className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Prompt</p>
-                    <p className="text-sm text-foreground">
-                      "Use this article for context: https://example.com/article<br/>
-                      Key points to include (provided here so the task is self-contained):<br/>
-                      • Point A…<br/>
-                      • Point B…<br/>
-                      Deliverable: rewrite these points into a customer-friendly FAQ."
-                    </p>
-                  </div>
-                  <div className="flex items-start gap-2">
-                    <Lightbulb className="w-4 h-4 text-green-600 flex-shrink-0 mt-0.5" />
-                    <div className="text-sm text-muted-foreground">
-                      <span className="font-medium text-foreground">Why it works:</span>
-                      <ul className="mt-1 space-y-0.5">
-                        <li>• Even if the link can't be opened, the task is still doable</li>
-                        <li>• The "source of truth" content is captured in the prompt</li>
-                      </ul>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
+      {/* Good Examples */}
+      <Card className="border-2 border-primary/30">
+        <CardContent className="p-6">
+          <h3 className="text-xl font-bold text-foreground mb-3 flex items-center gap-3">
+            <CheckCircle2 className="w-6 h-6 text-primary" />
+            Good Examples (and why they work)
+          </h3>
+          <p className="text-base text-muted-foreground mb-6">Concrete examples of how to reference links properly.</p>
+          
+          <div className="grid md:grid-cols-3 gap-4">
+            {/* Good Example 1 */}
+            <div className="bg-muted/30 rounded-xl p-5 border-2 border-border hover:border-primary/40 transition-colors">
+              <p className="text-base font-semibold text-primary mb-2">Link is optional context</p>
+              <p className="text-sm text-muted-foreground italic mb-4 leading-relaxed">
+                "Write a 1-page summary of the AI Risk Management approach.<br/>
+                Optional background link (for context): https://www.nist.gov/...<br/>
+                Deliverable: 5 bullets + 2 risks + 2 recommendations."
+              </p>
+              <div className="space-y-1">
+                <span className="text-xs bg-primary/15 text-primary px-2 py-1 rounded-full font-medium block w-fit">✔ Task is clear without the link</span>
+                <span className="text-xs bg-primary/15 text-primary px-2 py-1 rounded-full font-medium block w-fit">✔ Link role is labeled</span>
+              </div>
+            </div>
+
+            {/* Good Example 2 */}
+            <div className="bg-muted/30 rounded-xl p-5 border-2 border-border hover:border-primary/40 transition-colors">
+              <p className="text-base font-semibold text-primary mb-2">Link is a reference standard</p>
+              <p className="text-sm text-muted-foreground italic mb-4 leading-relaxed">
+                "Draft a short policy memo that follows the principles of the AI RMF (reference): https://www.nist.gov/...<br/>
+                Include: executive summary, 3 recommendations, 2 risks."
+              </p>
+              <div className="space-y-1">
+                <span className="text-xs bg-primary/15 text-primary px-2 py-1 rounded-full font-medium block w-fit">✔ Link is clearly a reference</span>
+                <span className="text-xs bg-primary/15 text-primary px-2 py-1 rounded-full font-medium block w-fit">✔ Requirements still in prompt</span>
+              </div>
+            </div>
+
+            {/* Good Example 3 */}
+            <div className="bg-muted/30 rounded-xl p-5 border-2 border-border hover:border-primary/40 transition-colors">
+              <p className="text-base font-semibold text-primary mb-2">Key points included inline</p>
+              <p className="text-sm text-muted-foreground italic mb-4 leading-relaxed">
+                "Use this article for context: https://example.com/article<br/>
+                Key points to include: Point A, Point B...<br/>
+                Deliverable: rewrite into a customer-friendly FAQ."
+              </p>
+              <div className="space-y-1">
+                <span className="text-xs bg-primary/15 text-primary px-2 py-1 rounded-full font-medium block w-fit">✔ Task doable without link</span>
+                <span className="text-xs bg-primary/15 text-primary px-2 py-1 rounded-full font-medium block w-fit">✔ Source of truth in prompt</span>
+              </div>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Bad Examples */}
+      <Card className="border-destructive/20 bg-destructive/5">
+        <CardContent className="p-5">
+          <h3 className="font-semibold text-foreground mb-4 flex items-center gap-2">
+            <AlertTriangle className="w-5 h-5 text-destructive" />
+            Bad Examples (and what to do instead)
+          </h3>
+          <div className="space-y-3">
+            <div className="grid md:grid-cols-[1fr,2fr] gap-3 items-start pb-3 border-b border-destructive/10">
+              <div className="flex items-start gap-2">
+                <XCircle className="w-4 h-4 text-destructive mt-0.5 flex-shrink-0" />
+                <span className="text-sm text-foreground font-medium">Paywalled / gated link is required</span>
+              </div>
+              <div className="bg-background/50 rounded p-2 text-sm">
+                <p className="text-destructive/80 italic">"Read this Bloomberg article and summarize it: [link]"</p>
+                <p className="text-xs text-muted-foreground mt-1">❌ Access is not guaranteed</p>
+              </div>
+            </div>
+            
+            <div className="grid md:grid-cols-[1fr,2fr] gap-3 items-start pb-3 border-b border-destructive/10">
+              <div className="flex items-start gap-2">
+                <XCircle className="w-4 h-4 text-destructive mt-0.5 flex-shrink-0" />
+                <span className="text-sm text-foreground font-medium">Vague "use this link" with no direction</span>
+              </div>
+              <div className="bg-background/50 rounded p-2 text-sm">
+                <p className="text-destructive/80 italic">"Use this website to complete the task: https://example.com"</p>
+                <p className="text-xs text-muted-foreground mt-1">❌ No scope: what to pull, what matters, what format, what output?</p>
+              </div>
+            </div>
+            
+            <div className="grid md:grid-cols-[1fr,2fr] gap-3 items-start">
+              <div className="flex items-start gap-2">
+                <XCircle className="w-4 h-4 text-destructive mt-0.5 flex-shrink-0" />
+                <span className="text-sm text-foreground font-medium">Real-time web state treated as reproducible</span>
+              </div>
+              <div className="bg-background/50 rounded p-2 text-sm">
+                <p className="text-destructive/80 italic">"Check current listings on LoopNet and summarize the top 10..."</p>
+                <p className="text-xs text-muted-foreground mt-1">❌ Results can change run-to-run. "Top 10" is not stable. Task becomes not timeless!</p>
+              </div>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Best Practice Summary */}
+      <Card>
+        <CardContent className="p-5">
+          <h3 className="font-semibold text-foreground mb-2 flex items-center gap-2">
+            <Lightbulb className="w-5 h-5 text-amber-500" />
+            Best Practice: Be Explicit When You Use Links
+          </h3>
+          <p className="text-sm text-muted-foreground mb-4">
+            When you include a link, always state which of these it is:
+          </p>
+          
+          <div className="space-y-4">
+            <div className="flex items-start gap-4">
+              <div className="w-7 h-7 rounded-full bg-primary/20 flex items-center justify-center text-xs font-bold text-primary flex-shrink-0">1</div>
+              <div>
+                <p className="text-sm font-medium text-foreground">Optional context</p>
+                <p className="text-sm text-muted-foreground italic">"Use this link as optional background."</p>
+              </div>
+            </div>
+
+            <div className="flex items-start gap-4">
+              <div className="w-7 h-7 rounded-full bg-primary/15 flex items-center justify-center text-xs font-bold text-primary/80 flex-shrink-0">2</div>
+              <div>
+                <p className="text-sm font-medium text-foreground">Reference standard</p>
+                <p className="text-sm text-muted-foreground italic">"Use this link as the reference standard."</p>
+              </div>
+            </div>
+
+            <div className="flex items-start gap-4">
+              <div className="w-7 h-7 rounded-full bg-muted flex items-center justify-center text-xs font-bold text-muted-foreground flex-shrink-0">3</div>
+              <div>
+                <p className="text-sm font-medium text-foreground">Source of truth</p>
+                <p className="text-sm text-muted-foreground italic">"From this link, extract X and then produce Y."</p>
+              </div>
             </div>
           </div>
 
-          {/* Bad Examples Section */}
-          <div>
-            <h3 className="text-lg font-semibold text-destructive mb-3 flex items-center gap-2">
-              <XCircle className="w-5 h-5" />
-              Bad Examples (and what to do instead)
-            </h3>
-            <div className="space-y-4">
-              {/* Bad Example 1 */}
-              <Card className="border-red-200 bg-red-50/50 dark:bg-red-950/20">
-                <CardContent className="p-4">
-                  <p className="text-sm font-semibold text-red-700 dark:text-red-400 mb-2">
-                    Bad Example 1: Paywalled / gated link is required
-                  </p>
-                  <div className="bg-white dark:bg-card rounded-md p-3 border mb-3">
-                    <p className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Bad Prompt</p>
-                    <p className="text-sm text-foreground">
-                      "Read this Bloomberg article and summarize it: [link]"
-                    </p>
-                  </div>
-                  <div className="flex items-start gap-2">
-                    <AlertTriangle className="w-4 h-4 text-red-600 flex-shrink-0 mt-0.5" />
-                    <p className="text-sm text-muted-foreground">
-                      <span className="font-medium text-foreground">Why it breaks:</span> Access is not guaranteed
-                    </p>
-                  </div>
-                </CardContent>
-              </Card>
-
-              {/* Bad Example 2 */}
-              <Card className="border-red-200 bg-red-50/50 dark:bg-red-950/20">
-                <CardContent className="p-4">
-                  <p className="text-sm font-semibold text-red-700 dark:text-red-400 mb-2">
-                    Bad Example 2: Vague "use this link" with no direction
-                  </p>
-                  <div className="bg-white dark:bg-card rounded-md p-3 border mb-3">
-                    <p className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Bad Prompt</p>
-                    <p className="text-sm text-foreground">
-                      "Use this website to complete the task: https://example.com"
-                    </p>
-                  </div>
-                  <div className="flex items-start gap-2">
-                    <AlertTriangle className="w-4 h-4 text-red-600 flex-shrink-0 mt-0.5" />
-                    <p className="text-sm text-muted-foreground">
-                      <span className="font-medium text-foreground">Why it breaks:</span> No scope: what to pull, what matters, what format, what output?
-                    </p>
-                  </div>
-                </CardContent>
-              </Card>
-
-              {/* Bad Example 3 */}
-              <Card className="border-red-200 bg-red-50/50 dark:bg-red-950/20">
-                <CardContent className="p-4">
-                  <p className="text-sm font-semibold text-red-700 dark:text-red-400 mb-2">
-                    Bad Example 3: Real-time web state treated as reproducible
-                  </p>
-                  <div className="bg-white dark:bg-card rounded-md p-3 border mb-3">
-                    <p className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Bad Prompt</p>
-                    <p className="text-sm text-foreground">
-                      "Check current listings on LoopNet and summarize the top 10…"
-                    </p>
-                  </div>
-                  <div className="flex items-start gap-2">
-                    <AlertTriangle className="w-4 h-4 text-red-600 flex-shrink-0 mt-0.5" />
-                    <div className="text-sm text-muted-foreground">
-                      <span className="font-medium text-foreground">Why it breaks:</span>
-                      <ul className="mt-1 space-y-0.5">
-                        <li>• Results can change run-to-run</li>
-                        <li>• "Top 10" is not stable without filters + time + explicit variability</li>
-                        <li>• Task becomes not timeless!</li>
-                      </ul>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
+          <div className="mt-4 pt-3 border-t border-border">
+            <p className="text-sm text-muted-foreground flex items-start gap-2">
+              <Lightbulb className="w-4 h-4 text-amber-500 mt-0.5 flex-shrink-0" />
+              <span><strong className="text-foreground">The Key:</strong> A simple sentence clarifying the link's role makes your prompt clear, usable, and less likely to be rejected.</span>
+            </p>
           </div>
-
-          {/* Best Practice Summary */}
-          <Card className="border-2 border-primary/30 bg-primary/5">
-            <CardContent className="p-5">
-              <div className="flex items-start gap-3">
-                <Lightbulb className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
-                <div>
-                  <h3 className="font-semibold text-foreground mb-3">Best Practice: Be explicit when you use links</h3>
-                  <p className="text-sm text-muted-foreground mb-3">
-                    When you include a link, always state which of these it is:
-                  </p>
-                  <ul className="space-y-2 text-sm text-foreground mb-4">
-                    <li><strong>Optional context</strong> ("use only if helpful")</li>
-                    <li><strong>Reference standard</strong> ("follow this framework / guidance")</li>
-                    <li><strong>Source of truth</strong> ("extract these specific items from this page")</li>
-                  </ul>
-                  <p className="text-sm text-muted-foreground mb-2">A simple sentence does the job:</p>
-                  <div className="space-y-1 text-sm font-mono bg-muted/50 p-3 rounded-md">
-                    <p>"Use this link as optional background."</p>
-                    <p>"Use this link as the reference standard."</p>
-                    <p>"From this link, extract X and then produce Y."</p>
-                  </div>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-      </ScrollArea>
+        </CardContent>
+      </Card>
     </div>
   );
 };
