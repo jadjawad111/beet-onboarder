@@ -2,13 +2,13 @@ import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { FileText, MessageSquare, Scale, Tag, BookOpen } from "lucide-react";
+import { FileText, Scale, Tag, BookOpen, MessageSquare } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 // NFT Photography Prompt text
 const NFT_PROMPT = `You work for a photo app that is looking to move into the photography NFT space. The app in question is a curated platform that offers precise GPS coordinates of beautiful, "Instagrammable" locations worldwide, providing insights including directions, the best times to visit, and specific photography tips for each location, ultimately helping users snap the perfect shot while celebrating travel photography.
 
-While your client operates successfully as a "web2" mobile app, it is also integrating some key "web3" functionalities into its business model, including selling "digital collectibles" — photography NFTs — via its own gallery on the high-end NFT platform SuperRare, curated by its in-house photographers.
+While your client operates successfully as a "web2" mobile app, it is also integrating some key "web3" functionalities into its business model, including selling "digital collectibles" (photography NFTs) via its own gallery on the high-end NFT platform SuperRare, curated by its in-house photographers.
 
 Write copy for an SEO optimized blog, titled "What is NFT Photography? An Introductory Guide". The aim of the blog is to introduce its non-web3 native audience to the concept of photography NFTs. Thus, the article must be written in a friendly and conversational tone, be beginner friendly (not-technical) and adequately demonstrate how NFTs can be beneficial to photographers and the industry.
 
@@ -22,16 +22,16 @@ You should link to any relevant news articles (using SEO-friendly anchors) throu
 
 // First 10 criteria from the rubric
 const CRITERIA_DATA = [
-  { num: 1, weight: 100, criterion: 'The article title is "What is NFT Photography? An Introductory Guide".', category: "Instruction Following", rationale: "The prompt requests this title", citations: "—" },
-  { num: 2, weight: 90, criterion: "The article includes a subtitle that refers to NFT photography or to its value for photographers.", category: "Instruction Following", rationale: "The prompt asks for a subheading", citations: "—" },
-  { num: 3, weight: 70, criterion: 'Every domain-specific term (for example "NFT", "blockchain", "ETH", "on-chain") is defined or explained in the body text of the article.', category: "Reasoning", rationale: "This is an introductory article, so it follows that uncommon terms be defined.", citations: "—" },
-  { num: 4, weight: 85, criterion: "The article includes at least one sentence stating that NFTs benefit photographers because they provide verifiable ownership of their photographic works.", category: "Instruction Following", rationale: "Instruction Following", citations: "—" },
-  { num: 5, weight: 85, criterion: "The article includes at least one sentence stating that NFTs benefit photographers because they provide verifiable provenance for their photographic works.", category: "Instruction Following", rationale: "Instruction Following", citations: "—" },
-  { num: 6, weight: 100, criterion: "The article's word count is between 1,350 to 1,650 words.", category: "Instruction Following; Reasoning", rationale: "The prompt requests the article be 1,500 words (with a 10% leeway either side)", citations: "—" },
-  { num: 7, weight: 90, criterion: "All major section titles in the article are presented using Heading 2 headers.", category: "Instruction Following", rationale: "The prompt requests using H2 and H3 headers to break up the text adequately and add a subheading.", citations: "—" },
-  { num: 8, weight: 90, criterion: "All sub-section titles in the article are formatted using the Heading 3 headers.", category: "Instruction Following", rationale: "Instruction Following", citations: "—" },
-  { num: 9, weight: 25, criterion: "The article title is formatted in bold.", category: "Formatting", rationale: "It is important for the article to have the title in bold for readability.", citations: "—" },
-  { num: 10, weight: 25, criterion: "All section or sub-section headings in the article are formatted in bold.", category: "Formatting", rationale: "It is important for the article to have bold section headings for readability.", citations: "—" },
+  { num: 1, weight: 100, criterion: 'The article title is "What is NFT Photography? An Introductory Guide".', category: "Instruction Following", rationale: "The prompt requests this title", citations: "N/A" },
+  { num: 2, weight: 90, criterion: "The article includes a subtitle that refers to NFT photography or to its value for photographers.", category: "Instruction Following", rationale: "The prompt asks for a subheading", citations: "N/A" },
+  { num: 3, weight: 70, criterion: 'Every domain-specific term (for example "NFT", "blockchain", "ETH", "on-chain") is defined or explained in the body text of the article.', category: "Reasoning", rationale: "This is an introductory article, so it follows that uncommon terms be defined.", citations: "N/A" },
+  { num: 4, weight: 85, criterion: "The article includes at least one sentence stating that NFTs benefit photographers because they provide verifiable ownership of their photographic works.", category: "Instruction Following", rationale: "Instruction Following", citations: "N/A" },
+  { num: 5, weight: 85, criterion: "The article includes at least one sentence stating that NFTs benefit photographers because they provide verifiable provenance for their photographic works.", category: "Instruction Following", rationale: "Instruction Following", citations: "N/A" },
+  { num: 6, weight: 100, criterion: "The article's word count is between 1,350 to 1,650 words.", category: "Instruction Following; Reasoning", rationale: "The prompt requests the article be 1,500 words (with a 10% leeway either side)", citations: "N/A" },
+  { num: 7, weight: 90, criterion: "All major section titles in the article are presented using Heading 2 headers.", category: "Instruction Following", rationale: "The prompt requests using H2 and H3 headers to break up the text adequately and add a subheading.", citations: "N/A" },
+  { num: 8, weight: 90, criterion: "All sub-section titles in the article are formatted using the Heading 3 headers.", category: "Instruction Following", rationale: "Instruction Following", citations: "N/A" },
+  { num: 9, weight: 25, criterion: "The article title is formatted in bold.", category: "Formatting", rationale: "It is important for the article to have the title in bold for readability.", citations: "N/A" },
+  { num: 10, weight: 25, criterion: "All section or sub-section headings in the article are formatted in bold.", category: "Formatting", rationale: "It is important for the article to have bold section headings for readability.", citations: "N/A" },
 ];
 
 // Annotation definitions
@@ -47,13 +47,13 @@ const ANNOTATIONS: Annotation[] = [
     id: "weight",
     icon: <Scale className="w-5 h-5" />,
     title: "Weight",
-    description: "A score from -100 to 100 representing relative importance. Higher values = more critical to task success. Negative weights penalize unwanted behaviors.",
+    description: "A score from -100 to 100 representing relative importance. Higher values mean more critical to task success. Negative weights penalize unwanted behaviors.",
   },
   {
     id: "criterion",
     icon: <FileText className="w-5 h-5" />,
     title: "Criterion",
-    description: "A binary true/false statement measuring something specific about the response. Must be evaluable from the deliverable alone — no external context needed.",
+    description: "A binary true/false statement measuring something specific about the response. Must be evaluable from the deliverable alone, no external context needed.",
   },
   {
     id: "category",
@@ -111,8 +111,8 @@ const RubricDissectionSlide = () => {
           </div>
           <Card className="border-2 border-primary/30">
             <CardContent className="p-0">
-              <ScrollArea className="h-[280px]">
-                <div className="p-5 text-base leading-relaxed text-foreground whitespace-pre-wrap">
+              <ScrollArea className="h-[200px]">
+                <div className="p-5 text-sm leading-relaxed text-foreground whitespace-pre-wrap">
                   {NFT_PROMPT}
                 </div>
               </ScrollArea>
@@ -120,31 +120,13 @@ const RubricDissectionSlide = () => {
           </Card>
         </div>
 
-        {/* 2. Golden Example Deliverable Box */}
-        <div>
-          <div className="flex items-center gap-2 text-sm font-medium text-muted-foreground mb-2">
-            <MessageSquare className="w-4 h-4" />
-            Golden Example Deliverable
-          </div>
-          <Card className="border-2 border-muted-foreground/30 overflow-hidden">
-            <CardContent className="p-0">
-              <iframe
-                src="https://docs.google.com/spreadsheets/d/1nrpI4qPfdjb_chj-APnPn158MG5t8h4X/preview"
-                className="w-full h-[300px] border-0"
-                allow="autoplay"
-                title="Golden Example Deliverable"
-              />
-            </CardContent>
-          </Card>
-        </div>
-
-        {/* 3. Annotation Cards - Vertical Stack */}
+        {/* 2. Annotation Cards - Vertical Stack */}
         <div>
           <div className="flex items-center gap-2 text-sm font-medium text-muted-foreground mb-2">
             <BookOpen className="w-4 h-4" />
             Rubric Components
           </div>
-          <div className="space-y-3">
+          <div className="grid grid-cols-5 gap-3">
             {ANNOTATIONS.map((annotation) => {
               const revealed = isRevealed(annotation.id);
               return (
@@ -152,33 +134,31 @@ const RubricDissectionSlide = () => {
                   key={annotation.id}
                   onClick={() => toggleAnnotation(annotation.id)}
                   className={cn(
-                    "w-full p-4 rounded-xl border-2 text-left transition-all cursor-pointer",
+                    "p-3 rounded-xl border-2 text-left transition-all cursor-pointer",
                     revealed
                       ? "border-primary bg-primary/10 shadow-lg"
                       : "border-muted-foreground/30 bg-muted/50 hover:border-primary/50 hover:shadow-md"
                   )}
                 >
-                  <div className="flex items-start gap-4">
+                  <div className="flex flex-col items-center text-center gap-2">
                     <div className={cn(
-                      "w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0",
+                      "w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0",
                       revealed ? "bg-primary/20 text-primary" : "bg-muted text-muted-foreground"
                     )}>
                       {annotation.icon}
                     </div>
-                    <div className="flex-1">
-                      <span className={cn(
-                        "text-sm font-bold uppercase tracking-wide block mb-1",
-                        revealed ? "text-primary" : "text-muted-foreground"
-                      )}>
-                        {annotation.title}
-                      </span>
-                      <p className={cn(
-                        "text-sm leading-relaxed transition-all",
-                        revealed ? "text-foreground" : "text-muted-foreground/40 blur-[3px] select-none"
-                      )}>
-                        {annotation.description}
-                      </p>
-                    </div>
+                    <span className={cn(
+                      "text-xs font-bold uppercase tracking-wide",
+                      revealed ? "text-primary" : "text-muted-foreground"
+                    )}>
+                      {annotation.title}
+                    </span>
+                    <p className={cn(
+                      "text-[10px] leading-tight transition-all",
+                      revealed ? "text-foreground" : "text-muted-foreground/40 blur-[3px] select-none"
+                    )}>
+                      {annotation.description}
+                    </p>
                   </div>
                 </button>
               );
@@ -186,7 +166,7 @@ const RubricDissectionSlide = () => {
           </div>
         </div>
 
-        {/* 4. Evaluation Rubric Table */}
+        {/* 3. Evaluation Rubric Table */}
         <div>
           <div className="flex items-center gap-2 text-xs font-medium text-muted-foreground mb-1">
             <Scale className="w-3 h-3" />
