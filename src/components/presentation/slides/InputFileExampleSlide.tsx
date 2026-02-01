@@ -30,6 +30,33 @@ const InputFileExampleSlide = ({
   referenceHighlights,
   qualityNotes,
 }: InputFileExampleSlideProps) => {
+  const getEmbedUrl = (url: string) => {
+    // Google Drive file (PDF, etc.)
+    const driveMatch = url.match(/drive\.google\.com\/file\/d\/([a-zA-Z0-9_-]+)/) || url.match(/\/d\/([a-zA-Z0-9_-]+)/);
+    if (driveMatch) {
+      return `https://drive.google.com/file/d/${driveMatch[1]}/preview`;
+    }
+
+    // Google Docs
+    const docMatch = url.match(/docs\.google\.com\/document\/d\/([a-zA-Z0-9_-]+)/);
+    if (docMatch) {
+      return `https://docs.google.com/document/d/${docMatch[1]}/preview`;
+    }
+
+    // Google Sheets
+    const sheetMatch = url.match(/docs\.google\.com\/spreadsheets\/d\/([a-zA-Z0-9_-]+)/);
+    if (sheetMatch) {
+      const gidMatch = url.match(/[?#&]gid=(\d+)/);
+      const gid = gidMatch?.[1];
+      const base = `https://docs.google.com/spreadsheets/d/${sheetMatch[1]}/preview`;
+      return gid ? `${base}?gid=${gid}` : base;
+    }
+
+    return url;
+  };
+
+  const embedSrc = inputFileEmbedUrl ?? (inputFileUrl ? getEmbedUrl(inputFileUrl) : undefined);
+
   return (
     <div className="w-full max-w-6xl mx-auto">
       {/* Header */}
@@ -100,10 +127,11 @@ const InputFileExampleSlide = ({
 
         {/* Right Column: Input File Embed */}
         <div className="space-y-2">
-          {inputFileEmbedUrl ? (
+          {embedSrc ? (
             <div className="rounded-lg border bg-background overflow-hidden h-[400px]">
               <iframe
-                src={inputFileEmbedUrl}
+                key={embedSrc}
+                src={embedSrc}
                 className="w-full h-full"
                 title={inputFileName || inputFileDescription}
                 allow="autoplay"
