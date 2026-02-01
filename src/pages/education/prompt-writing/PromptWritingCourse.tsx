@@ -1852,6 +1852,37 @@ This report will be used to brief the design team and guide future optimization 
     ),
   },
   {
+    id: "rubrics-what-is-2",
+    section: "Rubrics",
+    title: "What is a rubric?",
+    content: (
+      <ContentSlide title="What is a rubric?" layout="left">
+        <div className="space-y-6">
+          <p>
+            <strong className="text-foreground">A rubric is your way of evaluating responses or outputs to the task you designed in a systematic way.</strong>
+          </p>
+          <p>
+            The conceptual goal of a good rubric is to ensure that no satisfactory or good output would fail, but no bad output would pass.
+          </p>
+          <p>
+            Rubrics in this case are much more detailed and specific than rubrics you may be used to, such as those used in a sixth grade class.
+          </p>
+          <p className="text-muted-foreground">
+            They are somewhere between a checklist and a mark scheme for high school essays: closer to a <strong className="text-foreground">checklist-style open-ended mark scheme</strong>. The way they differ from a checklist is primarily that <strong className="text-foreground">weights are included</strong>.
+          </p>
+
+          {/* Key Definition */}
+          <div className="p-4 rounded-lg border-2 border-primary/30 bg-primary/5">
+            <p className="text-foreground font-medium">
+              A rubric is a <strong className="underline decoration-primary decoration-2">collection of criteria</strong> that together define what makes a good response.
+            </p>
+          </div>
+
+        </div>
+      </ContentSlide>
+    ),
+  },
+  {
     id: "rubrics-using-links",
     section: "Rubrics",
     title: "Using Links in Prompts",
