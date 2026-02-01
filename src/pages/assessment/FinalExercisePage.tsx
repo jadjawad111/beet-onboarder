@@ -64,8 +64,8 @@ const exercise2Criteria: CriterionData[] = [
 const assessmentSlides: Slide[] = [
   {
     id: "exercise-1",
-    section: "Ex #1",
-    title: "Ex #1",
+    section: "Final Assessment",
+    title: "Exercise #1",
     content: (
       <ContentSlide title="" layout="left">
         <RubricInteractiveQuiz
@@ -81,8 +81,8 @@ const assessmentSlides: Slide[] = [
   },
   {
     id: "exercise-2",
-    section: "Ex #2",
-    title: "Ex #2",
+    section: "Final Assessment",
+    title: "Exercise #2",
     content: (
       <ContentSlide title="" layout="left">
         <RubricInteractiveQuiz
