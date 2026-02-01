@@ -44,9 +44,10 @@ const Index = () => {
 
       {/* Main Content with RHS Banner */}
       <div className="px-8 py-12">
-        <div className="flex flex-col lg:flex-row gap-8 items-start">
-          {/* Left Column - Main Content */}
-          <div className="flex-1 max-w-4xl">
+        {/* Top Section: Cards + Handshake Banner side by side */}
+        <div className="flex flex-col lg:flex-row gap-8 items-stretch">
+          {/* Left Column - Get Started + Need Help */}
+          <div className="flex-1 max-w-4xl flex flex-col">
             <h2 className="text-lg font-semibold text-foreground mb-6">Get Started</h2>
             
             <div className="grid md:grid-cols-2 gap-6">
@@ -120,7 +121,7 @@ const Index = () => {
             </div>
 
             {/* Support Info */}
-            <div className="mt-8 p-6 rounded-2xl border border-border bg-card">
+            <div className="mt-6 p-6 rounded-2xl border border-border bg-card flex-1">
               <h3 className="text-lg font-semibold text-foreground mb-4">Need Help?</h3>
               <div className="grid sm:grid-cols-2 gap-4">
                 <a 
@@ -151,36 +152,10 @@ const Index = () => {
                 </a>
               </div>
             </div>
-
-            {/* Divider */}
-            <div className="mt-8 border-t border-border" />
-
-            {/* Updates Section */}
-            <div className="mt-8">
-              <div className="flex items-center gap-2 mb-4">
-                <Bell className="w-5 h-5 text-primary" />
-                <h2 className="text-lg font-semibold text-foreground">Updates</h2>
-              </div>
-              <div className="p-6 rounded-2xl border-2 border-primary/30 bg-gradient-to-br from-primary/5 via-card to-secondary/5">
-                <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary to-secondary/70 flex items-center justify-center flex-shrink-0">
-                    <Bell className="w-6 h-6 text-white" />
-                  </div>
-                  <div>
-                    <h3 className="text-xl font-bold text-foreground mb-2">
-                      Live Training Schedule
-                    </h3>
-                    <p className="text-muted-foreground">
-                      To be launched in the next <span className="font-semibold text-primary">12-24 Hours!</span>
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
           </div>
 
           {/* Right Column - Handshake AI Platform Banner */}
-          <div className="lg:w-80 xl:w-96 lg:self-stretch lg:flex lg:flex-col">
+          <div className="lg:w-80 xl:w-96 flex flex-col lg:pt-10">
             <a
               href="https://ai.joinhandshake.com/"
               target="_blank"
@@ -213,6 +188,32 @@ const Index = () => {
                 <ExternalLink className="w-4 h-4" />
               </div>
             </a>
+          </div>
+        </div>
+
+        {/* Divider */}
+        <div className="mt-8 border-t border-border max-w-4xl" />
+
+        {/* Updates Section - Full width below */}
+        <div className="mt-8 max-w-4xl">
+          <div className="flex items-center gap-2 mb-4">
+            <Bell className="w-5 h-5 text-primary" />
+            <h2 className="text-lg font-semibold text-foreground">Updates</h2>
+          </div>
+          <div className="p-6 rounded-2xl border-2 border-primary/30 bg-gradient-to-br from-primary/5 via-card to-secondary/5">
+            <div className="flex items-start gap-4">
+              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary to-secondary/70 flex items-center justify-center flex-shrink-0">
+                <Bell className="w-6 h-6 text-white" />
+              </div>
+              <div>
+                <h3 className="text-xl font-bold text-foreground mb-2">
+                  Live Training Schedule
+                </h3>
+                <p className="text-muted-foreground">
+                  To be launched in the next <span className="font-semibold text-primary">12-24 Hours!</span>
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
