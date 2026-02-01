@@ -26,59 +26,53 @@ const UsingLinksSlide = () => {
         </CardContent>
       </Card>
 
-      {/* What links are good for / Big NOs */}
+      {/* What links are good for */}
       <Card>
         <CardContent className="p-5">
-          <div className="flex flex-wrap gap-8">
-            {/* Good for section */}
-            <div className="flex-1 min-w-[280px]">
-              <h3 className="font-semibold text-foreground mb-3 flex items-center gap-2 text-sm">
-                <CheckCircle2 className="w-4 h-4 text-primary" />
-                What Links Are Good For
-              </h3>
-              <p className="text-xs text-muted-foreground mb-3">Use links when they are:</p>
-              <ul className="space-y-2 text-sm">
-                <li className="flex items-start gap-2">
-                  <span className="text-primary mt-0.5">•</span>
-                  <span><strong>Reference / context</strong> (helpful, not required)</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-primary mt-0.5">•</span>
-                  <span><strong>A public standard</strong> you want followed (and you state the requirements in the prompt)</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-primary mt-0.5">•</span>
-                  <span><strong>Supplementary information</strong> that supports the task</span>
-                </li>
-              </ul>
-            </div>
+          <h3 className="font-semibold text-foreground mb-3 flex items-center gap-2 text-sm">
+            <CheckCircle2 className="w-4 h-4 text-primary" />
+            What Links Are Good For
+          </h3>
+          <p className="text-xs text-muted-foreground mb-3">Use links when they are:</p>
+          <ul className="space-y-2 text-sm">
+            <li className="flex items-start gap-2">
+              <span className="text-primary mt-0.5">•</span>
+              <span><strong>Reference / context</strong> (helpful, not required)</span>
+            </li>
+            <li className="flex items-start gap-2">
+              <span className="text-primary mt-0.5">•</span>
+              <span><strong>A public standard</strong> you want followed (and you state the requirements in the prompt)</span>
+            </li>
+            <li className="flex items-start gap-2">
+              <span className="text-primary mt-0.5">•</span>
+              <span><strong>Supplementary information</strong> that supports the task</span>
+            </li>
+          </ul>
+        </CardContent>
+      </Card>
 
-            {/* Divider */}
-            <div className="hidden md:block w-px bg-border" />
-
-            {/* Big NOs section */}
-            <div className="flex-1 min-w-[280px] p-4 rounded-lg border-destructive/20 bg-destructive/5 border">
-              <h3 className="font-semibold text-foreground mb-3 flex items-center gap-2 text-sm">
-                <XCircle className="w-4 h-4 text-destructive" />
-                Big NOs (Avoid These)
-              </h3>
-              <p className="text-xs text-muted-foreground mb-3">These patterns commonly break prompts because the content may not be accessible or stable:</p>
-              <ul className="space-y-2 text-sm">
-                <li className="flex items-start gap-2">
-                  <span className="text-destructive mt-0.5">•</span>
-                  <span><strong>Paywalled links</strong> (news sites, subscription research, gated reports)</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-destructive mt-0.5">•</span>
-                  <span><strong>Login-required content</strong> (company portals, Google Docs without public access, internal tools)</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-destructive mt-0.5">•</span>
-                  <span><strong>Unstable / changing pages</strong> used as if results are reproducible (real-time search results with no scoping)</span>
-                </li>
-              </ul>
-            </div>
-          </div>
+      {/* Big NOs */}
+      <Card className="border-destructive/20">
+        <CardContent className="p-5">
+          <h3 className="font-semibold text-foreground mb-3 flex items-center gap-2 text-sm">
+            <XCircle className="w-4 h-4 text-destructive" />
+            Big NOs (Avoid These)
+          </h3>
+          <p className="text-xs text-muted-foreground mb-3">These patterns commonly break prompts because the content may not be accessible or stable:</p>
+          <ul className="space-y-2 text-sm">
+            <li className="flex items-start gap-2">
+              <span className="text-destructive mt-0.5">•</span>
+              <span><strong>Paywalled links</strong> (news sites, subscription research, gated reports)</span>
+            </li>
+            <li className="flex items-start gap-2">
+              <span className="text-destructive mt-0.5">•</span>
+              <span><strong>Login-required content</strong> (company portals, Google Docs without public access, internal tools)</span>
+            </li>
+            <li className="flex items-start gap-2">
+              <span className="text-destructive mt-0.5">•</span>
+              <span><strong>Unstable / changing pages</strong> used as if results are reproducible (real-time search results with no scoping)</span>
+            </li>
+          </ul>
         </CardContent>
       </Card>
 
