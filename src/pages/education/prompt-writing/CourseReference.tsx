@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { ArrowLeft, Printer, BookOpen, Target, Lightbulb, Check, AlertTriangle, X } from "lucide-react";
+import { ArrowLeft, Printer, BookOpen, Target, Lightbulb, Check, AlertTriangle, X, FileText, Link as LinkIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
@@ -118,6 +118,54 @@ const ErrorBox = ({ number, name, description, color = "destructive" }: { number
   </div>
 );
 
+const CriterionExample = ({ bad, badExplanation, good, goodExplanation, quickTest }: { 
+  bad: string; 
+  badExplanation: string; 
+  good: string; 
+  goodExplanation: string;
+  quickTest: string;
+}) => (
+  <div className="space-y-4 mt-4">
+    <div className="grid md:grid-cols-2 gap-4">
+      <div className="p-4 bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-800 rounded-lg">
+        <p className="text-xs font-semibold text-red-600 mb-2">✗ Bad Criterion</p>
+        <p className="text-sm">{bad}</p>
+        <p className="text-xs text-muted-foreground mt-2">{badExplanation}</p>
+      </div>
+      <div className="p-4 bg-green-50 dark:bg-green-950/30 border border-green-200 dark:border-green-800 rounded-lg">
+        <p className="text-xs font-semibold text-green-600 mb-2">✓ Good Criterion</p>
+        <p className="text-sm">{good}</p>
+        <p className="text-xs text-muted-foreground mt-2">{goodExplanation}</p>
+      </div>
+    </div>
+    <p className="text-sm text-muted-foreground"><strong>Quick Test:</strong> {quickTest}</p>
+  </div>
+);
+
+const FailureModeCard = ({ title, subtitle, items }: { title: string; subtitle: string; items: { name: string; description: string }[] }) => (
+  <Card className="border-t-4 border-t-primary">
+    <CardContent className="p-4">
+      <div className="flex items-center gap-2 mb-3">
+        <div className="w-6 h-6 rounded-full bg-green-100 dark:bg-green-900 flex items-center justify-center">
+          <span className="text-green-600 text-xs">✓</span>
+        </div>
+        <div>
+          <h4 className="font-semibold text-sm">{title}</h4>
+          <p className="text-xs text-muted-foreground">{subtitle}</p>
+        </div>
+      </div>
+      <div className="space-y-3 text-xs">
+        {items.map((item, idx) => (
+          <div key={idx}>
+            <p className="font-medium text-primary">{item.name}</p>
+            <p className="text-muted-foreground">{item.description}</p>
+          </div>
+        ))}
+      </div>
+    </CardContent>
+  </Card>
+);
+
 // ═══════════════════════════════════════════════════════════════
 // MAIN COMPONENT
 // ═══════════════════════════════════════════════════════════════
@@ -134,7 +182,7 @@ const CourseReference = () => {
       {/* Header - hidden when printing */}
       <header className="sticky top-0 z-50 bg-background/95 backdrop-blur border-b print:hidden">
         <div className="max-w-4xl mx-auto px-6 py-4 flex items-center justify-between">
-          <Button variant="ghost" onClick={() => navigate("/education/prompt-writing/course")}>
+          <Button variant="ghost" onClick={() => navigate("/education/beet")}>
             <ArrowLeft className="w-4 h-4 mr-2" />
             Back to Course
           </Button>
@@ -213,25 +261,56 @@ const CourseReference = () => {
           subtitle="Crafting effective prompts for professional tasks"
         />
 
-        <SlideBlock title='What is a "good" prompt really?'>
-          <p className="mb-4">A good prompt is one that is:</p>
-          <div className="space-y-2">
-            <div className="flex items-center gap-2 p-3 bg-muted/50 rounded">
-              <Check className="w-5 h-5 text-green-600" />
-              <span><strong>Unambiguous</strong> — The prompt clearly defines what the model should do</span>
-            </div>
-            <div className="flex items-center gap-2 p-3 bg-muted/50 rounded">
-              <Check className="w-5 h-5 text-green-600" />
-              <span><strong>Professional context</strong> — The scenario represents real professional work</span>
-            </div>
-            <div className="flex items-center gap-2 p-3 bg-muted/50 rounded">
-              <Check className="w-5 h-5 text-green-600" />
-              <span><strong>Realistic constraints</strong> — The task operates within real-world limitations</span>
-            </div>
-            <div className="flex items-center gap-2 p-3 bg-muted/50 rounded">
-              <Check className="w-5 h-5 text-green-600" />
-              <span><strong>Clear deliverable</strong> — The expected output format is specified</span>
-            </div>
+        <SlideBlock title="What is a Prompt?">
+          <DefinitionCard>
+            A <strong>prompt</strong> is the instruction or question you give to an AI model to tell it what you want it to do.
+          </DefinitionCard>
+          <Card className="border-2 border-primary/30 bg-primary/5 mt-4">
+            <CardContent className="p-4">
+              <p className="text-xs uppercase tracking-wide text-primary mb-1">What is a Prompt for Beet 2.0?</p>
+              <p className="text-foreground">
+                A <strong>Beet 2.0 prompt</strong> is a prompt that mimics a real-world ask or request that would be given to a professional in your respective domain.
+              </p>
+            </CardContent>
+          </Card>
+        </SlideBlock>
+
+        <SlideBlock title="The Goal of This Section">
+          <p className="text-lg mb-4">By the end of this section, you should be able to write prompts that are:</p>
+          <div className="grid gap-4">
+            <Card className="border-l-4 border-l-green-500 bg-green-50/50 dark:bg-green-950/20">
+              <CardContent className="p-4">
+                <div className="flex items-center gap-4">
+                  <span className="text-3xl font-bold text-green-600">1</span>
+                  <div>
+                    <p className="font-semibold text-foreground">Realistic</p>
+                    <p className="text-sm text-muted-foreground">Prompts that mirror real professional workflows and domain expertise</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+            <Card className="border-l-4 border-l-blue-500 bg-blue-50/50 dark:bg-blue-950/20">
+              <CardContent className="p-4">
+                <div className="flex items-center gap-4">
+                  <span className="text-3xl font-bold text-blue-600">2</span>
+                  <div>
+                    <p className="font-semibold text-foreground">Unambiguous</p>
+                    <p className="text-sm text-muted-foreground">Clear, specific instructions that leave no room for misinterpretation</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+            <Card className="border-l-4 border-l-amber-500 bg-amber-50/50 dark:bg-amber-950/20">
+              <CardContent className="p-4">
+                <div className="flex items-center gap-4">
+                  <span className="text-3xl font-bold text-amber-600">3</span>
+                  <div>
+                    <p className="font-semibold text-foreground">Challenging</p>
+                    <p className="text-sm text-muted-foreground">Sufficiently difficult to induce meaningful model learning opportunities</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
           </div>
         </SlideBlock>
 
@@ -266,6 +345,114 @@ const CourseReference = () => {
           <p>
             Ultimately, the prompt itself needs to be difficult enough. We can attempt to do this by writing prompts that invoke multi-step reasoning or more convoluted sets of steps, as long as they are realistic.
           </p>
+        </SlideBlock>
+
+        <SlideBlock title="What Makes a Prompt Difficult?">
+          <p className="text-muted-foreground mb-4">A good prompt induces model failures. That's where learning happens.</p>
+          <div className="overflow-hidden rounded-xl border-2">
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="border-b bg-muted/50">
+                  <th className="p-4 text-left font-semibold"></th>
+                  <th className="p-4 text-center font-semibold text-green-600">Model Succeeds</th>
+                  <th className="p-4 text-center font-semibold text-destructive">Model Fails</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr className="border-b">
+                  <td className="p-4 font-semibold bg-muted/30">Easy for Professional</td>
+                  <td className="p-4 text-center text-muted-foreground">Too easy, no learning</td>
+                  <td className="p-4 text-center bg-green-50 dark:bg-green-950/30 border-2 border-green-500">
+                    <span className="font-bold text-green-600">✓ Good prompt!</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td className="p-4 font-semibold bg-muted/30">Hard for Professional</td>
+                  <td className="p-4 text-center text-muted-foreground">Impressive, but rare</td>
+                  <td className="p-4 text-center bg-green-50 dark:bg-green-950/30 border-2 border-green-500">
+                    <span className="font-bold text-green-600">✓ Good prompt!</span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p className="text-sm text-muted-foreground italic mt-4">
+            The goal is to create prompts where the model fails. That's when reinforcement learning can improve performance.
+          </p>
+        </SlideBlock>
+
+        <SlideBlock title="What Does It Mean for a Model to Fail?">
+          <p className="text-muted-foreground mb-4">Model failures fall into three categories:</p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <FailureModeCard
+              title="Extraction Failures"
+              subtitle='(The "Blind Spot")'
+              items={[
+                { name: "Hallucination", description: "The model invents data that isn't in the file to fill a gap." },
+                { name: "Omission", description: "The model misses a critical detail buried in a large document." },
+                { name: "Misinterpretation", description: "The model reads the data but misunderstands the context." },
+              ]}
+            />
+            <FailureModeCard
+              title="Reasoning Failures"
+              subtitle='(The "Logic Break")'
+              items={[
+                { name: "Dependency Collapse", description: "The model solves Step 1 correctly but forgets that Step 2 depends on the result." },
+                { name: "Constraint Violation", description: "The model ignores a negative constraint because it's trying too hard to satisfy a positive one." },
+                { name: "Invalid Inference", description: "The model makes a logical leap that is factually or professionally unsound." },
+              ]}
+            />
+            <FailureModeCard
+              title="Formatting Failures"
+              subtitle='(The "Professional Gap")'
+              items={[
+                { name: "Wrong Output Format", description: "You asked for a CSV file, and it gave you a text table in the chat window." },
+                { name: "Structure Mismatch", description: "You asked for a 'Memo with an Executive Summary,' and it gave you a casual email." },
+                { name: "Formula Stagnation", description: "You asked for a 'dynamic Excel spreadsheet,' and it gave you hard-coded numbers." },
+              ]}
+            />
+          </div>
+        </SlideBlock>
+
+        <SlideBlock title="How to Test for Model Failures">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+            <Card className="border-t-4 border-t-primary">
+              <CardContent className="p-4">
+                <div className="w-8 h-8 rounded bg-primary/10 flex items-center justify-center mb-3">
+                  <span className="text-primary font-bold">1</span>
+                </div>
+                <h4 className="font-semibold mb-2">Run it through a Model</h4>
+                <p className="text-xs text-muted-foreground">If perfect on first try, it's too easy.</p>
+              </CardContent>
+            </Card>
+            <Card className="border-t-4 border-t-green-500">
+              <CardContent className="p-4">
+                <div className="w-8 h-8 rounded bg-green-500/10 flex items-center justify-center mb-3">
+                  <span className="text-green-600 font-bold">2</span>
+                </div>
+                <h4 className="font-semibold mb-2">Run Multiple Times</h4>
+                <p className="text-xs text-muted-foreground">Run it 3 times and read the responses to see how well it did.</p>
+              </CardContent>
+            </Card>
+            <Card className="border-t-4 border-t-amber-500">
+              <CardContent className="p-4">
+                <div className="w-8 h-8 rounded bg-amber-500/10 flex items-center justify-center mb-3">
+                  <span className="text-amber-600 font-bold">3</span>
+                </div>
+                <h4 className="font-semibold mb-2">Check for Clarifying Questions</h4>
+                <p className="text-xs text-muted-foreground">If the model asks for more info, the prompt is ambiguous.</p>
+              </CardContent>
+            </Card>
+            <Card className="border-t-4 border-t-blue-500">
+              <CardContent className="p-4">
+                <div className="w-8 h-8 rounded bg-blue-500/10 flex items-center justify-center mb-3">
+                  <span className="text-blue-600 font-bold">4</span>
+                </div>
+                <h4 className="font-semibold mb-2">Human Intern Test</h4>
+                <p className="text-xs text-muted-foreground">Could a smart intern solve this?</p>
+              </CardContent>
+            </Card>
+          </div>
         </SlideBlock>
 
         <SlideBlock title='The 6 core elements of a "good" prompt'>
@@ -438,7 +625,7 @@ const CourseReference = () => {
         {/* Element #6 */}
         <SlideBlock title="Element #6 — Clear Constraints">
           <DefinitionCard>
-            Clear constraints explicitly define must-nots, resource limitations, and style rules. These are the guardrails that make the task meaningfully difficult.
+            Clear constraints define <strong>real-world limitations and tradeoffs</strong>: resource constraints, competing priorities, business rules, and operational boundaries. These go beyond output formatting to include the guardrails that make professional tasks meaningfully difficult.
           </DefinitionCard>
           <WhyItMattersCard>
             <p>Constraints force the model to trade off between competing goals such as speed vs. accuracy or brevity vs. completeness.</p>
@@ -466,26 +653,106 @@ const CourseReference = () => {
         </SlideBlock>
 
         {/* ═══════════════════════════════════════════════════════════════ */}
-        {/* SECTION 3: "Bronze" Response */}
+        {/* SECTION 2.5: Input Files */}
+        {/* ═══════════════════════════════════════════════════════════════ */}
+        <SectionDivider 
+          number={2.5} 
+          title="Input Files" 
+          subtitle="Supporting documents and data for your task"
+        />
+
+        <SlideBlock title="Why Input Files Matter">
+          <p>
+            <strong>Professional domain tasks often require reference material in order to be representative.</strong> These need to be accounted for and considered as part of the task design.
+          </p>
+          <p>
+            In professional work, you rarely give instructions without providing the necessary materials. A financial analyst needs the spreadsheet data. An auditor needs the population file. A buyer needs the vendor quotations.
+          </p>
+          <Card className="border-2 border-primary/30 bg-primary/5 mt-4">
+            <CardContent className="p-4">
+              <p className="font-semibold text-foreground mb-2">Input files vs. Output deliverables</p>
+              <p className="text-sm text-muted-foreground">
+                Input files are materials you provide with the prompt. The deliverable is what the model creates. They are not the same thing.
+              </p>
+            </CardContent>
+          </Card>
+        </SlideBlock>
+
+        <SlideBlock title="Input File Best Practices">
+          <div className="space-y-4">
+            <Card>
+              <CardContent className="p-4">
+                <div className="flex items-start gap-3">
+                  <FileText className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
+                  <div>
+                    <p className="font-semibold">Name files explicitly in the prompt</p>
+                    <p className="text-sm text-muted-foreground">Reference input files by their exact names so the model knows which materials to use.</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardContent className="p-4">
+                <div className="flex items-start gap-3">
+                  <FileText className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
+                  <div>
+                    <p className="font-semibold">Make files self-contained</p>
+                    <p className="text-sm text-muted-foreground">All data needed to complete the task should be in the input files. No external lookups required.</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardContent className="p-4">
+                <div className="flex items-start gap-3">
+                  <FileText className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
+                  <div>
+                    <p className="font-semibold">Reference specific tabs, columns, or sections</p>
+                    <p className="text-sm text-muted-foreground">For spreadsheets and documents, specify exactly where relevant data lives.</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </SlideBlock>
+
+        <SlideBlock title="Using Links in Prompts">
+          <Card className="border-l-4 border-l-amber-500">
+            <CardContent className="p-4">
+              <div className="flex items-start gap-3">
+                <LinkIcon className="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" />
+                <div>
+                  <p className="font-semibold text-amber-700 dark:text-amber-400 mb-2">Important: Links in Prompts</p>
+                  <p className="text-sm">
+                    <strong>Avoid using URLs or hyperlinks in prompts.</strong> Models cannot reliably access web pages or external links. All necessary information should be included directly in the prompt or attached as input files.
+                  </p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </SlideBlock>
+
+        {/* ═══════════════════════════════════════════════════════════════ */}
+        {/* SECTION 3: Golden Example Deliverable */}
         {/* ═══════════════════════════════════════════════════════════════ */}
         <SectionDivider 
           number={3} 
-          title='"Bronze" Response' 
+          title="Golden Example Deliverable" 
           subtitle="Your attempt at the actual deliverable"
         />
 
-        <SlideBlock title="What is a Bronze response?">
+        <SlideBlock title="What is a Golden Example Deliverable?">
           <p>
-            <strong>A Bronze response is your attempt at producing the actual deliverable for a task.</strong> While the model will not train directly on your deliverable, producing a Bronze response is critical because it forces you to deeply understand what a good output looks like, what truly matters in the task, and which elements should be captured and evaluated in the rubric.
+            <strong>A Golden Example Deliverable is your attempt at producing the actual deliverable for a task.</strong> While the model will not train directly on your deliverable, producing a Golden Example Deliverable is critical because it forces you to deeply understand what a good output looks like, what truly matters in the task, and which elements should be captured and evaluated in the rubric.
           </p>
           <p>
-            Based on our review of thousands of these tasks, we consistently see that fellows who produce thoughtful, well-reasoned Bronze responses go on to create significantly higher-quality rubrics and tasks overall. <strong>In our experience, those who invest care and effort into their Bronze responses score meaningfully higher.</strong>
+            Based on our review of thousands of these tasks, we consistently see that fellows who produce thoughtful, well-reasoned Golden Example Deliverables go on to create significantly higher-quality rubrics and tasks overall. <strong>In our experience, those who invest care and effort into their Golden Example Deliverables score meaningfully higher.</strong>
           </p>
         </SlideBlock>
 
-        <SlideBlock title="What a Bronze response does not need to be">
+        <SlideBlock title="What a Golden Example Deliverable does not need to be">
           <p>
-            A Bronze response, as the name implies, <strong>is not a gold standard deliverable</strong>.
+            A Golden Example Deliverable <strong>is not a perfect, polished final product</strong>.
           </p>
           <p>
             It does not need to be perfect, fully polished, or something you would confidently send to your boss or a client.
@@ -522,6 +789,67 @@ const CourseReference = () => {
               <p className="text-lg">
                 A rubric is a <strong className="underline decoration-primary decoration-2">collection of criteria</strong> that collectively define what a good response is to a specific prompt, <strong>now and in the future</strong>.
               </p>
+            </CardContent>
+          </Card>
+        </SlideBlock>
+
+        <SlideBlock title="Why do we need a rubric?">
+          <p>
+            As AI models move beyond verifiable, discrete tasks and into real-world reasoning tasks, <strong>evaluation becomes more complex</strong>. For many professional tasks, a response cannot be graded with a simple right or wrong check.
+          </p>
+          <p>
+            In expert domains, quality depends on multiple dimensions. A response might be factually correct but incomplete, well-written but unsafe, or persuasive but poorly reasoned. That is why evaluation requires <strong>nuanced, multi-criteria judgment</strong>, similar to how people assess work in real jobs.
+          </p>
+          <p>
+            In these contexts, "good enough" is rarely binary. It is a combination of <strong>accuracy, completeness, reasoning, clarity, tone, safety, and task fit</strong>.
+          </p>
+        </SlideBlock>
+
+        <SlideBlock title="The Rubric Judge (Judge Models)">
+          <p className="text-muted-foreground mb-4">
+            Once a Rubric has been created, future responses to the prompt will be evaluated using a <strong>judge model</strong>.
+          </p>
+          <p className="text-muted-foreground mb-4">
+            You can think of a judge model as a very simple AI that does only three things:
+          </p>
+          <div className="space-y-4">
+            <div className="flex items-start gap-3">
+              <span className="w-6 h-6 rounded-full bg-primary text-primary-foreground flex items-center justify-center text-sm font-bold flex-shrink-0">1</span>
+              <p className="font-medium text-foreground">Reads one criterion</p>
+            </div>
+            <div className="flex items-start gap-3">
+              <span className="w-6 h-6 rounded-full bg-primary text-primary-foreground flex items-center justify-center text-sm font-bold flex-shrink-0">2</span>
+              <p className="font-medium text-foreground">Reads the output produced by the prompt (the deliverable)</p>
+            </div>
+            <div className="flex items-start gap-3">
+              <span className="w-6 h-6 rounded-full bg-primary text-primary-foreground flex items-center justify-center text-sm font-bold flex-shrink-0">3</span>
+              <p className="font-medium text-foreground">Decides whether the criterion is TRUE or FALSE</p>
+            </div>
+          </div>
+          <Card className="mt-4 border-l-4 border-l-destructive">
+            <CardContent className="p-4">
+              <p className="font-semibold text-foreground mb-2">Important Constraint</p>
+              <p className="text-sm text-muted-foreground">
+                The judge model evaluates these in <strong className="text-primary">isolation</strong>:
+              </p>
+              <ul className="space-y-1.5 text-sm text-muted-foreground mt-2">
+                <li className="flex items-center gap-2">
+                  <span className="text-red-400">•</span>
+                  It does not read <strong className="text-foreground">the original prompt</strong>
+                </li>
+                <li className="flex items-center gap-2">
+                  <span className="text-red-400">•</span>
+                  It does not read <strong className="text-foreground">input files</strong>
+                </li>
+                <li className="flex items-center gap-2">
+                  <span className="text-red-400">•</span>
+                  It does not read <strong className="text-foreground">other criteria</strong>
+                </li>
+                <li className="flex items-center gap-2">
+                  <span className="text-red-400">•</span>
+                  It does not have access to <strong className="text-foreground">the Internet</strong>
+                </li>
+              </ul>
             </CardContent>
           </Card>
         </SlideBlock>
@@ -566,10 +894,10 @@ const CourseReference = () => {
           </div>
         </SlideBlock>
 
-        {/* Criterion-Level Issues */}
-        <SlideBlock title="The 5 Core Elements of Rubric Criterion Issues">
+        {/* 8 Criterion-Level Issues */}
+        <SlideBlock title="The 8 Core Criterion-Level Issues">
           <p className="mb-4 text-muted-foreground">
-            Each criterion you write must avoid these five common errors. A criterion that violates any of these will cause inconsistent or unreliable evaluations.
+            Each criterion you write must avoid these eight common errors. A criterion that violates any of these will cause inconsistent or unreliable evaluations.
           </p>
           <div className="space-y-3">
             <ErrorBox number={1} name="Ambiguous" description="Uses subjective language or undefined standards" />
@@ -577,119 +905,266 @@ const CourseReference = () => {
             <ErrorBox number={3} name="Stacked" description="Bundles multiple independent checks into one" />
             <ErrorBox number={4} name="Convoluted Phrasing" description="Longer or more complex than necessary" />
             <ErrorBox number={5} name="Process Words" description="Evaluates how it was made, not what it is" />
+            <ErrorBox number={6} name="Incorrect Label" description="Implicit/Explicit label doesn't match whether requirement is stated" />
+            <ErrorBox number={7} name="Inaccurate Weighting" description="Weight doesn't reflect relative importance" />
+            <ErrorBox number={8} name="Restrictive" description="Overfits to a narrow version of the 'right answer'" />
           </div>
         </SlideBlock>
 
-        {/* Criterion Error Details */}
+        {/* Criterion Error #1 */}
         <SlideBlock title="Criterion Error #1 — Ambiguous">
           <DefinitionCard>
-            A criterion is ambiguous when a judge model cannot reliably mark it true or false because it uses subjective language, undefined standards, or fuzzy thresholds.
+            A criterion is ambiguous when a judge model cannot reliably mark it true or false because it uses subjective language, undefined standards, or fuzzy thresholds. Ambiguity leads to inconsistent scoring across evaluators and future responses.
           </DefinitionCard>
-          <div className="grid md:grid-cols-2 gap-4 mt-4">
-            <div className="p-4 bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-800 rounded-lg">
-              <p className="text-xs font-semibold text-red-600 mb-2">✗ Bad Criterion</p>
-              <p className="text-sm">"The proposal deck is well-organized."</p>
-              <p className="text-xs text-muted-foreground mt-2">"Well-organized" is subjective and open to interpretation.</p>
-            </div>
-            <div className="p-4 bg-green-50 dark:bg-green-950/30 border border-green-200 dark:border-green-800 rounded-lg">
-              <p className="text-xs font-semibold text-green-600 mb-2">✓ Good Criterion</p>
-              <p className="text-sm">"The proposal deck includes a slide titled 'Risks and Mitigations'."</p>
-              <p className="text-xs text-muted-foreground mt-2">Checks for a specific, observable artifact.</p>
-            </div>
+          <CriterionExample
+            bad="The proposal deck is well-organized."
+            badExplanation='"Well-organized" is subjective and open to interpretation.'
+            good="The proposal deck includes a slide titled 'Risks and Mitigations'."
+            goodExplanation="Checks for a specific, observable artifact."
+            quickTest="Could two reasonable reviewers disagree while reading the same output?"
+          />
+          <div className="mt-4 p-4 bg-muted/30 rounded-lg">
+            <p className="text-sm font-semibold mb-2">How to Detect:</p>
+            <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
+              <li>Look for subjective adjectives like "good," "clear," "professional," or "correct."</li>
+              <li>Look for undefined standards such as "best practices" or "high quality."</li>
+            </ul>
           </div>
-          <p className="mt-4 text-sm text-muted-foreground"><strong>Quick Test:</strong> Could two reasonable reviewers disagree while reading the same output?</p>
         </SlideBlock>
 
+        {/* Criterion Error #2 */}
         <SlideBlock title="Criterion Error #2 — Not Self-contained">
           <DefinitionCard>
-            A criterion is not self-contained when it relies on information outside the criterion and the deliverable. The judge model evaluates each criterion in isolation.
+            A criterion is not self-contained when it relies on information outside the criterion and the deliverable. The judge model evaluates each criterion in isolation and does not read the prompt, input files, or links.
           </DefinitionCard>
-          <div className="grid md:grid-cols-2 gap-4 mt-4">
-            <div className="p-4 bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-800 rounded-lg">
-              <p className="text-xs font-semibold text-red-600 mb-2">✗ Bad Criterion</p>
-              <p className="text-sm">"The summary includes the total Q1 sales from the input data."</p>
-              <p className="text-xs text-muted-foreground mt-2">The judge doesn't have access to "the input data."</p>
-            </div>
-            <div className="p-4 bg-green-50 dark:bg-green-950/30 border border-green-200 dark:border-green-800 rounded-lg">
-              <p className="text-xs font-semibold text-green-600 mb-2">✓ Good Criterion</p>
-              <p className="text-sm">"The summary states total Q1 sales are $1,240,000."</p>
-              <p className="text-xs text-muted-foreground mt-2">All required context is included directly.</p>
-            </div>
+          <CriterionExample
+            bad="The summary includes the total Q1 sales from the input data."
+            badExplanation='The judge model does not have access to "the input data."'
+            good="The summary states total Q1 sales are $1,240,000."
+            goodExplanation="All required context is included directly."
+            quickTest="Could someone judge this criterion using only the criterion text and the deliverable?"
+          />
+          <div className="mt-4 p-4 bg-muted/30 rounded-lg">
+            <p className="text-sm font-semibold mb-2">How to Detect:</p>
+            <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
+              <li>Look for references like "from the prompt," "from the input file," or "as described above."</li>
+              <li>Look for pronouns that require external context.</li>
+            </ul>
           </div>
-          <p className="mt-4 text-sm text-muted-foreground"><strong>Quick Test:</strong> Could someone judge this using only the criterion text and the deliverable?</p>
         </SlideBlock>
 
+        {/* Criterion Error #3 */}
         <SlideBlock title="Criterion Error #3 — Stacked">
           <DefinitionCard>
-            A criterion is stacked when it measures two or more independent checks at once. Because scoring is binary, partial success still results in failure.
+            A criterion is stacked when it measures two or more independent checks at once. Because scoring is binary, partial success still results in failure, creating noisy and unfair scoring.
           </DefinitionCard>
-          <div className="grid md:grid-cols-2 gap-4 mt-4">
-            <div className="p-4 bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-800 rounded-lg">
-              <p className="text-xs font-semibold text-red-600 mb-2">✗ Bad Criterion</p>
-              <p className="text-sm">"The email includes the meeting date and the Zoom link."</p>
-              <p className="text-xs text-muted-foreground mt-2">Bundles two independent requirements into one check.</p>
-            </div>
-            <div className="p-4 bg-green-50 dark:bg-green-950/30 border border-green-200 dark:border-green-800 rounded-lg">
-              <p className="text-xs font-semibold text-green-600 mb-2">✓ Good Criterion</p>
-              <p className="text-sm">"The email includes the meeting date."</p>
-              <p className="text-xs text-muted-foreground mt-2">Evaluates a single requirement.</p>
-            </div>
+          <CriterionExample
+            bad="The email includes the meeting date and the Zoom link."
+            badExplanation="Bundles two independent requirements into one check."
+            good="The email includes the meeting date."
+            goodExplanation="Evaluates a single requirement."
+            quickTest="Could a response satisfy part of this criterion but still fail it?"
+          />
+          <div className="mt-4 p-4 bg-muted/30 rounded-lg">
+            <p className="text-sm font-semibold mb-2">How to Detect:</p>
+            <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
+              <li>Look for "and," "as well as," or multiple nouns in one criterion.</li>
+              <li>Ask whether partial compliance is possible.</li>
+            </ul>
           </div>
-          <p className="mt-4 text-sm text-muted-foreground"><strong>Quick Test:</strong> Could a response satisfy part of this criterion but still fail it?</p>
         </SlideBlock>
 
+        {/* Criterion Error #4 */}
         <SlideBlock title="Criterion Error #4 — Convoluted Phrasing">
           <DefinitionCard>
             A criterion has convoluted phrasing when it is longer or more complex than necessary, making it harder to interpret consistently.
           </DefinitionCard>
-          <div className="grid md:grid-cols-2 gap-4 mt-4">
-            <div className="p-4 bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-800 rounded-lg">
-              <p className="text-xs font-semibold text-red-600 mb-2">✗ Bad Criterion</p>
-              <p className="text-sm">"The summary report has a table in it where the title indicates that it is meant to be a summary of the values for farm produce production for 2026."</p>
-              <p className="text-xs text-muted-foreground mt-2">Wordy, indirect, and harder to parse.</p>
-            </div>
-            <div className="p-4 bg-green-50 dark:bg-green-950/30 border border-green-200 dark:border-green-800 rounded-lg">
-              <p className="text-xs font-semibold text-green-600 mb-2">✓ Good Criterion</p>
-              <p className="text-sm">"The table in the Summary Report includes a title indicating it summarizes farm produce production for 2026."</p>
-              <p className="text-xs text-muted-foreground mt-2">Concise, direct, and easy to evaluate.</p>
-            </div>
+          <CriterionExample
+            bad="The summary report has a table in it where the title indicates that it is meant to be a summary of the values for farm produce production for 2026."
+            badExplanation="Wordy, indirect, and harder to parse."
+            good="The table in the Summary Report includes a title indicating it summarizes farm produce production for 2026."
+            goodExplanation="Concise, direct, and easy to evaluate."
+            quickTest="Can you rewrite it in one shorter sentence without losing meaning?"
+          />
+          <div className="mt-4 p-4 bg-muted/30 rounded-lg">
+            <p className="text-sm font-semibold mb-2">How to Detect:</p>
+            <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
+              <li>Look for long dependent clauses or repeated phrasing.</li>
+              <li>Notice if you have to reread the criterion.</li>
+            </ul>
           </div>
-          <p className="mt-4 text-sm text-muted-foreground"><strong>Quick Test:</strong> Can you rewrite it in one shorter sentence without losing meaning?</p>
         </SlideBlock>
 
+        {/* Criterion Error #5 */}
         <SlideBlock title="Criterion Error #5 — Process Words">
           <DefinitionCard>
             A criterion uses process words when it evaluates how the deliverable was produced rather than what the deliverable contains or is.
           </DefinitionCard>
-          <div className="grid md:grid-cols-2 gap-4 mt-4">
-            <div className="p-4 bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-800 rounded-lg">
-              <p className="text-xs font-semibold text-red-600 mb-2">✗ Bad Criterion</p>
-              <p className="text-sm">"The sample track is converted into an MP4 file."</p>
-              <p className="text-xs text-muted-foreground mt-2">"Converted" describes a process that is not observable in the final output.</p>
-            </div>
-            <div className="p-4 bg-green-50 dark:bg-green-950/30 border border-green-200 dark:border-green-800 rounded-lg">
-              <p className="text-xs font-semibold text-green-600 mb-2">✓ Good Criterion</p>
-              <p className="text-sm">"The sample track is an MP4 file."</p>
-              <p className="text-xs text-muted-foreground mt-2">Evaluates the observable state of the deliverable.</p>
-            </div>
+          <CriterionExample
+            bad="The sample track is converted into an MP4 file."
+            badExplanation='"Converted" describes a process that is not observable in the final output.'
+            good="The sample track is an MP4 file."
+            goodExplanation="Evaluates the observable state of the deliverable."
+            quickTest="Could the deliverable be correct even if you don't know how it was made?"
+          />
+          <div className="mt-4 p-4 bg-muted/30 rounded-lg">
+            <p className="text-sm font-semibold mb-2">How to Detect:</p>
+            <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
+              <li>Look for verbs like "converted," "validated," "ensured," or "followed."</li>
+              <li>Look for phrases describing intent or method.</li>
+            </ul>
           </div>
-          <p className="mt-4 text-sm text-muted-foreground"><strong>Quick Test:</strong> Could the deliverable be correct even if you don't know how it was made?</p>
         </SlideBlock>
 
-        {/* Rubric-Level Issues */}
-        <SlideBlock title="The 5 Core Elements of Rubric-Level Issues">
+        {/* Criterion Error #6 */}
+        <SlideBlock title="Criterion Error #6 — Incorrect Label">
+          <DefinitionCard>
+            The Implicit/Explicit label is incorrect when it does not align with whether the requirement is directly stated in the prompt (Explicit) or implied by the task and requires intermediate steps or domain judgment (Implicit).
+          </DefinitionCard>
+          <CriterionExample
+            bad="The 1040 package includes Schedule A. [Labeled: Explicit]"
+            badExplanation="Whether Schedule A is required depends on interpreting the client's documents → should be Implicit."
+            good="The 1040 package is in PDF format. [Labeled: Explicit]"
+            goodExplanation="Prompt directly says PDF, so Explicit label is correct."
+            quickTest="Is this requirement directly stated word-for-word in the prompt?"
+          />
+          <div className="mt-4 p-4 bg-muted/30 rounded-lg">
+            <p className="text-sm font-semibold mb-2">How to Detect:</p>
+            <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
+              <li>Traceability test: Can you point to a sentence in the prompt that directly states the requirement?</li>
+              <li>If yes → Explicit. If it requires intermediate steps or judgment → Implicit.</li>
+            </ul>
+          </div>
+        </SlideBlock>
+
+        {/* Criterion Error #7 */}
+        <SlideBlock title="Criterion Error #7 — Inaccurate Weighting">
+          <DefinitionCard>
+            Inaccurate weighting occurs when a criterion's assigned weight does not reflect its true importance to the task. A trivial formatting check should not carry the same weight as a core functional requirement.
+          </DefinitionCard>
+          <div className="mt-4 grid md:grid-cols-2 gap-4">
+            <div className="p-4 bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-800 rounded-lg">
+              <p className="text-xs font-semibold text-red-600 mb-2">✗ Inaccurate</p>
+              <p className="text-sm">"The report uses Times New Roman font." <span className="text-red-600 font-bold">(Weight: 90)</span></p>
+              <p className="text-xs text-muted-foreground mt-2">Font choice is trivial polish, not a core requirement.</p>
+            </div>
+            <div className="p-4 bg-green-50 dark:bg-green-950/30 border border-green-200 dark:border-green-800 rounded-lg">
+              <p className="text-xs font-semibold text-green-600 mb-2">✓ Accurate</p>
+              <p className="text-sm">"The report uses Times New Roman font." <span className="text-green-600 font-bold">(Weight: 10)</span></p>
+              <p className="text-xs text-muted-foreground mt-2">Minor formatting weighted appropriately low.</p>
+            </div>
+          </div>
+          <p className="mt-4 text-sm text-muted-foreground"><strong>Quick Test:</strong> Would getting this criterion wrong truly matter for the task's success?</p>
+        </SlideBlock>
+
+        {/* Criterion Error #8 */}
+        <SlideBlock title="Criterion Error #8 — Restrictive">
+          <DefinitionCard>
+            Restrictive criteria are those that overfit to a specific "correct" output rather than evaluating acceptable variations. A criterion is restrictive when it would reject alternative valid solutions that meet the task requirements.
+          </DefinitionCard>
+          <CriterionExample
+            bad="The executive summary uses exactly three bullet points."
+            badExplanation="Overly prescriptive—four bullets could be equally acceptable."
+            good="The executive summary includes a bulleted list of key findings."
+            goodExplanation="Allows flexibility while checking the core requirement."
+            quickTest="Would this criterion reject other valid approaches to the same task?"
+          />
+          <div className="mt-4 p-4 bg-muted/30 rounded-lg">
+            <p className="text-sm font-semibold mb-2">How to Detect:</p>
+            <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
+              <li>Ask: "Is there only one way to satisfy this requirement?"</li>
+              <li>Look for overly specific counts, exact wording, or narrow format requirements.</li>
+            </ul>
+          </div>
+        </SlideBlock>
+
+        {/* 3 Rubric-Level Issues */}
+        <SlideBlock title="The 3 Core Rubric-Level Issues">
           <p className="mb-4 text-muted-foreground">
             These are rubric-level issues that affect overall quality. Unlike criterion-level errors, these problems span across the rubric as a whole.
           </p>
           <div className="space-y-3">
-            <ErrorBox number={1} name="Missing Criteria" description="Fails to include criteria for essential requirements" color="amber" />
-            <ErrorBox number={2} name="Criteria Inaccurate" description="Measures something not required for an ideal solution" color="amber" />
-            <ErrorBox number={3} name="Restrictive" description="Overfits to a narrow version of the 'right answer'" color="amber" />
-            <ErrorBox number={4} name="Inaccurate Weighting" description="Weights don't reflect relative importance" color="amber" />
-            <ErrorBox number={5} name="Incorrect Implicit/Explicit Label" description="Label doesn't match whether requirement is stated" color="amber" />
+            <ErrorBox number={1} name="Redundancy" description="Criteria overlap with each other or check the same thing" color="amber" />
+            <ErrorBox number={2} name="Missing Criteria" description="Fails to include criteria for essential requirements" color="amber" />
+            <ErrorBox number={3} name="Relative Weighting" description="Relative weights across criteria don't reflect comparative importance" color="amber" />
           </div>
         </SlideBlock>
 
+        {/* Rubric Error #1 */}
+        <SlideBlock title="Rubric Issue #1 — Redundancy">
+          <DefinitionCard>
+            Redundancy is a rubric-level error where criteria overlap with each other or check the same underlying requirement multiple times. This inflates the importance of certain aspects and creates unfair scoring when the same thing is evaluated twice.
+          </DefinitionCard>
+          <div className="mt-4 grid md:grid-cols-2 gap-4">
+            <div className="p-4 bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-800 rounded-lg">
+              <p className="text-xs font-semibold text-red-600 mb-2">✗ Redundant Criteria</p>
+              <p className="text-sm mb-2">"The summary includes a company overview section."</p>
+              <p className="text-sm">"The summary contains a paragraph describing the company."</p>
+              <p className="text-xs text-muted-foreground mt-2">Both check the same requirement—double-counting.</p>
+            </div>
+            <div className="p-4 bg-green-50 dark:bg-green-950/30 border border-green-200 dark:border-green-800 rounded-lg">
+              <p className="text-xs font-semibold text-green-600 mb-2">✓ Single Criterion</p>
+              <p className="text-sm">"The summary includes a company overview section."</p>
+              <p className="text-xs text-muted-foreground mt-2">Single, clear criterion for this requirement.</p>
+            </div>
+          </div>
+          <div className="mt-4 p-4 bg-muted/30 rounded-lg">
+            <p className="text-sm font-semibold mb-2">How to Detect:</p>
+            <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
+              <li>Overlap test: Would satisfying criterion A automatically satisfy criterion B?</li>
+              <li>Double-counting test: If a deliverable fails one, would it likely also fail another?</li>
+            </ul>
+          </div>
+        </SlideBlock>
+
+        {/* Rubric Error #2 */}
+        <SlideBlock title="Rubric Issue #2 — Missing Criteria">
+          <DefinitionCard>
+            Missing Criteria is a rubric-level error: the rubric fails to include criteria for one or more essential requirements (core prompt asks, critical failure modes, or key quality dimensions). This allows clearly bad or incomplete deliverables to score well.
+          </DefinitionCard>
+          <div className="mt-4 p-4 bg-muted/30 rounded-lg">
+            <p className="text-sm font-semibold mb-2">How to Detect:</p>
+            <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
+              <li>Do a prompt decomposition and make a checklist of explicit must-haves. Verify each has at least one criterion.</li>
+              <li>Run a "bad-but-polished" thought experiment: Could a deliverable omit a core requirement and still score high?</li>
+              <li>Check category coverage: Are Instruction Following + Reasoning + Formatting represented appropriately?</li>
+              <li>Check failure-mode coverage: Are common wrong responses penalized?</li>
+            </ul>
+          </div>
+        </SlideBlock>
+
+        {/* Rubric Error #3 */}
+        <SlideBlock title="Rubric Issue #3 — Relative Weighting">
+          <DefinitionCard>
+            Relative weighting is a rubric-level error where the weights across criteria don't reflect their comparative importance. Even if individual weights seem reasonable in isolation, the relative balance between criteria may be off.
+          </DefinitionCard>
+          <div className="mt-4 grid md:grid-cols-2 gap-4">
+            <div className="p-4 bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-800 rounded-lg">
+              <p className="text-xs font-semibold text-red-600 mb-2">✗ Imbalanced Weights</p>
+              <p className="text-sm mb-1">"Incident date placeholder" <span className="text-red-600">(Weight: 90)</span></p>
+              <p className="text-sm mb-1">"Location placeholder" <span className="text-red-600">(Weight: 30)</span></p>
+              <p className="text-sm">"Headings are bolded" <span className="text-red-600">(Weight: 90)</span></p>
+              <p className="text-xs text-muted-foreground mt-2">Why is location weighted so much lower than date? Why is formatting equal to core requirements?</p>
+            </div>
+            <div className="p-4 bg-green-50 dark:bg-green-950/30 border border-green-200 dark:border-green-800 rounded-lg">
+              <p className="text-xs font-semibold text-green-600 mb-2">✓ Balanced Weights</p>
+              <p className="text-sm mb-1">"Incident date placeholder" <span className="text-green-600">(Weight: 90)</span></p>
+              <p className="text-sm mb-1">"Location placeholder" <span className="text-green-600">(Weight: 90)</span></p>
+              <p className="text-sm">"Headings are bolded" <span className="text-green-600">(Weight: 20)</span></p>
+              <p className="text-xs text-muted-foreground mt-2">Core requirements weighted consistently, formatting weighted lower.</p>
+            </div>
+          </div>
+          <div className="mt-4 p-4 bg-muted/30 rounded-lg">
+            <p className="text-sm font-semibold mb-2">How to Detect:</p>
+            <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
+              <li>Pairwise comparison: Compare weights of similar-importance criteria—are they consistent?</li>
+              <li>Category balance: Do "polish" criteria collectively outweigh "core" criteria?</li>
+              <li>Proportionality test: Does a 90-weight criterion really matter 9× more than a 10-weight criterion?</li>
+            </ul>
+          </div>
+        </SlideBlock>
+
+        {/* Rubrics Are Iterative */}
         <SlideBlock title="Rubrics Are Iterative: Dogfooding Them">
           <Card className="mb-4">
             <CardContent className="p-4">
@@ -702,7 +1177,7 @@ const CourseReference = () => {
             <CardContent className="p-4">
               <p className="text-xs uppercase tracking-wider text-muted-foreground mb-2">Why Iteration is Necessary</p>
               <ul className="list-disc list-inside space-y-1 text-sm">
-                <li>Overfitting the rubric to the original Bronze response</li>
+                <li>Overfitting the rubric to the original Gold response</li>
                 <li>Liking or anchoring on the specific model response you happened to see first</li>
                 <li>Missing important failure modes that only appear in other responses</li>
                 <li>Overweighting or underweighting certain criteria unintentionally</li>
@@ -719,6 +1194,16 @@ const CourseReference = () => {
                 <li>Weak responses</li>
                 <li>Intentionally flawed responses</li>
               </ul>
+            </CardContent>
+          </Card>
+
+          <Card className="mb-4">
+            <CardContent className="p-4">
+              <p className="text-xs uppercase tracking-wider text-muted-foreground mb-2">What to Dogfood</p>
+              <p className="mb-2"><strong>1. The Full Rubric</strong></p>
+              <p className="text-sm text-muted-foreground mb-3">Ask: Does the rubric, as a whole, separate good responses from bad ones? Do the top-scoring responses actually look like what you consider "good"?</p>
+              <p className="mb-2"><strong>2. Individual Criteria</strong></p>
+              <p className="text-sm text-muted-foreground">Ask: Does this criterion behave consistently across responses? Does it accidentally depend on context the judge model cannot see?</p>
             </CardContent>
           </Card>
 
