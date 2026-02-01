@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 import { 
   FileText, 
   ExternalLink,
-  StickyNote
+  ChevronDown
 } from "lucide-react";
 import {
   Table,
@@ -14,7 +14,13 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Textarea } from "@/components/ui/textarea";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 export type ErrorType = 
   | "ambiguous" 
@@ -63,6 +69,14 @@ const categoryColors: Record<string, string> = {
   "Extraction": "bg-cyan-100 text-cyan-700 dark:bg-cyan-900/30 dark:text-cyan-400",
 };
 
+const errorTypeLabels: Record<ErrorType, string> = {
+  "ambiguous": "Ambiguous",
+  "not-self-contained": "Not self-contained",
+  "stacked": "Stacked",
+  "convoluted-phrasing": "Convoluted phrasing",
+  "process-words": "Process words",
+};
+
 const RubricInteractiveQuiz = ({
   exerciseNumber,
   prompt,
@@ -70,6 +84,8 @@ const RubricInteractiveQuiz = ({
   deliverableTitle,
   deliverables,
   criteria,
+  onComplete,
+  onGateUnlock,
 }: RubricInteractiveQuizProps) => {
   // Normalize to array of deliverables
   const allDeliverables: Deliverable[] = useMemo(() => {
@@ -82,19 +98,58 @@ const RubricInteractiveQuiz = ({
     return [];
   }, [deliverables, deliverableUrl, deliverableTitle]);
 
-  // Local notes state (not saved)
-  const [notes, setNotes] = useState<Record<number, string>>(() => {
-    const initial: Record<number, string> = {};
+  // Track user answers: null = not answered, true = has error, false = no error
+  const [answers, setAnswers] = useState<Record<number, boolean | null>>(() => {
+    const initial: Record<number, boolean | null> = {};
     criteria.forEach(c => {
-      initial[c.id] = "";
+      initial[c.id] = null;
     });
     return initial;
   });
 
-  const handleNoteChange = (criterionId: number, value: string) => {
-    setNotes(prev => ({
+  // Track selected error types
+  const [selectedErrorTypes, setSelectedErrorTypes] = useState<Record<number, ErrorType | null>>(() => {
+    const initial: Record<number, ErrorType | null> = {};
+    criteria.forEach(c => {
+      initial[c.id] = null;
+    });
+    return initial;
+  });
+
+  // Count answered questions
+  const answeredCount = useMemo(() => {
+    return Object.values(answers).filter(a => a !== null).length;
+  }, [answers]);
+
+  const handleAnswerChange = (criterionId: number, hasError: boolean) => {
+    setAnswers(prev => ({
       ...prev,
-      [criterionId]: value,
+      [criterionId]: hasError,
+    }));
+
+    // Clear error type if user selects "No"
+    if (!hasError) {
+      setSelectedErrorTypes(prev => ({
+        ...prev,
+        [criterionId]: null,
+      }));
+    }
+
+    // Check if all answered after this change
+    const newAnswers = { ...answers, [criterionId]: hasError };
+    const allAnswered = Object.values(newAnswers).every(a => a !== null);
+    if (allAnswered && onComplete) {
+      onComplete();
+    }
+    if (allAnswered && onGateUnlock) {
+      onGateUnlock();
+    }
+  };
+
+  const handleErrorTypeChange = (criterionId: number, errorType: ErrorType) => {
+    setSelectedErrorTypes(prev => ({
+      ...prev,
+      [criterionId]: errorType,
     }));
   };
 
@@ -158,13 +213,9 @@ const RubricInteractiveQuiz = ({
         </Card>
       ))}
 
-      {/* Notes disclaimer */}
-      <div className="flex items-center gap-2 p-3 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-lg">
-        <StickyNote className="w-4 h-4 text-amber-600 dark:text-amber-400 flex-shrink-0" />
-        <p className="text-sm text-amber-700 dark:text-amber-300">
-          Use the <strong>Notes</strong> column to jot down observations as you review this rubric. 
-          <span className="text-amber-600 dark:text-amber-400 font-medium"> Notes are NOT saved</span> and will be lost when you leave this page.
-        </p>
+      {/* Progress */}
+      <div className="text-sm text-muted-foreground">
+        Progress: <span className="font-bold text-foreground">{answeredCount}</span> / {criteria.length} answered
       </div>
 
       {/* Rubric Criteria Table */}
@@ -175,11 +226,11 @@ const RubricInteractiveQuiz = ({
             <TableHeader>
               <TableRow className="bg-muted/50">
                 <TableHead className="w-12 text-center">#</TableHead>
-                <TableHead className="w-20 text-center">Weight</TableHead>
                 <TableHead className="min-w-[250px]">Criterion</TableHead>
+                <TableHead className="w-20 text-center">Weight</TableHead>
                 <TableHead className="w-40">Category</TableHead>
-                <TableHead className="min-w-[200px]">Rationale</TableHead>
-                <TableHead className="min-w-[180px]">Notes (NOT SAVED)</TableHead>
+                <TableHead className="w-28 text-center">Error?</TableHead>
+                <TableHead className="min-w-[180px]">Error Type</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -188,11 +239,11 @@ const RubricInteractiveQuiz = ({
                   <TableCell className="text-center font-medium text-muted-foreground">
                     {criterion.id}
                   </TableCell>
-                  <TableCell className="text-center">
-                    <span className="text-sm font-medium">{criterion.weight}</span>
-                  </TableCell>
                   <TableCell>
                     <span className="text-sm">{criterion.text}</span>
+                  </TableCell>
+                  <TableCell className="text-center">
+                    <span className="text-sm font-medium">{criterion.weight}</span>
                   </TableCell>
                   <TableCell>
                     <span className={cn(
@@ -203,17 +254,51 @@ const RubricInteractiveQuiz = ({
                     </span>
                   </TableCell>
                   <TableCell>
-                    <span className="text-sm text-muted-foreground">
-                      {criterion.rationale || "—"}
-                    </span>
+                    <div className="flex items-center justify-center gap-1">
+                      <button
+                        onClick={() => handleAnswerChange(criterion.id, false)}
+                        className={cn(
+                          "px-3 py-1 text-xs font-medium rounded-l-md border transition-colors",
+                          answers[criterion.id] === false
+                            ? "bg-muted text-foreground border-border"
+                            : "bg-background text-muted-foreground border-border hover:bg-muted/50"
+                        )}
+                      >
+                        No
+                      </button>
+                      <button
+                        onClick={() => handleAnswerChange(criterion.id, true)}
+                        className={cn(
+                          "px-3 py-1 text-xs font-medium rounded-r-md border-t border-r border-b transition-colors",
+                          answers[criterion.id] === true
+                            ? "bg-muted text-foreground border-border"
+                            : "bg-background text-muted-foreground border-border hover:bg-muted/50"
+                        )}
+                      >
+                        Yes
+                      </button>
+                    </div>
                   </TableCell>
                   <TableCell>
-                    <Textarea
-                      value={notes[criterion.id] || ""}
-                      onChange={(e) => handleNoteChange(criterion.id, e.target.value)}
-                      placeholder="Add notes..."
-                      className="min-h-[60px] text-xs resize-none"
-                    />
+                    {answers[criterion.id] === true ? (
+                      <Select
+                        value={selectedErrorTypes[criterion.id] || ""}
+                        onValueChange={(value) => handleErrorTypeChange(criterion.id, value as ErrorType)}
+                      >
+                        <SelectTrigger className="h-8 text-xs">
+                          <SelectValue placeholder="Select error type..." />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {Object.entries(errorTypeLabels).map(([value, label]) => (
+                            <SelectItem key={value} value={value} className="text-xs">
+                              {label}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    ) : (
+                      <span className="text-muted-foreground">—</span>
+                    )}
                   </TableCell>
                 </TableRow>
               ))}
