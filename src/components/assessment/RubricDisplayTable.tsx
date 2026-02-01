@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Table,
   TableBody,
@@ -8,6 +8,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { cn } from "@/lib/utils";
+import { AlertTriangle } from "lucide-react";
 
 export interface RubricCriterion {
   id: number;
@@ -39,8 +40,22 @@ const RubricDisplayTable: React.FC<RubricDisplayTableProps> = ({
   criteria,
   title = "Rubric Criteria",
 }) => {
+  const [notes, setNotes] = useState<Record<number, string>>({});
+
+  const handleNoteChange = (id: number, value: string) => {
+    setNotes(prev => ({ ...prev, [id]: value }));
+  };
+
   return (
     <div>
+      {/* Warning Banner */}
+      <div className="flex items-center gap-2 bg-amber-50 border border-amber-200 text-amber-800 px-4 py-3 rounded-lg mb-4">
+        <AlertTriangle className="w-5 h-5 flex-shrink-0" />
+        <span className="text-sm font-medium">
+          This rubric does NOT save. Any notes you enter will be lost when you leave or refresh this page.
+        </span>
+      </div>
+
       {title && <h3 className="text-lg font-semibold mb-3">{title}</h3>}
       <div className="border rounded-lg overflow-hidden">
         <Table>
@@ -52,6 +67,7 @@ const RubricDisplayTable: React.FC<RubricDisplayTableProps> = ({
               <TableHead className="w-36">Category</TableHead>
               <TableHead className="min-w-[200px]">Rationale</TableHead>
               <TableHead className="w-32">Citation</TableHead>
+              <TableHead className="min-w-[180px]">Notes</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -85,6 +101,15 @@ const RubricDisplayTable: React.FC<RubricDisplayTableProps> = ({
                   <span className="text-sm text-muted-foreground">
                     {criterion.citation || "—"}
                   </span>
+                </TableCell>
+                <TableCell>
+                  <input
+                    type="text"
+                    value={notes[criterion.id] || ""}
+                    onChange={(e) => handleNoteChange(criterion.id, e.target.value)}
+                    placeholder="Add note..."
+                    className="w-full text-sm px-2 py-1 border rounded bg-background focus:outline-none focus:ring-1 focus:ring-primary"
+                  />
                 </TableCell>
               </TableRow>
             ))}
