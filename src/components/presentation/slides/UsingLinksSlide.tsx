@@ -95,45 +95,45 @@ const UsingLinksSlide = () => {
           </h3>
           <p className="text-base text-muted-foreground mb-6">Concrete examples of how to reference links properly.</p>
           
-          <div className="grid md:grid-cols-3 gap-4">
+          <div className="space-y-4">
             {/* Good Example 1 */}
             <div className="bg-muted/30 rounded-xl p-5 border-2 border-border hover:border-primary/40 transition-colors">
-              <p className="text-base font-semibold text-primary mb-2">Link is optional context</p>
+              <p className="text-base font-semibold text-primary mb-2">Example 1: Link is optional context</p>
               <p className="text-sm text-muted-foreground italic mb-4 leading-relaxed">
                 "Write a 1-page summary of the AI Risk Management approach.<br/>
                 Optional background link (for context): https://www.nist.gov/...<br/>
                 Deliverable: 5 bullets + 2 risks + 2 recommendations."
               </p>
-              <div className="space-y-1">
-                <span className="text-xs bg-primary/15 text-primary px-2 py-1 rounded-full font-medium block w-fit">✔ Task is clear without the link</span>
-                <span className="text-xs bg-primary/15 text-primary px-2 py-1 rounded-full font-medium block w-fit">✔ Link role is labeled</span>
+              <div className="flex gap-2 flex-wrap">
+                <span className="text-sm bg-primary/15 text-primary px-3 py-1.5 rounded-full font-medium">✔ Task is clear without the link</span>
+                <span className="text-sm bg-primary/15 text-primary px-3 py-1.5 rounded-full font-medium">✔ Link role is labeled</span>
               </div>
             </div>
 
             {/* Good Example 2 */}
             <div className="bg-muted/30 rounded-xl p-5 border-2 border-border hover:border-primary/40 transition-colors">
-              <p className="text-base font-semibold text-primary mb-2">Link is a reference standard</p>
+              <p className="text-base font-semibold text-primary mb-2">Example 2: Link is a reference standard</p>
               <p className="text-sm text-muted-foreground italic mb-4 leading-relaxed">
                 "Draft a short policy memo that follows the principles of the AI RMF (reference): https://www.nist.gov/...<br/>
                 Include: executive summary, 3 recommendations, 2 risks."
               </p>
-              <div className="space-y-1">
-                <span className="text-xs bg-primary/15 text-primary px-2 py-1 rounded-full font-medium block w-fit">✔ Link is clearly a reference</span>
-                <span className="text-xs bg-primary/15 text-primary px-2 py-1 rounded-full font-medium block w-fit">✔ Requirements still in prompt</span>
+              <div className="flex gap-2 flex-wrap">
+                <span className="text-sm bg-primary/15 text-primary px-3 py-1.5 rounded-full font-medium">✔ Link is clearly a reference</span>
+                <span className="text-sm bg-primary/15 text-primary px-3 py-1.5 rounded-full font-medium">✔ Requirements still in prompt</span>
               </div>
             </div>
 
             {/* Good Example 3 */}
             <div className="bg-muted/30 rounded-xl p-5 border-2 border-border hover:border-primary/40 transition-colors">
-              <p className="text-base font-semibold text-primary mb-2">Key points included inline</p>
+              <p className="text-base font-semibold text-primary mb-2">Example 3: Key points included inline</p>
               <p className="text-sm text-muted-foreground italic mb-4 leading-relaxed">
                 "Use this article for context: https://example.com/article<br/>
                 Key points to include: Point A, Point B...<br/>
                 Deliverable: rewrite into a customer-friendly FAQ."
               </p>
-              <div className="space-y-1">
-                <span className="text-xs bg-primary/15 text-primary px-2 py-1 rounded-full font-medium block w-fit">✔ Task doable without link</span>
-                <span className="text-xs bg-primary/15 text-primary px-2 py-1 rounded-full font-medium block w-fit">✔ Source of truth in prompt</span>
+              <div className="flex gap-2 flex-wrap">
+                <span className="text-sm bg-primary/15 text-primary px-3 py-1.5 rounded-full font-medium">✔ Task doable without link</span>
+                <span className="text-sm bg-primary/15 text-primary px-3 py-1.5 rounded-full font-medium">✔ Source of truth in prompt</span>
               </div>
             </div>
           </div>
