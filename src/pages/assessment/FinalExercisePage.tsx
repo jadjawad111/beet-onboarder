@@ -78,7 +78,7 @@ const assessmentSlides: Slide[] = [
     section: "Final Assessment",
     title: "Exercise #1",
     content: (
-      <ContentSlide title="" layout="left">
+      <ContentSlide title="" layout="full">
         <RubricInteractiveQuiz
           exerciseNumber={1}
           prompt={exercise1Prompt}
@@ -94,7 +94,7 @@ const assessmentSlides: Slide[] = [
     section: "Final Assessment",
     title: "Exercise #2",
     content: (
-      <ContentSlide title="" layout="left">
+      <ContentSlide title="" layout="full">
         <RubricInteractiveQuiz
           exerciseNumber={2}
           prompt={exercise2Prompt}
