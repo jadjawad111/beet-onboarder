@@ -24,14 +24,14 @@ You should link to any relevant news articles (using SEO-friendly anchors) throu
 const CRITERIA_DATA = [
   { num: 1, weight: 100, criterion: 'The article title is "What is NFT Photography? An Introductory Guide".', category: "Instruction Following", rationale: "The prompt requests this title", citations: "—" },
   { num: 2, weight: 90, criterion: "The article includes a subtitle that refers to NFT photography or to its value for photographers.", category: "Instruction Following", rationale: "The prompt asks for a subheading", citations: "—" },
-  { num: 3, weight: 70, criterion: 'Every domain-specific term (e.g. "NFT", "blockchain") is defined in the article.', category: "Reasoning", rationale: "Introductory article requires term definitions.", citations: "—" },
-  { num: 4, weight: 85, criterion: "The article states NFTs provide verifiable ownership for photographers.", category: "Instruction Following", rationale: "Prompt requires ownership benefit.", citations: "—" },
-  { num: 5, weight: 85, criterion: "The article states NFTs provide verifiable provenance for photographers.", category: "Instruction Following", rationale: "Prompt requires provenance benefit.", citations: "—" },
-  { num: 6, weight: 100, criterion: "Word count is between 1,350–1,650 words.", category: "Instruction Following", rationale: "Prompt: 1,500 words ±10%", citations: "—" },
-  { num: 7, weight: 90, criterion: "Major section titles use Heading 2 formatting.", category: "Instruction Following", rationale: "Prompt requests H2/H3 headers.", citations: "—" },
-  { num: 8, weight: 90, criterion: "Sub-section titles use Heading 3 formatting.", category: "Instruction Following", rationale: "Prompt requests H2/H3 headers.", citations: "—" },
-  { num: 9, weight: 25, criterion: "The article title is formatted in bold.", category: "Formatting", rationale: "Readability requirement.", citations: "—" },
-  { num: 10, weight: 25, criterion: "All headings are formatted in bold.", category: "Formatting", rationale: "Readability requirement.", citations: "—" },
+  { num: 3, weight: 70, criterion: 'Every domain-specific term (for example "NFT", "blockchain", "ETH", "on-chain") is defined or explained in the body text of the article.', category: "Reasoning", rationale: "This is an introductory article, so it follows that uncommon terms be defined.", citations: "—" },
+  { num: 4, weight: 85, criterion: "The article includes at least one sentence stating that NFTs benefit photographers because they provide verifiable ownership of their photographic works.", category: "Instruction Following", rationale: "Instruction Following", citations: "—" },
+  { num: 5, weight: 85, criterion: "The article includes at least one sentence stating that NFTs benefit photographers because they provide verifiable provenance for their photographic works.", category: "Instruction Following", rationale: "Instruction Following", citations: "—" },
+  { num: 6, weight: 100, criterion: "The article's word count is between 1,350 to 1,650 words.", category: "Instruction Following; Reasoning", rationale: "The prompt requests the article be 1,500 words (with a 10% leeway either side)", citations: "—" },
+  { num: 7, weight: 90, criterion: "All major section titles in the article are presented using Heading 2 headers.", category: "Instruction Following", rationale: "The prompt requests using H2 and H3 headers to break up the text adequately and add a subheading.", citations: "—" },
+  { num: 8, weight: 90, criterion: "All sub-section titles in the article are formatted using the Heading 3 headers.", category: "Instruction Following", rationale: "Instruction Following", citations: "—" },
+  { num: 9, weight: 25, criterion: "The article title is formatted in bold.", category: "Formatting", rationale: "It is important for the article to have the title in bold for readability.", citations: "—" },
+  { num: 10, weight: 25, criterion: "All section or sub-section headings in the article are formatted in bold.", category: "Formatting", rationale: "It is important for the article to have bold section headings for readability.", citations: "—" },
 ];
 
 // Annotation definitions
@@ -118,18 +118,18 @@ const RubricDissectionSlide = () => {
 
       {/* Main Content Stack with Annotations on sides */}
       <div className="relative">
-        {/* Left Annotations - Weight → row 1 weight, Criterion → row 1 criterion */}
+        {/* Left Annotations - Weight → row 1 weight (100), Criterion → row 4 criterion */}
         <div
           className="absolute left-0 top-0 bottom-0 w-[280px] -translate-x-full pr-8 hidden xl:flex flex-col gap-4"
-          style={{ paddingTop: "670px" }}
+          style={{ paddingTop: "720px" }}
         >
           {leftAnnotations.map((annotation, idx) => {
             const revealed = isRevealed(annotation.id);
-            // Weight points to row 1 weight column, Criterion points to row 1 criterion
+            // Weight points to row 1 weight column (100), Criterion points to row 4 criterion
             const lineWidth = annotation.id === "weight" ? 340 : 420;
             const lineGap = 12;
-            // Vertical offset so Weight points to row 1, Criterion points to row 2
-            const verticalOffset = idx === 0 ? -60 : 20;
+            // Vertical offset: Weight → row 1, Criterion → row 4
+            const verticalOffset = annotation.id === "weight" ? -40 : 80;
             
             return (
               <div key={annotation.id} className="relative">
@@ -198,10 +198,10 @@ const RubricDissectionSlide = () => {
           })}
         </div>
 
-        {/* Right Annotations - Category → row 1, Rationale → row 2, Citations → row 3 */}
+        {/* Right Annotations - Category → row 4, Rationale → row 4, Citations → row 7 */}
         <div
           className="absolute right-0 top-0 bottom-0 w-[280px] translate-x-full pl-8 hidden xl:flex flex-col gap-3"
-          style={{ paddingTop: "660px" }}
+          style={{ paddingTop: "720px" }}
         >
           {rightAnnotations.map((annotation, idx) => {
             const revealed = isRevealed(annotation.id);
@@ -213,11 +213,11 @@ const RubricDissectionSlide = () => {
             };
             const lineWidth = lineWidths[annotation.id] || 150;
             const lineGap = 12;
-            // Vertical offsets: Category → row 1, Rationale → row 2, Citations → row 3
+            // Vertical offsets: Category → row 4, Rationale → row 4, Citations → row 7
             const verticalOffsets: Record<string, number> = {
-              'category': -80,
-              'rationale': -20,
-              'citations': 40
+              'category': -40,
+              'rationale': 40,
+              'citations': 160
             };
             const verticalOffset = verticalOffsets[annotation.id] || 0;
             
