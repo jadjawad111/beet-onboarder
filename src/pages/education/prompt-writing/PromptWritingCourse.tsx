@@ -2143,10 +2143,10 @@ This report will be used to brief the design team and guide future optimization 
     section: "Rubrics",
     title: "Criterion-Level Issues",
     content: (
-      <ContentSlide title="The 5 Core Elements of Rubric Criterion Issues" layout="left">
+      <ContentSlide title="The 8 Core Criterion-Level Issues" layout="left">
         <div className="space-y-6">
           <p className="text-muted-foreground">
-            Each criterion you write must avoid these five common errors. A criterion that violates any of these will cause inconsistent or unreliable evaluations.
+            Each criterion you write must avoid these eight common errors. A criterion that violates any of these will cause inconsistent or unreliable evaluations.
           </p>
           <div className="grid gap-3">
             {[
@@ -2155,6 +2155,9 @@ This report will be used to brief the design team and guide future optimization 
               { num: 3, name: "Stacked", desc: "Bundles multiple independent checks into one" },
               { num: 4, name: "Convoluted Phrasing", desc: "Longer or more complex than necessary" },
               { num: 5, name: "Process Words", desc: "Evaluates how it was made, not what it is" },
+              { num: 6, name: "Incorrect Label", desc: "Implicit/Explicit label doesn't match whether requirement is stated" },
+              { num: 7, name: "Inaccurate Weighting", desc: "Weight doesn't reflect relative importance" },
+              { num: 8, name: "Restrictive", desc: "Overfits to a narrow version of the 'right answer'" },
             ].map((item) => (
               <div key={item.num} className="p-4 rounded-lg border-2 border-border bg-card hover:border-primary/40 transition-colors">
                 <div className="flex items-center gap-3">
@@ -2311,27 +2314,111 @@ This report will be used to brief the design team and guide future optimization 
       </ContentSlide>
     ),
   },
+  // NEW CRITERION-LEVEL: Incorrect Label (moved from rubric-level)
+  {
+    id: "criterion-error-incorrect-label",
+    section: "Rubrics",
+    title: "Element #6 — Incorrect Label",
+    parentId: "criterion-errors-overview",
+    gated: true,
+    content: (
+      <ContentSlide title="Element #6 — Incorrect Label" layout="left">
+        <CriterionErrorQuiz
+          elementNumber={6}
+          elementName="Incorrect Label"
+          definition="The Implicit/Explicit label is incorrect when it does not align with whether the requirement is directly stated in the prompt (Explicit) or implied by the task and requires intermediate steps or domain judgment (Implicit)."
+          examplePrompt="Using the client's tax documents, prepare a 1040 return (PDF) with all appropriate schedules."
+          optionA="The 1040 package includes Schedule A. [Labeled: Explicit]"
+          optionB="The 1040 package is in PDF format. [Labeled: Explicit]"
+          correctOption="B"
+          whyBadExplanation="Whether Schedule A is required depends on interpreting the client's documents → should be Implicit, not Explicit."
+          whyGoodExplanation="Prompt directly says PDF, so Explicit label is correct."
+          detectHeuristics={[
+            "Traceability test: Can you point to a sentence in the prompt that directly states the requirement? Yes → Explicit. No → Implicit, if the criterion measures something that requires intermediate steps to satisfy a prompt requirement or requires professional judgment.",
+          ]}
+          quickTest="Is this requirement directly stated word-for-word in the prompt?"
+          howToFix="Try to map each criterion to a specific statement or request in the prompt. If it isn't explicitly stated, it is likely implicit."
+        />
+      </ContentSlide>
+    ),
+  },
+  // NEW CRITERION-LEVEL: Inaccurate Weighting (moved from rubric-level)
+  {
+    id: "criterion-error-inaccurate-weighting",
+    section: "Rubrics",
+    title: "Element #7 — Inaccurate Weighting",
+    parentId: "criterion-errors-overview",
+    gated: true,
+    content: (
+      <ContentSlide title="Element #7 — Inaccurate Weighting" layout="left">
+        <CriterionErrorQuiz
+          elementNumber={7}
+          elementName="Inaccurate Weighting"
+          definition="A criterion has inaccurate weighting when its weight doesn't reflect its relative importance for the prompt and deliverable. This can cause minor polish items to outweigh core correctness—or make catastrophic failures barely matter."
+          examplePrompt="Draft a one-page safety incident report template. Must include: incident date, location, what happened, and any injuries. Use clear headings. The report should be modifiable in a Word Document."
+          optionA="The report includes a placeholder for the incident date. [Weight: +20]"
+          optionB="The report includes a placeholder for the incident date. [Weight: +90]"
+          correctOption="B"
+          whyBadExplanation="Date is a core requirement; +20 is too low and doesn't reflect its importance."
+          whyGoodExplanation="Date is a core requirement, weighted appropriately at +90."
+          detectHeuristics={[
+            "Pairwise test: If two responses differ only on this criterion, should that decide the winner? If no but weight is high → overweighted. If yes but weight is low → underweighted.",
+            "Coverage balance test: Add up weights mentally—do 'nice-to-haves' collectively outweigh core requirements?",
+          ]}
+          quickTest="Does this weight match how important this criterion really is?"
+          howToFix="Re-anchor: assign 80–100 to true core requirements, 10–30 to polish, and reserve strong negatives for catastrophic failures."
+        />
+      </ContentSlide>
+    ),
+  },
+  // NEW CRITERION-LEVEL: Restrictive (moved from rubric-level)
+  {
+    id: "criterion-error-restrictive",
+    section: "Rubrics",
+    title: "Element #8 — Restrictive",
+    parentId: "criterion-errors-overview",
+    gated: true,
+    content: (
+      <ContentSlide title="Element #8 — Restrictive" layout="left">
+        <CriterionErrorQuiz
+          elementNumber={8}
+          elementName="Restrictive"
+          definition="A criterion is restrictive when it overfits to a narrow version of the 'right answer,' making the rubric fail the Generalizable Rubric rule. Restrictive criteria often enforce exact wording, arbitrary counts, or specific examples that aren't required—excluding many valid responses."
+          examplePrompt="Write a short executive summary of a quarterly update. Include: revenue, major risks, and next-quarter priorities. Keep it concise, under 500 words."
+          optionA="The executive summary is exactly 200 words."
+          optionB="The executive summary is between 100 - 500 words."
+          correctOption="B"
+          whyBadExplanation='"Concise" does not mean exactly 200 words; many valid summaries could be 150 or 250. This overfits to one narrow interpretation.'
+          whyGoodExplanation="Allows a reasonable range while still being judgeable—generalizable and flexible."
+          detectHeuristics={[
+            "Look for exactness where the prompt allows flexibility: exact word counts, exact number of bullets, exact ordering, exact phrasing.",
+            "'Paraphrase test': If the deliverable uses synonyms or a different but equivalent structure, would this criterion incorrectly fail? If yes → restrictive.",
+          ]}
+          quickTest="Would a valid alternative approach fail this criterion unfairly?"
+          howToFix="Replace exact constraints with checks for the underlying requirement (presence of required elements). Only use quotes when the prompt explicitly demands exact text."
+        />
+      </ContentSlide>
+    ),
+  },
 
   // ═══════════════════════════════════════════════════════════════
-  // RUBRICS: 5 Core Elements of Rubric-Level Issues
+  // RUBRICS: 3 Core Rubric-Level Issues
   // ═══════════════════════════════════════════════════════════════
   {
     id: "rubric-errors-overview",
     section: "Rubrics",
     title: "Rubric-Level Issues",
     content: (
-      <ContentSlide title="The 5 Core Elements of Rubric-Level Issues" layout="left">
+      <ContentSlide title="The 3 Core Rubric-Level Issues" layout="left">
         <div className="space-y-6">
           <p className="text-muted-foreground">
             These are rubric-level issues that affect overall quality. Unlike criterion-level errors, these problems span across the rubric as a whole.
           </p>
           <div className="grid gap-3">
             {[
-              { num: 1, name: "Missing Criteria", desc: "Fails to include criteria for essential requirements" },
-              { num: 2, name: "Criteria Inaccurate", desc: "Measures something not required for an ideal solution" },
-              { num: 3, name: "Restrictive", desc: "Overfits to a narrow version of the 'right answer'" },
-              { num: 4, name: "Inaccurate Weighting", desc: "Weights don't reflect relative importance" },
-              { num: 5, name: "Incorrect Implicit/Explicit Label", desc: "Label doesn't match whether requirement is stated" },
+              { num: 1, name: "Redundancy", desc: "Criteria overlap with each other or check the same thing" },
+              { num: 2, name: "Missing Criteria", desc: "Fails to include criteria for essential requirements" },
+              { num: 3, name: "Relative Weighting", desc: "Relative weights across criteria don't reflect comparative importance" },
             ].map((item) => (
               <div key={item.num} className="p-4 rounded-lg border-2 border-border bg-card hover:border-primary/40 transition-colors">
                 <div className="flex items-center gap-3">
@@ -2348,15 +2435,56 @@ This report will be used to brief the design team and guide future optimization 
       </ContentSlide>
     ),
   },
+  // Issue #1 — Redundancy (NEW)
+  {
+    id: "rubric-error-redundancy",
+    section: "Rubrics",
+    title: "Issue #1 — Redundancy",
+    parentId: "rubric-errors-overview",
+    content: (
+      <ContentSlide title="Issue #1 — Redundancy" layout="left">
+        <RubricLevelQuiz
+          elementNumber={1}
+          elementName="Redundancy"
+          definition="Redundancy is a rubric-level error where criteria overlap with each other or check the same underlying requirement multiple times. This inflates the importance of certain aspects and creates unfair scoring when the same thing is evaluated twice."
+          examplePrompt="Write a one-page executive summary. Include: company overview, key metrics, and next steps. Use professional tone throughout."
+          whatsWrong=""
+          badCriteria={[
+            {
+              text: "The summary includes a company overview section.",
+              explanation: "Overlaps with the next criterion.",
+            },
+            {
+              text: "The summary contains a paragraph describing the company.",
+              explanation: "Checks the same requirement as 'company overview'—double-counting.",
+            },
+          ]}
+          goodCriteria={[
+            {
+              text: "The summary includes a company overview section.",
+              explanation: "Single, clear criterion for this requirement.",
+            },
+          ]}
+          detectHeuristics={[
+            "Overlap test: Would satisfying criterion A automatically satisfy criterion B (or vice versa)? If yes → redundant.",
+            "Double-counting test: If a deliverable fails one criterion, would it likely also fail another? If yes → likely redundant.",
+            "Semantic similarity test: Do two criteria use different words but check the same observable outcome?",
+          ]}
+          howToFix="Consolidate overlapping criteria into a single, clear criterion. Ensure each criterion measures a distinct aspect of the deliverable."
+        />
+      </ContentSlide>
+    ),
+  },
+  // Issue #2 — Missing Criteria (renumbered)
   {
     id: "rubric-error-missing-criteria",
     section: "Rubrics",
-    title: "Issue #1 — Missing Criteria",
+    title: "Issue #2 — Missing Criteria",
     parentId: "rubric-errors-overview",
     content: (
-      <ContentSlide title="Issue #1 — Missing Criteria" layout="left">
+      <ContentSlide title="Issue #2 — Missing Criteria" layout="left">
         <RubricLevelQuiz
-          elementNumber={1}
+          elementNumber={2}
           elementName="Missing Criteria"
           definition="Missing Criteria is a rubric-level error: the rubric fails to include criteria for one or more essential requirements (core prompt asks, critical failure modes, or key quality dimensions). This allows clearly bad or incomplete deliverables to score well."
           examplePrompt="You are a luxury travel advisor. Create a ≤3-page PDF with a numbered list of Forbes 5-star NYC hotels. For each hotel: header, polished description, full address, amenities. Bold pet-friendly and swimming-related amenities."
@@ -2374,182 +2502,60 @@ This report will be used to brief the design team and guide future optimization 
       </ContentSlide>
     ),
   },
+  // Issue #3 — Relative Weighting (NEW)
   {
-    id: "rubric-error-criteria-inaccurate",
+    id: "rubric-error-relative-weighting",
     section: "Rubrics",
-    title: "Issue #2 — Criteria Inaccurate",
+    title: "Issue #3 — Relative Weighting",
     parentId: "rubric-errors-overview",
     content: (
-      <ContentSlide title="Issue #2 — Criteria Inaccurate" layout="left">
-        <RubricLevelQuiz
-          elementNumber={2}
-          elementName="Criteria Inaccurate"
-          definition="A criterion is inaccurate when it measures something that should not be required for an ideal solution—because it's not asked in the prompt, not justified as a domain-implied requirement, or it contradicts the prompt/goal."
-          examplePrompt="Write a 2-paragraph customer support email. Must: apologize, explain next steps for a refund, and include the ticket number 'TP-4821'."
-          whatsWrong=""
-          badCriteria={[
-            {
-              text: "The email offers a 20% discount code to the customer.",
-              explanation: "Not required; a correct response can omit it.",
-            },
-          ]}
-          goodCriteria={[
-            {
-              text: "The email includes the ticket number 'TP-4821'.",
-              explanation: "Directly required by the prompt.",
-            },
-            {
-              text: "The email describes that the customer should confirm their payment details to receive a refund.",
-              explanation: "Reasonable implicit requirement for refund process.",
-            },
-          ]}
-          detectHeuristics={[
-            "Traceability test: Can you point to a prompt line that requires this? If yes → likely accurate (explicit). If no → ask if it is truly implied by professional standards (implicit), or if it's implicitly required to meet the explicit requirements.",
-            "'Correct-but-fails' test: Can you imagine a high-quality deliverable that satisfies the prompt but fails this criterion? If yes → inaccurate (or overly restrictive).",
-            "Consistency test: Does the criterion contradict another criterion or the prompt (wrong dates, wrong names, wrong deliverable type)?",
-          ]}
-          howToFix="Remove the requirement, or rewrite it as an optional low-weight polish item if it's truly a 'nice to have.' If it's meant to be implied, rewrite it so it's clearly tied to professional usefulness and still judgeable."
-        />
-      </ContentSlide>
-    ),
-  },
-  {
-    id: "rubric-error-restrictive",
-    section: "Rubrics",
-    title: "Issue #3 — Restrictive",
-    parentId: "rubric-errors-overview",
-    content: (
-      <ContentSlide title="Issue #3 — Restrictive" layout="left">
+      <ContentSlide title="Issue #3 — Relative Weighting" layout="left">
         <RubricLevelQuiz
           elementNumber={3}
-          elementName="Restrictive"
-          definition="A criterion is restrictive when it overfits to a narrow version of the 'right answer,' making the rubric fail the Generalizable Rubric rule. Restrictive criteria often enforce exact wording, arbitrary counts, or specific examples that aren't required—excluding many valid responses."
-          examplePrompt="Write a short executive summary of a quarterly update. Include: revenue, major risks, and next-quarter priorities. Keep it concise, under 500 words."
-          whatsWrong=""
-          badCriteria={[
-            {
-              text: "The executive summary is exactly 200 words.",
-              explanation: '"Concise" does not mean exactly 200 words; many valid summaries could be 150 or 250.',
-            },
-          ]}
-          insightBox={{
-            title: "Why This Criterion Is Too Restrictive",
-            paragraphs: [
-              "Restrictive criteria often result from over-anchoring to a single output or an overly narrow reading of a prompt constraint. Here, \"under 500 words\" describes a broad range, not a precise target, yet the criterion treats it as one.",
-              "This commonly happens when bronze or golden responses are used to define rubric criteria. Restrictiveness then emerges from overfitting to a priced or exemplar deliverable, rather than assessing whether the response meets the prompt's intent. The issue is not constraint adherence, but tying quality too tightly to a specific form instead of allowing reasonable variation.",
-            ],
-          }}
-          goodCriteria={[
-            {
-              text: "The executive summary is between 100 - 500 words.",
-              explanation: "Generalizable + still judgeable.",
-            },
-          ]}
-          detectHeuristics={[
-            "Look for exactness where the prompt allows flexibility: exact word counts, exact number of bullets, exact ordering, exact phrasing.",
-            "Look for quotes used unnecessarily (forcing exact text matches).",
-            "Ask: Would a valid alternative approach fail? (Different structure, different phrasing, different ordering)",
-            "'Paraphrase test': If the deliverable uses synonyms or a different but equivalent structure, would this criterion incorrectly fail? If yes → restrictive.",
-          ]}
-          howToFix="Replace exact constraints with checks for the underlying requirement (presence of required elements). Only use quotes when the prompt explicitly demands exact text."
-        />
-      </ContentSlide>
-    ),
-  },
-  {
-    id: "rubric-error-inaccurate-weighting",
-    section: "Rubrics",
-    title: "Issue #4 — Inaccurate Weighting",
-    parentId: "rubric-errors-overview",
-    content: (
-      <ContentSlide title="Issue #4 — Inaccurate Weighting" layout="left">
-        <RubricLevelQuiz
-          elementNumber={4}
-          elementName="Inaccurate Weighting"
-          definition="A rubric has inaccurate weighting when weights don't reflect relative importance for the prompt and deliverable. This can cause minor polish items to outweigh core correctness—or make catastrophic failures barely matter."
+          elementName="Relative Weighting"
+          definition="Relative weighting is a rubric-level error where the weights across criteria don't reflect their comparative importance. Even if individual weights seem reasonable in isolation, the relative balance between criteria may be off—causing minor items to collectively outweigh core requirements, or making similarly important criteria have vastly different weights."
           examplePrompt="Draft a one-page safety incident report template. Must include: incident date, location, what happened, and any injuries. Use clear headings. The report should be modifiable in a Word Document."
           whatsWrong=""
           badCriteria={[
             {
               text: "The report includes a placeholder for the incident date.",
-              weight: 20,
-              explanation: "Date is core; should be weighted much higher.",
+              weight: 90,
+              explanation: "Fine in isolation, but see the balance below...",
+            },
+            {
+              text: "The report includes a placeholder for the location.",
+              weight: 30,
+              explanation: "Both are core requirements—why is location weighted so much lower than date?",
             },
             {
               text: "All headings in the report template are bolded.",
               weight: 90,
-              explanation: "Minor formatting shouldn't outweigh core requirements.",
-            },
-            {
-              text: "The report is in PDF format.",
-              weight: -10,
-              explanation: "This directly contradicts the prompt; -10 is too mild.",
+              explanation: "Minor formatting shouldn't equal core requirement weight.",
             },
           ]}
           goodCriteria={[
             {
               text: "The report includes a placeholder for the incident date.",
               weight: 90,
-              explanation: "Date is core requirement, weighted appropriately.",
+              explanation: "Core requirement, appropriately weighted.",
+            },
+            {
+              text: "The report includes a placeholder for the location.",
+              weight: 90,
+              explanation: "Core requirement, weighted consistently with similar items.",
             },
             {
               text: "All headings in the report template are bolded.",
               weight: 20,
-              explanation: "Formatting is minor polish, weighted lower.",
-            },
-            {
-              text: "The report is in PDF format.",
-              weight: -80,
-              explanation: "Contradicts prompt (Word required), strong negative.",
+              explanation: "Formatting is minor polish, weighted lower than core requirements.",
             },
           ]}
           detectHeuristics={[
-            "Pairwise test: If two responses differ only on this criterion, should that decide the winner? If no but weight is high → overweighted. If yes but weight is low → underweighted.",
-            "Coverage balance test: Add up weights mentally—do 'nice-to-haves' collectively outweigh core requirements?",
-            "Consistency test: Do similar-importance criteria have similar weights?",
-            "Negative weight sanity test: Are egregious, common mistakes punished strongly enough?",
+            "Pairwise comparison: Compare weights of similar-importance criteria—are they consistent?",
+            "Category balance: Do 'polish' criteria collectively outweigh 'core' criteria?",
+            "Proportionality test: Does a 90-weight criterion really matter 9× more than a 10-weight criterion?",
           ]}
-          howToFix="Re-anchor the rubric: assign 80–100 to true core requirements, 10–30 to polish, and reserve strong negatives for catastrophic failures. Normalize: similar items → similar weights."
-        />
-      </ContentSlide>
-    ),
-  },
-  {
-    id: "rubric-error-incorrect-label",
-    section: "Rubrics",
-    title: "Issue #5 — Incorrect Label",
-    parentId: "rubric-errors-overview",
-    content: (
-      <ContentSlide title="Issue #5 — Incorrect Implicit/Explicit Label" layout="left">
-        <RubricLevelQuiz
-          elementNumber={5}
-          elementName="Incorrect Implicit/Explicit Label"
-          definition="The Implicit/Explicit label is incorrect when it does not align with whether the requirement is directly stated in the prompt (Explicit) or implied by the task and requires intermediate steps or domain judgment (Implicit)."
-          examplePrompt="Using the client's tax documents, prepare a 1040 return (PDF) with all appropriate schedules."
-          whatsWrong=""
-          badCriteria={[
-            {
-              text: "The 1040 package includes Schedule A.",
-              label: "Explicit",
-              explanation: "Whether Schedule A is required depends on interpreting the client's documents → should be Implicit, not Explicit.",
-            },
-          ]}
-          goodCriteria={[
-            {
-              text: "The 1040 package is in PDF format.",
-              label: "Explicit",
-              explanation: "Prompt directly says PDF.",
-            },
-            {
-              text: "The 1040 package includes Schedule A.",
-              label: "Implicit",
-              explanation: "Depends on interpreting the client's documents.",
-            },
-          ]}
-          detectHeuristics={[
-            "Traceability test: Can you point to a sentence in the prompt that directly states the requirement? Yes → Explicit. No → Implicit, if the criterion measures something that requires intermediate steps to satisfy a prompt requirement or requires professional judgment.",
-          ]}
-          howToFix="Try to map each criterion to a specific statement or request in the prompt. If it isn't explicitly stated, it is likely implicit."
+          howToFix="Review weights in relation to each other, not just individually. Ensure core requirements have consistently high weights, and polish items are collectively less impactful than core correctness."
         />
       </ContentSlide>
     ),
