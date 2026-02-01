@@ -1613,7 +1613,7 @@ This report will be used to brief the design team and guide future optimization 
         }
         inputFileDescription="Anti-Financial Crime Risk Metrics Spreadsheet"
         inputFileName="Population.xlsx"
-        inputFileUrl="https://docs.google.com/spreadsheets/d/1nrpI4qPfdjb_chj-APnPn158MG5t8h4X/edit?gid=168478092#gid=168478092"
+        inputFileEmbedUrl="https://docs.google.com/spreadsheets/d/1nrpI4qPfdjb_chj-APnPn158MG5t8h4X/preview?gid=168478092"
         referenceHighlights={[
           {
             quote: "The attached spreadsheet titled 'Population'",
