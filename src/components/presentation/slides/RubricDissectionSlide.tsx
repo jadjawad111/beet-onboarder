@@ -119,22 +119,35 @@ const RubricDissectionSlide = () => {
       {/* Main Content Stack with Annotations on sides */}
       <div className="relative">
         {/* Left Annotations - Weight points to header, Criterion points to header */}
-        <div className="absolute left-0 top-0 bottom-0 w-[280px] -translate-x-full pr-8 hidden xl:flex flex-col gap-6 z-50" style={{ paddingTop: '500px' }}>
+        <div
+          className="absolute left-0 top-0 bottom-0 w-[280px] -translate-x-full pr-8 hidden xl:flex flex-col gap-6"
+          style={{ paddingTop: "500px" }}
+        >
           {leftAnnotations.map((annotation) => {
             const revealed = isRevealed(annotation.id);
             // Position lines to point at table headers
-            const lineWidth = annotation.id === 'weight' ? 320 : 400;
+            const lineWidth = annotation.id === "weight" ? 320 : 400;
+            const lineGap = 12; // space between bubble edge and line start
             
             return (
-              <div key={annotation.id} className="relative z-50">
-                {/* Connecting Line - high z-index to overlay content */}
-                <div 
-                  className="absolute h-[2px] bg-primary z-50 pointer-events-none" 
-                  style={{ top: '50%', right: '-32px', width: `${lineWidth}px` }} 
+              <div key={annotation.id} className="relative">
+                {/* Connecting Line (starts OUTSIDE bubble; may overlay table) */}
+                <div
+                  className="absolute h-[2px] bg-primary z-30 pointer-events-none"
+                  style={{
+                    top: "50%",
+                    left: `calc(100% + ${lineGap}px)`,
+                    width: `${lineWidth}px`,
+                    transform: "translateY(-50%)",
+                  }}
                 />
-                <div 
-                  className="absolute w-4 h-4 rounded-full bg-primary z-50 pointer-events-none" 
-                  style={{ top: '50%', right: `-${lineWidth + 36}px`, transform: 'translateY(-50%)' }} 
+                <div
+                  className="absolute w-4 h-4 rounded-full bg-primary z-30 pointer-events-none"
+                  style={{
+                    top: "50%",
+                    left: `calc(100% + ${lineGap + lineWidth}px)`,
+                    transform: "translateY(-50%)",
+                  }}
                 />
                 
                 {/* Annotation Bubble */}
@@ -174,7 +187,10 @@ const RubricDissectionSlide = () => {
         </div>
 
         {/* Right Annotations - Category, Rationale, Citations point to example values */}
-        <div className="absolute right-0 top-0 bottom-0 w-[280px] translate-x-full pl-8 hidden xl:flex flex-col gap-5 z-50" style={{ paddingTop: '480px' }}>
+        <div
+          className="absolute right-0 top-0 bottom-0 w-[280px] translate-x-full pl-8 hidden xl:flex flex-col gap-5"
+          style={{ paddingTop: "480px" }}
+        >
           {rightAnnotations.map((annotation) => {
             const revealed = isRevealed(annotation.id);
             // Different line lengths to point at different columns
@@ -184,17 +200,27 @@ const RubricDissectionSlide = () => {
               'citations': 80
             };
             const lineWidth = lineWidths[annotation.id] || 150;
+            const lineGap = 12; // space between bubble edge and line start
             
             return (
-              <div key={annotation.id} className="relative z-50">
-                {/* Connecting Line - high z-index to overlay content */}
-                <div 
-                  className="absolute h-[2px] bg-primary z-50 pointer-events-none" 
-                  style={{ top: '50%', left: '-32px', width: `${lineWidth}px` }} 
+              <div key={annotation.id} className="relative">
+                {/* Connecting Line (starts OUTSIDE bubble; may overlay table) */}
+                <div
+                  className="absolute h-[2px] bg-primary z-30 pointer-events-none"
+                  style={{
+                    top: "50%",
+                    right: `calc(100% + ${lineGap}px)`,
+                    width: `${lineWidth}px`,
+                    transform: "translateY(-50%)",
+                  }}
                 />
-                <div 
-                  className="absolute w-4 h-4 rounded-full bg-primary z-50 pointer-events-none" 
-                  style={{ top: '50%', left: `-${lineWidth + 36}px`, transform: 'translateY(-50%)' }} 
+                <div
+                  className="absolute w-4 h-4 rounded-full bg-primary z-30 pointer-events-none"
+                  style={{
+                    top: "50%",
+                    right: `calc(100% + ${lineGap + lineWidth}px)`,
+                    transform: "translateY(-50%)",
+                  }}
                 />
                 
                 {/* Annotation Bubble */}
