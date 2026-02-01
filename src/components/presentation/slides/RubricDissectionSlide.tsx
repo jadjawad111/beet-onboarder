@@ -220,8 +220,8 @@ const RubricDissectionSlide = () => {
             </div>
             <Card className="border border-primary/30">
               <CardContent className="p-0">
-                <ScrollArea className="h-[80px]">
-                  <div className="p-3 text-xs leading-relaxed text-foreground whitespace-pre-wrap">
+                <ScrollArea className="h-[140px]">
+                  <div className="p-4 text-sm leading-relaxed text-foreground whitespace-pre-wrap">
                     {NFT_PROMPT}
                   </div>
                 </ScrollArea>
