@@ -34,6 +34,9 @@ import {
 // Tasking Assistance
 import { TaskingAssistancePage } from "./pages/tasking-assistance";
 
+// Assessment pages (hidden from navigation)
+import { FinalExercisePage } from "./pages/assessment";
+
 const queryClient = new QueryClient();
 
 const App = () => (
@@ -51,6 +54,9 @@ const App = () => (
           
           {/* Course Reference - Full screen printable reference (outside layout) */}
           <Route path="/education/prompt-writing/reference" element={<CourseReference />} />
+          
+          {/* Assessment - Final Exercise (hidden, isolated, full screen) */}
+          <Route path="/assessment/final-exercise" element={<FinalExercisePage />} />
           
           {/* Main app with layout */}
           <Route element={<MainLayout />}>
