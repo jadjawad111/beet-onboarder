@@ -35,17 +35,14 @@ const exercise1Criteria: CriterionData[] = [
     text: "[Placeholder criterion 1]",
     weight: 100,
     category: "Instruction Following",
-    hasError: false,
+    rationale: "[Rationale placeholder]",
   },
   {
     id: 2,
-    text: "[Placeholder criterion 2 - with error]",
+    text: "[Placeholder criterion 2]",
     weight: 80,
     category: "Formatting",
-    hasError: true,
-    errorType: "ambiguous",
-    explanation: "Placeholder explanation for the error.",
-    howToFix: "Placeholder fix suggestion.",
+    rationale: "[Rationale placeholder]",
   },
 ];
 
@@ -63,17 +60,14 @@ const exercise2Criteria: CriterionData[] = [
     text: "[Placeholder criterion 1]",
     weight: 100,
     category: "Instruction Following",
-    hasError: false,
+    rationale: "[Rationale placeholder]",
   },
   {
     id: 2,
-    text: "[Placeholder criterion 2 - with error]",
+    text: "[Placeholder criterion 2]",
     weight: 80,
     category: "Reasoning",
-    hasError: true,
-    errorType: "stacked",
-    explanation: "Placeholder explanation for the stacked error.",
-    howToFix: "Placeholder fix suggestion.",
+    rationale: "[Rationale placeholder]",
   },
 ];
 
@@ -120,7 +114,9 @@ const FinalExercisePage = () => {
       slides={assessmentSlides}
       title="Final Assessment Exercise"
       presenter="Project Beet Assessment"
-      exitPath="/assessment/final-exercise" // Points to itself - fully isolated
+      exitPath="/assessment/final-exercise"
+      hideProgress={true}
+      defaultSidebarCollapsed={true}
     />
   );
 };

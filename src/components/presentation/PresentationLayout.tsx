@@ -23,6 +23,8 @@ interface PresentationLayoutProps {
   presenter?: string;
   onComplete?: () => void;
   exitPath?: string;
+  hideProgress?: boolean;
+  defaultSidebarCollapsed?: boolean;
 }
 
 const PresentationLayout = ({ 
@@ -30,7 +32,9 @@ const PresentationLayout = ({
   title, 
   presenter = "Project Beet",
   onComplete,
-  exitPath = "/education"
+  exitPath = "/education",
+  hideProgress = false,
+  defaultSidebarCollapsed = false,
 }: PresentationLayoutProps) => {
   const navigate = useNavigate();
   // Generate a storage key based on the course title for unique per-course progress
@@ -71,6 +75,7 @@ const PresentationLayout = ({
     return 0;
   });
   const [openSections, setOpenSections] = useState<Set<string>>(new Set());
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(defaultSidebarCollapsed);
   
   // Persist unlocked slides in localStorage so they stay unlocked between sessions
   const [unlockedSlides, setUnlockedSlides] = useState<Set<string>>(() => {
@@ -383,33 +388,57 @@ const PresentationLayout = ({
   return (
     <div className="fixed inset-0 z-40 flex bg-background">
       {/* Left sidebar - Step progress */}
-      <aside className="w-20 lg:w-72 border-r border-border bg-card flex-shrink-0 flex flex-col">
-        {/* Header */}
-        <div className="p-4 border-b border-border">
-          <div className="flex items-center gap-3">
-            <img src={beetIcon} alt="" className="w-8 h-8" />
-            <div className="hidden lg:block">
-              <h2 className="font-semibold text-sm text-foreground">{title}</h2>
-              <p className="text-xs text-muted-foreground">{presenter}</p>
+      <aside className={cn(
+        "border-r border-border bg-card flex-shrink-0 flex flex-col transition-all duration-300",
+        sidebarCollapsed ? "w-14" : "w-20 lg:w-72"
+      )}>
+        {/* Header with collapse toggle */}
+        <div className="p-3 border-b border-border">
+          <div className="flex items-center justify-between gap-2">
+            <div className={cn("flex items-center gap-3", sidebarCollapsed && "justify-center w-full")}>
+              <img src={beetIcon} alt="" className="w-8 h-8" />
+              {!sidebarCollapsed && (
+                <div className="hidden lg:block">
+                  <h2 className="font-semibold text-sm text-foreground">{title}</h2>
+                  <p className="text-xs text-muted-foreground">{presenter}</p>
+                </div>
+              )}
+            </div>
+            <button
+              onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
+              className={cn(
+                "p-1.5 rounded-md hover:bg-muted transition-colors",
+                sidebarCollapsed && "absolute left-3 top-14"
+              )}
+              title={sidebarCollapsed ? "Expand sidebar" : "Collapse sidebar"}
+            >
+              {sidebarCollapsed ? (
+                <ChevronRight className="w-4 h-4 text-muted-foreground" />
+              ) : (
+                <ChevronLeft className="w-4 h-4 text-muted-foreground" />
+              )}
+            </button>
+          </div>
+        </div>
+
+        {/* Progress indicator - conditionally hidden */}
+        {!hideProgress && !sidebarCollapsed && (
+          <div className="p-4 border-b border-border">
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-xs font-medium text-muted-foreground hidden lg:inline">Progress</span>
+              <span className="text-xs font-bold text-primary">{Math.round(progress)}%</span>
+            </div>
+            <div className="h-1.5 bg-muted rounded-full overflow-hidden">
+              <div 
+                className="h-full bg-gradient-to-r from-primary to-secondary rounded-full transition-all duration-500"
+                style={{ width: `${progress}%` }}
+              />
             </div>
           </div>
-        </div>
+        )}
 
-        {/* Progress indicator */}
-        <div className="p-4 border-b border-border">
-          <div className="flex items-center justify-between mb-2">
-            <span className="text-xs font-medium text-muted-foreground hidden lg:inline">Progress</span>
-            <span className="text-xs font-bold text-primary">{Math.round(progress)}%</span>
-          </div>
-          <div className="h-1.5 bg-muted rounded-full overflow-hidden">
-            <div 
-              className="h-full bg-gradient-to-r from-primary to-secondary rounded-full transition-all duration-500"
-              style={{ width: `${progress}%` }}
-            />
-          </div>
-        </div>
-
-        {/* Step list with sections */}
+        {/* Step list with sections - hidden when collapsed */}
+        {!sidebarCollapsed && (
         <nav className="flex-1 overflow-y-auto p-2">
           <div className="space-y-2">
             {(() => {
@@ -714,6 +743,7 @@ const PresentationLayout = ({
             })()}
           </div>
         </nav>
+        )}
 
         {/* Exit button */}
         <div className="p-4 border-t border-border">
@@ -760,13 +790,17 @@ const PresentationLayout = ({
           )}
         </header>
 
-        {/* Slide content */}
-        <main ref={mainContentRef} className="flex-1 flex flex-col px-8 md:px-16 lg:px-24 pt-12 pb-24 overflow-y-auto">
+        {/* Slide content - wider when sidebar collapsed */}
+        <main ref={mainContentRef} className={cn(
+          "flex-1 flex flex-col pt-12 pb-24 overflow-y-auto",
+          sidebarCollapsed ? "px-6 md:px-12" : "px-8 md:px-16 lg:px-24"
+        )}>
           <div className="flex-1 flex items-center justify-center min-h-0">
             <div 
               key={currentSlideData?.id}
               className={cn(
-                "w-full max-w-4xl my-auto transition-all duration-250 ease-out",
+                "w-full my-auto transition-all duration-250 ease-out",
+                sidebarCollapsed ? "max-w-6xl" : "max-w-4xl",
                 isTransitioning && slideDirection === 'next' && "opacity-0 translate-x-12",
                 isTransitioning && slideDirection === 'prev' && "opacity-0 -translate-x-12",
                 !isTransitioning && "opacity-100 translate-x-0"
