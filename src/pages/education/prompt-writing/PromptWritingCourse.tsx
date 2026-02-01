@@ -45,7 +45,7 @@ const slides: Slide[] = [
     content: (
       <TitleSlide 
         title="Project Beet 2.0"
-        subtitle="Training Course"
+        subtitle="education/beet"
       />
     ),
   },
