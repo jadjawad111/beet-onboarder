@@ -3,7 +3,6 @@ import {
   Home,
   Briefcase, 
   GraduationCap, 
-  Wrench, 
   HelpCircle,
   ChevronLeft,
   ChevronRight,
@@ -52,7 +51,6 @@ const primaryNav = [
 ];
 
 const secondaryNav = [
-  { label: "Tools", icon: Wrench, to: "/tools" },
   { label: "FAQs", icon: HelpCircle, to: "/faqs" },
 ];
 
