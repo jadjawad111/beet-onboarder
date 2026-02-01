@@ -102,14 +102,15 @@ const RubricDisplayTable: React.FC<RubricDisplayTableProps> = ({
                     {criterion.citation || "—"}
                   </span>
                 </TableCell>
-                <TableCell>
-                  <input
-                    type="text"
-                    value={notes[criterion.id] || ""}
-                    onChange={(e) => handleNoteChange(criterion.id, e.target.value)}
-                    placeholder="Add note..."
-                    className="w-full text-sm px-2 py-1 border rounded bg-background focus:outline-none focus:ring-1 focus:ring-primary"
-                  />
+                <TableCell className="align-middle">
+                  <div className="flex items-center justify-center h-full min-h-[80px]">
+                    <textarea
+                      value={notes[criterion.id] || ""}
+                      onChange={(e) => handleNoteChange(criterion.id, e.target.value)}
+                      placeholder="Add note..."
+                      className="w-full h-[90%] min-h-[70px] text-sm px-2 py-2 border rounded bg-background focus:outline-none focus:ring-1 focus:ring-primary resize-none"
+                    />
+                  </div>
                 </TableCell>
               </TableRow>
             ))}
