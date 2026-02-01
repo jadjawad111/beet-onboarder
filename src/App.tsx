@@ -53,7 +53,7 @@ const App = () => (
           <Route path="/" element={<LandingPage />} />
           
           {/* Prompt Writing Course - Full screen presentation (outside layout) */}
-          <Route path="/education/prompt-writing/course" element={<PromptWritingCourse />} />
+          <Route path="/education/beet" element={<PromptWritingCourse />} />
           
           {/* Course Reference - Full screen printable reference (outside layout) */}
           <Route path="/education/prompt-writing/reference" element={<CourseReference />} />
