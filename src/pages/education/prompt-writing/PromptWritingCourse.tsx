@@ -2567,7 +2567,7 @@ This report will be used to brief the design team and guide future optimization 
               Very rarely will you develop a great rubric on the first try. Common early issues include:
             </p>
             <ul className="list-disc list-outside ml-6 space-y-2 text-foreground">
-              <li>Overfitting the rubric to the original Bronze response</li>
+              <li>Overfitting the rubric to the original Gold response</li>
               <li>Liking or anchoring on the specific model response you happened to see first</li>
               <li>Missing important failure modes that only appear in other responses</li>
               <li>Overweighting or underweighting certain criteria unintentionally</li>
