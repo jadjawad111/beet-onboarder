@@ -114,7 +114,7 @@ const RubricInteractiveQuiz = ({
             <FileText className="w-4 h-4 text-muted-foreground" />
             <span className="font-medium text-sm">Prompt</span>
           </div>
-          <div className="bg-muted/50 rounded-lg p-3 text-sm leading-relaxed whitespace-pre-wrap border max-h-[200px] overflow-y-auto">
+          <div className="bg-muted/50 rounded-lg p-4 text-sm leading-relaxed whitespace-pre-wrap border max-h-[500px] overflow-y-auto">
             {prompt}
           </div>
         </CardContent>
@@ -143,7 +143,7 @@ const RubricInteractiveQuiz = ({
             <div className="rounded-lg overflow-hidden border bg-white">
               <iframe
                 src={getEmbedUrl(deliverable.url)}
-                className="w-full h-[350px]"
+                className="w-full h-[875px]"
                 allow="autoplay"
                 title={deliverable.title}
               />
