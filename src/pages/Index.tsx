@@ -44,7 +44,7 @@ const Index = () => {
 
       {/* Main Content with RHS Banner */}
       <div className="px-8 py-12">
-        <div className="flex flex-col lg:flex-row gap-8">
+        <div className="flex flex-col lg:flex-row gap-8 items-start">
           {/* Left Column - Main Content */}
           <div className="flex-1 max-w-4xl">
             <h2 className="text-lg font-semibold text-foreground mb-6">Get Started</h2>
@@ -149,12 +149,12 @@ const Index = () => {
           </div>
 
           {/* Right Column - Handshake AI Platform Banner */}
-          <div className="lg:w-80 xl:w-96 flex">
+          <div className="lg:w-80 xl:w-96 lg:mt-10">
             <a
               href="https://ai.joinhandshake.com/"
               target="_blank"
               rel="noopener noreferrer"
-              className="group relative overflow-hidden p-8 rounded-2xl bg-gradient-to-br from-primary via-primary/90 to-secondary/70 hover:shadow-xl transition-all flex-1 flex flex-col justify-between"
+              className="group relative overflow-hidden p-8 rounded-2xl bg-gradient-to-br from-primary via-primary/90 to-secondary/70 hover:shadow-xl transition-all flex flex-col justify-between min-h-[280px]"
             >
               {/* Background logos */}
               <div className="absolute top-8 right-8 opacity-20">
