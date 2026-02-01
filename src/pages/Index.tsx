@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowRight, Briefcase, GraduationCap, Lock, Mail, MessageCircle, ExternalLink } from "lucide-react";
+import { ArrowRight, Briefcase, GraduationCap, Lock, Mail, MessageCircle, ExternalLink, Star, Bell } from "lucide-react";
 import beetIcon from "@/assets/beet-icon.png";
 import handshakeLogo from "@/assets/handshake-logo.png";
 import {
@@ -97,13 +97,18 @@ const Index = () => {
               {/* Training Course Card */}
               <Link 
                 to="/education/prompt-writing/course"
-                className="group p-6 rounded-2xl border border-border bg-card hover:border-primary/30 hover:shadow-lg transition-all"
+                className="group relative p-6 rounded-2xl border border-border bg-card hover:border-primary/30 hover:shadow-lg transition-all"
               >
+                {/* Required Badge */}
+                <div className="absolute top-4 right-4 flex items-center gap-1 px-2.5 py-1 rounded-full bg-gradient-to-r from-primary to-secondary/70 text-white text-xs font-bold">
+                  <Star className="w-3 h-3 fill-current" />
+                  REQUIRED
+                </div>
+                
                 <div className="flex items-start justify-between mb-4">
                   <div className="w-12 h-12 rounded-xl bg-secondary/20 flex items-center justify-center">
                     <GraduationCap className="w-6 h-6 text-foreground" />
                   </div>
-                  <ArrowRight className="w-5 h-5 text-muted-foreground opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all" />
                 </div>
                 <h3 className="text-xl font-semibold text-foreground mb-2 group-hover:text-primary transition-colors">
                   Project Beet 2.0 Training Course
@@ -146,15 +151,41 @@ const Index = () => {
                 </a>
               </div>
             </div>
+
+            {/* Divider */}
+            <div className="mt-8 border-t border-border" />
+
+            {/* Updates Section */}
+            <div className="mt-8">
+              <div className="flex items-center gap-2 mb-4">
+                <Bell className="w-5 h-5 text-primary" />
+                <h2 className="text-lg font-semibold text-foreground">Updates</h2>
+              </div>
+              <div className="p-6 rounded-2xl border-2 border-primary/30 bg-gradient-to-br from-primary/5 via-card to-secondary/5">
+                <div className="flex items-start gap-4">
+                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary to-secondary/70 flex items-center justify-center flex-shrink-0">
+                    <Bell className="w-6 h-6 text-white" />
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-bold text-foreground mb-2">
+                      Live Training Schedule
+                    </h3>
+                    <p className="text-muted-foreground">
+                      To be launched in the next <span className="font-semibold text-primary">12-24 Hours!</span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
 
           {/* Right Column - Handshake AI Platform Banner */}
-          <div className="lg:w-80 xl:w-96 lg:mt-10">
+          <div className="lg:w-80 xl:w-96 lg:self-stretch lg:flex lg:flex-col">
             <a
               href="https://ai.joinhandshake.com/"
               target="_blank"
               rel="noopener noreferrer"
-              className="group relative overflow-hidden p-8 rounded-2xl bg-gradient-to-br from-primary via-primary/90 to-secondary/70 hover:shadow-xl transition-all flex flex-col justify-between min-h-[280px]"
+              className="group relative overflow-hidden p-8 rounded-2xl bg-gradient-to-br from-primary via-primary/90 to-secondary/70 hover:shadow-xl transition-all flex flex-col justify-between flex-1"
             >
               {/* Background logos */}
               <div className="absolute top-8 right-8 opacity-20">
