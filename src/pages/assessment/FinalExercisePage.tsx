@@ -64,8 +64,8 @@ const exercise2Criteria: CriterionData[] = [
 const assessmentSlides: Slide[] = [
   {
     id: "exercise-1",
-    section: "Exercise 1",
-    title: "Exercise 1",
+    section: "Ex #1",
+    title: "Ex #1",
     content: (
       <ContentSlide title="" layout="left">
         <RubricInteractiveQuiz
@@ -81,8 +81,8 @@ const assessmentSlides: Slide[] = [
   },
   {
     id: "exercise-2",
-    section: "Exercise 2",
-    title: "Exercise 2",
+    section: "Ex #2",
+    title: "Ex #2",
     content: (
       <ContentSlide title="" layout="left">
         <RubricInteractiveQuiz
@@ -102,7 +102,7 @@ const FinalExercisePage = () => {
   return (
     <PresentationLayout
       slides={assessmentSlides}
-      title="Final Exercise"
+      title="Final Assessment Exercise"
       presenter="Project Beet Assessment"
       exitPath="/assessment/final-exercise" // Points to itself - fully isolated
     />
