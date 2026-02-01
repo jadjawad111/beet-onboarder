@@ -128,7 +128,7 @@ const RubricDissectionSlide = () => {
             // Weight points to header "Weight" column, Criterion points to row 3 criterion
             const lineWidths: Record<string, number> = {
               'weight': 340,
-              'criterion': 340  // Shortened to reach Criterion column, not Category
+              'criterion': 280  // Shortened further to reach Criterion column
             };
             const lineWidth = lineWidths[annotation.id] || 340;
             const lineGap = 12;
