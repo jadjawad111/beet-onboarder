@@ -1,9 +1,13 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { FileText, MessageSquare, Scale, Tag, BookOpen } from "lucide-react";
 import { cn } from "@/lib/utils";
+
+interface RubricDissectionSlideProps {
+  onGateUnlock?: () => void;
+}
 
 // NFT Photography Prompt text
 const NFT_PROMPT = `You work for a photo app that is looking to move into the photography NFT space. The app in question is a curated platform that offers precise GPS coordinates of beautiful, "Instagrammable" locations worldwide, providing insights including directions, the best times to visit, and specific photography tips for each location, ultimately helping users snap the perfect shot while celebrating travel photography.
@@ -75,7 +79,7 @@ const ANNOTATIONS: Annotation[] = [
   },
 ];
 
-const RubricDissectionSlide = () => {
+const RubricDissectionSlide = ({ onGateUnlock }: RubricDissectionSlideProps) => {
   const [revealedAnnotations, setRevealedAnnotations] = useState<Set<string>>(new Set());
 
   const toggleAnnotation = (id: string) => {
@@ -89,6 +93,13 @@ const RubricDissectionSlide = () => {
       return next;
     });
   };
+
+  // Check if all annotations are revealed and unlock the gate
+  useEffect(() => {
+    if (revealedAnnotations.size === ANNOTATIONS.length && onGateUnlock) {
+      onGateUnlock();
+    }
+  }, [revealedAnnotations, onGateUnlock]);
 
   const isRevealed = (id: string) => revealedAnnotations.has(id);
 
