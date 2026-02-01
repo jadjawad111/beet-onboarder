@@ -3,7 +3,10 @@ import { PresentationLayout, ContentSlide } from "@/components/presentation";
 import type { Slide } from "@/components/presentation/PresentationLayout";
 import RubricInteractiveQuiz from "@/components/presentation/slides/RubricInteractiveQuiz";
 import type { CriterionData } from "@/components/presentation/slides/RubricInteractiveQuiz";
-
+import RubricDisplayTable from "@/components/assessment/RubricDisplayTable";
+import type { RubricCriterion } from "@/components/assessment/RubricDisplayTable";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { ExternalLink } from "lucide-react";
 // Exercise 1 content
 const exercise1Prompt = `You're a Senior Customer Service Representative who's been asked to help train new hires at your financial services contact center. Lately, a few trainees have pulled you aside and said they're struggling to spot the signs of possible elder abuse or financial exploitation during calls. They've asked for clearer examples and a more direct explanation of what to watch for and how to respond when something feels off.
 
@@ -77,7 +80,7 @@ Create a Word document that includes a revised version of the student evaluation
 const exercise2DeliverableUrl = "https://docs.google.com/document/d/1Dm026_jWAVi4BCBoUJi5M254fNzKmAx1/edit?usp=sharing&ouid=109946200030023295969&rtpof=true&sd=true";
 const exercise2DeliverableTitle = "Revised Class Evaluation Form";
 
-const exercise2Criteria: CriterionData[] = [
+const exercise2Criteria: RubricCriterion[] = [
   { id: 1, weight: 100, text: "Creates a class evaluation form in .doc or .docx format.", category: "Instruction Following", rationale: "The prompt specifically asks for a Word document." },
   { id: 2, weight: 95, text: "The class evaluation form is organized into labeled sections.", category: "Instruction Following", rationale: "The prompt requires the form to be divided into sections." },
   { id: 3, weight: 80, text: "The class evaluation form does not contain grammar, spelling, or punctuation errors.", category: "Formatting", rationale: "The prompt requires the form to be free of these errors." },
@@ -182,13 +185,34 @@ const assessmentSlides: Slide[] = [
     title: "Exercise #2",
     content: (
       <ContentSlide title="" layout="full">
-        <RubricInteractiveQuiz
-          exerciseNumber={2}
-          prompt={exercise2Prompt}
-          deliverableUrl={exercise2DeliverableUrl}
-          deliverableTitle={exercise2DeliverableTitle}
-          criteria={exercise2Criteria}
-        />
+        <ScrollArea className="h-[calc(100vh-120px)]">
+          <div className="space-y-6 pr-4">
+            {/* Prompt Section */}
+            <div>
+              <h3 className="text-lg font-semibold mb-2">Prompt</h3>
+              <div className="bg-muted/50 p-4 rounded-lg text-sm whitespace-pre-wrap">
+                {exercise2Prompt}
+              </div>
+            </div>
+
+            {/* Deliverable Link */}
+            <div>
+              <h3 className="text-lg font-semibold mb-2">Deliverable</h3>
+              <a
+                href={exercise2DeliverableUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 text-primary hover:underline"
+              >
+                <ExternalLink className="w-4 h-4" />
+                {exercise2DeliverableTitle}
+              </a>
+            </div>
+
+            {/* Rubric Table */}
+            <RubricDisplayTable criteria={exercise2Criteria} title="Rubric Criteria" />
+          </div>
+        </ScrollArea>
       </ContentSlide>
     ),
     gated: false,
