@@ -140,7 +140,7 @@ const RubricDissectionSlide = ({ onGateUnlock }: RubricDissectionSlideProps) => 
           <Card className="border-2 border-muted-foreground/30 overflow-hidden">
             <CardContent className="p-0">
               <iframe
-                src="https://docs.google.com/spreadsheets/d/1jCZrupDuDWtii-4gbKVd-HVKOnwGw27e/edit?usp=sharing&ouid=109946200030023295969&rtpof=true&sd=true"
+                src="https://docs.google.com/spreadsheets/d/1jCZrupDuDWtii-4gbKVd-HVKOnwGw27e/preview"
                 className="w-full h-[300px] border-0"
                 allow="autoplay"
                 title="Golden Example Deliverable"
