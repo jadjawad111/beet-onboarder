@@ -114,7 +114,8 @@ const FinalExercisePage = () => {
       slides={assessmentSlides}
       title="Final Assessment Exercise"
       presenter="Project Beet Assessment"
-      exitPath="/assessment/final-exercise"
+      exitPath="/"
+      exitLabel="Back to Home"
       hideProgress={true}
       defaultSidebarCollapsed={true}
     />

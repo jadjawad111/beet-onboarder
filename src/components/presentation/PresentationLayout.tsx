@@ -23,6 +23,7 @@ interface PresentationLayoutProps {
   presenter?: string;
   onComplete?: () => void;
   exitPath?: string;
+  exitLabel?: string;
   hideProgress?: boolean;
   defaultSidebarCollapsed?: boolean;
 }
@@ -33,6 +34,7 @@ const PresentationLayout = ({
   presenter = "Project Beet",
   onComplete,
   exitPath = "/education",
+  exitLabel = "Exit Course",
   hideProgress = false,
   defaultSidebarCollapsed = false,
 }: PresentationLayoutProps) => {
@@ -752,7 +754,7 @@ const PresentationLayout = ({
             className="w-full flex items-center justify-center gap-2 px-4 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted rounded-lg transition-colors"
           >
             <X className="w-4 h-4" />
-            <span className="hidden lg:inline">Exit Course</span>
+            <span className="hidden lg:inline">{exitLabel}</span>
           </button>
         </div>
       </aside>
