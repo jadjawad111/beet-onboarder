@@ -1890,7 +1890,6 @@ This report will be used to brief the design team and guide future optimization 
     id: "rubrics-dissection",
     section: "Rubrics",
     title: "Anatomy of a Rubric",
-    gated: true,
     content: (
       <ContentSlide title="" layout="center">
         <RubricDissectionSlide />
