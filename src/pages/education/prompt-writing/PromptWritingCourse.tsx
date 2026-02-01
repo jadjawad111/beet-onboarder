@@ -2611,34 +2611,6 @@ This report will be used to brief the design team and guide future optimization 
             </p>
           </div>
 
-          {/* Block 6: How to Dogfood */}
-          <div className="bg-card border-l-4 border-muted-foreground/30 rounded-r-lg p-6">
-            <p className="text-xs uppercase tracking-wider text-muted-foreground mb-3">How to Dogfood a Rubric Criterion</p>
-            <p className="text-foreground leading-relaxed mb-4">
-              When pressure-testing individual criteria, use a combination of:
-            </p>
-            <div className="space-y-3">
-              <div>
-                <p className="font-medium text-foreground">Multiple Response Sampling</p>
-                <p className="text-muted-foreground">Review responses from different models and styles.</p>
-              </div>
-              <div>
-                <p className="font-medium text-foreground">pass@10 Style Checks</p>
-                <p className="text-muted-foreground">Apply the criterion across a batch of responses and look for instability.</p>
-              </div>
-              <div>
-                <p className="font-medium text-foreground">High-Variance Analysis</p>
-                <p className="text-muted-foreground">Identify criteria that flip between true and false unexpectedly.</p>
-              </div>
-              <div>
-                <p className="font-medium text-foreground">Quality LLM Checks</p>
-                <p className="text-muted-foreground">Verify that criteria are not stacked, ambiguous, or non-self-contained.</p>
-              </div>
-            </div>
-            <p className="text-foreground leading-relaxed mt-4">
-              Criteria that show high variance or unexpected behavior should be rewritten or removed.
-            </p>
-          </div>
 
           {/* Block 7: Key Takeaway */}
           <div className="bg-card border-l-4 border-muted-foreground/30 rounded-r-lg p-6">
