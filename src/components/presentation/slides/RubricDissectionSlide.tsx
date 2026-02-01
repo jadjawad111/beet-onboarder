@@ -118,18 +118,26 @@ const RubricDissectionSlide = () => {
 
       {/* Main Content Stack with Annotations on sides */}
       <div className="relative">
-        {/* Left Annotations - Weight → row 1 weight (100), Criterion → row 4 criterion */}
+        {/* Left Annotations - Weight → header "Weight", Criterion → row 5 criterion */}
         <div
           className="absolute left-0 top-0 bottom-0 w-[280px] -translate-x-full pr-8 hidden xl:flex flex-col gap-4"
-          style={{ paddingTop: "720px" }}
+          style={{ paddingTop: "660px" }}
         >
           {leftAnnotations.map((annotation, idx) => {
             const revealed = isRevealed(annotation.id);
-            // Weight points to row 1 weight column (100), Criterion points to row 4 criterion
-            const lineWidth = annotation.id === "weight" ? 340 : 420;
+            // Weight points to header "Weight" column, Criterion points to row 5 criterion (provenance)
+            const lineWidths: Record<string, number> = {
+              'weight': 340,
+              'criterion': 420
+            };
+            const lineWidth = lineWidths[annotation.id] || 340;
             const lineGap = 12;
-            // Vertical offset: Weight → row 1, Criterion → row 4
-            const verticalOffset = annotation.id === "weight" ? -40 : 80;
+            // Vertical offset: Weight → header row, Criterion → row 5
+            const verticalOffsets: Record<string, number> = {
+              'weight': -60,   // Points to header row "Weight"
+              'criterion': 120  // Points to row 5 (provenance row)
+            };
+            const verticalOffset = verticalOffsets[annotation.id] || 0;
             
             return (
               <div key={annotation.id} className="relative">
@@ -198,26 +206,26 @@ const RubricDissectionSlide = () => {
           })}
         </div>
 
-        {/* Right Annotations - Category → row 4, Rationale → row 4, Citations → row 7 */}
+        {/* Right Annotations - Category → row 1, Rationale → row 4, Citations → row 7 */}
         <div
           className="absolute right-0 top-0 bottom-0 w-[280px] translate-x-full pl-8 hidden xl:flex flex-col gap-3"
-          style={{ paddingTop: "720px" }}
+          style={{ paddingTop: "660px" }}
         >
           {rightAnnotations.map((annotation, idx) => {
             const revealed = isRevealed(annotation.id);
-            // Different line lengths to reach different columns
+            // Different line lengths to reach different columns - Citations aligned with Citations column
             const lineWidths: Record<string, number> = {
               'category': 300,
               'rationale': 200, 
-              'citations': 100
+              'citations': 60  // Shorter to align with Citations column
             };
             const lineWidth = lineWidths[annotation.id] || 150;
             const lineGap = 12;
-            // Vertical offsets: Category → row 4, Rationale → row 4, Citations → row 7
+            // Vertical offsets: Category → row 1, Rationale → row 4, Citations → row 7
             const verticalOffsets: Record<string, number> = {
-              'category': -40,
-              'rationale': 40,
-              'citations': 160
+              'category': -60,  // Points to row 1
+              'rationale': 20,  // Points to row 4
+              'citations': 140  // Points to row 7
             };
             const verticalOffset = verticalOffsets[annotation.id] || 0;
             
