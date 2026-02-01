@@ -1,7 +1,5 @@
-import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Trophy, Target, ArrowRight, Dumbbell } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { Target, ArrowRight, Dumbbell } from "lucide-react";
 
 interface PracticeOverlayProps {
   onContinuePractice?: () => void;
@@ -13,7 +11,6 @@ export const PRACTICE_CONTINUE_EVENT = "practice-overlay-continue";
 export const PRACTICE_SKIP_EVENT = "practice-overlay-skip";
 
 const PracticeOverlay = ({ onContinuePractice, onSkip }: PracticeOverlayProps) => {
-  const [isHoveredNo, setIsHoveredNo] = useState(false);
 
   const handleContinue = () => {
     // Dispatch custom event for PresentationLayout to handle
@@ -77,21 +74,15 @@ const PracticeOverlay = ({ onContinuePractice, onSkip }: PracticeOverlayProps) =
           <ArrowRight className="w-6 h-6" />
         </Button>
 
-        {/* Tiny No Button - in a box for visibility */}
-        <div className="mt-6 p-3 rounded-lg border border-dashed border-muted-foreground/20 bg-muted/30">
-          <button
-            onClick={handleSkip}
-            onMouseEnter={() => setIsHoveredNo(true)}
-            onMouseLeave={() => setIsHoveredNo(false)}
-            className={cn(
-              "text-[10px] text-muted-foreground/50 hover:text-muted-foreground/70 transition-all",
-              "px-2 py-0.5 rounded",
-              isHoveredNo && "scale-90"
-            )}
-          >
-            no thanks, skip ahead
-          </button>
-        </div>
+        {/* Skip Button - visible but secondary */}
+        <Button
+          onClick={handleSkip}
+          variant="outline"
+          size="sm"
+          className="mt-4 text-muted-foreground hover:text-foreground"
+        >
+          No thanks, skip ahead
+        </Button>
       </div>
     </div>
   );
