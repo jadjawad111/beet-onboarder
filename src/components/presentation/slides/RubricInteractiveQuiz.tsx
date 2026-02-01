@@ -109,42 +109,47 @@ const RubricInteractiveQuiz = ({
     return [];
   }, [deliverables, deliverableUrl, deliverableTitle]);
 
-  const [answers, setAnswers] = useState<Record<number, CriterionAnswer>>(() => {
-    const initial: Record<number, CriterionAnswer> = {};
+  // Use a unique key combining exerciseNumber and criterion id to prevent state bleeding between quiz instances
+  const getKey = (id: number) => `${exerciseNumber}-${id}`;
+  
+  const [answers, setAnswers] = useState<Record<string, CriterionAnswer>>(() => {
+    const initial: Record<string, CriterionAnswer> = {};
     criteria.forEach(c => {
-      initial[c.id] = { hasError: null, errorType: null };
+      initial[getKey(c.id)] = { hasError: null, errorType: null };
     });
     return initial;
   });
   
   const [submitted, setSubmitted] = useState(false);
-  const [submittedCriteria, setSubmittedCriteria] = useState<Set<number>>(new Set());
+  const [submittedCriteria, setSubmittedCriteria] = useState<Set<string>>(new Set());
 
   const handleHasErrorChange = (criterionId: number, value: "yes" | "no") => {
     if (submitted) return;
+    const key = getKey(criterionId);
     setAnswers(prev => ({
       ...prev,
-      [criterionId]: {
+      [key]: {
         hasError: value,
-        errorType: value === "no" ? null : prev[criterionId].errorType,
+        errorType: value === "no" ? null : prev[key].errorType,
       },
     }));
   };
 
   const handleErrorTypeChange = (criterionId: number, value: ErrorType) => {
     if (submitted) return;
+    const key = getKey(criterionId);
     setAnswers(prev => ({
       ...prev,
-      [criterionId]: {
-        ...prev[criterionId],
+      [key]: {
+        ...prev[key],
         errorType: value,
       },
     }));
   };
 
   const isCriterionAnswered = (criterionId: number): boolean => {
-    const answer = answers[criterionId];
-    if (answer.hasError === null) return false;
+    const answer = answers[getKey(criterionId)];
+    if (!answer || answer.hasError === null) return false;
     if (answer.hasError === "yes" && answer.errorType === null) return false;
     return true;
   };
@@ -156,25 +161,25 @@ const RubricInteractiveQuiz = ({
   const handleSubmitAll = () => {
     if (!allAnswered) return;
     setSubmitted(true);
-    setSubmittedCriteria(new Set(criteria.map(c => c.id)));
+    setSubmittedCriteria(new Set(criteria.map(c => getKey(c.id))));
   };
 
   const handleSubmitCriterion = (criterionId: number) => {
     if (!isCriterionAnswered(criterionId)) return;
-    setSubmittedCriteria(prev => new Set(prev).add(criterionId));
+    setSubmittedCriteria(prev => new Set(prev).add(getKey(criterionId)));
   };
 
   const isCriterionSubmitted = (criterionId: number): boolean => {
-    return submitted || submittedCriteria.has(criterionId);
+    return submitted || submittedCriteria.has(getKey(criterionId));
   };
 
   useEffect(() => {
-    const allSubmittedIndividually = criteria.every(c => submittedCriteria.has(c.id));
+    const allSubmittedIndividually = criteria.every(c => submittedCriteria.has(getKey(c.id)));
     if (submitted || allSubmittedIndividually) {
       onComplete?.();
       onGateUnlock?.();
     }
-  }, [submitted, submittedCriteria, criteria, onComplete, onGateUnlock]);
+  }, [submitted, submittedCriteria, criteria, onComplete, onGateUnlock, exerciseNumber]);
 
   const getScore = (criterion: CriterionData, answer: CriterionAnswer): "full" | "partial" | "none" => {
     const userSaysError = answer.hasError === "yes";
@@ -209,15 +214,16 @@ const RubricInteractiveQuiz = ({
     };
 
     criteria.forEach(c => {
-      const score = getScore(c, answers[c.id]);
+      const key = getKey(c.id);
+      const score = getScore(c, answers[key]);
       if (score === "full") fullCredit++;
       else if (score === "partial") partialCredit++;
       else noCredit++;
 
       const actuallyHasError = c.hasError ?? false;
-      if (actuallyHasError && answers[c.id].hasError === "no") {
+      if (actuallyHasError && answers[key].hasError === "no") {
         missedErrorTypes[c.errorType!]++;
-      } else if (actuallyHasError && answers[c.id].errorType !== c.errorType) {
+      } else if (actuallyHasError && answers[key].errorType !== c.errorType) {
         missedErrorTypes[c.errorType!]++;
       }
     });
@@ -346,7 +352,7 @@ const RubricInteractiveQuiz = ({
             </TableHeader>
             <TableBody>
               {criteria.map((criterion) => {
-                const answer = answers[criterion.id];
+                const answer = answers[getKey(criterion.id)] || { hasError: null, errorType: null };
                 const isThisSubmitted = isCriterionSubmitted(criterion.id);
                 const score = isThisSubmitted ? getScore(criterion, answer) : null;
                 const canSubmitThis = isCriterionAnswered(criterion.id) && !isThisSubmitted;
