@@ -20,11 +20,11 @@ Keep your tone down-to-earth and focused. Don't make it feel corporate or cold. 
 
 const exercise1Deliverables = [
   {
-    url: "https://drive.google.com/file/d/18NbNcb3AJMDxC7_zv7evstMrWH_FzwEg/view?usp=sharing",
+    url: "https://drive.google.com/file/d/18NbNcb3AJMDxC7_zv7evstMrWH_FzwEg/view",
     title: "Training Deck PDF",
   },
   {
-    url: "https://drive.google.com/file/d/1g8d-uKgvY0ncmniGVcVoQbFKicYOEzIG/view?usp=sharing",
+    url: "https://drive.google.com/file/d/1g8d-uKgvY0ncmniGVcVoQbFKicYOEzIG/view",
     title: "Mock Accounts PDF",
   },
 ];
@@ -75,7 +75,7 @@ Create a Word document that includes a revised version of the student evaluation
 • The tone is professional yet welcoming
 • Is structured in a way that can easily be implemented in Google Forms or another digital tool.`;
 
-const exercise2DeliverableUrl = "https://docs.google.com/document/d/1Dm026_jWAVi4BCBoUJi5M254fNzKmAx1/edit?usp=sharing&ouid=109946200030023295969&rtpof=true&sd=true";
+const exercise2DeliverableUrl = "https://docs.google.com/document/d/1Dm026_jWAVi4BCBoUJi5M254fNzKmAx1/edit";
 const exercise2DeliverableTitle = "Revised Class Evaluation Form";
 
 const exercise2Criteria: RubricCriterion[] = [
@@ -180,19 +180,21 @@ const assessmentSlides: Slide[] = [
             {/* Deliverable Links */}
             <div>
               <h3 className="text-lg font-semibold mb-2">Deliverables</h3>
-              <div className="flex flex-col gap-2">
-                {exercise1Deliverables.map((d, idx) => (
-                  <a
-                    key={idx}
-                    href={d.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 text-primary hover:underline"
-                  >
-                    <ExternalLink className="w-4 h-4" />
-                    {d.title}
-                  </a>
-                ))}
+              <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                <div className="flex flex-col gap-3">
+                  {exercise1Deliverables.map((d, idx) => (
+                    <a
+                      key={idx}
+                      href={d.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 text-blue-700 hover:text-blue-900 hover:underline font-medium"
+                    >
+                      <ExternalLink className="w-4 h-4" />
+                      {d.title}
+                    </a>
+                  ))}
+                </div>
               </div>
             </div>
 
@@ -223,15 +225,17 @@ const assessmentSlides: Slide[] = [
             {/* Deliverable Link */}
             <div>
               <h3 className="text-lg font-semibold mb-2">Deliverable</h3>
-              <a
-                href={exercise2DeliverableUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 text-primary hover:underline"
-              >
-                <ExternalLink className="w-4 h-4" />
-                {exercise2DeliverableTitle}
-              </a>
+              <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                <a
+                  href={exercise2DeliverableUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 text-blue-700 hover:text-blue-900 hover:underline font-medium"
+                >
+                  <ExternalLink className="w-4 h-4" />
+                  {exercise2DeliverableTitle}
+                </a>
+              </div>
             </div>
 
             {/* Rubric Table */}
