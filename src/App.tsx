@@ -34,6 +34,9 @@ import {
 // Tasking Assistance
 import { TaskingAssistancePage } from "./pages/tasking-assistance";
 
+// FAQs standalone page
+import StandaloneFAQsPage from "./pages/faqs/StandaloneFAQsPage";
+
 // Assessment pages (hidden from navigation)
 import { FinalExercisePage } from "./pages/assessment";
 
@@ -86,10 +89,12 @@ const App = () => (
               <Route path="rubrics/module-4" element={<RubricsModule4 />} />
             </Route>
 
+            {/* FAQs standalone page */}
+            <Route path="/faqs" element={<StandaloneFAQsPage />} />
+
             {/* Redirects for old routes */}
             <Route path="/onboarding/*" element={<Navigate to="/project-info" replace />} />
-            <Route path="/faqs" element={<Navigate to="/project-info/faqs" replace />} />
-            <Route path="/tools" element={<Navigate to="/project-info/tools" replace />} />
+            <Route path="/tools" element={<Navigate to="/project-info" replace />} />
           </Route>
           
           <Route path="*" element={<NotFound />} />
