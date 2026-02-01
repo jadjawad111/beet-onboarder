@@ -129,7 +129,7 @@ const RubricDissectionSlide = () => {
           <Card className="border-2 border-muted-foreground/30 overflow-hidden">
             <CardContent className="p-0">
               <iframe
-                src="https://drive.google.com/file/d/1nrpI4qPfdjb_chj-APnPn158MG5t8h4X/preview"
+                src="https://docs.google.com/spreadsheets/d/1nrpI4qPfdjb_chj-APnPn158MG5t8h4X/preview"
                 className="w-full h-[300px] border-0"
                 allow="autoplay"
                 title="Golden Example Deliverable"
