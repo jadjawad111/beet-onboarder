@@ -34,18 +34,18 @@ const UsingLinksSlide = () => {
             What Links Are Good For
           </h3>
           <p className="text-xs text-muted-foreground mb-3">Use links when they are:</p>
-          <ul className="space-y-2 text-sm">
+          <ul className="space-y-2 text-sm pl-1">
             <li className="flex items-start gap-2">
-              <span className="text-primary mt-0.5">•</span>
-              <span><strong>Reference / context</strong> (helpful, not required)</span>
+              <span className="text-primary mt-0.5 flex-shrink-0">•</span>
+              <span className="text-left"><strong>Reference / context</strong> (helpful, not required)</span>
             </li>
             <li className="flex items-start gap-2">
-              <span className="text-primary mt-0.5">•</span>
-              <span><strong>A public standard</strong> you want followed (and you state the requirements in the prompt)</span>
+              <span className="text-primary mt-0.5 flex-shrink-0">•</span>
+              <span className="text-left"><strong>A public standard</strong> you want followed (and you state the requirements in the prompt)</span>
             </li>
             <li className="flex items-start gap-2">
-              <span className="text-primary mt-0.5">•</span>
-              <span><strong>Supplementary information</strong> that supports the task</span>
+              <span className="text-primary mt-0.5 flex-shrink-0">•</span>
+              <span className="text-left"><strong>Supplementary information</strong> that supports the task</span>
             </li>
           </ul>
         </CardContent>
@@ -59,18 +59,18 @@ const UsingLinksSlide = () => {
             Big NOs (Avoid These)
           </h3>
           <p className="text-xs text-muted-foreground mb-3">These patterns commonly break prompts because the content may not be accessible or stable:</p>
-          <ul className="space-y-2 text-sm">
+          <ul className="space-y-2 text-sm pl-1">
             <li className="flex items-start gap-2">
-              <span className="text-destructive mt-0.5">•</span>
-              <span><strong>Paywalled links</strong> (news sites, subscription research, gated reports)</span>
+              <span className="text-destructive mt-0.5 flex-shrink-0">•</span>
+              <span className="text-left"><strong>Paywalled links</strong> (news sites, subscription research, gated reports)</span>
             </li>
             <li className="flex items-start gap-2">
-              <span className="text-destructive mt-0.5">•</span>
-              <span><strong>Login-required content</strong> (company portals, Google Docs without public access, internal tools)</span>
+              <span className="text-destructive mt-0.5 flex-shrink-0">•</span>
+              <span className="text-left"><strong>Login-required content</strong> (company portals, Google Docs without public access, internal tools)</span>
             </li>
             <li className="flex items-start gap-2">
-              <span className="text-destructive mt-0.5">•</span>
-              <span><strong>Unstable / changing pages</strong> used as if results are reproducible (real-time search results with no scoping)</span>
+              <span className="text-destructive mt-0.5 flex-shrink-0">•</span>
+              <span className="text-left"><strong>Unstable / changing pages</strong> used as if results are reproducible (real-time search results with no scoping)</span>
             </li>
           </ul>
         </CardContent>
@@ -93,18 +93,18 @@ const UsingLinksSlide = () => {
           </div>
           <div>
             <p className="text-xs font-medium text-primary mb-1">Why it works:</p>
-            <ul className="text-sm text-muted-foreground space-y-1">
+            <ul className="text-sm text-muted-foreground space-y-1 pl-1">
               <li className="flex items-start gap-2">
-                <span className="text-primary mt-0.5">•</span>
-                <span>The task is clear even without the link</span>
+                <span className="text-primary mt-0.5 flex-shrink-0">•</span>
+                <span className="text-left">The task is clear even without the link</span>
               </li>
               <li className="flex items-start gap-2">
-                <span className="text-primary mt-0.5">•</span>
-                <span>The link's role is labeled (optional background)</span>
+                <span className="text-primary mt-0.5 flex-shrink-0">•</span>
+                <span className="text-left">The link's role is labeled (optional background)</span>
               </li>
               <li className="flex items-start gap-2">
-                <span className="text-primary mt-0.5">•</span>
-                <span>The output format is defined</span>
+                <span className="text-primary mt-0.5 flex-shrink-0">•</span>
+                <span className="text-left">The output format is defined</span>
               </li>
             </ul>
           </div>
@@ -130,14 +130,14 @@ const UsingLinksSlide = () => {
           </div>
           <div>
             <p className="text-xs font-medium text-primary mb-1">Why it works:</p>
-            <ul className="text-sm text-muted-foreground space-y-1">
+            <ul className="text-sm text-muted-foreground space-y-1 pl-1">
               <li className="flex items-start gap-2">
-                <span className="text-primary mt-0.5">•</span>
-                <span>The link is clearly a reference standard</span>
+                <span className="text-primary mt-0.5 flex-shrink-0">•</span>
+                <span className="text-left">The link is clearly a reference standard</span>
               </li>
               <li className="flex items-start gap-2">
-                <span className="text-primary mt-0.5">•</span>
-                <span>The prompt still contains the actual deliverable requirements</span>
+                <span className="text-primary mt-0.5 flex-shrink-0">•</span>
+                <span className="text-left">The prompt still contains the actual deliverable requirements</span>
               </li>
             </ul>
           </div>
@@ -163,14 +163,14 @@ const UsingLinksSlide = () => {
           </div>
           <div>
             <p className="text-xs font-medium text-primary mb-1">Why it works:</p>
-            <ul className="text-sm text-muted-foreground space-y-1">
+            <ul className="text-sm text-muted-foreground space-y-1 pl-1">
               <li className="flex items-start gap-2">
-                <span className="text-primary mt-0.5">•</span>
-                <span>Even if the link can't be opened, the task is still doable</span>
+                <span className="text-primary mt-0.5 flex-shrink-0">•</span>
+                <span className="text-left">Even if the link can't be opened, the task is still doable</span>
               </li>
               <li className="flex items-start gap-2">
-                <span className="text-primary mt-0.5">•</span>
-                <span>The "source of truth" content is captured in the prompt</span>
+                <span className="text-primary mt-0.5 flex-shrink-0">•</span>
+                <span className="text-left">The "source of truth" content is captured in the prompt</span>
               </li>
             </ul>
           </div>
@@ -238,18 +238,18 @@ const UsingLinksSlide = () => {
             <AlertTriangle className="w-4 h-4 text-destructive flex-shrink-0 mt-0.5" />
             <div className="text-sm text-muted-foreground">
               <p><strong>Why it breaks:</strong></p>
-              <ul className="mt-1 space-y-0.5">
+              <ul className="mt-1 space-y-0.5 pl-1">
                 <li className="flex items-start gap-2">
-                  <span className="text-destructive mt-0.5">•</span>
-                  <span>Results can change run-to-run</span>
+                  <span className="text-destructive mt-0.5 flex-shrink-0">•</span>
+                  <span className="text-left">Results can change run-to-run</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <span className="text-destructive mt-0.5">•</span>
-                  <span>"Top 10" is not stable without filters + time + explicit variability</span>
+                  <span className="text-destructive mt-0.5 flex-shrink-0">•</span>
+                  <span className="text-left">"Top 10" is not stable without filters + time + explicit variability</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <span className="text-destructive mt-0.5">•</span>
-                  <span>Task becomes not timeless!</span>
+                  <span className="text-destructive mt-0.5 flex-shrink-0">•</span>
+                  <span className="text-left">Task becomes not timeless!</span>
                 </li>
               </ul>
             </div>
