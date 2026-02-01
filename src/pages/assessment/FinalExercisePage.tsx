@@ -3,7 +3,6 @@ import { PresentationLayout, ContentSlide } from "@/components/presentation";
 import type { Slide } from "@/components/presentation/PresentationLayout";
 import RubricDisplayTable from "@/components/assessment/RubricDisplayTable";
 import type { RubricCriterion } from "@/components/assessment/RubricDisplayTable";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import { Card, CardContent } from "@/components/ui/card";
 import { ExternalLink, FileText } from "lucide-react";
 
@@ -183,52 +182,50 @@ const assessmentSlides: Slide[] = [
     title: "Exercise #1",
     content: (
       <ContentSlide title="" layout="full">
-        <ScrollArea className="h-[calc(100vh-200px)] w-full">
-          <div className="space-y-6 max-w-5xl mx-auto px-4">
-            {/* Prompt Section */}
-            <div>
-              <h3 className="text-lg font-semibold mb-2">Prompt</h3>
-              <div className="bg-muted/50 p-4 rounded-lg text-sm whitespace-pre-wrap">
-                {exercise1Prompt}
-              </div>
+        <div className="space-y-6 max-w-5xl mx-auto px-4 pb-8">
+          {/* Prompt Section */}
+          <div>
+            <h3 className="text-lg font-semibold mb-2">Prompt</h3>
+            <div className="bg-muted/50 p-4 rounded-lg text-sm whitespace-pre-wrap">
+              {exercise1Prompt}
             </div>
-
-            {/* Deliverables with iframes */}
-            {exercise1Deliverables.map((deliverable, index) => (
-              <Card key={index}>
-                <CardContent className="p-4">
-                  <div className="flex items-center justify-between mb-3">
-                    <div className="flex items-center gap-2">
-                      <FileText className="w-4 h-4 text-muted-foreground" />
-                      <span className="font-medium text-sm">
-                        Deliverable {index + 1}: {deliverable.title}
-                      </span>
-                    </div>
-                    <a
-                      href={deliverable.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-xs text-primary hover:underline flex items-center gap-1"
-                    >
-                      Open in new tab <ExternalLink className="w-3 h-3" />
-                    </a>
-                  </div>
-                  <div className="rounded-lg overflow-hidden border bg-white">
-                    <iframe
-                      src={getEmbedUrl(deliverable.url)}
-                      className="w-full h-[600px]"
-                      allow="autoplay"
-                      title={deliverable.title}
-                    />
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-
-            {/* Rubric Table */}
-            <RubricDisplayTable criteria={exercise1Criteria} title="Rubric Criteria" />
           </div>
-        </ScrollArea>
+
+          {/* Deliverables with iframes */}
+          {exercise1Deliverables.map((deliverable, index) => (
+            <Card key={index}>
+              <CardContent className="p-4">
+                <div className="flex items-center justify-between mb-3">
+                  <div className="flex items-center gap-2">
+                    <FileText className="w-4 h-4 text-muted-foreground" />
+                    <span className="font-medium text-sm">
+                      Deliverable {index + 1}: {deliverable.title}
+                    </span>
+                  </div>
+                  <a
+                    href={deliverable.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-xs text-primary hover:underline flex items-center gap-1"
+                  >
+                    Open in new tab <ExternalLink className="w-3 h-3" />
+                  </a>
+                </div>
+                <div className="rounded-lg overflow-hidden border bg-white">
+                  <iframe
+                    src={getEmbedUrl(deliverable.url)}
+                    className="w-full h-[600px]"
+                    allow="autoplay"
+                    title={deliverable.title}
+                  />
+                </div>
+              </CardContent>
+            </Card>
+          ))}
+
+          {/* Rubric Table */}
+          <RubricDisplayTable criteria={exercise1Criteria} title="Rubric Criteria" />
+        </div>
       </ContentSlide>
     ),
     gated: false,
@@ -239,48 +236,46 @@ const assessmentSlides: Slide[] = [
     title: "Exercise #2",
     content: (
       <ContentSlide title="" layout="full">
-        <ScrollArea className="h-[calc(100vh-200px)] w-full">
-          <div className="space-y-6 max-w-5xl mx-auto px-4">
-            {/* Prompt Section */}
-            <div>
-              <h3 className="text-lg font-semibold mb-2">Prompt</h3>
-              <div className="bg-muted/50 p-4 rounded-lg text-sm whitespace-pre-wrap">
-                {exercise2Prompt}
-              </div>
+        <div className="space-y-6 max-w-5xl mx-auto px-4 pb-8">
+          {/* Prompt Section */}
+          <div>
+            <h3 className="text-lg font-semibold mb-2">Prompt</h3>
+            <div className="bg-muted/50 p-4 rounded-lg text-sm whitespace-pre-wrap">
+              {exercise2Prompt}
             </div>
-
-            {/* Deliverable with iframe */}
-            <Card>
-              <CardContent className="p-4">
-                <div className="flex items-center justify-between mb-3">
-                  <div className="flex items-center gap-2">
-                    <FileText className="w-4 h-4 text-muted-foreground" />
-                    <span className="font-medium text-sm">Deliverable: {exercise2DeliverableTitle}</span>
-                  </div>
-                  <a
-                    href={exercise2DeliverableUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-xs text-primary hover:underline flex items-center gap-1"
-                  >
-                    Open in new tab <ExternalLink className="w-3 h-3" />
-                  </a>
-                </div>
-                <div className="rounded-lg overflow-hidden border bg-white">
-                  <iframe
-                    src={getEmbedUrl(exercise2DeliverableUrl)}
-                    className="w-full h-[600px]"
-                    allow="autoplay"
-                    title={exercise2DeliverableTitle}
-                  />
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Rubric Table */}
-            <RubricDisplayTable criteria={exercise2Criteria} title="Rubric Criteria" />
           </div>
-        </ScrollArea>
+
+          {/* Deliverable with iframe */}
+          <Card>
+            <CardContent className="p-4">
+              <div className="flex items-center justify-between mb-3">
+                <div className="flex items-center gap-2">
+                  <FileText className="w-4 h-4 text-muted-foreground" />
+                  <span className="font-medium text-sm">Deliverable: {exercise2DeliverableTitle}</span>
+                </div>
+                <a
+                  href={exercise2DeliverableUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-xs text-primary hover:underline flex items-center gap-1"
+                >
+                  Open in new tab <ExternalLink className="w-3 h-3" />
+                </a>
+              </div>
+              <div className="rounded-lg overflow-hidden border bg-white">
+                <iframe
+                  src={getEmbedUrl(exercise2DeliverableUrl)}
+                  className="w-full h-[600px]"
+                  allow="autoplay"
+                  title={exercise2DeliverableTitle}
+                />
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Rubric Table */}
+          <RubricDisplayTable criteria={exercise2Criteria} title="Rubric Criteria" />
+        </div>
       </ContentSlide>
     ),
     gated: false,
