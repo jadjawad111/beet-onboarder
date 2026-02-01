@@ -1661,9 +1661,6 @@ This report will be used to brief the design team and guide future optimization 
           </div>
         }
         inputFileDescription="Vendor quotations and volume projections"
-        inputFileName="Multiple files (quotations, projections)"
-        inputFileUrl="https://drive.google.com/drive/folders/1O8aVfirvXI1rG-8bfGiuN71WjEKxOu1D?usp=sharing"
-        inputFileEmbedUrl="https://drive.google.com/embeddedfolderview?id=1O8aVfirvXI1rG-8bfGiuN71WjEKxOu1D#list"
         referenceHighlights={[
           {
             quote: "All relevant documents... are attached",
