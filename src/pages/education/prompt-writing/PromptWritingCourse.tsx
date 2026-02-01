@@ -1684,6 +1684,16 @@ This report will be used to brief the design team and guide future optimization 
       <InputFileCharacteristics />
     ),
   },
+  {
+    id: "input-files-using-links",
+    section: "Input Files",
+    title: "Using Links in Prompts",
+    content: (
+      <ContentSlide title="" layout="center">
+        <UsingLinksSlide />
+      </ContentSlide>
+    ),
+  },
 
   // ═══════════════════════════════════════════════════════════════
   // SECTION 3: Golden Example Deliverable
@@ -1887,16 +1897,6 @@ This report will be used to brief the design team and guide future optimization 
     content: (
       <ContentSlide title="" layout="center">
         <RubricDissectionSlide />
-      </ContentSlide>
-    ),
-  },
-  {
-    id: "rubrics-using-links",
-    section: "Rubrics",
-    title: "Using Links in Prompts",
-    content: (
-      <ContentSlide title="" layout="center">
-        <UsingLinksSlide />
       </ContentSlide>
     ),
   },
