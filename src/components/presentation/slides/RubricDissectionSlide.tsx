@@ -108,7 +108,7 @@ const RubricDissectionSlide = () => {
   const rightAnnotations = ANNOTATIONS.filter((a) => a.side === "right");
 
   return (
-    <div className="w-full max-w-7xl mx-auto px-4">
+    <div className="w-full max-w-[1400px] mx-auto px-4">
       {/* Header */}
       <div className="text-center mb-4">
         <p className="text-xs uppercase tracking-widest text-muted-foreground mb-1">Anatomy of a Rubric</p>
@@ -118,35 +118,44 @@ const RubricDissectionSlide = () => {
 
       {/* Main Content Stack with Annotations on sides */}
       <div className="relative">
-        {/* Left Annotations */}
-        <div className="absolute left-0 top-0 bottom-0 w-[200px] -translate-x-full pr-6 hidden xl:flex flex-col justify-center gap-8">
+        {/* Left Annotations - Weight points to header, Criterion points to header */}
+        <div className="absolute left-0 top-0 bottom-0 w-[280px] -translate-x-full pr-8 hidden xl:flex flex-col gap-6" style={{ paddingTop: '340px' }}>
           {leftAnnotations.map((annotation) => {
             const revealed = isRevealed(annotation.id);
+            // Position lines to point at table headers
+            const lineWidth = annotation.id === 'weight' ? '80px' : '120px';
+            
             return (
               <div key={annotation.id} className="relative">
                 {/* Connecting Line */}
-                <div className="absolute right-0 top-1/2 w-10 h-px bg-primary/40" />
-                <div className="absolute right-0 top-1/2 w-3 h-3 rounded-full bg-primary -translate-y-1/2 translate-x-1.5" />
+                <div 
+                  className="absolute h-px bg-primary/60" 
+                  style={{ top: '50%', right: '0', width: lineWidth }} 
+                />
+                <div 
+                  className="absolute w-3 h-3 rounded-full bg-primary" 
+                  style={{ top: '50%', right: `-${parseInt(lineWidth) + 4}px`, transform: 'translateY(-50%)' }} 
+                />
                 
                 {/* Annotation Bubble */}
                 <button
                   onClick={() => toggleAnnotation(annotation.id)}
                   className={cn(
-                    "w-full p-4 rounded-xl border-2 text-left transition-all cursor-pointer mr-6",
+                    "w-full p-5 rounded-xl border-2 text-left transition-all cursor-pointer",
                     revealed
                       ? "border-primary bg-primary/10 shadow-lg"
                       : "border-muted-foreground/30 bg-muted/50 hover:border-primary/50 hover:shadow-md"
                   )}
                 >
-                  <div className="flex items-center gap-2 mb-2">
+                  <div className="flex items-center gap-3 mb-2">
                     <div className={cn(
-                      "w-7 h-7 rounded-lg flex items-center justify-center",
+                      "w-8 h-8 rounded-lg flex items-center justify-center",
                       revealed ? "bg-primary/20 text-primary" : "bg-muted text-muted-foreground"
                     )}>
                       {annotation.icon}
                     </div>
                     <span className={cn(
-                      "text-sm font-bold uppercase tracking-wide",
+                      "text-base font-bold uppercase tracking-wide",
                       revealed ? "text-primary" : "text-muted-foreground"
                     )}>
                       {annotation.title}
@@ -164,35 +173,49 @@ const RubricDissectionSlide = () => {
           })}
         </div>
 
-        {/* Right Annotations */}
-        <div className="absolute right-0 top-0 bottom-0 w-[200px] translate-x-full pl-6 hidden xl:flex flex-col justify-center gap-6">
+        {/* Right Annotations - Category, Rationale, Citations point to example values */}
+        <div className="absolute right-0 top-0 bottom-0 w-[280px] translate-x-full pl-8 hidden xl:flex flex-col gap-5" style={{ paddingTop: '320px' }}>
           {rightAnnotations.map((annotation) => {
             const revealed = isRevealed(annotation.id);
+            // Different line lengths to point at different columns
+            const lineWidths: Record<string, string> = {
+              'category': '60px',
+              'rationale': '100px', 
+              'citations': '140px'
+            };
+            const lineWidth = lineWidths[annotation.id] || '80px';
+            
             return (
               <div key={annotation.id} className="relative">
                 {/* Connecting Line */}
-                <div className="absolute left-0 top-1/2 w-10 h-px bg-primary/40" />
-                <div className="absolute left-0 top-1/2 w-3 h-3 rounded-full bg-primary -translate-y-1/2 -translate-x-1.5" />
+                <div 
+                  className="absolute h-px bg-primary/60" 
+                  style={{ top: '50%', left: '0', width: lineWidth }} 
+                />
+                <div 
+                  className="absolute w-3 h-3 rounded-full bg-primary" 
+                  style={{ top: '50%', left: `-${parseInt(lineWidth) + 4}px`, transform: 'translateY(-50%)' }} 
+                />
                 
                 {/* Annotation Bubble */}
                 <button
                   onClick={() => toggleAnnotation(annotation.id)}
                   className={cn(
-                    "w-full p-4 rounded-xl border-2 text-left transition-all cursor-pointer ml-6",
+                    "w-full p-5 rounded-xl border-2 text-left transition-all cursor-pointer",
                     revealed
                       ? "border-primary bg-primary/10 shadow-lg"
                       : "border-muted-foreground/30 bg-muted/50 hover:border-primary/50 hover:shadow-md"
                   )}
                 >
-                  <div className="flex items-center gap-2 mb-2">
+                  <div className="flex items-center gap-3 mb-2">
                     <div className={cn(
-                      "w-7 h-7 rounded-lg flex items-center justify-center",
+                      "w-8 h-8 rounded-lg flex items-center justify-center",
                       revealed ? "bg-primary/20 text-primary" : "bg-muted text-muted-foreground"
                     )}>
                       {annotation.icon}
                     </div>
                     <span className={cn(
-                      "text-sm font-bold uppercase tracking-wide",
+                      "text-base font-bold uppercase tracking-wide",
                       revealed ? "text-primary" : "text-muted-foreground"
                     )}>
                       {annotation.title}
@@ -229,17 +252,20 @@ const RubricDissectionSlide = () => {
             </Card>
           </div>
 
-          {/* 2. Golden Example Deliverable Box */}
+          {/* 2. Golden Example Deliverable Box - Embedded Doc */}
           <div>
             <div className="flex items-center gap-2 text-xs font-medium text-muted-foreground mb-1">
               <MessageSquare className="w-3 h-3" />
               Golden Example Deliverable
             </div>
-            <Card className="border border-dashed border-muted-foreground/30 bg-muted/20">
-              <CardContent className="py-2 px-3 text-center">
-                <p className="text-xs text-muted-foreground italic">
-                  Model response will appear here (content to be provided)
-                </p>
+            <Card className="border border-muted-foreground/30 overflow-hidden">
+              <CardContent className="p-0">
+                <iframe
+                  src="https://drive.google.com/file/d/1U3iBkJkL0StOWUzrRtFo4HxcXt7q28yL/preview"
+                  className="w-full h-[120px] border-0"
+                  allow="autoplay"
+                  title="Golden Example Deliverable"
+                />
               </CardContent>
             </Card>
           </div>
