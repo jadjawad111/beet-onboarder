@@ -125,17 +125,17 @@ const RubricDissectionSlide = () => {
         >
           {leftAnnotations.map((annotation, idx) => {
             const revealed = isRevealed(annotation.id);
-            // Weight points to header "Weight" column, Criterion points to row 5 criterion (provenance)
+            // Weight points to header "Weight" column, Criterion points to row 3 criterion
             const lineWidths: Record<string, number> = {
               'weight': 340,
               'criterion': 420
             };
             const lineWidth = lineWidths[annotation.id] || 340;
             const lineGap = 12;
-            // Vertical offset: Weight → header row, Criterion → row 5
+            // Vertical offset: Weight → header row, Criterion → row 3 (domain-specific term)
             const verticalOffsets: Record<string, number> = {
-              'weight': -60,   // Points to header row "Weight"
-              'criterion': 120  // Points to row 5 (provenance row)
+              'weight': -80,   // Points to header row "Weight"
+              'criterion': 40   // Points to row 3 (Every domain-specific term...)
             };
             const verticalOffset = verticalOffsets[annotation.id] || 0;
             
@@ -213,18 +213,18 @@ const RubricDissectionSlide = () => {
         >
           {rightAnnotations.map((annotation, idx) => {
             const revealed = isRevealed(annotation.id);
-            // Different line lengths to reach different columns - Citations aligned with Citations column
+            // Different line lengths to reach different columns
             const lineWidths: Record<string, number> = {
               'category': 300,
               'rationale': 200, 
-              'citations': 60  // Shorter to align with Citations column
+              'citations': 60
             };
             const lineWidth = lineWidths[annotation.id] || 150;
             const lineGap = 12;
             // Vertical offsets: Category → row 1, Rationale → row 4, Citations → row 7
             const verticalOffsets: Record<string, number> = {
-              'category': -60,  // Points to row 1
-              'rationale': 20,  // Points to row 4
+              'category': -60,  // Points to row 1 "Instruction Following"
+              'rationale': 60,  // Points to row 4 italic "Instruction Following"
               'citations': 140  // Points to row 7
             };
             const verticalOffset = verticalOffsets[annotation.id] || 0;
