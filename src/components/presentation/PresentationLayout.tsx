@@ -162,8 +162,8 @@ const PresentationLayout = ({
   const currentSlideData = slides[currentSlide];
   const isCurrentSlideGated = currentSlideData?.gated ?? false;
   const isCurrentSlideUnlocked = unlockedSlides.has(currentSlideData?.id ?? '');
-  // GATE OFF - gating is disabled for testing
-  const canContinue = true;
+  // GATE ON - gating is enabled
+  const canContinue = !isCurrentSlideGated || isCurrentSlideUnlocked;
 
   // Function to unlock the current slide (passed to children)
   const unlockCurrentSlide = useCallback(() => {
