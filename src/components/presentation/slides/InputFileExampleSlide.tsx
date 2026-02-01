@@ -100,21 +100,6 @@ const InputFileExampleSlide = ({
 
         {/* Right Column: Input File Embed */}
         <div className="space-y-2">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2 text-sm font-medium text-muted-foreground">
-              <FileSpreadsheet className="w-4 h-4" />
-              Input File: {inputFileName || inputFileDescription}
-            </div>
-            {inputFileUrl && (
-              <Button variant="ghost" size="sm" asChild className="h-7 text-xs">
-                <a href={inputFileUrl} target="_blank" rel="noopener noreferrer">
-                  <ExternalLink className="w-3 h-3 mr-1" />
-                  Open
-                </a>
-              </Button>
-            )}
-          </div>
-          
           {inputFileEmbedUrl ? (
             <div className="rounded-lg border bg-background overflow-hidden h-[400px]">
               <iframe
@@ -131,12 +116,6 @@ const InputFileExampleSlide = ({
                 <p className="text-sm text-muted-foreground mb-3">
                   Preview not available for this file type
                 </p>
-                <Button variant="outline" size="sm" asChild>
-                  <a href={inputFileUrl} target="_blank" rel="noopener noreferrer">
-                    <ExternalLink className="w-4 h-4 mr-1" />
-                    Open in New Tab
-                  </a>
-                </Button>
               </CardContent>
             </Card>
           ) : null}
