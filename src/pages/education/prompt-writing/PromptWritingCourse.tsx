@@ -1638,6 +1638,47 @@ This report will be used to brief the design team and guide future optimization 
     ),
   },
   {
+    id: "input-files-example-2",
+    section: "Input Files",
+    title: "Example: Automotive NPV Analysis",
+    parentId: "input-files-overview",
+    content: (
+      <InputFileExampleSlide
+        exampleNumber={2}
+        title="Grouped File Reference"
+        domain="Automotive / Procurement"
+        promptExcerpt={
+          <div className="space-y-2 text-xs">
+            <p>
+              You're the category buyer for automotive electronics at LiIon Motors, leading the sourcing process for headlamps on Model I...
+            </p>
+            <p>
+              Create an Excel workbook with NPV calculation sheets for each vendor and a summary sheet for comparison...
+            </p>
+            <p className="bg-primary/10 border-l-2 border-primary pl-2 py-1">
+              <strong>All relevant documents</strong>, including vendor quotations and volume projections, <strong>are attached</strong>.
+            </p>
+          </div>
+        }
+        inputFileDescription="Vendor quotations and volume projections"
+        inputFileName="Multiple files (quotations, projections)"
+        inputFileUrl="https://drive.google.com/drive/folders/1O8aVfirvXI1rG-8bfGiuN71WjEKxOu1D?usp=sharing"
+        inputFileEmbedUrl="https://drive.google.com/embeddedfolderview?id=1O8aVfirvXI1rG-8bfGiuN71WjEKxOu1D#list"
+        referenceHighlights={[
+          {
+            quote: "All relevant documents... are attached",
+            explanation: "Files grouped but clearly scoped as attachments"
+          }
+        ]}
+        qualityNotes={[
+          "Model knows all attached files are inputs",
+          "Acceptable in professional workflows",
+          "Could list each file explicitly for more clarity"
+        ]}
+      />
+    ),
+  },
+  {
     id: "input-files-characteristics",
     section: "Input Files",
     title: "Best Practices",
@@ -1848,37 +1889,6 @@ This report will be used to brief the design team and guide future optimization 
     content: (
       <ContentSlide title="" layout="center">
         <RubricDissectionSlide />
-      </ContentSlide>
-    ),
-  },
-  {
-    id: "rubrics-what-is-2",
-    section: "Rubrics",
-    title: "What is a rubric?",
-    content: (
-      <ContentSlide title="What is a rubric?" layout="left">
-        <div className="space-y-6">
-          <p>
-            <strong className="text-foreground">A rubric is your way of evaluating responses or outputs to the task you designed in a systematic way.</strong>
-          </p>
-          <p>
-            The conceptual goal of a good rubric is to ensure that no satisfactory or good output would fail, but no bad output would pass.
-          </p>
-          <p>
-            Rubrics in this case are much more detailed and specific than rubrics you may be used to, such as those used in a sixth grade class.
-          </p>
-          <p className="text-muted-foreground">
-            They are somewhere between a checklist and a mark scheme for high school essays: closer to a <strong className="text-foreground">checklist-style open-ended mark scheme</strong>. The way they differ from a checklist is primarily that <strong className="text-foreground">weights are included</strong>.
-          </p>
-
-          {/* Key Definition */}
-          <div className="p-4 rounded-lg border-2 border-primary/30 bg-primary/5">
-            <p className="text-foreground font-medium">
-              A rubric is a <strong className="underline decoration-primary decoration-2">collection of criteria</strong> that together define what makes a good response.
-            </p>
-          </div>
-
-        </div>
       </ContentSlide>
     ),
   },
