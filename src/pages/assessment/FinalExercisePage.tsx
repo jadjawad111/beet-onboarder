@@ -1,8 +1,6 @@
 import React from "react";
 import { PresentationLayout, ContentSlide } from "@/components/presentation";
 import type { Slide } from "@/components/presentation/PresentationLayout";
-import RubricInteractiveQuiz from "@/components/presentation/slides/RubricInteractiveQuiz";
-import type { CriterionData } from "@/components/presentation/slides/RubricInteractiveQuiz";
 import RubricDisplayTable from "@/components/assessment/RubricDisplayTable";
 import type { RubricCriterion } from "@/components/assessment/RubricDisplayTable";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -31,7 +29,7 @@ const exercise1Deliverables = [
   },
 ];
 
-const exercise1Criteria: CriterionData[] = [
+const exercise1Criteria: RubricCriterion[] = [
   { id: 1, weight: 100, text: "The submission includes a training deck provided as a PDF file.", category: "Instruction Following", rationale: "The prompt explicitly requires the training material to be delivered as a PDF." },
   { id: 2, weight: 40, text: "The training deck is approximately 10 pages in length.", category: "Instruction Following", rationale: "The prompt specifies an expected length to keep the training concise." },
   { id: 3, weight: 50, text: "The deck clearly explains what financial exploitation and elder abuse mean.", category: "Instruction Following", rationale: "The prompt asks for a simple explanation to align understanding." },
@@ -169,12 +167,39 @@ const assessmentSlides: Slide[] = [
     title: "Exercise #1",
     content: (
       <ContentSlide title="" layout="full">
-        <RubricInteractiveQuiz
-          exerciseNumber={1}
-          prompt={exercise1Prompt}
-          deliverables={exercise1Deliverables}
-          criteria={exercise1Criteria}
-        />
+        <ScrollArea className="h-[calc(100vh-120px)]">
+          <div className="space-y-6 pr-4">
+            {/* Prompt Section */}
+            <div>
+              <h3 className="text-lg font-semibold mb-2">Prompt</h3>
+              <div className="bg-muted/50 p-4 rounded-lg text-sm whitespace-pre-wrap">
+                {exercise1Prompt}
+              </div>
+            </div>
+
+            {/* Deliverable Links */}
+            <div>
+              <h3 className="text-lg font-semibold mb-2">Deliverables</h3>
+              <div className="flex flex-col gap-2">
+                {exercise1Deliverables.map((d, idx) => (
+                  <a
+                    key={idx}
+                    href={d.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 text-primary hover:underline"
+                  >
+                    <ExternalLink className="w-4 h-4" />
+                    {d.title}
+                  </a>
+                ))}
+              </div>
+            </div>
+
+            {/* Rubric Table */}
+            <RubricDisplayTable criteria={exercise1Criteria} title="Rubric Criteria" />
+          </div>
+        </ScrollArea>
       </ContentSlide>
     ),
     gated: false,
