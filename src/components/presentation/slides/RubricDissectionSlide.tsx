@@ -119,29 +119,29 @@ const RubricDissectionSlide = () => {
       {/* Main Content Stack with Annotations on sides */}
       <div className="relative">
         {/* Left Annotations - Weight points to header, Criterion points to header */}
-        <div className="absolute left-0 top-0 bottom-0 w-[280px] -translate-x-full pr-8 hidden xl:flex flex-col gap-6" style={{ paddingTop: '340px' }}>
+        <div className="absolute left-0 top-0 bottom-0 w-[280px] -translate-x-full pr-8 hidden xl:flex flex-col gap-6 z-50" style={{ paddingTop: '500px' }}>
           {leftAnnotations.map((annotation) => {
             const revealed = isRevealed(annotation.id);
             // Position lines to point at table headers
-            const lineWidth = annotation.id === 'weight' ? '80px' : '120px';
+            const lineWidth = annotation.id === 'weight' ? 320 : 400;
             
             return (
-              <div key={annotation.id} className="relative">
-                {/* Connecting Line */}
+              <div key={annotation.id} className="relative z-50">
+                {/* Connecting Line - high z-index to overlay content */}
                 <div 
-                  className="absolute h-px bg-primary/60" 
-                  style={{ top: '50%', right: '0', width: lineWidth }} 
+                  className="absolute h-[2px] bg-primary z-50 pointer-events-none" 
+                  style={{ top: '50%', right: '-32px', width: `${lineWidth}px` }} 
                 />
                 <div 
-                  className="absolute w-3 h-3 rounded-full bg-primary" 
-                  style={{ top: '50%', right: `-${parseInt(lineWidth) + 4}px`, transform: 'translateY(-50%)' }} 
+                  className="absolute w-4 h-4 rounded-full bg-primary z-50 pointer-events-none" 
+                  style={{ top: '50%', right: `-${lineWidth + 36}px`, transform: 'translateY(-50%)' }} 
                 />
                 
                 {/* Annotation Bubble */}
                 <button
                   onClick={() => toggleAnnotation(annotation.id)}
                   className={cn(
-                    "w-full p-5 rounded-xl border-2 text-left transition-all cursor-pointer",
+                    "w-full p-5 rounded-xl border-2 text-left transition-all cursor-pointer relative z-40",
                     revealed
                       ? "border-primary bg-primary/10 shadow-lg"
                       : "border-muted-foreground/30 bg-muted/50 hover:border-primary/50 hover:shadow-md"
@@ -174,34 +174,34 @@ const RubricDissectionSlide = () => {
         </div>
 
         {/* Right Annotations - Category, Rationale, Citations point to example values */}
-        <div className="absolute right-0 top-0 bottom-0 w-[280px] translate-x-full pl-8 hidden xl:flex flex-col gap-5" style={{ paddingTop: '320px' }}>
+        <div className="absolute right-0 top-0 bottom-0 w-[280px] translate-x-full pl-8 hidden xl:flex flex-col gap-5 z-50" style={{ paddingTop: '480px' }}>
           {rightAnnotations.map((annotation) => {
             const revealed = isRevealed(annotation.id);
             // Different line lengths to point at different columns
-            const lineWidths: Record<string, string> = {
-              'category': '60px',
-              'rationale': '100px', 
-              'citations': '140px'
+            const lineWidths: Record<string, number> = {
+              'category': 280,
+              'rationale': 180, 
+              'citations': 80
             };
-            const lineWidth = lineWidths[annotation.id] || '80px';
+            const lineWidth = lineWidths[annotation.id] || 150;
             
             return (
-              <div key={annotation.id} className="relative">
-                {/* Connecting Line */}
+              <div key={annotation.id} className="relative z-50">
+                {/* Connecting Line - high z-index to overlay content */}
                 <div 
-                  className="absolute h-px bg-primary/60" 
-                  style={{ top: '50%', left: '0', width: lineWidth }} 
+                  className="absolute h-[2px] bg-primary z-50 pointer-events-none" 
+                  style={{ top: '50%', left: '-32px', width: `${lineWidth}px` }} 
                 />
                 <div 
-                  className="absolute w-3 h-3 rounded-full bg-primary" 
-                  style={{ top: '50%', left: `-${parseInt(lineWidth) + 4}px`, transform: 'translateY(-50%)' }} 
+                  className="absolute w-4 h-4 rounded-full bg-primary z-50 pointer-events-none" 
+                  style={{ top: '50%', left: `-${lineWidth + 36}px`, transform: 'translateY(-50%)' }} 
                 />
                 
                 {/* Annotation Bubble */}
                 <button
                   onClick={() => toggleAnnotation(annotation.id)}
                   className={cn(
-                    "w-full p-5 rounded-xl border-2 text-left transition-all cursor-pointer",
+                    "w-full p-5 rounded-xl border-2 text-left transition-all cursor-pointer relative z-40",
                     revealed
                       ? "border-primary bg-primary/10 shadow-lg"
                       : "border-muted-foreground/30 bg-muted/50 hover:border-primary/50 hover:shadow-md"
@@ -234,17 +234,17 @@ const RubricDissectionSlide = () => {
         </div>
 
         {/* Center Content: Vertical Stack */}
-        <div className="space-y-3">
-          {/* 1. Prompt Box */}
+        <div className="space-y-4">
+          {/* 1. Prompt Box - 4x larger */}
           <div>
-            <div className="flex items-center gap-2 text-xs font-medium text-muted-foreground mb-1">
-              <FileText className="w-3 h-3" />
+            <div className="flex items-center gap-2 text-sm font-medium text-muted-foreground mb-2">
+              <FileText className="w-4 h-4" />
               Prompt
             </div>
-            <Card className="border border-primary/30">
+            <Card className="border-2 border-primary/30">
               <CardContent className="p-0">
-                <ScrollArea className="h-[140px]">
-                  <div className="p-4 text-sm leading-relaxed text-foreground whitespace-pre-wrap">
+                <ScrollArea className="h-[280px]">
+                  <div className="p-5 text-base leading-relaxed text-foreground whitespace-pre-wrap">
                     {NFT_PROMPT}
                   </div>
                 </ScrollArea>
@@ -252,17 +252,17 @@ const RubricDissectionSlide = () => {
             </Card>
           </div>
 
-          {/* 2. Golden Example Deliverable Box - Embedded Doc */}
+          {/* 2. Golden Example Deliverable Box - 4x larger */}
           <div>
-            <div className="flex items-center gap-2 text-xs font-medium text-muted-foreground mb-1">
-              <MessageSquare className="w-3 h-3" />
+            <div className="flex items-center gap-2 text-sm font-medium text-muted-foreground mb-2">
+              <MessageSquare className="w-4 h-4" />
               Golden Example Deliverable
             </div>
-            <Card className="border border-muted-foreground/30 overflow-hidden">
+            <Card className="border-2 border-muted-foreground/30 overflow-hidden">
               <CardContent className="p-0">
                 <iframe
                   src="https://drive.google.com/file/d/1U3iBkJkL0StOWUzrRtFo4HxcXt7q28yL/preview"
-                  className="w-full h-[120px] border-0"
+                  className="w-full h-[300px] border-0"
                   allow="autoplay"
                   title="Golden Example Deliverable"
                 />
