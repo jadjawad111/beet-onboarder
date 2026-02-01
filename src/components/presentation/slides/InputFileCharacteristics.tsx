@@ -1,81 +1,104 @@
-import { CheckCircle2, XCircle } from "lucide-react";
+import { CheckCircle2, XCircle, FileText, Lightbulb, AlertTriangle } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 
 const InputFileCharacteristics = () => {
   return (
-    <div className="w-full max-w-4xl mx-auto">
+    <div className="w-full max-w-5xl mx-auto space-y-6">
       {/* Header */}
-      <div className="text-center mb-8">
+      <div className="text-center mb-6">
         <p className="text-xs uppercase tracking-widest text-muted-foreground mb-2">
           Input File Best Practices
         </p>
         <h2 className="text-2xl md:text-3xl font-bold text-foreground">
-          How Input Files Should Appear in Prompts
+          How Input Files Actually Appear in Good Prompts
         </h2>
       </div>
 
       {/* Core Characteristics */}
-      <Card className="mb-6">
-        <CardContent className="p-6">
-          <h3 className="font-semibold text-foreground mb-4">
-            Key Characteristics
+      <Card>
+        <CardContent className="p-5">
+          <h3 className="font-semibold text-foreground mb-4 flex items-center gap-2">
+            <CheckCircle2 className="w-5 h-5 text-primary" />
+            Core Characteristics
           </h3>
-          <div className="grid md:grid-cols-2 gap-x-8 gap-y-3">
-            <div className="flex items-start gap-2">
-              <CheckCircle2 className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
-              <span className="text-sm text-foreground">Inputs are <strong>explicitly acknowledged</strong> as existing</span>
+          <p className="text-sm text-muted-foreground mb-4 italic">What's consistently true in quality prompts</p>
+          <div className="grid md:grid-cols-2 gap-4">
+            <div className="space-y-3">
+              <div className="flex items-start gap-2">
+                <CheckCircle2 className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
+                <div>
+                  <span className="text-sm font-medium text-foreground">Inputs are explicitly acknowledged as existing</span>
+                  <p className="text-xs text-muted-foreground">The prompt clearly signals that files are provided (attached, reference files, source files, etc.).</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-2">
+                <CheckCircle2 className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
+                <div>
+                  <span className="text-sm font-medium text-foreground">Inputs are the authoritative source of truth</span>
+                  <p className="text-xs text-muted-foreground">The task is grounded in the provided files, not outside knowledge or guessing.</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-2">
+                <CheckCircle2 className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
+                <div>
+                  <span className="text-sm font-medium text-foreground">Inputs are introduced before execution begins</span>
+                  <p className="text-xs text-muted-foreground">Files are declared before the task depends on them. They may be used later, but not discovered later.</p>
+                </div>
+              </div>
             </div>
-            <div className="flex items-start gap-2">
-              <CheckCircle2 className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
-              <span className="text-sm text-foreground">Inputs are the <strong>authoritative source of truth</strong></span>
-            </div>
-            <div className="flex items-start gap-2">
-              <CheckCircle2 className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
-              <span className="text-sm text-foreground">Referenced <strong>before tasks begin</strong>, not mid-execution</span>
-            </div>
-            <div className="flex items-start gap-2">
-              <CheckCircle2 className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
-              <span className="text-sm text-foreground">Scope is always <strong>clear and closed</strong></span>
-            </div>
-            <div className="flex items-start gap-2">
-              <CheckCircle2 className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
-              <span className="text-sm text-foreground">Files are <strong>tied to concrete actions</strong>, not decorative</span>
-            </div>
-            <div className="flex items-start gap-2">
-              <CheckCircle2 className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
-              <span className="text-sm text-foreground">Treated as <strong>stable, complete artifacts</strong></span>
+            <div className="space-y-3">
+              <div className="flex items-start gap-2">
+                <CheckCircle2 className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
+                <div>
+                  <span className="text-sm font-medium text-foreground">The input scope is clear and closed</span>
+                  <p className="text-xs text-muted-foreground">The model knows which materials count as inputs and that nothing else is required.</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-2">
+                <CheckCircle2 className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
+                <div>
+                  <span className="text-sm font-medium text-foreground">Files are tied to concrete actions</span>
+                  <p className="text-xs text-muted-foreground">Prompts explain how the files are used (analyze, calculate, reconcile, copy, summarize).</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-2">
+                <CheckCircle2 className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
+                <div>
+                  <span className="text-sm font-medium text-foreground">Inputs are treated as stable artifacts</span>
+                  <p className="text-xs text-muted-foreground">Files are assumed complete, correct, and usable as provided.</p>
+                </div>
+              </div>
             </div>
           </div>
         </CardContent>
       </Card>
 
-      {/* Three Valid Patterns */}
-      <Card className="mb-6">
-        <CardContent className="p-6">
+      {/* Valid Ways to Reference */}
+      <Card>
+        <CardContent className="p-5">
           <h3 className="font-semibold text-foreground mb-2">
-            Three Valid Ways to Reference Input Files
+            Valid Ways to Reference Input Files
           </h3>
-          <p className="text-sm text-muted-foreground mb-5">
-            All three work just fine. The difference is how specific you want to be versus how people naturally communicate at work.
+          <p className="text-sm text-muted-foreground mb-4">
+            All of these work. The difference is specificity vs. realism, not correctness.
           </p>
           
           <div className="space-y-4">
-            {/* Most Specific */}
+            {/* Enumerated Lists */}
             <div className="flex items-start gap-4">
               <div className="flex flex-col items-center">
-                <div className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center text-xs font-bold text-primary">1</div>
-                <div className="w-0.5 h-full bg-primary/20 mt-1" />
+                <div className="w-7 h-7 rounded-full bg-primary/20 flex items-center justify-center text-xs font-bold text-primary">1</div>
               </div>
-              <div className="flex-1 pb-2">
+              <div className="flex-1">
                 <div className="flex items-center gap-2 mb-1">
                   <p className="text-sm font-medium text-foreground">Enumerated Lists</p>
-                  <span className="text-xs bg-primary/10 text-primary px-2 py-0.5 rounded">Most Specific</span>
+                  <span className="text-xs bg-primary/10 text-primary px-2 py-0.5 rounded">Most Explicit</span>
                 </div>
                 <p className="text-sm text-muted-foreground italic mb-1">
-                  "You'll find everything you need in the attached files: COA.xlsx, Insurance.pdf…"
+                  "You'll find everything you need in the attached files: COA.xlsx, Aurisic_Prepaid_Insurance.pdf…"
                 </p>
                 <p className="text-xs text-muted-foreground">
-                  Zero guessing. Perfect traceability. Best for complex multi-file tasks.
+                  Zero guessing. Best for complex, multi-file tasks. Ideal for audits, accounting, reconciliation work.
                 </p>
               </div>
             </div>
@@ -83,18 +106,17 @@ const InputFileCharacteristics = () => {
             {/* Named Explicitly */}
             <div className="flex items-start gap-4">
               <div className="flex flex-col items-center">
-                <div className="w-8 h-8 rounded-full bg-primary/15 flex items-center justify-center text-xs font-bold text-primary/80">2</div>
-                <div className="w-0.5 h-full bg-primary/15 mt-1" />
+                <div className="w-7 h-7 rounded-full bg-primary/15 flex items-center justify-center text-xs font-bold text-primary/80">2</div>
               </div>
-              <div className="flex-1 pb-2">
+              <div className="flex-1">
                 <div className="flex items-center gap-2 mb-1">
-                  <p className="text-sm font-medium text-foreground">Named Explicitly</p>
+                  <p className="text-sm font-medium text-foreground">Named Explicitly in Narrative</p>
                 </div>
                 <p className="text-sm text-muted-foreground italic mb-1">
-                  "The attached spreadsheet titled 'Population' contains…"
+                  "The attached spreadsheet titled 'Population' contains Anti-Financial Crime Risk Metrics for Q2 and Q3 2024."
                 </p>
                 <p className="text-xs text-muted-foreground">
-                  Clear identifier. Re-referenced when tasks begin. Very common in professional asks.
+                  File is named and contextualized. Often re-referenced when tasks begin. Very common in professional asks.
                 </p>
               </div>
             </div>
@@ -102,80 +124,151 @@ const InputFileCharacteristics = () => {
             {/* Grouped but Scoped */}
             <div className="flex items-start gap-4">
               <div className="flex flex-col items-center">
-                <div className="w-8 h-8 rounded-full bg-muted flex items-center justify-center text-xs font-bold text-muted-foreground">3</div>
+                <div className="w-7 h-7 rounded-full bg-muted flex items-center justify-center text-xs font-bold text-muted-foreground">3</div>
               </div>
               <div className="flex-1">
                 <div className="flex items-center gap-2 mb-1">
                   <p className="text-sm font-medium text-foreground">Grouped but Scoped</p>
-                  <span className="text-xs bg-muted text-muted-foreground px-2 py-0.5 rounded">Most Realistic</span>
+                  <span className="text-xs bg-muted text-muted-foreground px-2 py-0.5 rounded">Most Natural</span>
                 </div>
                 <p className="text-sm text-muted-foreground italic mb-1">
-                  "Use the attached reference files…"
+                  "Use the attached reference files, which include income, costs, and tax withholding data…"
                 </p>
                 <p className="text-xs text-muted-foreground">
-                  Scope is closed and unambiguous. Mirrors how professionals often communicate.
+                  Scope is closed and unambiguous. Mirrors how people actually communicate at work. Slightly less precise, still valid.
                 </p>
               </div>
             </div>
           </div>
 
-          <div className="mt-5 pt-4 border-t border-border">
-            <p className="text-sm text-muted-foreground">
-              <strong className="text-foreground">The key:</strong> All three are unambiguous about what files to use. 
-              Choose based on task complexity and what feels natural for the professional context.
+          <div className="mt-4 pt-3 border-t border-border">
+            <p className="text-sm text-muted-foreground flex items-start gap-2">
+              <Lightbulb className="w-4 h-4 text-amber-500 mt-0.5 flex-shrink-0" />
+              <span><strong className="text-foreground">The Key:</strong> All valid prompts make it clear what files exist before the task depends on them. Files may be used later in the steps, but they are not introduced as a surprise dependency.</span>
             </p>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Real Examples */}
+      <Card>
+        <CardContent className="p-5">
+          <h3 className="font-semibold text-foreground mb-2 flex items-center gap-2">
+            <FileText className="w-5 h-5 text-primary" />
+            What This Looks Like in Real Prompts
+          </h3>
+          <p className="text-sm text-muted-foreground mb-4">Concrete examples from quality prompts, highlighting the structure.</p>
+          
+          <div className="grid md:grid-cols-2 gap-3">
+            <div className="bg-muted/30 rounded-lg p-3 border border-border">
+              <p className="text-xs font-medium text-primary mb-1">Example 1 – Explicit, early declaration</p>
+              <p className="text-xs text-muted-foreground italic mb-2">"The attached spreadsheet titled 'Population' contains Anti-Financial Crime Risk Metrics…"</p>
+              <div className="flex gap-2 flex-wrap">
+                <span className="text-xs bg-primary/10 text-primary px-1.5 py-0.5 rounded">✔ File declared before steps</span>
+                <span className="text-xs bg-primary/10 text-primary px-1.5 py-0.5 rounded">✔ Reused throughout</span>
+              </div>
+            </div>
+
+            <div className="bg-muted/30 rounded-lg p-3 border border-border">
+              <p className="text-xs font-medium text-primary mb-1">Example 2 – Grouped inputs, still upfront</p>
+              <p className="text-xs text-muted-foreground italic mb-2">"Use the attached reference files, which include income, costs, and tax withholding data…"</p>
+              <div className="flex gap-2 flex-wrap">
+                <span className="text-xs bg-primary/10 text-primary px-1.5 py-0.5 rounded">✔ Files scoped before instructions</span>
+                <span className="text-xs bg-primary/10 text-primary px-1.5 py-0.5 rounded">✔ No guessing required</span>
+              </div>
+            </div>
+
+            <div className="bg-muted/30 rounded-lg p-3 border border-border">
+              <p className="text-xs font-medium text-primary mb-1">Example 3 – Template + data both declared early</p>
+              <p className="text-xs text-muted-foreground italic mb-2">"Using the attached Word template titled 'Social Developmental History Template' and the notes document…"</p>
+              <div className="flex gap-2 flex-wrap">
+                <span className="text-xs bg-primary/10 text-primary px-1.5 py-0.5 rounded">✔ Multiple inputs, clear roles</span>
+                <span className="text-xs bg-primary/10 text-primary px-1.5 py-0.5 rounded">✔ No mid-task discovery</span>
+              </div>
+            </div>
+
+            <div className="bg-muted/30 rounded-lg p-3 border border-border">
+              <p className="text-xs font-medium text-primary mb-1">Example 4 – Primary + supporting files</p>
+              <p className="text-xs text-muted-foreground italic mb-2">"Use Aurisic_Financials_3-25-1.xlsx as your primary template… The following April source files are also attached…"</p>
+              <div className="flex gap-2 flex-wrap">
+                <span className="text-xs bg-primary/10 text-primary px-1.5 py-0.5 rounded">✔ Hierarchy of inputs</span>
+                <span className="text-xs bg-primary/10 text-primary px-1.5 py-0.5 rounded">✔ Fully declared upfront</span>
+              </div>
+            </div>
+
+            <div className="bg-muted/30 rounded-lg p-3 border border-border">
+              <p className="text-xs font-medium text-primary mb-1">Example 5 – Creative/audio task</p>
+              <p className="text-xs text-muted-foreground italic mb-2">"You have been provided with a drum track (see attached, DRUM REFERENCE TRACK.WAV)."</p>
+              <div className="flex gap-2 flex-wrap">
+                <span className="text-xs bg-primary/10 text-primary px-1.5 py-0.5 rounded">✔ Input declared before composition</span>
+                <span className="text-xs bg-primary/10 text-primary px-1.5 py-0.5 rounded">✔ File is operational</span>
+              </div>
+            </div>
+
+            <div className="bg-muted/30 rounded-lg p-3 border border-border">
+              <p className="text-xs font-medium text-primary mb-1">Example 6 – Open-world task (intentionally different)</p>
+              <p className="text-xs text-muted-foreground italic mb-2">"Conduct SEO research and choose four related keywords…"</p>
+              <div className="flex gap-2 flex-wrap">
+                <span className="text-xs bg-primary/10 text-primary px-1.5 py-0.5 rounded">✔ Explicitly allows external lookup</span>
+                <span className="text-xs bg-primary/10 text-primary px-1.5 py-0.5 rounded">✔ Not pretending to be file-based</span>
+              </div>
+            </div>
           </div>
         </CardContent>
       </Card>
 
       {/* What NOT to do */}
       <Card className="border-destructive/20 bg-destructive/5">
-        <CardContent className="p-6">
-          <h3 className="font-semibold text-foreground mb-4">
+        <CardContent className="p-5">
+          <h3 className="font-semibold text-foreground mb-4 flex items-center gap-2">
+            <AlertTriangle className="w-5 h-5 text-destructive" />
             Avoid These Input File Mistakes
           </h3>
-          <div className="space-y-4">
+          <div className="space-y-3">
             <div className="grid md:grid-cols-[1fr,2fr] gap-3 items-start pb-3 border-b border-destructive/10">
               <div className="flex items-start gap-2">
                 <XCircle className="w-4 h-4 text-destructive mt-0.5 flex-shrink-0" />
                 <span className="text-sm text-foreground font-medium">Referencing data that wasn't provided</span>
               </div>
               <div className="bg-background/50 rounded p-2 text-sm">
-                <p className="text-destructive/80 italic">"Pull the customer list from our internal CRM and cross-reference with Q3 sales..."</p>
-                <p className="text-xs text-muted-foreground mt-1">❌ The model has no access to "your CRM". All data must be attached.</p>
+                <p className="text-destructive/80 italic">"Pull the customer list from our internal CRM…"</p>
+                <p className="text-xs text-muted-foreground mt-1">❌ The model has no access to internal systems. All required data must be attached.</p>
               </div>
             </div>
             
             <div className="grid md:grid-cols-[1fr,2fr] gap-3 items-start pb-3 border-b border-destructive/10">
               <div className="flex items-start gap-2">
                 <XCircle className="w-4 h-4 text-destructive mt-0.5 flex-shrink-0" />
-                <span className="text-sm text-foreground font-medium">Asking the model to look things up</span>
+                <span className="text-sm text-foreground font-medium">Requiring undisclosed external lookup</span>
               </div>
               <div className="bg-background/50 rounded p-2 text-sm">
-                <p className="text-destructive/80 italic">"Research current LIBOR rates online and use them in your calculations..."</p>
-                <p className="text-xs text-muted-foreground mt-1">❌ The task must be self-contained. Provide the rates in an attached file.</p>
+                <p className="text-destructive/80 italic">"Research current LIBOR rates online and use them…"</p>
+                <p className="text-xs text-muted-foreground mt-1">❌ If current data is required, it must be provided or the task explicitly framed as open-world.</p>
               </div>
             </div>
             
             <div className="grid md:grid-cols-[1fr,2fr] gap-3 items-start pb-3 border-b border-destructive/10">
               <div className="flex items-start gap-2">
                 <XCircle className="w-4 h-4 text-destructive mt-0.5 flex-shrink-0" />
-                <span className="text-sm text-foreground font-medium">Being vague about which file to use</span>
+                <span className="text-sm text-foreground font-medium">Being vague about which data matters</span>
               </div>
               <div className="bg-background/50 rounded p-2 text-sm">
-                <p className="text-destructive/80 italic">"Using the relevant data, complete the financial analysis..."</p>
-                <p className="text-xs text-muted-foreground mt-1">❌ Which data? Which file? The model shouldn't have to guess.</p>
+                <p className="text-destructive/80 italic">"Using the relevant data, complete the analysis…"</p>
+                <p className="text-xs text-muted-foreground mt-1">❌ Which data? Which file? The model shouldn't infer.</p>
               </div>
             </div>
             
             <div className="grid md:grid-cols-[1fr,2fr] gap-3 items-start">
               <div className="flex items-start gap-2">
                 <XCircle className="w-4 h-4 text-destructive mt-0.5 flex-shrink-0" />
-                <span className="text-sm text-foreground font-medium">Mentioning files for the first time mid-task</span>
+                <span className="text-sm text-foreground font-medium">Introducing a new dependency mid-task</span>
               </div>
               <div className="bg-background/50 rounded p-2 text-sm">
-                <p className="text-destructive/80 italic">"Step 1: Summarize findings. Step 2: Create chart. Step 3: Now refer to Budget.xlsx for variance analysis..."</p>
-                <p className="text-xs text-muted-foreground mt-1">❌ Files should be introduced upfront, not appear unexpectedly in Step 3.</p>
+                <p className="text-destructive/80 italic">"Step 1: Summarize… Step 2: Create charts… Step 3: Now refer to Budget.xlsx…"</p>
+                <p className="text-xs text-muted-foreground mt-1">
+                  ❌ This fails only if Budget.xlsx was not declared earlier.<br/>
+                  ✔ Sequencing <em>usage</em> is fine. ❌ Sequencing <em>discovery</em> is not.
+                </p>
               </div>
             </div>
           </div>
