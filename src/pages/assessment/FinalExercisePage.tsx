@@ -204,7 +204,7 @@ const FinalExercisePage = () => {
       exitPath="/"
       exitLabel="Back to Home"
       hideProgress={true}
-      defaultSidebarCollapsed={true}
+      defaultSidebarCollapsed={false}
       disableEnterNavigation={true}
     />
   );
