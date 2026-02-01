@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 interface ContentSlideProps {
   title: string;
   children: React.ReactNode;
-  layout?: 'center' | 'left' | 'split';
+  layout?: 'center' | 'left' | 'split' | 'full';
   className?: string;
   onGateUnlock?: () => void; // Pass-through for gate unlock
 }
@@ -57,8 +57,10 @@ const ContentSlide = ({
       )}
       
       <div className={cn(
-        "text-lg md:text-xl text-muted-foreground leading-relaxed",
-        layout === 'center' && "max-w-2xl mx-auto"
+        "leading-relaxed",
+        layout === 'center' && "text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto",
+        layout === 'left' && "text-lg md:text-xl text-muted-foreground",
+        layout === 'full' && "w-full"
       )}>
         {childrenWithProps}
       </div>
