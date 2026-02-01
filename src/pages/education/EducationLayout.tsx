@@ -7,7 +7,7 @@ import {
 import beetIcon from "@/assets/beet-icon.png";
 
 // Single unified course
-const coursePath = "/education/prompt-writing/course";
+const coursePath = "/education/beet";
 
 const EducationLayout = () => {
   const location = useLocation();
