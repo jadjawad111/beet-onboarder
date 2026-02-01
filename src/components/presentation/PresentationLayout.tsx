@@ -26,6 +26,7 @@ interface PresentationLayoutProps {
   exitLabel?: string;
   hideProgress?: boolean;
   defaultSidebarCollapsed?: boolean;
+  disableEnterNavigation?: boolean;
 }
 
 const PresentationLayout = ({ 
@@ -37,6 +38,7 @@ const PresentationLayout = ({
   exitLabel = "Exit Course",
   hideProgress = false,
   defaultSidebarCollapsed = false,
+  disableEnterNavigation = false,
 }: PresentationLayoutProps) => {
   const navigate = useNavigate();
   // Generate a storage key based on the course title for unique per-course progress
@@ -223,7 +225,17 @@ const PresentationLayout = ({
   // Keyboard navigation
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'Enter') {
+      // Skip Enter/Space if focused on textarea or input, or if Enter navigation is disabled
+      const activeElement = document.activeElement;
+      const isTyping = activeElement?.tagName === 'TEXTAREA' || activeElement?.tagName === 'INPUT';
+      
+      if (e.key === 'ArrowRight') {
+        e.preventDefault();
+        handleNext();
+      } else if (e.key === ' ' && !isTyping) {
+        e.preventDefault();
+        handleNext();
+      } else if (e.key === 'Enter' && !isTyping && !disableEnterNavigation) {
         e.preventDefault();
         handleNext();
       } else if (e.key === 'ArrowLeft') {
@@ -236,7 +248,7 @@ const PresentationLayout = ({
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [handleNext, handlePrev]);
+  }, [handleNext, handlePrev, disableEnterNavigation]);
 
   // Handle practice overlay navigation events
   useEffect(() => {

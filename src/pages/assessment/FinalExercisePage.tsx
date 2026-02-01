@@ -133,6 +133,7 @@ const FinalExercisePage = () => {
       exitLabel="Back to Home"
       hideProgress={true}
       defaultSidebarCollapsed={true}
+      disableEnterNavigation={true}
     />
   );
 };
