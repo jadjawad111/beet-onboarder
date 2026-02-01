@@ -38,11 +38,17 @@ export interface CriterionData {
   howToFix?: string;
 }
 
+interface Deliverable {
+  url: string;
+  title: string;
+}
+
 interface RubricInteractiveQuizProps {
   exerciseNumber: number;
   prompt: string;
-  deliverableUrl: string;
-  deliverableTitle: string;
+  deliverableUrl?: string;
+  deliverableTitle?: string;
+  deliverables?: Deliverable[];
   criteria: CriterionData[];
   onComplete?: () => void;
   onGateUnlock?: () => void;
@@ -80,10 +86,21 @@ const RubricInteractiveQuiz = ({
   prompt,
   deliverableUrl,
   deliverableTitle,
+  deliverables,
   criteria,
   onComplete,
   onGateUnlock,
 }: RubricInteractiveQuizProps) => {
+  // Normalize to array of deliverables
+  const allDeliverables: Deliverable[] = useMemo(() => {
+    if (deliverables && deliverables.length > 0) {
+      return deliverables;
+    }
+    if (deliverableUrl && deliverableTitle) {
+      return [{ url: deliverableUrl, title: deliverableTitle }];
+    }
+    return [];
+  }, [deliverables, deliverableUrl, deliverableTitle]);
   const [answers, setAnswers] = useState<Record<number, CriterionAnswer>>(() => {
     const initial: Record<number, CriterionAnswer> = {};
     criteria.forEach(c => {
@@ -213,13 +230,13 @@ const RubricInteractiveQuiz = ({
     };
   }, [submitted, criteria, answers]);
 
-  const embedUrl = useMemo(() => {
-    const match = deliverableUrl.match(/\/d\/([a-zA-Z0-9_-]+)/);
+  const getEmbedUrl = (url: string) => {
+    const match = url.match(/\/d\/([a-zA-Z0-9_-]+)/);
     if (match) {
       return `https://drive.google.com/file/d/${match[1]}/preview`;
     }
-    return deliverableUrl;
-  }, [deliverableUrl]);
+    return url;
+  };
 
   const answeredCount = criteria.filter(c => isCriterionAnswered(c.id)).length;
 
@@ -243,33 +260,37 @@ const RubricInteractiveQuiz = ({
         </CardContent>
       </Card>
 
-      {/* Deliverable */}
-      <Card>
-        <CardContent className="p-4">
-          <div className="flex items-center justify-between mb-3">
-            <div className="flex items-center gap-2">
-              <FileText className="w-4 h-4 text-muted-foreground" />
-              <span className="font-medium text-sm">Deliverable</span>
+      {/* Deliverables */}
+      {allDeliverables.map((deliverable, index) => (
+        <Card key={index}>
+          <CardContent className="p-4">
+            <div className="flex items-center justify-between mb-3">
+              <div className="flex items-center gap-2">
+                <FileText className="w-4 h-4 text-muted-foreground" />
+                <span className="font-medium text-sm">
+                  {allDeliverables.length > 1 ? `Deliverable ${index + 1}: ${deliverable.title}` : "Deliverable"}
+                </span>
+              </div>
+              <a
+                href={deliverable.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-xs text-primary hover:underline flex items-center gap-1"
+              >
+                Open in new tab <ExternalLink className="w-3 h-3" />
+              </a>
             </div>
-            <a
-              href={deliverableUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-xs text-primary hover:underline flex items-center gap-1"
-            >
-              Open in new tab <ExternalLink className="w-3 h-3" />
-            </a>
-          </div>
-          <div className="rounded-lg overflow-hidden border bg-white">
-            <iframe
-              src={embedUrl}
-              className="w-full h-[350px]"
-              allow="autoplay"
-              title={deliverableTitle}
-            />
-          </div>
-        </CardContent>
-      </Card>
+            <div className="rounded-lg overflow-hidden border bg-white">
+              <iframe
+                src={getEmbedUrl(deliverable.url)}
+                className="w-full h-[350px]"
+                allow="autoplay"
+                title={deliverable.title}
+              />
+            </div>
+          </CardContent>
+        </Card>
+      ))}
 
       {/* Progress indicator */}
       <div className="flex items-center justify-between text-sm">
