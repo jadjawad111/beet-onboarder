@@ -34,6 +34,9 @@ import {
 // Tasking Assistance
 import { TaskingAssistancePage } from "./pages/tasking-assistance";
 
+// Claim Sheet
+import { ClaimSheetPage } from "./pages/claim-sheet";
+
 // FAQs standalone page
 import StandaloneFAQsPage from "./pages/faqs/StandaloneFAQsPage";
 
@@ -67,6 +70,9 @@ const App = () => (
             
             {/* Tasking Assistance */}
             <Route path="/tasking-assistance" element={<TaskingAssistancePage />} />
+            
+            {/* Claim Sheet */}
+            <Route path="/claim-sheet" element={<ClaimSheetPage />} />
             
             {/* Project Information - Single scrollable page */}
             <Route path="/project-info" element={<ProjectInfoLayout />} />
