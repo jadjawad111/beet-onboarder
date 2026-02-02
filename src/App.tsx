@@ -43,6 +43,9 @@ import StandaloneFAQsPage from "./pages/faqs/StandaloneFAQsPage";
 // Assessment pages (hidden from navigation)
 import { FinalExercisePage } from "./pages/assessment";
 
+// Instructions pages
+import { PromptWritingInstructionsPage, RubricWritingInstructionsPage } from "./pages/instructions";
+
 const queryClient = new QueryClient();
 
 const App = () => (
@@ -73,6 +76,10 @@ const App = () => (
             
             {/* Claim Sheet */}
             <Route path="/claim-sheet" element={<ClaimSheetPage />} />
+            
+            {/* Instructions */}
+            <Route path="/instructions/prompt-writing" element={<PromptWritingInstructionsPage />} />
+            <Route path="/instructions/rubric-writing" element={<RubricWritingInstructionsPage />} />
             
             {/* Project Information - Single scrollable page */}
             <Route path="/project-info" element={<ProjectInfoLayout />} />

@@ -95,6 +95,16 @@ const navigation: NavItem[] = [
     ],
   },
   {
+    title: "Prompt Writing Instructions",
+    href: "/instructions/prompt-writing",
+    icon: PenTool,
+  },
+  {
+    title: "Rubric Writing Instructions",
+    href: "/instructions/rubric-writing",
+    icon: FileText,
+  },
+  {
     title: "Beet 2.0 Education",
     href: "/education",
     icon: GraduationCap,
@@ -140,7 +150,7 @@ const navigation: NavItem[] = [
     title: "FAQs",
     href: "/faqs",
     icon: HelpCircle,
-    showOverlay: true, // Show overlay instead of navigating
+    showOverlay: true,
   },
 ];
 
