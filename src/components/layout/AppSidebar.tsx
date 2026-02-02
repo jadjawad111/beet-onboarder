@@ -8,7 +8,8 @@ import {
   ChevronRight,
   Bot,
   Lock,
-  ExternalLink
+  ExternalLink,
+  ClipboardList
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import beetIcon from "@/assets/beet-icon.png";
@@ -46,6 +47,13 @@ const primaryNav = [
     label: "Beet Tasking Assistance", 
     icon: Bot, 
     to: "/tasking-assistance",
+    locked: false,
+  },
+  { 
+    id: "claim-sheet",
+    label: "Claim Sheet", 
+    icon: ClipboardList, 
+    to: "/claim-sheet",
     locked: false,
   },
 ];
