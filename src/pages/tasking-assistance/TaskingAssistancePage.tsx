@@ -190,7 +190,16 @@ const TaskingAssistancePage = () => {
   }
 
   return (
-    <div className="min-h-screen bg-background flex flex-col items-center px-4 py-12">
+    <div className="min-h-screen bg-background flex flex-col items-center px-4 py-12 relative">
+      {/* WIP Sticker */}
+      <div className="absolute top-6 right-6 z-10">
+        <div className="relative">
+          <div className="bg-warning text-warning-foreground font-bold text-lg px-6 py-3 rounded-lg shadow-lg transform rotate-12 border-4 border-warning-foreground/20">
+            🚧 WORK IN PROGRESS 🚧
+          </div>
+        </div>
+      </div>
+
       <div className="w-full max-w-2xl">
         {/* Header */}
         <div className="text-center mb-10">
