@@ -9,7 +9,9 @@ import {
   Bot,
   Lock,
   ExternalLink,
-  ClipboardList
+  ClipboardList,
+  PenTool,
+  FileText
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import beetIcon from "@/assets/beet-icon.png";
@@ -34,6 +36,20 @@ const primaryNav = [
     icon: Briefcase, 
     to: "/project-info",
     locked: true, // LOCKED for dogfooding
+  },
+  { 
+    id: "prompt-instructions",
+    label: "Prompt Writing Instructions", 
+    icon: PenTool, 
+    to: "/instructions/prompt-writing",
+    locked: false,
+  },
+  { 
+    id: "rubric-instructions",
+    label: "Rubric Writing Instructions", 
+    icon: FileText, 
+    to: "/instructions/rubric-writing",
+    locked: false,
   },
   { 
     id: "education",
