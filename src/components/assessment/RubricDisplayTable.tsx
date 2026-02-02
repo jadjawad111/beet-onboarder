@@ -28,12 +28,7 @@ const categoryColors: Record<string, string> = {
   "Instruction Following": "bg-blue-100 text-blue-800",
   "Formatting": "bg-purple-100 text-purple-800",
   "Reasoning": "bg-amber-100 text-amber-800",
-  "Domain Knowledge": "bg-green-100 text-green-800",
-  "Practical Application": "bg-teal-100 text-teal-800",
-  "Process": "bg-gray-100 text-gray-800",
-  "Professional Judgment": "bg-indigo-100 text-indigo-800",
-  "Tone and Style": "bg-pink-100 text-pink-800",
-  "Extraction": "bg-orange-100 text-orange-800",
+  "Extraction": "bg-cyan-100 text-cyan-800",
 };
 
 const RubricDisplayTable: React.FC<RubricDisplayTableProps> = ({
