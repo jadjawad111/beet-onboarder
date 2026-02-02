@@ -399,19 +399,6 @@ const RubricInteractiveQuiz = ({
                           >
                             No
                           </button>
-                          <button
-                            onClick={() => handleHasErrorChange(criterion.id, "yes")}
-                            disabled={isThisSubmitted}
-                            className={cn(
-                              "px-2 py-1 text-xs rounded transition-all",
-                              answer.hasError === "yes" 
-                                ? "bg-destructive text-white" 
-                                : "bg-muted hover:bg-muted/80 text-muted-foreground",
-                              isThisSubmitted && "cursor-default opacity-70"
-                            )}
-                          >
-                            Yes
-                          </button>
                         </div>
                       </TableCell>
                       <TableCell>
