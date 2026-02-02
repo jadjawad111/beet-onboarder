@@ -1681,16 +1681,17 @@ This report will be used to brief the design team and guide future optimization 
       <InputFileCharacteristics />
     ),
   },
-  {
-    id: "input-files-using-links",
-    section: "Input Files",
-    title: "Using Links in Prompts",
-    content: (
-      <ContentSlide title="" layout="center">
-        <UsingLinksSlide />
-      </ContentSlide>
-    ),
-  },
+  // Hidden for now - uncomment when ready to include
+  // {
+  //   id: "input-files-using-links",
+  //   section: "Input Files",
+  //   title: "Using Links in Prompts",
+  //   content: (
+  //     <ContentSlide title="" layout="center">
+  //       <UsingLinksSlide />
+  //     </ContentSlide>
+  //   ),
+  // },
 
   // ═══════════════════════════════════════════════════════════════
   // SECTION 3: Golden Example Deliverable
