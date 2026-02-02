@@ -59,7 +59,7 @@ const errorTypeLabels: Record<ErrorType, string> = {
   "ambiguous": "Ambiguous",
   "not-self-contained": "Not self-contained",
   "stacked": "Stacked",
-  "convoluted-phrasing": "Convoluted phrasing",
+  "convoluted-phrasing": "Stacking",
   "process-words": "Process words",
 };
 
