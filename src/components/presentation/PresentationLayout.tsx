@@ -82,7 +82,9 @@ const PresentationLayout = ({
   const [sidebarCollapsed, setSidebarCollapsed] = useState(defaultSidebarCollapsed);
   const [editorMode, setEditorMode] = useState(() => {
     try {
-      return localStorage.getItem('course-editor-mode') === 'true';
+      // Force enable editor mode for development
+      localStorage.setItem('course-editor-mode', 'true');
+      return true;
     } catch {
       return false;
     }
