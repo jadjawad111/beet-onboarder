@@ -36,71 +36,69 @@ import { Lightbulb, Target, ClipboardCheck } from "lucide-react";
 // All slides for the Project Beet 2.0 Training Course
 const slides: Slide[] = [
   // ═══════════════════════════════════════════════════════════════
-  // SECTION 1: Overview of Project Beet
+  // SECTION 1: Overview
   // ═══════════════════════════════════════════════════════════════
   {
-    id: "overview-welcome",
-    section: "Overview of Project Beet",
-    title: "Welcome",
+    id: "overview-context-goal",
+    section: "Overview",
+    title: "Context & Goal",
     content: (
-      <TitleSlide 
-        title="Welcome to Project Beet 2.0"
-        subtitle="Let's get you ready to write amazing prompts and rubrics"
-      />
-    ),
-  },
-  {
-    id: "overview-goal",
-    section: "Overview of Project Beet",
-    title: "What is the goal?",
-    content: (
-      <ContentSlide title="What is the goal of the project?" layout="left">
-        <div className="space-y-6">
-          <p>
-            AI models are good at a lot of things; however, they struggle significantly when completing tasks that resemble professional domains. For instance, trying to create complicated financial reports or complete nuanced tax forms.
-          </p>
-          <p>
-            <strong className="text-foreground">The goal is to produce high-quality training data to help models improve across multiple occupations.</strong>
-          </p>
+      <ContentSlide title="Context & Goal" layout="left">
+        <div className="space-y-8">
+          {/* Welcome */}
+          <div className="p-6 rounded-xl border border-primary/30 bg-primary/5">
+            <h3 className="text-xl font-bold text-foreground mb-2">Welcome to Project Beet 2.0</h3>
+            <p className="text-muted-foreground">Let's get you ready to write amazing prompts and rubrics.</p>
+          </div>
+          
+          {/* The Goal */}
+          <div className="space-y-4">
+            <h4 className="text-lg font-semibold text-foreground">What is the goal?</h4>
+            <p className="text-muted-foreground">
+              AI models are good at a lot of things; however, they struggle significantly when completing tasks that resemble professional domains. For instance, trying to create complicated financial reports or complete nuanced tax forms.
+            </p>
+            <p className="font-medium text-foreground">
+              The goal is to produce high-quality training data to help models improve across multiple occupations.
+            </p>
+          </div>
+          
+          {/* How AI Learns */}
+          <div className="space-y-4">
+            <h4 className="text-lg font-semibold text-foreground">How AI learns</h4>
+            <p className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Reinforcement Learning</p>
+            <p className="text-muted-foreground">
+              The AI lab takes your prompt, runs models against it multiple times, evaluates the outputs using your rubrics, and uses those evaluations to guide the model toward better performance over time.
+            </p>
+          </div>
         </div>
       </ContentSlide>
     ),
   },
   {
     id: "overview-what-you-do",
-    section: "Overview of Project Beet",
+    section: "Overview",
     title: "What will you do?",
     content: (
-      <ContentSlide title="What will you be doing?" layout="left">
-        <div className="space-y-6">
-          <p>
-            You will be designing tasks that you ideally would want your model to do in your job. Task design will be specific to your industry.
-          </p>
-          <p>
-            In order for models to learn from the tasks you create, each task needs:
-          </p>
-          <ul className="list-disc list-inside space-y-2 ml-4">
-            <li><strong className="text-foreground">A prompt / input information</strong> that instructs the model what you want it to do</li>
-            <li><strong className="text-foreground">A rubric</strong> where you are breaking down, in a systematic way, what a good response or output will be</li>
-          </ul>
-        </div>
-      </ContentSlide>
-    ),
-  },
-  {
-    id: "overview-how-it-works",
-    section: "Overview of Project Beet",
-    title: "How AI learns",
-    content: (
-      <ContentSlide title="How does this work?" layout="left">
-        <div className="space-y-6">
-          <p className="text-sm uppercase tracking-wide text-muted-foreground mb-2">Reinforcement Learning</p>
-          <p>
-            In AI research today, reinforcement learning is one of the primary ways models are trained to perform well on professional tasks.
-          </p>
-          <p>
-            The AI lab takes your prompt, runs models against it multiple times, evaluates the outputs using your rubrics, and uses those evaluations to guide the model toward better performance over time.
-          </p>
+      <ContentSlide title="How does what you do accomplish the goal?" layout="left">
+        <div className="space-y-8">
+          <div className="space-y-4">
+            <p className="text-lg">
+              You will be designing realistic tasks that represent your expertise in your domain.
+            </p>
+            <p className="text-lg">
+              You will be training models by coming up with realistic tasks and thoughtful rubrics that evaluate different responses from models in a more programmatic way.
+            </p>
+          </div>
+          
+          <div className="mt-6">
+            <p className="text-sm uppercase tracking-wide text-muted-foreground font-medium mb-4">The Task Process</p>
+            <TaskProcessOverview 
+              prompt={{}}
+              inputFiles={{}}
+              deliverable={{}}
+              rubric={{}}
+            />
+          </div>
         </div>
       </ContentSlide>
     ),
@@ -126,35 +124,6 @@ const slides: Slide[] = [
           "Interactive exercises to test your understanding",
         ]}
       />
-    ),
-  },
-  {
-    id: "overview-accomplish-goal",
-    section: "Prompt Writing",
-    title: "Your contribution",
-    content: (
-      <ContentSlide title="How does what you do accomplish the goal?" layout="left">
-        <div className="space-y-8">
-          <div className="space-y-4">
-            <p className="text-lg">
-              You will be designing realistic tasks that represent your expertise in your domain.
-            </p>
-            <p className="text-lg">
-              You will be training models by coming up with realistic tasks and thoughtful rubrics that evaluate different responses from models in a more programmatic way.
-            </p>
-          </div>
-          
-          <div className="mt-6">
-            <p className="text-sm uppercase tracking-wide text-muted-foreground font-medium mb-4">The Task Process</p>
-            <TaskProcessOverview 
-              prompt={{}}
-              inputFiles={{}}
-              deliverable={{}}
-              rubric={{}}
-            />
-          </div>
-        </div>
-      </ContentSlide>
     ),
   },
   {
