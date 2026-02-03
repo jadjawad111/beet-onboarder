@@ -110,6 +110,13 @@ const PresentationLayout = ({
     setHighestSlideReached(0);
     setUnlockedSlides(new Set());
     setIsComplete(false);
+
+    // Ensure editor mode doesn't accidentally keep gates bypassed
+    try {
+      localStorage.removeItem("course-editor-mode");
+    } catch {}
+    setEditorMode(false);
+
     // Also clear rubrics progress
     localStorage.removeItem("rubrics-module-1-complete");
     localStorage.removeItem("rubrics-module-2-sections-read");
@@ -131,10 +138,11 @@ const PresentationLayout = ({
     };
   }, [resetProgress]);
 
-  // Keyboard shortcut: Ctrl+Shift+R to reset progress
+  // Keyboard shortcut (avoid browser hard-reload shortcuts): Ctrl/Cmd + Shift + Backspace
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.ctrlKey && e.shiftKey && e.key === 'R') {
+      const isResetCombo = (e.ctrlKey || e.metaKey) && e.shiftKey && e.key === "Backspace";
+      if (isResetCombo) {
         e.preventDefault();
         if (confirm("Reset all course progress? This will take you back to the beginning.")) {
           resetProgress();
@@ -820,16 +828,30 @@ const PresentationLayout = ({
             )}
           </div>
           
-          {/* Back button (visible when not on first slide) */}
-          {!isFirstSlide && (
+          <div className="flex items-center gap-2">
             <button
-              onClick={handlePrev}
+              onClick={() => {
+                if (confirm("Reset all course progress? This will take you back to the beginning.")) {
+                  resetProgress();
+                }
+              }}
               className="flex items-center gap-1 px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-muted rounded-lg transition-colors"
+              title="Reset course progress"
             >
-              <ChevronLeft className="w-4 h-4" />
-              Back
+              Reset
             </button>
-          )}
+
+            {/* Back button (visible when not on first slide) */}
+            {!isFirstSlide && (
+              <button
+                onClick={handlePrev}
+                className="flex items-center gap-1 px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-muted rounded-lg transition-colors"
+              >
+                <ChevronLeft className="w-4 h-4" />
+                Back
+              </button>
+            )}
+          </div>
         </header>
 
         {/* Slide content - wider when sidebar collapsed */}
