@@ -2751,32 +2751,28 @@ This report will be used to brief the design team and guide future optimization 
     section: "Rubrics",
     title: "Complete!",
     content: (
-      <ContentSlide title="You're Ready!">
-        <p className="mb-6">
-          You now have the foundation to write prompts and create rubrics that 
-          challenge AI and contribute to meaningful model improvements.
-        </p>
-        <p className="text-primary font-semibold">
-          Go create something that matters.
-        </p>
-      </ContentSlide>
-    ),
-  },
-  {
-    id: "completion-code",
-    section: "Rubrics",
-    title: "Completion Code",
-    content: (
       <ContentSlide title="" layout="center">
         <div className="flex flex-col items-center justify-center text-center space-y-8">
-          <div className="space-y-4">
-            <p className="text-xl text-muted-foreground">Course Completion Code</p>
+          <div className="space-y-2">
+            <h2 className="text-3xl font-bold text-foreground">You're Ready!</h2>
+            <p className="text-lg text-muted-foreground max-w-lg">
+              You now have the foundation to write prompts and create rubrics that 
+              challenge AI and contribute to meaningful model improvements.
+            </p>
+          </div>
+          
+          <div className="space-y-4 mt-8">
+            <p className="text-sm uppercase tracking-wider text-muted-foreground">Course Completion Code</p>
             <p className="text-[4rem] md:text-[6rem] lg:text-[8rem] font-black tracking-widest text-primary leading-none">
               HX9Q-7M3K-P2VD
             </p>
+            <p className="text-muted-foreground">
+              Save this code as proof of completion.
+            </p>
           </div>
-          <p className="text-lg text-muted-foreground max-w-md">
-            Save this code as proof of completion.
+          
+          <p className="text-primary font-semibold mt-4">
+            Go create something that matters.
           </p>
         </div>
       </ContentSlide>
