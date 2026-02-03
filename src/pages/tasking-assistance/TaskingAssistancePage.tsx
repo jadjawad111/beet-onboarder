@@ -127,6 +127,7 @@ const TaskingAssistancePage = () => {
           headers: { "Content-Type": "application/json" },
           mode: "no-cors",
           body: JSON.stringify({
+            id: data.id,
             step_type: "prompt",
             task_id: data.task_id,
             occupation: occupation.trim() || null,
