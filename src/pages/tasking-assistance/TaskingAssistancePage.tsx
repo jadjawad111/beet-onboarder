@@ -121,7 +121,7 @@ const TaskingAssistancePage = () => {
 
       // Trigger Zapier webhook
       try {
-        await fetch("https://hooks.zapier.com/hooks/catch/25935708/ul9kd5j/", {
+        await fetch("https://hooks.zapier.com/hooks/catch/24502594/ularsra/", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           mode: "no-cors",
