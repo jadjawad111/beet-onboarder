@@ -79,9 +79,9 @@ const ChooseTaskSection = () => {
             <Briefcase className="w-7 h-7 text-primary" />
           </div>
           <div>
-            <h3 className="text-xl font-bold text-foreground mb-2">Step 1: Choose a Role-Anchored Task</h3>
+            <h3 className="text-xl font-bold text-foreground mb-2">Step 1: Choose a Task Relevant to Your Professional Domain</h3>
             <p className="text-base text-foreground leading-relaxed">
-              From the available tasks, select one that is tied to a specific occupation and sector.
+              From the available tasks, select one that is tied to a specific occupation and sector that you have expertise in.
             </p>
           </div>
         </div>
