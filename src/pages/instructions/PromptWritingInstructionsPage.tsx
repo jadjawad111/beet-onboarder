@@ -7,7 +7,6 @@ import {
   SelectWorkflowSection,
   PromptRequirementsSection,
   DraftPromptSection,
-  CreateInputFilesSection,
   QualityGateSection,
   ExampleBreakdownSection,
 } from "./prompt-writing-sections";
@@ -18,9 +17,8 @@ const sections = [
   { id: "select-workflow", label: "3. Select Workflow", component: SelectWorkflowSection },
   { id: "requirements", label: "4. Prompt Requirements", component: PromptRequirementsSection },
   { id: "draft-prompt", label: "5. Draft the Prompt", component: DraftPromptSection },
-  { id: "input-files", label: "6. Create Input Files", component: CreateInputFilesSection },
-  { id: "quality-gate", label: "7. Quality Gate", component: QualityGateSection },
   { id: "example", label: "Example Breakdown", component: ExampleBreakdownSection },
+  { id: "quality-gate", label: "6. Quality Checklist", component: QualityGateSection },
 ];
 
 const PromptWritingInstructionsPage = () => {
