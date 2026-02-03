@@ -68,38 +68,6 @@ const PromptRequirementsSection = () => {
           </div>
         </div>
       </div>
-
-      {/* Example */}
-      <div className="rounded-2xl border-2 border-border bg-card overflow-hidden shadow-md">
-        <div className="p-4 bg-muted/50 border-b border-border">
-          <p className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">Example</p>
-        </div>
-        <div className="p-6 space-y-5">
-          {/* Occupation and Sector */}
-          <div className="grid grid-cols-2 gap-6">
-            <div className="p-3 rounded-lg bg-muted/30">
-              <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-1">Occupation</p>
-              <p className="text-foreground font-semibold">Administrative Services Managers</p>
-            </div>
-            <div className="p-3 rounded-lg bg-muted/30">
-              <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-1">Sector</p>
-              <p className="text-foreground font-semibold">Government</p>
-            </div>
-          </div>
-          
-          {/* Input/Output Example */}
-          <div className="grid gap-4 md:grid-cols-2">
-            <div className="p-4 rounded-xl bg-blue-500/5 border border-blue-500/20">
-              <p className="text-xs font-semibold text-blue-600 dark:text-blue-400 uppercase tracking-wider mb-2">Input File</p>
-              <p className="text-foreground text-sm">A spreadsheet of departmental budget requests for the upcoming fiscal year</p>
-            </div>
-            <div className="p-4 rounded-xl bg-green-500/5 border border-green-500/20">
-              <p className="text-xs font-semibold text-green-600 dark:text-green-400 uppercase tracking-wider mb-2">Output File</p>
-              <p className="text-foreground text-sm">A consolidated budget summary report with recommendations</p>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
   );
 };
