@@ -130,22 +130,29 @@ const ChooseTaskSection = () => {
       <div className="rounded-2xl border-2 border-border bg-card overflow-hidden shadow-md">
         <div className="p-4 bg-muted/50 border-b border-border">
           <p className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">
-            All Available Tasks ({allTasks.length} total)
+            Beet 2.0 Occupations and Sectors
           </p>
         </div>
-        <div className="p-4 max-h-96 overflow-y-auto">
-          <div className="space-y-2">
+        {/* Column Headers */}
+        <div className="grid grid-cols-2 gap-4 px-4 py-3 bg-muted/30 border-b border-border">
+          <p className="text-xs font-bold text-foreground uppercase tracking-wider">Occupation</p>
+          <p className="text-xs font-bold text-foreground uppercase tracking-wider text-right">Sector</p>
+        </div>
+        <div className="max-h-96 overflow-y-auto">
+          <div className="divide-y divide-border">
             {otherTasks.map((task, idx) => (
               <div
                 key={idx}
-                className="flex items-center justify-between gap-4 p-3 rounded-lg bg-muted/30 border border-border hover:bg-muted/50 transition-colors"
+                className="grid grid-cols-2 gap-4 px-4 py-3 hover:bg-muted/50 transition-colors"
               >
                 <span className="text-sm text-foreground font-medium">{task.occupation}</span>
-                <span className={cn(
-                  "px-2 py-1 rounded-md text-xs font-medium border flex-shrink-0",
-                  sectorColors[task.sector] || "bg-muted text-muted-foreground"
-                )}>
-                  {task.sector}
+                <span className="text-right">
+                  <span className={cn(
+                    "px-2 py-1 rounded-md text-xs font-medium border inline-block",
+                    sectorColors[task.sector] || "bg-muted text-muted-foreground"
+                  )}>
+                    {task.sector}
+                  </span>
                 </span>
               </div>
             ))}
@@ -153,7 +160,7 @@ const ChooseTaskSection = () => {
         </div>
         <div className="p-3 bg-muted/30 border-t border-border">
           <p className="text-xs text-muted-foreground text-center">
-            Scroll to see all available occupations and sectors
+            Scroll to see all {allTasks.length} available occupations
           </p>
         </div>
       </div>
