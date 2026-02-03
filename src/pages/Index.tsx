@@ -137,7 +137,7 @@ const Index = () => {
                   </div>
                 </a>
                 <a 
-                  href="https://discord.gg/GbtUVawyrv"
+                  href="https://discord.gg/M57meSRXcH"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-3 p-4 rounded-xl bg-muted/50 hover:bg-muted transition-colors group"
@@ -206,7 +206,7 @@ const Index = () => {
             </DialogDescription>
           </DialogHeader>
           <a
-            href="https://discord.gg/GbtUVawyrv"
+            href="https://discord.gg/M57meSRXcH"
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-3 p-4 rounded-xl bg-[#5865F2]/10 hover:bg-[#5865F2]/20 transition-colors group mt-2"
@@ -216,7 +216,7 @@ const Index = () => {
             </div>
             <div>
               <p className="text-sm font-medium text-foreground group-hover:text-[#5865F2] transition-colors">Join our Discord</p>
-              <p className="text-xs text-muted-foreground">discord.gg/GbtUVawyrv</p>
+              <p className="text-xs text-muted-foreground">discord.gg/M57meSRXcH</p>
             </div>
           </a>
         </DialogContent>
