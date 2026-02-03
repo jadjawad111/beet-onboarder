@@ -796,13 +796,14 @@ const PresentationLayout = ({
         {/* Exit button - hidden when sidebar collapsed */}
         {!sidebarCollapsed && (
         <div className="p-4 border-t border-border">
-          <button
+          <Button
             onClick={handleExit}
-            className="w-full flex items-center justify-center gap-2 px-4 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted rounded-lg transition-colors"
+            variant="outline"
+            className="w-full gap-2"
           >
             <X className="w-4 h-4" />
             <span className="hidden lg:inline">{exitLabel}</span>
-          </button>
+          </Button>
         </div>
         )}
       </aside>
