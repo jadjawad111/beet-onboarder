@@ -126,11 +126,10 @@ const TaskingAssistancePage = () => {
           headers: { "Content-Type": "application/json" },
           mode: "no-cors",
           body: JSON.stringify({
-            id: data.id,
+            step_type: "prompt",
             task_id: data.task_id,
-            prompt_text: data.prompt_text,
-            attachment_urls: data.attachment_urls,
-            created_at: data.created_at,
+            prompt: data.prompt_text,
+            input_files: data.attachment_urls,
           }),
         });
       } catch (webhookError) {
