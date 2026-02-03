@@ -142,7 +142,7 @@ const QualityGateSection = () => {
             <Shield className="w-7 h-7 text-primary" />
           </div>
           <div>
-            <h3 className="text-xl font-bold text-foreground mb-2">Step 7: Run a Quality Gate</h3>
+            <h3 className="text-xl font-bold text-foreground mb-2">Step 6: Run a Quality Checklist</h3>
             <p className="text-base text-foreground leading-relaxed">
               Use this checklist to verify your prompt meets all quality requirements.
             </p>
