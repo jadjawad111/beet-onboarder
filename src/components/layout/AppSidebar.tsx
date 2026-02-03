@@ -58,22 +58,29 @@ const mainNav = [
   },
   { 
     id: "prompt-instructions",
-    label: "Prompt Writing Instructions", 
+    label: "Part 1: Prompt", 
     icon: PenTool, 
     to: "/instructions/prompt-writing",
     locked: false,
     hasSubNav: true,
   },
   { 
+    id: "input-files-instructions",
+    label: "Part 2: Input Files", 
+    icon: Files, 
+    to: "/instructions/input-files",
+    locked: false,
+  },
+  { 
     id: "golden-response-instructions",
-    label: "\"Golden Response\" Description Writing Instructions", 
+    label: "Part 3: Golden Example Deliverable", 
     icon: FileText, 
     to: "/instructions/golden-response",
     locked: false,
   },
   { 
     id: "rubric-instructions",
-    label: "Rubric Writing Instructions", 
+    label: "Part 4: Rubrics", 
     icon: FileText, 
     to: "/instructions/rubric-writing",
     locked: false,
@@ -89,13 +96,14 @@ const projectToolsNav = [
     to: "/project-info",
     locked: true, // LOCKED for dogfooding
   },
-  { 
-    id: "tasking-assistance",
-    label: "Beet Tasking Assistance", 
-    icon: Bot, 
-    to: "/tasking-assistance",
-    locked: false,
-  },
+  // Hidden for now - Beet Tasking Assistance
+  // { 
+  //   id: "tasking-assistance",
+  //   label: "Beet Tasking Assistance", 
+  //   icon: Bot, 
+  //   to: "/tasking-assistance",
+  //   locked: false,
+  // },
   { 
     id: "claim-sheet",
     label: "Claim Sheet", 
