@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { FileText, ChevronRight, BookOpen, ListChecks, Scale, Tag, FileCheck, Target, AlertOctagon, Layout, Table, Video } from "lucide-react";
+import { FileText, ChevronRight, BookOpen, ListChecks, Scale, Tag, FileCheck, Target, AlertOctagon, Layout, Table, Video, MinusCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import {
   IntroductionSection,
   RubricItemsSection,
@@ -10,6 +11,7 @@ import {
   SpecificitySection,
   ErrorsSection,
   FormattingExamplesSection,
+  NegativeItemsSection,
   SpreadsheetRubricsSection,
   VideoRubricsSection
 } from "./rubric-sections";
@@ -23,6 +25,7 @@ const sections = [
   { id: "specificity", label: "General vs Specific", icon: Target, component: SpecificitySection },
   { id: "errors", label: "Error Categories", icon: AlertOctagon, component: ErrorsSection },
   { id: "formatting", label: "Formatting Examples", icon: Layout, component: FormattingExamplesSection },
+  { id: "negative-items", label: "Negative Items", icon: MinusCircle, component: NegativeItemsSection },
   { id: "spreadsheets", label: "Spreadsheet Rubrics", icon: Table, component: SpreadsheetRubricsSection },
   { id: "videos", label: "Video Rubrics", icon: Video, component: VideoRubricsSection },
 ];
@@ -51,7 +54,37 @@ const RubricWritingInstructionsPage = () => {
         <div className="flex flex-col lg:flex-row">
           {/* Sidebar Navigation */}
           <nav className="w-full lg:w-64 border-b lg:border-b-0 lg:border-r border-border p-4 lg:p-6 flex-shrink-0">
-            <div className="flex lg:flex-col gap-2 overflow-x-auto lg:overflow-x-visible pb-2 lg:pb-0">
+            {/* Mobile: Horizontal scroll with visible scrollbar */}
+            <div className="lg:hidden">
+              <ScrollArea className="w-full">
+                <div className="flex gap-2 pb-4">
+                  {sections.map((section) => {
+                    const Icon = section.icon;
+                    const isActive = activeSection === section.id;
+                    
+                    return (
+                      <button
+                        key={section.id}
+                        onClick={() => setActiveSection(section.id)}
+                        className={cn(
+                          "flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-colors whitespace-nowrap",
+                          isActive
+                            ? "bg-primary/10 text-primary"
+                            : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
+                        )}
+                      >
+                        <Icon className="w-4 h-4 flex-shrink-0" />
+                        <span>{section.label}</span>
+                      </button>
+                    );
+                  })}
+                </div>
+                <ScrollBar orientation="horizontal" className="h-2.5 bg-muted/50 rounded-full" />
+              </ScrollArea>
+            </div>
+            
+            {/* Desktop: Vertical list */}
+            <div className="hidden lg:flex lg:flex-col gap-2">
               {sections.map((section) => {
                 const Icon = section.icon;
                 const isActive = activeSection === section.id;
@@ -61,15 +94,15 @@ const RubricWritingInstructionsPage = () => {
                     key={section.id}
                     onClick={() => setActiveSection(section.id)}
                     className={cn(
-                      "flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-colors whitespace-nowrap lg:whitespace-normal lg:w-full text-left",
+                      "flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-colors w-full text-left",
                       isActive
                         ? "bg-primary/10 text-primary"
                         : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
                     )}
                   >
                     <Icon className="w-4 h-4 flex-shrink-0" />
-                    <span className="hidden sm:inline lg:inline">{section.label}</span>
-                    {isActive && <ChevronRight className="w-4 h-4 ml-auto hidden lg:block" />}
+                    <span>{section.label}</span>
+                    {isActive && <ChevronRight className="w-4 h-4 ml-auto" />}
                   </button>
                 );
               })}
