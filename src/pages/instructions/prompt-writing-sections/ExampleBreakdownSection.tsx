@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { FileText, Eye, EyeOff, ChevronDown, Briefcase, GitBranch, User, MapPin, AlertTriangle, FileCheck } from "lucide-react";
+import { FileText, ChevronDown, Briefcase, GitBranch, User, MapPin, AlertTriangle, FileCheck } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 interface PromptPart {
   id: string;
@@ -108,7 +109,6 @@ const getColorClasses = (color: string) => {
 
 const ExampleBreakdownSection = () => {
   const [activePart, setActivePart] = useState<string | null>(null);
-  const [showFullPrompt, setShowFullPrompt] = useState(false);
   const [expandedParts, setExpandedParts] = useState<Set<string>>(new Set());
 
   const togglePart = (partId: string) => {
@@ -157,6 +157,75 @@ const ExampleBreakdownSection = () => {
     );
   };
 
+  const ComponentsView = () => (
+    <div className="space-y-3">
+      {promptParts.map((part) => {
+        const colors = getColorClasses(part.color);
+        const Icon = part.icon;
+        const isActive = activePart === part.id;
+        const isExpanded = expandedParts.has(part.id);
+
+        return (
+          <div
+            key={part.id}
+            className={cn(
+              "rounded-xl border-2 transition-all cursor-pointer overflow-hidden",
+              isActive ? colors.highlight : `${colors.border} ${colors.lightBg}`,
+              "hover:shadow-md"
+            )}
+          >
+            <button
+              onClick={() => {
+                setActivePart(isActive ? null : part.id);
+                if (!isExpanded) togglePart(part.id);
+              }}
+              className="w-full p-4 flex items-center gap-3 text-left"
+            >
+              <div className={cn("w-8 h-8 rounded-lg flex items-center justify-center", colors.bg)}>
+                <Icon className={cn("w-4 h-4", colors.text)} />
+              </div>
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-2 mb-0.5">
+                  <span className={cn("px-1.5 py-0.5 rounded text-xs font-bold", colors.bg, colors.text)}>
+                    {part.stepRef}
+                  </span>
+                </div>
+                <p className="text-sm font-medium text-foreground truncate">{part.label}</p>
+              </div>
+              <ChevronDown
+                className={cn(
+                  "w-4 h-4 text-muted-foreground transition-transform",
+                  isExpanded && "rotate-180"
+                )}
+              />
+            </button>
+            
+            {isExpanded && (
+              <div className={cn("px-4 pb-4 pt-0 border-t", colors.border)}>
+                <p className="text-sm text-foreground leading-relaxed mt-3">
+                  "{part.text}"
+                </p>
+              </div>
+            )}
+          </div>
+        );
+      })}
+    </div>
+  );
+
+  const FullPromptView = () => (
+    <div className="rounded-xl border border-border bg-card p-5">
+      {activePart && (
+        <div className="mb-4 pb-4 border-b border-border">
+          <p className="text-xs text-muted-foreground">
+            Highlighting: <span className="font-medium text-foreground">{promptParts.find(p => p.id === activePart)?.label}</span>
+          </p>
+        </div>
+      )}
+      {renderHighlightedPrompt()}
+    </div>
+  );
+
   return (
     <div className="space-y-8">
       {/* Header */}
@@ -168,7 +237,7 @@ const ExampleBreakdownSection = () => {
           <div>
             <h3 className="text-xl font-bold text-foreground mb-2">Example Prompt Breakdown</h3>
             <p className="text-base text-foreground leading-relaxed">
-              See how all the pieces come together. Click on each component to see where it appears in the full prompt.
+              See how all the pieces come together. Toggle between the components and full prompt views.
             </p>
           </div>
         </div>
@@ -192,104 +261,34 @@ const ExampleBreakdownSection = () => {
         </div>
       </div>
 
-      {/* Interactive Breakdown */}
-      <div className="grid lg:grid-cols-2 gap-6">
-        {/* Left: Component Cards */}
-        <div className="space-y-3">
-          <h4 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-4">
-            Prompt Components (Click to Highlight)
-          </h4>
-          {promptParts.map((part) => {
-            const colors = getColorClasses(part.color);
-            const Icon = part.icon;
-            const isActive = activePart === part.id;
-            const isExpanded = expandedParts.has(part.id);
-
-            return (
-              <div
-                key={part.id}
-                className={cn(
-                  "rounded-xl border-2 transition-all cursor-pointer overflow-hidden",
-                  isActive ? colors.highlight : `${colors.border} ${colors.lightBg}`,
-                  "hover:shadow-md"
-                )}
-              >
-                <button
-                  onClick={() => {
-                    setActivePart(isActive ? null : part.id);
-                    if (!isExpanded) togglePart(part.id);
-                  }}
-                  className="w-full p-4 flex items-center gap-3 text-left"
-                >
-                  <div className={cn("w-8 h-8 rounded-lg flex items-center justify-center", colors.bg)}>
-                    <Icon className={cn("w-4 h-4", colors.text)} />
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-2 mb-0.5">
-                      <span className={cn("px-1.5 py-0.5 rounded text-xs font-bold", colors.bg, colors.text)}>
-                        {part.stepRef}
-                      </span>
-                    </div>
-                    <p className="text-sm font-medium text-foreground truncate">{part.label}</p>
-                  </div>
-                  <ChevronDown
-                    className={cn(
-                      "w-4 h-4 text-muted-foreground transition-transform",
-                      isExpanded && "rotate-180"
-                    )}
-                  />
-                </button>
-                
-                {isExpanded && (
-                  <div className={cn("px-4 pb-4 pt-0 border-t", colors.border)}>
-                    <p className="text-sm text-foreground leading-relaxed mt-3">
-                      "{part.text}"
-                    </p>
-                  </div>
-                )}
-              </div>
-            );
-          })}
-        </div>
-
-        {/* Right: Full Prompt with Highlights */}
-        <div className="space-y-3">
-          <div className="flex items-center justify-between mb-4">
-            <h4 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">
-              Full Prompt
-            </h4>
-            <button
-              onClick={() => setShowFullPrompt(!showFullPrompt)}
-              className="flex items-center gap-2 text-xs text-primary hover:text-primary/80 transition-colors"
-            >
-              {showFullPrompt ? <EyeOff className="w-3.5 h-3.5" /> : <Eye className="w-3.5 h-3.5" />}
-              {showFullPrompt ? "Collapse" : "Expand"}
-            </button>
-          </div>
-          
-          <div
-            className={cn(
-              "rounded-xl border border-border bg-card p-5 transition-all",
-              !showFullPrompt && "max-h-96 overflow-y-auto"
-            )}
-          >
-            {activePart && (
-              <div className="mb-4 pb-4 border-b border-border">
-                <p className="text-xs text-muted-foreground">
-                  Highlighting: <span className="font-medium text-foreground">{promptParts.find(p => p.id === activePart)?.label}</span>
-                </p>
-              </div>
-            )}
-            {renderHighlightedPrompt()}
-          </div>
-          
-          {!showFullPrompt && (
-            <p className="text-xs text-muted-foreground text-center">
-              Scroll to see full prompt or click "Expand"
-            </p>
-          )}
-        </div>
-      </div>
+      {/* Tabbed View */}
+      <Tabs defaultValue="components" className="w-full">
+        <TabsList className="grid w-full grid-cols-2 mb-6">
+          <TabsTrigger value="components" className="text-sm">
+            Prompt Components
+          </TabsTrigger>
+          <TabsTrigger value="full-prompt" className="text-sm">
+            Full Prompt
+          </TabsTrigger>
+        </TabsList>
+        
+        <TabsContent value="components" className="mt-0">
+          <p className="text-sm text-muted-foreground mb-4">
+            Click on each component to expand and see its content. Selected components will be highlighted in the Full Prompt tab.
+          </p>
+          <ComponentsView />
+        </TabsContent>
+        
+        <TabsContent value="full-prompt" className="mt-0">
+          <p className="text-sm text-muted-foreground mb-4">
+            {activePart 
+              ? "The selected component is highlighted below."
+              : "Select a component in the Components tab to highlight it here."
+            }
+          </p>
+          <FullPromptView />
+        </TabsContent>
+      </Tabs>
 
       {/* Legend */}
       <div className="rounded-xl border border-border bg-card p-5">
