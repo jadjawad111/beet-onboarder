@@ -45,6 +45,13 @@ const primaryNav = [
     locked: false,
   },
   { 
+    id: "golden-response-instructions",
+    label: "Golden Response Description Writing Instructions", 
+    icon: FileText, 
+    to: "/instructions/golden-response",
+    locked: false,
+  },
+  { 
     id: "rubric-instructions",
     label: "Rubric Writing Instructions", 
     icon: FileText, 
