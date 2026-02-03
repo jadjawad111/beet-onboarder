@@ -52,7 +52,7 @@ const PromptRequirementsSection = () => {
         <div className="p-4 bg-muted/50 border-b border-border flex items-center gap-2">
           <FileType className="w-4 h-4 text-muted-foreground" />
           <p className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">
-            Allowed File Types for Administrative Services Manager Prompts
+            Allowed File Types for <span className="text-primary">Administrative Services Manager</span> Prompts
           </p>
         </div>
         <div className="p-6">
