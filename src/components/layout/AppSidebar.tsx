@@ -46,7 +46,7 @@ const primaryNav = [
   },
   { 
     id: "golden-response-instructions",
-    label: "Golden Response Description Writing Instructions", 
+    label: "\"Golden Response\" Description Writing Instructions", 
     icon: FileText, 
     to: "/instructions/golden-response",
     locked: false,
