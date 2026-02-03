@@ -3,7 +3,7 @@ import { AlertTriangle, CheckCircle2, XCircle, Tag } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
-type FailureTag = "extraction" | "reasoning" | "formatting";
+type FailureTag = "ambiguous" | "not-self-contained" | "stacked" | "convoluted-phrasing" | "process-words" | "incorrect-label" | "inaccurate-weighting" | "restrictive";
 
 interface FailureTagQuizProps {
   scenario: string;
@@ -13,9 +13,14 @@ interface FailureTagQuizProps {
 }
 
 const tagLabels: Record<FailureTag, { label: string; color: string }> = {
-  extraction: { label: "Extraction Failure", color: "border-destructive/50 bg-destructive/10 text-destructive" },
-  reasoning: { label: "Reasoning Failure", color: "border-warning/50 bg-warning/10 text-warning" },
-  formatting: { label: "Formatting Failure", color: "border-info/50 bg-info/10 text-info" },
+  "ambiguous": { label: "Ambiguous", color: "border-destructive/50 bg-destructive/10 text-destructive" },
+  "not-self-contained": { label: "Not Self-contained", color: "border-warning/50 bg-warning/10 text-warning" },
+  "stacked": { label: "Stacked", color: "border-info/50 bg-info/10 text-info" },
+  "convoluted-phrasing": { label: "Convoluted Phrasing", color: "border-purple-500/50 bg-purple-500/10 text-purple-600" },
+  "process-words": { label: "Process Words", color: "border-amber-500/50 bg-amber-500/10 text-amber-600" },
+  "incorrect-label": { label: "Incorrect Label", color: "border-rose-500/50 bg-rose-500/10 text-rose-600" },
+  "inaccurate-weighting": { label: "Inaccurate Weighting", color: "border-cyan-500/50 bg-cyan-500/10 text-cyan-600" },
+  "restrictive": { label: "Restrictive", color: "border-emerald-500/50 bg-emerald-500/10 text-emerald-600" },
 };
 
 const FailureTagQuiz = ({ scenario, modelOutput, correctTag, explanation }: FailureTagQuizProps) => {
