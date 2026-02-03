@@ -52,9 +52,9 @@ const CreateInputFilesSection = () => {
 
       {/* Good Inputs */}
       <div className="rounded-2xl border-2 border-border bg-card overflow-hidden shadow-md">
-        <div className="p-4 bg-green-500/10 border-b border-green-500/20">
-          <p className="text-sm font-semibold text-green-700 dark:text-green-300 uppercase tracking-wider">
-            Good Inputs Often Include
+        <div className="p-4 bg-muted/50 border-b border-border">
+          <p className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">
+            Example Input Files for <span className="text-primary">Administrative Services Manager</span>
           </p>
         </div>
         <div className="p-6">
