@@ -75,7 +75,7 @@ const projectToolsNav = [
     label: "Beet Tasking Assistance", 
     icon: Bot, 
     to: "/tasking-assistance",
-    locked: true, // LOCKED for dogfooding
+    locked: false,
   },
   { 
     id: "claim-sheet",
