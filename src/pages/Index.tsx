@@ -191,31 +191,6 @@ const Index = () => {
           </div>
         </div>
 
-        {/* Divider */}
-        <div className="mt-8 border-t border-border max-w-4xl" />
-
-        {/* Updates Section - Full width below */}
-        <div className="mt-8 max-w-4xl">
-          <div className="flex items-center gap-2 mb-4">
-            <Bell className="w-5 h-5 text-primary" />
-            <h2 className="text-lg font-semibold text-foreground">Updates</h2>
-          </div>
-          <div className="p-6 rounded-2xl border-2 border-primary/30 bg-gradient-to-br from-primary/5 via-card to-secondary/5">
-            <div className="flex items-start gap-4">
-              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary to-secondary/70 flex items-center justify-center flex-shrink-0">
-                <Bell className="w-6 h-6 text-white" />
-              </div>
-              <div>
-                <h3 className="text-xl font-bold text-foreground mb-2">
-                  Live Training Schedule
-                </h3>
-                <p className="text-muted-foreground">
-                  To be launched in the next <span className="font-semibold text-primary">12-24 Hours!</span>
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
 
       {/* Locked Dialog */}
