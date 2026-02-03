@@ -22,7 +22,33 @@ interface AppSidebarProps {
   onToggle: () => void;
 }
 
-const primaryNav = [
+// Main section - Educational content
+const mainNav = [
+  { 
+    id: "education",
+    label: "Educational Modules", 
+    icon: GraduationCap, 
+    to: "/education",
+    locked: false,
+  },
+  { 
+    id: "prompt-instructions",
+    label: "Prompt Writing Instructions", 
+    icon: PenTool, 
+    to: "/instructions/prompt-writing",
+    locked: false,
+  },
+  { 
+    id: "rubric-instructions",
+    label: "Rubric Writing Instructions", 
+    icon: FileText, 
+    to: "/instructions/rubric-writing",
+    locked: false,
+  },
+];
+
+// Project Tools section
+const projectToolsNav = [
   { 
     id: "home",
     label: "Home", 
@@ -38,31 +64,10 @@ const primaryNav = [
     locked: true, // LOCKED for dogfooding
   },
   { 
-    id: "prompt-instructions",
-    label: "Prompt Writing Instructions", 
-    icon: PenTool, 
-    to: "/instructions/prompt-writing",
-    locked: false,
-  },
-  { 
     id: "golden-response-instructions",
     label: "\"Golden Response\" Description Writing Instructions", 
     icon: FileText, 
     to: "/instructions/golden-response",
-    locked: false,
-  },
-  { 
-    id: "rubric-instructions",
-    label: "Rubric Writing Instructions", 
-    icon: FileText, 
-    to: "/instructions/rubric-writing",
-    locked: false,
-  },
-  { 
-    id: "education",
-    label: "Educational Modules", 
-    icon: GraduationCap, 
-    to: "/education",
     locked: false,
   },
   { 
@@ -140,9 +145,10 @@ const AppSidebar = ({ collapsed, onToggle }: AppSidebarProps) => {
         </a>
       </div>
 
-      {/* Primary Navigation */}
-      <nav className="flex-1 py-4 px-2 space-y-1">
-        <div className={cn("mb-4", collapsed ? "px-0" : "px-2")}>
+      {/* Main Navigation */}
+      <nav className="flex-1 py-4 px-2 space-y-1 overflow-y-auto">
+        {/* Main Section */}
+        <div className={cn("mb-2", collapsed ? "px-0" : "px-2")}>
           {!collapsed && (
             <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider">
               Main
@@ -150,7 +156,7 @@ const AppSidebar = ({ collapsed, onToggle }: AppSidebarProps) => {
           )}
         </div>
         
-        {primaryNav.map((item) => {
+        {mainNav.map((item) => {
           const Icon = item.icon;
           const active = isActive(item.to);
           const isLocked = item.locked;
@@ -171,8 +177,6 @@ const AppSidebar = ({ collapsed, onToggle }: AppSidebarProps) => {
                     <Lock className="w-4 h-4 text-muted-foreground/50" />
                   </>
                 )}
-                
-                {/* Tooltip for collapsed state */}
                 {collapsed && (
                   <div className="absolute left-full ml-2 px-2 py-1 bg-foreground text-background text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none flex items-center gap-1">
                     <Lock className="w-3 h-3" />
@@ -201,8 +205,73 @@ const AppSidebar = ({ collapsed, onToggle }: AppSidebarProps) => {
               {!collapsed && (
                 <span className="font-medium text-sm">{item.label}</span>
               )}
-              
-              {/* Tooltip for collapsed state */}
+              {collapsed && (
+                <div className="absolute left-full ml-2 px-2 py-1 bg-foreground text-background text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
+                  {item.label}
+                </div>
+              )}
+            </Link>
+          );
+        })}
+
+        {/* Project Tools Section */}
+        <div className={cn("mt-6 mb-2", collapsed ? "px-0" : "px-2")}>
+          {!collapsed && (
+            <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider">
+              Project Tools
+            </span>
+          )}
+        </div>
+        
+        {projectToolsNav.map((item) => {
+          const Icon = item.icon;
+          const active = isActive(item.to);
+          const isLocked = item.locked;
+          
+          if (isLocked) {
+            return (
+              <div
+                key={item.id}
+                className={cn(
+                  "flex items-center gap-3 px-3 py-3 rounded-lg transition-colors relative group cursor-not-allowed",
+                  "text-muted-foreground/50 bg-muted/30"
+                )}
+              >
+                <Icon className={cn("w-5 h-5 flex-shrink-0", collapsed && "mx-auto")} />
+                {!collapsed && (
+                  <>
+                    <span className="font-medium text-sm flex-1">{item.label}</span>
+                    <Lock className="w-4 h-4 text-muted-foreground/50" />
+                  </>
+                )}
+                {collapsed && (
+                  <div className="absolute left-full ml-2 px-2 py-1 bg-foreground text-background text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none flex items-center gap-1">
+                    <Lock className="w-3 h-3" />
+                    {item.label} (Locked)
+                  </div>
+                )}
+              </div>
+            );
+          }
+          
+          return (
+            <Link
+              key={item.id}
+              to={item.to}
+              className={cn(
+                "flex items-center gap-3 px-3 py-3 rounded-lg transition-colors relative group",
+                active 
+                  ? "bg-primary/10 text-primary" 
+                  : "text-muted-foreground hover:bg-muted hover:text-foreground"
+              )}
+            >
+              {active && (
+                <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-8 bg-primary rounded-r-full" />
+              )}
+              <Icon className={cn("w-5 h-5 flex-shrink-0", collapsed && "mx-auto")} />
+              {!collapsed && (
+                <span className="font-medium text-sm">{item.label}</span>
+              )}
               {collapsed && (
                 <div className="absolute left-full ml-2 px-2 py-1 bg-foreground text-background text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
                   {item.label}
