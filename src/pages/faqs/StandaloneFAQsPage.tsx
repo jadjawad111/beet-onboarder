@@ -1,7 +1,7 @@
 import { HelpCircle, Mail, MessageSquare, ExternalLink, FileText, DollarSign, Clock, UserCheck, AlertTriangle } from "lucide-react";
 import ContentHeader from "@/components/layout/ContentHeader";
 
-const DISCORD_LINK = "https://discord.gg/GbtUVawyrv";
+const DISCORD_LINK = "https://discord.gg/M57meSRXcH";
 
 const primaryResources = [
   {
@@ -213,7 +213,7 @@ const StandaloneFAQsPage = () => {
                 </div>
                 <p className="text-xs text-muted-foreground mb-2">Community for questions and updates</p>
                 <span className="text-sm text-primary font-semibold flex items-center gap-1">
-                  discord.gg/GbtUVawyrv
+                  discord.gg/M57meSRXcH
                   <ExternalLink className="w-3 h-3" />
                 </span>
               </a>
@@ -286,7 +286,7 @@ const StandaloneFAQsPage = () => {
                   Once you have access, ask questions in the designated channel. The community and team are responsive.
                 </p>
                 <span className="text-sm text-primary font-semibold flex items-center gap-1">
-                  discord.gg/GbtUVawyrv
+                  discord.gg/M57meSRXcH
                   <ExternalLink className="w-4 h-4" />
                 </span>
               </a>
