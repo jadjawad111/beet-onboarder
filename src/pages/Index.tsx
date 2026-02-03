@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { ArrowRight, Briefcase, GraduationCap, Lock, Mail, MessageCircle, ExternalLink, Star, Bell } from "lucide-react";
+import { ArrowRight, Briefcase, GraduationCap, Lock, Mail, MessageCircle, ExternalLink, Star, DollarSign, Clock, CheckCircle2, X, Sparkles } from "lucide-react";
 import beetIcon from "@/assets/beet-icon.png";
 import handshakeLogo from "@/assets/handshake-logo.png";
 import {
@@ -15,6 +15,20 @@ const Index = () => {
   // Project Information is locked for dogfooding
   const isProjectInfoLocked = true;
   const [showLockedDialog, setShowLockedDialog] = useState(false);
+  const [showWelcomeModal, setShowWelcomeModal] = useState(false);
+
+  // Show welcome modal on first visit
+  useEffect(() => {
+    const hasSeenWelcome = localStorage.getItem("beet-welcome-seen");
+    if (!hasSeenWelcome) {
+      setShowWelcomeModal(true);
+    }
+  }, []);
+
+  const handleCloseWelcome = () => {
+    localStorage.setItem("beet-welcome-seen", "true");
+    setShowWelcomeModal(false);
+  };
 
   return (
     <div className="min-h-screen">
@@ -191,6 +205,52 @@ const Index = () => {
           </div>
         </div>
 
+        {/* Onboarding & Tasking Incentives Section */}
+        <div className="mt-12 max-w-4xl">
+          <h2 className="text-2xl font-bold text-foreground mb-2">Onboarding & Tasking Incentives</h2>
+          <p className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent mb-8">
+            Earn up to $1,200 for getting started
+          </p>
+          
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div className="p-5 rounded-2xl border border-border bg-card hover:border-primary/30 hover:shadow-md transition-all">
+              <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center mb-3">
+                <DollarSign className="w-5 h-5 text-primary" />
+              </div>
+              <p className="text-2xl font-bold text-foreground mb-1">$500</p>
+              <p className="text-sm text-muted-foreground">Pass the onboarding assessment</p>
+            </div>
+            
+            <div className="p-5 rounded-2xl border border-border bg-card hover:border-primary/30 hover:shadow-md transition-all">
+              <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center mb-3">
+                <CheckCircle2 className="w-5 h-5 text-primary" />
+              </div>
+              <p className="text-2xl font-bold text-foreground mb-1">$250</p>
+              <p className="text-sm text-muted-foreground">Complete your first task</p>
+            </div>
+            
+            <div className="p-5 rounded-2xl border border-border bg-card hover:border-primary/30 hover:shadow-md transition-all">
+              <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center mb-3">
+                <CheckCircle2 className="w-5 h-5 text-primary" />
+              </div>
+              <p className="text-2xl font-bold text-foreground mb-1">$250</p>
+              <p className="text-sm text-muted-foreground">Complete your second task</p>
+            </div>
+            
+            <div className="p-5 rounded-2xl border border-primary/50 bg-gradient-to-br from-primary/5 to-secondary/5 hover:shadow-md transition-all">
+              <div className="w-10 h-10 rounded-xl bg-primary/20 flex items-center justify-center mb-3">
+                <Clock className="w-5 h-5 text-primary" />
+              </div>
+              <p className="text-2xl font-bold text-foreground mb-1">+$200</p>
+              <p className="text-sm text-muted-foreground">Bonus: Pass within 48 hours</p>
+            </div>
+          </div>
+          
+          <p className="mt-4 text-sm text-muted-foreground">
+            Bonuses are stackable. Complete onboarding fast and start earning immediately.
+          </p>
+        </div>
+
       </div>
 
       {/* Locked Dialog */}
@@ -219,6 +279,76 @@ const Index = () => {
               <p className="text-xs text-muted-foreground">discord.gg/M57meSRXcH</p>
             </div>
           </a>
+        </DialogContent>
+      </Dialog>
+
+      {/* Welcome Incentive Modal - First Visit Only */}
+      <Dialog open={showWelcomeModal} onOpenChange={handleCloseWelcome}>
+        <DialogContent className="sm:max-w-lg">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2 text-2xl">
+              <Sparkles className="w-6 h-6 text-primary" />
+              Welcome Incentive 🎉
+            </DialogTitle>
+            <DialogDescription className="pt-2 text-lg font-semibold text-foreground">
+              Earn up to $1,200 just for getting started
+            </DialogDescription>
+          </DialogHeader>
+          
+          <div className="space-y-3 py-4">
+            <div className="flex items-center gap-3 p-3 rounded-xl bg-muted/50">
+              <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
+                <DollarSign className="w-5 h-5 text-primary" />
+              </div>
+              <div>
+                <p className="font-semibold text-foreground">$500</p>
+                <p className="text-sm text-muted-foreground">For passing the onboarding assessment</p>
+              </div>
+            </div>
+            
+            <div className="flex items-center gap-3 p-3 rounded-xl bg-muted/50">
+              <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
+                <CheckCircle2 className="w-5 h-5 text-primary" />
+              </div>
+              <div>
+                <p className="font-semibold text-foreground">$250</p>
+                <p className="text-sm text-muted-foreground">For your first task</p>
+              </div>
+            </div>
+            
+            <div className="flex items-center gap-3 p-3 rounded-xl bg-muted/50">
+              <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
+                <CheckCircle2 className="w-5 h-5 text-primary" />
+              </div>
+              <div>
+                <p className="font-semibold text-foreground">$250</p>
+                <p className="text-sm text-muted-foreground">For your second task</p>
+              </div>
+            </div>
+            
+            <div className="flex items-center gap-3 p-3 rounded-xl bg-gradient-to-r from-primary/10 to-secondary/10 border border-primary/20">
+              <div className="w-10 h-10 rounded-lg bg-primary/20 flex items-center justify-center shrink-0">
+                <Clock className="w-5 h-5 text-primary" />
+              </div>
+              <div>
+                <p className="font-semibold text-foreground">+$200 bonus</p>
+                <p className="text-sm text-muted-foreground">If you pass within 48 hours</p>
+              </div>
+            </div>
+          </div>
+          
+          <Link
+            to="/education/beet"
+            onClick={handleCloseWelcome}
+            className="w-full inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-primary to-primary/90 text-primary-foreground font-semibold hover:opacity-90 transition-opacity"
+          >
+            Get Started
+            <ArrowRight className="w-4 h-4" />
+          </Link>
+          
+          <p className="text-xs text-center text-muted-foreground">
+            Bonuses are awarded after successful completion. Terms apply.
+          </p>
         </DialogContent>
       </Dialog>
     </div>
