@@ -80,19 +80,6 @@ const ChooseTaskSection = () => {
           </div>
           <div>
             <h3 className="text-xl font-bold text-foreground mb-2">Step 1: Choose a Task Relevant to Your Professional Domain</h3>
-            
-            {/* Occupation/Sector display above description */}
-            <div className="grid gap-3 sm:grid-cols-2 mb-4">
-              <div>
-                <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-1">Occupation</p>
-                <p className="text-foreground font-semibold">{highlightedTask.occupation}</p>
-              </div>
-              <div>
-                <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-1">Sector</p>
-                <p className="text-foreground font-semibold">{highlightedTask.sector}</p>
-              </div>
-            </div>
-            
             <p className="text-base text-foreground leading-relaxed">
               From the available tasks, select one that is tied to a specific occupation and sector that you have expertise in.
             </p>
