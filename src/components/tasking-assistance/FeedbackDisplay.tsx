@@ -24,24 +24,50 @@ const FeedbackDisplay = ({ submissionId, onClose }: FeedbackDisplayProps) => {
   const [parsedFeedback, setParsedFeedback] = useState<ParsedFeedback | null>(null);
 
   useEffect(() => {
+    let isMounted = true;
+    let pollInterval: NodeJS.Timeout | null = null;
+
     const fetchSubmission = async () => {
-      const { data } = await supabase
+      const { data, error } = await supabase
         .from("prompt_submissions")
         .select("feedback, status")
         .eq("id", submissionId)
         .single();
       
+      if (!isMounted) return;
+      
+      if (error) {
+        console.error("Error fetching submission:", error);
+        return;
+      }
+      
       if (data) {
+        console.log("Fetched submission:", data.status, data.feedback ? "has feedback" : "no feedback");
         setFeedback(data.feedback);
         setStatus(data.status);
         if (data.feedback) {
           setParsedFeedback(parseFeedbackJson(data.feedback));
         }
+        
+        // Stop polling if completed
+        if (data.status === "completed" && pollInterval) {
+          clearInterval(pollInterval);
+          pollInterval = null;
+        }
       }
     };
 
+    // Initial fetch
     fetchSubmission();
 
+    // Poll every 3 seconds as fallback for realtime
+    pollInterval = setInterval(() => {
+      if (status === "pending") {
+        fetchSubmission();
+      }
+    }, 3000);
+
+    // Realtime subscription
     const channel = supabase
       .channel(`submission-${submissionId}`)
       .on(
@@ -53,20 +79,29 @@ const FeedbackDisplay = ({ submissionId, onClose }: FeedbackDisplayProps) => {
           filter: `id=eq.${submissionId}`,
         },
         (payload) => {
+          if (!isMounted) return;
           const newData = payload.new as { feedback: string | null; status: string };
+          console.log("Realtime update:", newData.status);
           setFeedback(newData.feedback);
           setStatus(newData.status);
           if (newData.feedback) {
             setParsedFeedback(parseFeedbackJson(newData.feedback));
+          }
+          // Stop polling on update
+          if (newData.status === "completed" && pollInterval) {
+            clearInterval(pollInterval);
+            pollInterval = null;
           }
         }
       )
       .subscribe();
 
     return () => {
+      isMounted = false;
+      if (pollInterval) clearInterval(pollInterval);
       supabase.removeChannel(channel);
     };
-  }, [submissionId]);
+  }, [submissionId, status]);
 
   // Loading state
   if (status === "pending") {
