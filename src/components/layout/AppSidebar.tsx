@@ -46,6 +46,13 @@ const mainNav = [
     locked: false,
   },
   { 
+    id: "golden-response-instructions",
+    label: "\"Golden Response\" Description Writing Instructions", 
+    icon: FileText, 
+    to: "/instructions/golden-response",
+    locked: false,
+  },
+  { 
     id: "rubric-instructions",
     label: "Rubric Writing Instructions", 
     icon: FileText, 
@@ -62,13 +69,6 @@ const projectToolsNav = [
     icon: Briefcase, 
     to: "/project-info",
     locked: true, // LOCKED for dogfooding
-  },
-  { 
-    id: "golden-response-instructions",
-    label: "\"Golden Response\" Description Writing Instructions", 
-    icon: FileText, 
-    to: "/instructions/golden-response",
-    locked: false,
   },
   { 
     id: "tasking-assistance",
