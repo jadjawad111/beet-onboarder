@@ -133,30 +133,36 @@ const ChooseTaskSection = () => {
             Beet 2.0 Occupations and Sectors
           </p>
         </div>
-        {/* Column Headers */}
-        <div className="grid grid-cols-2 gap-4 px-4 py-3 bg-muted/30 border-b border-border">
-          <p className="text-xs font-bold text-foreground uppercase tracking-wider">Occupation</p>
-          <p className="text-xs font-bold text-foreground uppercase tracking-wider text-right">Sector</p>
-        </div>
         <div className="max-h-96 overflow-y-auto">
-          <div className="divide-y divide-border">
-            {otherTasks.map((task, idx) => (
-              <div
-                key={idx}
-                className="grid grid-cols-2 gap-4 px-4 py-3 hover:bg-muted/50 transition-colors"
-              >
-                <span className="text-sm text-foreground font-medium">{task.occupation}</span>
-                <span className="text-right">
-                  <span className={cn(
-                    "px-2 py-1 rounded-md text-xs font-medium border inline-block",
-                    sectorColors[task.sector] || "bg-muted text-muted-foreground"
-                  )}>
-                    {task.sector}
-                  </span>
-                </span>
-              </div>
-            ))}
-          </div>
+          <table className="w-full">
+            <thead className="bg-muted/30 sticky top-0">
+              <tr className="border-b border-border">
+                <th className="text-left px-4 py-3 text-xs font-bold text-foreground uppercase tracking-wider w-1/2">
+                  Occupation
+                </th>
+                <th className="text-left px-4 py-3 text-xs font-bold text-foreground uppercase tracking-wider w-1/2">
+                  Sector
+                </th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-border">
+              {otherTasks.map((task, idx) => (
+                <tr key={idx} className="hover:bg-muted/50 transition-colors">
+                  <td className="px-4 py-3 text-sm text-foreground font-medium align-top">
+                    {task.occupation}
+                  </td>
+                  <td className="px-4 py-3 align-top">
+                    <span className={cn(
+                      "px-2 py-1 rounded-md text-xs font-medium border inline-block",
+                      sectorColors[task.sector] || "bg-muted text-muted-foreground"
+                    )}>
+                      {task.sector}
+                    </span>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
         <div className="p-3 bg-muted/30 border-t border-border">
           <p className="text-xs text-muted-foreground text-center">
