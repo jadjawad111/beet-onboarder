@@ -15,6 +15,7 @@ interface UploadedFile {
 
 const TaskingAssistancePage = () => {
   const [taskId, setTaskId] = useState("");
+  const [occupation, setOccupation] = useState("");
   const [promptText, setPromptText] = useState("");
   const [files, setFiles] = useState<UploadedFile[]>([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -128,6 +129,7 @@ const TaskingAssistancePage = () => {
           body: JSON.stringify({
             step_type: "prompt",
             task_id: data.task_id,
+            occupation: occupation.trim() || null,
             prompt: data.prompt_text,
             input_files: data.attachment_urls,
             input_file_count: data.attachment_urls?.length || 0,
@@ -148,6 +150,7 @@ const TaskingAssistancePage = () => {
       });
       
       setTaskId("");
+      setOccupation("");
       setPromptText("");
       setFiles([]);
     } catch (error) {
@@ -239,12 +242,32 @@ const TaskingAssistancePage = () => {
             </CardContent>
           </Card>
 
-          {/* Step 2: Prompt */}
+          {/* Step 2: Occupation */}
           <Card className="border bg-card/50">
             <CardContent className="pt-6">
               <div className="flex items-center gap-2 mb-4">
                 <span className="text-xs font-medium text-muted-foreground uppercase tracking-wide">
                   Step 2
+                </span>
+                <span className="text-sm font-medium text-foreground">Occupation</span>
+              </div>
+              <Input
+                id="occupation"
+                placeholder="Enter your occupation (optional)"
+                value={occupation}
+                onChange={(e) => setOccupation(e.target.value)}
+                disabled={isSubmitting}
+                className="bg-muted/30 border-muted"
+              />
+            </CardContent>
+          </Card>
+
+          {/* Step 3: Prompt */}
+          <Card className="border bg-card/50">
+            <CardContent className="pt-6">
+              <div className="flex items-center gap-2 mb-4">
+                <span className="text-xs font-medium text-muted-foreground uppercase tracking-wide">
+                  Step 3
                 </span>
                 <span className="text-sm font-medium text-foreground">Prompt</span>
               </div>
@@ -262,12 +285,12 @@ const TaskingAssistancePage = () => {
             </CardContent>
           </Card>
 
-          {/* Step 3: File Upload */}
+          {/* Step 4: File Upload */}
           <Card className="border bg-card/50">
             <CardContent className="pt-6">
               <div className="flex items-center gap-2 mb-4">
                 <span className="text-xs font-medium text-muted-foreground uppercase tracking-wide">
-                  Step 3
+                  Step 4
                 </span>
                 <span className="text-sm font-medium text-foreground">Input Files</span>
                 <span className="text-xs text-muted-foreground">(optional)</span>
