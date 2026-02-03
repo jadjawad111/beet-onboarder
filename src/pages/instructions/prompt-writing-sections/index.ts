@@ -5,3 +5,4 @@ export { default as PromptRequirementsSection } from "./PromptRequirementsSectio
 export { default as DraftPromptSection } from "./DraftPromptSection";
 export { default as CreateInputFilesSection } from "./CreateInputFilesSection";
 export { default as QualityGateSection } from "./QualityGateSection";
+export { default as ExampleBreakdownSection } from "./ExampleBreakdownSection";

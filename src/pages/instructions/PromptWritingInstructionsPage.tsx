@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { PenTool, ChevronRight, Briefcase, FileText, GitBranch, ClipboardList, Files, Shield } from "lucide-react";
+import { PenTool, ChevronRight, Briefcase, FileText, GitBranch, ClipboardList, Files, Shield, Layers } from "lucide-react";
 import { cn } from "@/lib/utils";
 import {
   ChooseTaskSection,
@@ -9,6 +9,7 @@ import {
   DraftPromptSection,
   CreateInputFilesSection,
   QualityGateSection,
+  ExampleBreakdownSection,
 } from "./prompt-writing-sections";
 
 const sections = [
@@ -19,6 +20,7 @@ const sections = [
   { id: "draft-prompt", label: "5. Draft the Prompt", icon: PenTool, component: DraftPromptSection },
   { id: "input-files", label: "6. Create Input Files", icon: Files, component: CreateInputFilesSection },
   { id: "quality-gate", label: "7. Quality Gate", icon: Shield, component: QualityGateSection },
+  { id: "example", label: "Example Breakdown", icon: Layers, component: ExampleBreakdownSection },
 ];
 
 const PromptWritingInstructionsPage = () => {
