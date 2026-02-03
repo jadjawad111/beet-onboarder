@@ -135,12 +135,12 @@ const ChooseTaskSection = () => {
         </div>
         <div className="max-h-96 overflow-y-auto">
           <table className="w-full">
-            <thead className="bg-muted/30 sticky top-0">
+            <thead className="bg-card sticky top-0 z-10 shadow-sm">
               <tr className="border-b border-border">
-                <th className="text-left px-4 py-3 text-xs font-bold text-foreground uppercase tracking-wider w-1/2">
+                <th className="text-left px-4 py-3 text-xs font-bold text-foreground uppercase tracking-wider w-1/2 bg-card">
                   Occupation
                 </th>
-                <th className="text-left px-4 py-3 text-xs font-bold text-foreground uppercase tracking-wider w-1/2">
+                <th className="text-left px-4 py-3 text-xs font-bold text-foreground uppercase tracking-wider w-1/2 bg-card">
                   Sector
                 </th>
               </tr>
