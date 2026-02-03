@@ -2762,6 +2762,26 @@ This report will be used to brief the design team and guide future optimization 
       </ContentSlide>
     ),
   },
+  {
+    id: "completion-code",
+    section: "Rubrics",
+    title: "Completion Code",
+    content: (
+      <ContentSlide title="" layout="center">
+        <div className="flex flex-col items-center justify-center text-center space-y-8">
+          <div className="space-y-4">
+            <p className="text-xl text-muted-foreground">Course Completion Code</p>
+            <p className="text-[4rem] md:text-[6rem] lg:text-[8rem] font-black tracking-widest text-primary leading-none">
+              HX9Q-7M3K-P2VD
+            </p>
+          </div>
+          <p className="text-lg text-muted-foreground max-w-md">
+            Save this code as proof of completion.
+          </p>
+        </div>
+      </ContentSlide>
+    ),
+  },
 ];
 
 const PromptWritingCourse = () => {
