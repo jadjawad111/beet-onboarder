@@ -337,14 +337,12 @@ const Index = () => {
             </div>
           </div>
           
-          <Link
-            to="/education/beet"
+          <button
             onClick={handleCloseWelcome}
             className="w-full inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-primary to-primary/90 text-primary-foreground font-semibold hover:opacity-90 transition-opacity"
           >
-            Get Started
-            <ArrowRight className="w-4 h-4" />
-          </Link>
+            Got It
+          </button>
           
           <p className="text-xs text-center text-muted-foreground">
             Bonuses are awarded after successful completion. Terms apply.
