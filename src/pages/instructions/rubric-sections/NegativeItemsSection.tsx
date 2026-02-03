@@ -1,5 +1,12 @@
-import { MinusCircle, AlertTriangle, PenTool, Scale, CheckCircle } from "lucide-react";
+import { MinusCircle, AlertTriangle, PenTool, Scale, CheckCircle, FileText } from "lucide-react";
 import { cn } from "@/lib/utils";
+
+interface NegativeExample {
+  promptRequirement: string;
+  criterion: string;
+  weight: number;
+  why: string;
+}
 
 const NegativeItemsSection = () => {
   const whenToUse = [
@@ -22,6 +29,27 @@ const NegativeItemsSection = () => {
     {
       weight: "Smaller negative weights",
       when: "when the mistake is still wrong, but not catastrophic.",
+    },
+  ];
+
+  const examples: NegativeExample[] = [
+    {
+      promptRequirement: "In the argument brief, do not include any arguments that rely on the legal doctrine of 'assumption of risk.'",
+      criterion: "The argument brief contains the exact phrase 'assumption of risk' at least once.",
+      weight: -100,
+      why: "The response includes a forbidden legal concept explicitly banned by the prompt.",
+    },
+    {
+      promptRequirement: "Anonymize the name '[REDACTED]' by replacing it with '[REDACTED]' everywhere it appears in all output documents.",
+      criterion: "The subject review document refers to the patient by their name '[REDACTED]'.",
+      weight: -100,
+      why: "A prohibited identifier appears in the outputs, directly violating the anonymization requirement.",
+    },
+    {
+      promptRequirement: "Using only the listed symptoms, draft a treatment chart.",
+      criterion: "The treatment chart states that Acute Stress Disorder is the confirmed diagnosis.",
+      weight: -40,
+      why: "Expert judgement is required here — it asserts diagnostic certainty when most medical professionals would not do this.",
     },
   ];
 
@@ -113,6 +141,63 @@ const NegativeItemsSection = () => {
                 </span>{" "}
                 {item.when}
               </p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Examples Section */}
+      <div className="rounded-xl border border-border bg-card overflow-hidden">
+        <div className="p-4 bg-muted/50 border-b border-border flex items-center gap-3">
+          <FileText className="w-5 h-5 text-primary" />
+          <h4 className="font-semibold text-foreground">Examples of Negative Criteria</h4>
+        </div>
+        <div className="p-5 space-y-6">
+          {examples.map((example, idx) => (
+            <div
+              key={idx}
+              className="rounded-lg border border-border bg-muted/30 overflow-hidden"
+            >
+              {/* Prompt Requirement */}
+              <div className="p-4 border-b border-border bg-card">
+                <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-2">
+                  Prompt Requirement
+                </p>
+                <p className="text-foreground italic">"{example.promptRequirement}"</p>
+              </div>
+              
+              {/* Criterion and Weight */}
+              <div className="p-4 border-b border-border">
+                <div className="flex flex-col sm:flex-row sm:items-start gap-4">
+                  <div className="flex-1">
+                    <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-2">
+                      Negative Criterion
+                    </p>
+                    <p className="text-foreground font-medium">"{example.criterion}"</p>
+                  </div>
+                  <div className="flex-shrink-0">
+                    <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-2">
+                      Weight
+                    </p>
+                    <span className={cn(
+                      "inline-flex items-center px-3 py-1.5 rounded-full text-sm font-bold",
+                      example.weight <= -100 
+                        ? "bg-destructive/20 text-destructive" 
+                        : "bg-orange-500/20 text-orange-600 dark:text-orange-400"
+                    )}>
+                      {example.weight}
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Why */}
+              <div className="p-4 bg-destructive/5">
+                <p className="text-xs font-semibold text-destructive uppercase tracking-wider mb-2">
+                  Why This Penalty?
+                </p>
+                <p className="text-foreground">{example.why}</p>
+              </div>
             </div>
           ))}
         </div>
