@@ -47,7 +47,7 @@ const PromptWritingInstructionsPage = () => {
         <div className="flex flex-col lg:flex-row">
           {/* Sidebar Navigation */}
           <nav className="w-full lg:w-72 border-b lg:border-b-0 lg:border-r border-border p-4 lg:p-6 flex-shrink-0">
-            <div className="flex lg:flex-col gap-2 overflow-x-auto lg:overflow-x-visible pb-2 lg:pb-0">
+            <div className="flex flex-col gap-2">
               {sections.map((section) => {
                 const Icon = section.icon;
                 const isActive = activeSection === section.id;

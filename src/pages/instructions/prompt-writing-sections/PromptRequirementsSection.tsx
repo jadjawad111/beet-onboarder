@@ -30,7 +30,7 @@ const PromptRequirementsSection = () => {
             <h4 className="font-semibold text-foreground">Input Files</h4>
           </div>
           <p className="text-muted-foreground text-sm">
-            Files you will provide (what the model will read)
+            Files you will create to support the prompt
           </p>
         </div>
 
@@ -42,7 +42,7 @@ const PromptRequirementsSection = () => {
             <h4 className="font-semibold text-foreground">Output Files</h4>
           </div>
           <p className="text-muted-foreground text-sm">
-            Files the model must create (what the model will produce)
+            The deliverables the prompt is expected to produce
           </p>
         </div>
       </div>
