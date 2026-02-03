@@ -8,9 +8,10 @@ const DraftPromptSection = () => {
       icon: User,
       color: "blue",
       items: [
-        "Who is the subject in the prompt (professional persona)?",
-        "Who is the audience / requestor?",
-        "What are the stakes if the work is late, wrong, or incomplete?",
+        "Who is the subject in the prompt? What is their professional persona?",
+        "Who is the deliverable for, and how will they use it?",
+        "What's the consequence if the work is late, wrong, or incomplete - and who is impacted?",
+        "What does this work enable, improve, or unblock?",
       ],
     },
     {
