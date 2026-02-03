@@ -46,23 +46,27 @@ const ReviewJobSection = () => {
         <div className="p-4 bg-muted/50 border-b border-border">
           <p className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">Example Description</p>
         </div>
-        <div className="p-6 space-y-4">
+        <div className="p-6 space-y-5">
           {/* Occupation and Sector */}
-          <div className="grid grid-cols-2 gap-4">
-            <div>
+          <div className="grid grid-cols-2 gap-6">
+            <div className="p-3 rounded-lg bg-muted/30">
               <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-1">Occupation</p>
-              <p className="text-foreground font-medium">Administrative Services Managers</p>
+              <p className="text-foreground font-semibold">Administrative Services Managers</p>
             </div>
-            <div>
+            <div className="p-3 rounded-lg bg-muted/30">
               <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-1">Sector</p>
-              <p className="text-foreground font-medium">Government</p>
+              <p className="text-foreground font-semibold">Government</p>
             </div>
           </div>
           
-          <div className="p-4 rounded-xl bg-blue-500/10 border border-blue-500/20">
-            <p className="text-foreground italic leading-relaxed">
-              "Plan, direct, or coordinate one or more administrative services of an organization, such as records and information management, mail distribution, and other office support services."
-            </p>
+          {/* Job Description */}
+          <div>
+            <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-2">Job Description</p>
+            <div className="p-4 rounded-xl bg-primary/5 border border-primary/20">
+              <p className="text-foreground leading-relaxed">
+                "Plan, direct, or coordinate one or more administrative services of an organization, such as records and information management, mail distribution, and other office support services."
+              </p>
+            </div>
           </div>
         </div>
       </div>
