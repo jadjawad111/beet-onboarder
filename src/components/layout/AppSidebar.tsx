@@ -25,6 +25,13 @@ interface AppSidebarProps {
 // Main section - Educational content
 const mainNav = [
   { 
+    id: "home",
+    label: "Home", 
+    icon: Home, 
+    to: "/home",
+    locked: false,
+  },
+  { 
     id: "education",
     label: "Educational Modules", 
     icon: GraduationCap, 
@@ -49,13 +56,6 @@ const mainNav = [
 
 // Project Tools section
 const projectToolsNav = [
-  { 
-    id: "home",
-    label: "Home", 
-    icon: Home, 
-    to: "/home",
-    locked: false,
-  },
   { 
     id: "project-info",
     label: "Project Information", 
