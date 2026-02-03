@@ -13,7 +13,7 @@ const InputFilesInstructionsPage = () => {
             </div>
             <div>
               <h1 className="text-2xl font-bold text-foreground">Part 2: Input Files</h1>
-              <p className="text-muted-foreground">Creating supporting files for your prompts</p>
+              <p className="text-muted-foreground">Create input files to support your prompt with professional realism.</p>
             </div>
           </div>
         </div>

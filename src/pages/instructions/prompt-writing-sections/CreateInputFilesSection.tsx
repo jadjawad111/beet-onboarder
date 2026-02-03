@@ -1,4 +1,4 @@
-import { Files, CheckCircle, FileSpreadsheet, Image, FileText, Mail, ClipboardList, Users } from "lucide-react";
+import { CheckCircle, FileSpreadsheet, Image, FileText, Mail, ClipboardList, Users } from "lucide-react";
 
 const CreateInputFilesSection = () => {
   const guidelines = [
@@ -20,21 +20,6 @@ const CreateInputFilesSection = () => {
 
   return (
     <div className="space-y-8">
-      {/* Header */}
-      <div className="rounded-2xl border-2 border-primary/30 bg-gradient-to-br from-primary/10 via-primary/5 to-transparent p-6 shadow-lg">
-        <div className="flex items-start gap-4">
-          <div className="w-14 h-14 rounded-xl bg-primary/20 flex items-center justify-center flex-shrink-0">
-            <Files className="w-7 h-7 text-primary" />
-          </div>
-          <div>
-            <h3 className="text-xl font-bold text-foreground mb-2">Step 6: Create the Input Files</h3>
-            <p className="text-base text-foreground leading-relaxed">
-              Create input files to support your prompt with professional realism.
-            </p>
-          </div>
-        </div>
-      </div>
-
       {/* Guidelines */}
       <div className="space-y-4">
         <h4 className="text-lg font-bold text-foreground">For Each Input File You Create</h4>
