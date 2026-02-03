@@ -6,5 +6,6 @@ export { default as CriteriaRulesSection } from './CriteriaRulesSection';
 export { default as SpecificitySection } from './SpecificitySection';
 export { default as ErrorsSection } from './ErrorsSection';
 export { default as FormattingExamplesSection } from './FormattingExamplesSection';
+export { default as NegativeItemsSection } from './NegativeItemsSection';
 export { default as SpreadsheetRubricsSection } from './SpreadsheetRubricsSection';
 export { default as VideoRubricsSection } from './VideoRubricsSection';
