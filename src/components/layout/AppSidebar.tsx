@@ -70,7 +70,7 @@ const primaryNav = [
     label: "Beet Tasking Assistance", 
     icon: Bot, 
     to: "/tasking-assistance",
-    locked: false,
+    locked: true, // LOCKED for dogfooding
   },
   { 
     id: "claim-sheet",
