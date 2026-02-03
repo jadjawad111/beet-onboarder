@@ -25,7 +25,10 @@ export type ErrorType =
   | "not-self-contained" 
   | "stacked" 
   | "convoluted-phrasing" 
-  | "process-words";
+  | "process-words"
+  | "incorrect-label"
+  | "inaccurate-weighting"
+  | "restrictive";
 
 export interface CriterionData {
   id: number;
@@ -59,8 +62,11 @@ const errorTypeLabels: Record<ErrorType, string> = {
   "ambiguous": "Ambiguous",
   "not-self-contained": "Not self-contained",
   "stacked": "Stacked",
-  "convoluted-phrasing": "Stacking",
-  "process-words": "Process words",
+  "convoluted-phrasing": "Convoluted Phrasing",
+  "process-words": "Process Words",
+  "incorrect-label": "Incorrect Label",
+  "inaccurate-weighting": "Inaccurate Weighting",
+  "restrictive": "Restrictive",
 };
 
 const errorTypeOptions: ErrorType[] = [
@@ -69,6 +75,9 @@ const errorTypeOptions: ErrorType[] = [
   "stacked",
   "convoluted-phrasing",
   "process-words",
+  "incorrect-label",
+  "inaccurate-weighting",
+  "restrictive",
 ];
 
 const categoryColors: Record<string, string> = {
@@ -211,6 +220,9 @@ const RubricInteractiveQuiz = ({
       "stacked": 0,
       "convoluted-phrasing": 0,
       "process-words": 0,
+      "incorrect-label": 0,
+      "inaccurate-weighting": 0,
+      "restrictive": 0,
     };
 
     criteria.forEach(c => {
