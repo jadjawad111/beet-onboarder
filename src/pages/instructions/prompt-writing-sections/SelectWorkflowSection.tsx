@@ -46,7 +46,7 @@ const SelectWorkflowSection = () => {
       <div className="rounded-2xl border-2 border-border bg-card overflow-hidden shadow-md">
         <div className="p-4 bg-muted/50 border-b border-border">
           <p className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">
-            Example: Administrative Services Manager Workflows
+            Example: <span className="text-primary">Administrative Services Manager</span> Workflows
           </p>
         </div>
         <div className="p-6">
