@@ -130,6 +130,7 @@ const TaskingAssistancePage = () => {
             task_id: data.task_id,
             prompt: data.prompt_text,
             input_files: data.attachment_urls,
+            input_file_count: data.attachment_urls?.length || 0,
           }),
         });
       } catch (webhookError) {
@@ -287,10 +288,10 @@ const TaskingAssistancePage = () => {
                 />
                 <Upload className="h-8 w-8 text-muted-foreground/50 mx-auto mb-3" />
                 <p className="text-sm text-muted-foreground">
-                  Click to upload a file
+                  Click to upload files
                 </p>
                 <p className="text-xs text-muted-foreground/70 mt-1">
-                  XLSX, PPTX, PDF, DOCX (max 10MB)
+                  XLSX, PPTX, PDF, DOCX — up to 5 files (max 10MB each)
                 </p>
               </div>
 
