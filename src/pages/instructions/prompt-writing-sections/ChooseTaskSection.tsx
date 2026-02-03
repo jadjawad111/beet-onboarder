@@ -1,4 +1,73 @@
-import { Briefcase, CheckCircle } from "lucide-react";
+import { Briefcase, CheckCircle, Star } from "lucide-react";
+import { cn } from "@/lib/utils";
+
+const allTasks = [
+  { occupation: "Medical and Health Services Managers", sector: "Health Care and Social Assistance" },
+  { occupation: "Nurse Practitioners", sector: "Health Care and Social Assistance" },
+  { occupation: "Registered Nurses", sector: "Health Care and Social Assistance" },
+  { occupation: "Pharmacists", sector: "Retail Trade" },
+  { occupation: "Child, Family, and School Social Workers", sector: "Government" },
+  { occupation: "Private Detectives and Investigators", sector: "Retail Trade" },
+  { occupation: "First-Line Supervisors of Police and Detectives", sector: "Government" },
+  { occupation: "Lawyers", sector: "Professional, Scientific, and Technical Services" },
+  { occupation: "Medical Secretaries and Administrative Assistants", sector: "Health Care and Social Assistance" },
+  { occupation: "Sales Representatives, Wholesale and Manufacturing, Except Technical and Scientific Products", sector: "Wholesale Trade" },
+  { occupation: "Sales Representatives, Wholesale and Manufacturing, Technical and Scientific Products", sector: "Wholesale Trade" },
+  { occupation: "First-Line Supervisors of Retail Sales Workers", sector: "Retail Trade" },
+  { occupation: "General and Operations Managers", sector: "Retail Trade" },
+  { occupation: "Counter and Rental Clerks", sector: "Real Estate and Rental and Leasing" },
+  { occupation: "First-Line Supervisors of Production and Operating Workers", sector: "Manufacturing" },
+  { occupation: "First-Line Supervisors of Office and Administrative Support Workers", sector: "Health Care and Social Assistance" },
+  { occupation: "Sales Managers", sector: "Wholesale Trade" },
+  { occupation: "Concierges", sector: "Real Estate and Rental and Leasing" },
+  { occupation: "Property, Real Estate, and Community Association Managers", sector: "Real Estate and Rental and Leasing" },
+  { occupation: "Real Estate Brokers", sector: "Real Estate and Rental and Leasing" },
+  { occupation: "Real Estate Sales Agents", sector: "Real Estate and Rental and Leasing" },
+  { occupation: "Project Management Specialists", sector: "Professional, Scientific, and Technical Services" },
+  { occupation: "Shipping, Receiving, and Inventory Clerks", sector: "Manufacturing" },
+  { occupation: "Editors", sector: "Information" },
+  { occupation: "News Analysts, Reporters, and Journalists", sector: "Information" },
+  { occupation: "Administrative Services Managers", sector: "Government" },
+  { occupation: "Recreation Workers", sector: "Government" },
+  { occupation: "Customer Service Representatives", sector: "Finance and Insurance" },
+  { occupation: "First-Line Supervisors of Non-Retail Sales Workers", sector: "Wholesale Trade" },
+  { occupation: "Industrial Engineers", sector: "Manufacturing" },
+  { occupation: "Mechanical Engineers", sector: "Manufacturing" },
+  { occupation: "Computer and Information Systems Managers", sector: "Professional, Scientific, and Technical Services" },
+  { occupation: "Software Developers", sector: "Professional, Scientific, and Technical Services" },
+  { occupation: "Audio and Video Technicians", sector: "Information" },
+  { occupation: "Film and Video Editors", sector: "Information" },
+  { occupation: "Producers and Directors", sector: "Information" },
+  { occupation: "Accountants and Auditors", sector: "Professional, Scientific, and Technical Services" },
+  { occupation: "Buyers and Purchasing Agents", sector: "Manufacturing" },
+  { occupation: "Compliance Officers", sector: "Government" },
+  { occupation: "Financial and Investment Analysts", sector: "Finance and Insurance" },
+  { occupation: "Financial Managers", sector: "Finance and Insurance" },
+  { occupation: "Personal Financial Advisors", sector: "Finance and Insurance" },
+  { occupation: "Securities, Commodities, and Financial Services Sales Agents", sector: "Finance and Insurance" },
+  { occupation: "Order Clerks", sector: "Wholesale Trade" },
+];
+
+// Highlighted example task
+const highlightedTask = { occupation: "Administrative Services Managers", sector: "Government" };
+
+// Filter out the highlighted task from the main list
+const otherTasks = allTasks.filter(
+  t => t.occupation !== highlightedTask.occupation
+);
+
+// Get unique sectors for grouping display
+const sectorColors: Record<string, string> = {
+  "Government": "bg-blue-500/10 text-blue-700 dark:text-blue-300 border-blue-500/30",
+  "Health Care and Social Assistance": "bg-green-500/10 text-green-700 dark:text-green-300 border-green-500/30",
+  "Retail Trade": "bg-orange-500/10 text-orange-700 dark:text-orange-300 border-orange-500/30",
+  "Professional, Scientific, and Technical Services": "bg-purple-500/10 text-purple-700 dark:text-purple-300 border-purple-500/30",
+  "Wholesale Trade": "bg-cyan-500/10 text-cyan-700 dark:text-cyan-300 border-cyan-500/30",
+  "Real Estate and Rental and Leasing": "bg-pink-500/10 text-pink-700 dark:text-pink-300 border-pink-500/30",
+  "Manufacturing": "bg-amber-500/10 text-amber-700 dark:text-amber-300 border-amber-500/30",
+  "Information": "bg-indigo-500/10 text-indigo-700 dark:text-indigo-300 border-indigo-500/30",
+  "Finance and Insurance": "bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 border-emerald-500/30",
+};
 
 const ChooseTaskSection = () => {
   return (
@@ -35,22 +104,57 @@ const ChooseTaskSection = () => {
         </div>
       </div>
 
-      {/* Example */}
-      <div className="rounded-2xl border-2 border-border bg-card overflow-hidden shadow-md">
-        <div className="p-4 bg-muted/50 border-b border-border">
-          <p className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">Example</p>
+      {/* Highlighted Example */}
+      <div className="rounded-2xl border-2 border-primary bg-primary/5 overflow-hidden shadow-lg">
+        <div className="p-4 bg-primary/10 border-b border-primary/20 flex items-center gap-2">
+          <Star className="w-5 h-5 text-primary fill-primary" />
+          <p className="text-sm font-semibold text-primary uppercase tracking-wider">
+            Example Selection (Used Throughout This Guide)
+          </p>
         </div>
         <div className="p-6">
           <div className="grid gap-4 sm:grid-cols-2">
-            <div className="p-4 rounded-xl bg-muted/30 border border-border">
+            <div className="p-4 rounded-xl bg-card border-2 border-primary/30">
               <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-2">Occupation</p>
-              <p className="text-foreground font-medium">Administrative Services Manager</p>
+              <p className="text-foreground font-bold text-lg">{highlightedTask.occupation}</p>
             </div>
-            <div className="p-4 rounded-xl bg-muted/30 border border-border">
+            <div className="p-4 rounded-xl bg-card border-2 border-primary/30">
               <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-2">Sector</p>
-              <p className="text-foreground font-medium">Government</p>
+              <p className="text-foreground font-bold text-lg">{highlightedTask.sector}</p>
             </div>
           </div>
+        </div>
+      </div>
+
+      {/* Full Task List */}
+      <div className="rounded-2xl border-2 border-border bg-card overflow-hidden shadow-md">
+        <div className="p-4 bg-muted/50 border-b border-border">
+          <p className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">
+            All Available Tasks ({allTasks.length} total)
+          </p>
+        </div>
+        <div className="p-4 max-h-96 overflow-y-auto">
+          <div className="space-y-2">
+            {otherTasks.map((task, idx) => (
+              <div
+                key={idx}
+                className="flex items-center justify-between gap-4 p-3 rounded-lg bg-muted/30 border border-border hover:bg-muted/50 transition-colors"
+              >
+                <span className="text-sm text-foreground font-medium">{task.occupation}</span>
+                <span className={cn(
+                  "px-2 py-1 rounded-md text-xs font-medium border flex-shrink-0",
+                  sectorColors[task.sector] || "bg-muted text-muted-foreground"
+                )}>
+                  {task.sector}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className="p-3 bg-muted/30 border-t border-border">
+          <p className="text-xs text-muted-foreground text-center">
+            Scroll to see all available occupations and sectors
+          </p>
         </div>
       </div>
     </div>
