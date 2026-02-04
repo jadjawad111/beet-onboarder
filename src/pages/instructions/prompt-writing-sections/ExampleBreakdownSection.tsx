@@ -40,7 +40,7 @@ const promptParts: PromptPart[] = [
     id: "input-files",
     label: "Input File(s)",
     stepRef: "Step 4E",
-    color: "cyan",
+    color: "pink",
     text: "Attached is the sample blight remediation schedule template for reference.",
   },
   {
@@ -104,6 +104,12 @@ const getColorClasses = (color: string) => {
       border: "border-cyan-500/40",
       text: "text-cyan-600 dark:text-cyan-400",
       hoverBg: "hover:bg-cyan-500/25",
+    },
+    pink: {
+      bg: "bg-pink-500/15",
+      border: "border-pink-500/40",
+      text: "text-pink-600 dark:text-pink-400",
+      hoverBg: "hover:bg-pink-500/25",
     },
   };
   return colors[color];
@@ -185,7 +191,7 @@ const ExampleBreakdownSection = () => {
             { color: "purple", label: "B: Scenario + Domain Specifics" },
             { color: "orange", label: "C: Constraints + Challenges" },
             { color: "green", label: "D: Deliverables" },
-            { color: "cyan", label: "E: Input File(s)" },
+            { color: "pink", label: "E: Input File(s)" },
           ].map((item) => {
             const colors = getColorClasses(item.color);
             return (
@@ -216,17 +222,17 @@ const ExampleBreakdownSection = () => {
       </div>
 
       {/* Attached File Indicator */}
-      <div className="rounded-xl border-2 border-cyan-500/30 bg-cyan-500/5 p-5">
+      <div className="rounded-xl border-2 border-pink-500/30 bg-pink-500/5 p-5">
         <div className="flex items-center gap-3 mb-3">
-          <div className="w-10 h-10 rounded-lg bg-cyan-500/15 flex items-center justify-center">
-            <Paperclip className="w-5 h-5 text-cyan-600 dark:text-cyan-400" />
+          <div className="w-10 h-10 rounded-lg bg-pink-500/15 flex items-center justify-center">
+            <Paperclip className="w-5 h-5 text-pink-600 dark:text-pink-400" />
           </div>
           <div>
             <h4 className="font-semibold text-foreground">Attached Input File</h4>
             <p className="text-sm text-muted-foreground">Referenced in the prompt above</p>
           </div>
         </div>
-        <div className="ml-13 p-3 rounded-lg bg-background border border-cyan-500/20">
+        <div className="ml-13 p-3 rounded-lg bg-background border border-pink-500/20">
           <p className="text-sm text-foreground font-mono">sample_blight_remediation_schedule.pdf</p>
         </div>
       </div>
