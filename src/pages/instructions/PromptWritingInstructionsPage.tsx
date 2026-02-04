@@ -15,9 +15,9 @@ const sections = [
   { id: "choose-task", label: "1. Choose a Task", component: ChooseTaskSection },
   { id: "review-job", label: "2. Review Job Description", component: ReviewJobSection },
   { id: "select-workflow", label: "3. Select Workflow", component: SelectWorkflowSection },
-  { id: "requirements", label: "4. Prompt Requirements", component: PromptRequirementsSection },
-  { id: "draft-prompt", label: "5. Draft the Prompt", component: DraftPromptSection },
+  { id: "draft-prompt", label: "4. Prompt Requirements", component: DraftPromptSection },
   { id: "example", label: "Example Breakdown", component: ExampleBreakdownSection },
+  { id: "requirements", label: "5. Input Files", component: PromptRequirementsSection },
   { id: "quality-gate", label: "6. Quality Checklist", component: QualityGateSection },
 ];
 
