@@ -40,7 +40,7 @@ const PromptWritingInstructionsPage = () => {
     }
   }, [activeSection]);
 
-  const ActiveComponent = sections.find(s => s.id === activeSection)?.component || ChooseTaskSection;
+  const ActiveComponent = sections.find(s => s.id === activeSection)?.component || PromptOverviewSection;
   const currentIndex = sections.findIndex(s => s.id === activeSection);
   const prevSection = sections[currentIndex - 1];
   const nextSection = sections[currentIndex + 1];
