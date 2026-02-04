@@ -15,7 +15,6 @@ import {
   PenTool,
   FileText,
   GitBranch,
-  Files,
   Shield,
   Layers
 } from "lucide-react";
@@ -64,22 +63,15 @@ const mainNav = [
     hasSubNav: true,
   },
   { 
-    id: "input-files-instructions",
-    label: "Part 2: Input Files", 
-    icon: Files, 
-    to: "/instructions/input-files",
-    locked: false,
-  },
-  { 
     id: "golden-response-instructions",
-    label: "Part 3: Golden Example Deliverable", 
+    label: "Part 2: Deliverable", 
     icon: FileText, 
     to: "/instructions/golden-response",
     locked: false,
   },
   { 
     id: "rubric-instructions",
-    label: "Part 4: Rubrics", 
+    label: "Part 3: Revised Rubrics", 
     icon: FileText, 
     to: "/instructions/rubric-writing",
     locked: false,
