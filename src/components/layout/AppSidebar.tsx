@@ -29,6 +29,7 @@ interface AppSidebarProps {
 
 // Prompt Writing sub-sections
 const promptWritingSections = [
+  { id: "overview", label: "Overview", icon: PenTool },
   { id: "choose-task", label: "1. Choose a Task", icon: Briefcase },
   { id: "review-job", label: "2. Review Job Description", icon: FileText },
   { id: "select-workflow", label: "3. Select Workflow", icon: GitBranch },
@@ -116,8 +117,8 @@ const AppSidebar = ({ collapsed, onToggle }: AppSidebarProps) => {
     return location.pathname.startsWith(path);
   };
   
-  // Get current section from URL hash or default to first
-  const currentSection = location.hash.replace("#", "") || "choose-task";
+  // Get current section from URL hash or default to overview
+  const currentSection = location.hash.replace("#", "") || "overview";
   const isPromptWritingPage = location.pathname === "/instructions/prompt-writing";
 
   return (
@@ -213,34 +214,46 @@ const AppSidebar = ({ collapsed, onToggle }: AppSidebarProps) => {
           if (item.hasSubNav) {
             return (
               <div key={item.id}>
-                <button
-                  onClick={() => setPromptWritingOpen(!promptWritingOpen)}
-                  className={cn(
-                    "w-full flex items-center gap-3 px-3 py-3 rounded-lg transition-colors relative group",
-                    active 
-                      ? "bg-primary/10 text-primary" 
-                      : "text-muted-foreground hover:bg-muted hover:text-foreground"
-                  )}
-                >
-                  {active && (
-                    <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-8 bg-primary rounded-r-full" />
-                  )}
-                  <Icon className={cn("w-5 h-5 flex-shrink-0", collapsed && "mx-auto")} />
-                  {!collapsed && (
-                    <>
+                <div className="flex items-center">
+                  <Link
+                    to="/instructions/prompt-writing#overview"
+                    className={cn(
+                      "flex-1 flex items-center gap-3 px-3 py-3 rounded-l-lg transition-colors relative group",
+                      active 
+                        ? "bg-primary/10 text-primary" 
+                        : "text-muted-foreground hover:bg-muted hover:text-foreground"
+                    )}
+                  >
+                    {active && (
+                      <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-8 bg-primary rounded-r-full" />
+                    )}
+                    <Icon className={cn("w-5 h-5 flex-shrink-0", collapsed && "mx-auto")} />
+                    {!collapsed && (
                       <span className="font-medium text-sm flex-1 text-left">{item.label}</span>
+                    )}
+                    {collapsed && (
+                      <div className="absolute left-full ml-2 px-2 py-1 bg-foreground text-background text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
+                        {item.label}
+                      </div>
+                    )}
+                  </Link>
+                  {!collapsed && (
+                    <button
+                      onClick={() => setPromptWritingOpen(!promptWritingOpen)}
+                      className={cn(
+                        "px-2 py-3 rounded-r-lg transition-colors",
+                        active 
+                          ? "bg-primary/10 text-primary hover:bg-primary/20" 
+                          : "text-muted-foreground hover:bg-muted hover:text-foreground"
+                      )}
+                    >
                       <ChevronDown className={cn(
                         "w-4 h-4 transition-transform",
                         promptWritingOpen && "rotate-180"
                       )} />
-                    </>
+                    </button>
                   )}
-                  {collapsed && (
-                    <div className="absolute left-full ml-2 px-2 py-1 bg-foreground text-background text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
-                      {item.label}
-                    </div>
-                  )}
-                </button>
+                </div>
                 
                 {/* Sub-navigation dropdown */}
                 {!collapsed && promptWritingOpen && (
