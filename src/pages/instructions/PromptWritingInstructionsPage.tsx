@@ -9,8 +9,10 @@ import {
   QualityGateSection,
   ExampleBreakdownSection,
 } from "./prompt-writing-sections";
+import PromptOverviewSection from "./PromptOverviewSection";
 
 const sections = [
+  { id: "overview", label: "Overview", component: PromptOverviewSection },
   { id: "choose-task", label: "1. Choose a Task", component: ChooseTaskSection },
   { id: "review-job", label: "2. Review Job Description", component: ReviewJobSection },
   { id: "select-workflow", label: "3. Select Workflow", component: SelectWorkflowSection },
@@ -21,7 +23,7 @@ const sections = [
 
 const PromptWritingInstructionsPage = () => {
   const location = useLocation();
-  const [activeSection, setActiveSection] = useState("choose-task");
+  const [activeSection, setActiveSection] = useState("overview");
 
   // Sync with URL hash
   useEffect(() => {
