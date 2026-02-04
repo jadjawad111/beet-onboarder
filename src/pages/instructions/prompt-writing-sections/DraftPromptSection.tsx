@@ -1,4 +1,4 @@
-import { PenTool, User, MapPin, AlertTriangle, FileCheck, FileInput, FileType, CheckCircle, FileSpreadsheet, Image, FileText, Mail, ClipboardList, Users } from "lucide-react";
+import { Sparkles, User, MapPin, AlertTriangle, FileCheck, FileInput, FileType, CheckCircle, FileSpreadsheet, Image, FileText, Mail, ClipboardList, Users } from "lucide-react";
 
 const DraftPromptSection = () => {
   const elements = [
@@ -111,8 +111,8 @@ const DraftPromptSection = () => {
       {/* Header */}
       <div className="rounded-2xl border-2 border-primary/30 bg-gradient-to-br from-primary/10 via-primary/5 to-transparent p-6 shadow-lg">
         <div className="flex items-start gap-4">
-          <div className="w-14 h-14 rounded-xl bg-primary/20 flex items-center justify-center flex-shrink-0">
-            <PenTool className="w-7 h-7 text-primary" />
+          <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-amber-400 to-orange-500 flex items-center justify-center flex-shrink-0 shadow-lg shadow-amber-500/30">
+            <Sparkles className="w-7 h-7 text-white" />
           </div>
           <div>
             <h3 className="text-xl font-bold text-foreground mb-2">Step 4: Prompt Requirements</h3>
