@@ -23,10 +23,10 @@ const QualityGateSection = () => {
     {
       number: 1,
       title: "Realistic",
-      subtitle: "Professional Role & Context; Clear Constraints",
+      subtitle: "",
       icon: Target,
-      definition: "The prompt assigns a specific professional persona with skin in the game, defines the hierarchy, audience, and stakes. It includes real-world limitations and tradeoffs: resource constraints, competing priorities, business rules, and operational boundaries. The task reflects how work is actually done in organizations—not bypassing systems, approvals, or role boundaries.",
-      whyItMatters: "We are training models to perform real job tasks inside real organizations. The professional role tells the model what standard to meet (a Senior VP analyzes risk differently than a Junior Assistant). If a prompt ignores how work is actually done, the model may learn patterns that look correct but cannot transfer to real-world use. Constraints force the model to trade off between competing goals such as speed vs. accuracy or brevity vs. completeness.",
+      definition: "We're training AI to handle real professional workflows. The prompt assigns a specific role with clear stakes, hierarchy, and audience, including the actual constraints and tradeoffs that shape how work gets done in organizations.",
+      whyItMatters: "Models learn professional standards through role context. Constraints force tradeoffs between competing goals like speed vs. accuracy, teaching models to navigate real-world complexity.",
       example: {
         weak: "You are an administrative manager. Redesign the agency's entire staffing model and provide the best possible solution with no limitations.",
         whyFails: "The role is generic with no hierarchy or stakes. The task exceeds role authority, bypasses approval processes, and has no constraints or tradeoffs—encouraging generic or idealized responses.",
@@ -37,10 +37,10 @@ const QualityGateSection = () => {
     {
       number: 2,
       title: "Unambiguous",
-      subtitle: "Clear Deliverable",
+      subtitle: "",
       icon: FileOutput,
-      definition: "The prompt avoids vague terms and is clear about what needs to be done. It explicitly defines the output format, audience, structure, and quality bar. The model should not have to guess what is being asked or what a complete answer looks like.",
-      whyItMatters: "In professional domains, \"interpret it how you want\" is a failure. If the prompt is vague, we cannot distinguish between a model failure (the model couldn't do the work) and a prompt failure (the ask was never clear). The format is often part of the work—a Python script is useless to a CEO who asked for a PowerPoint.",
+      definition: "The prompt clearly defines what needs to be done, specifying output format, audience, structure, and quality standards. The deliverable should be aligned with the original prompt's request, specific, and complete.",
+      whyItMatters: "Vagueness makes it impossible to distinguish model failure from prompt failure.",
       example: {
         weak: "Review the department's processes and summarize your findings for leadership.",
         whyFails: "The terms \"review\" and \"summarize\" are vague. There is no defined scope, no specified output format, structure, or quality bar, making it impossible to tell whether a failure is due to the model or the prompt.",
@@ -51,10 +51,10 @@ const QualityGateSection = () => {
     {
       number: 3,
       title: "Challenging",
-      subtitle: "Sufficiently Difficult to Induce Meaningful Model Learning",
+      subtitle: "",
       icon: Sparkles,
-      definition: "The prompt is complex enough that the model must demonstrate real professional judgment, not just pattern matching. It requires integrating multiple sources, making tradeoffs, and producing work that tests the boundaries of model capabilities.",
-      whyItMatters: "Easy tasks don't teach models anything new. We need prompts that push the model to reason, prioritize, and synthesize—the kinds of tasks where getting it right requires genuine understanding, not just surface-level responses.",
+      definition: "The prompt requires professional judgment, not pattern matching. It demands integrating multiple sources, making tradeoffs, and producing work that tests model capabilities.",
+      whyItMatters: "Easy tasks don't improve models. We need prompts that push reasoning, prioritization, and synthesis—where success requires genuine understanding.",
       subPoints: [
         {
           label: "A. Role + Audience + Stakes",
@@ -161,7 +161,6 @@ const QualityGateSection = () => {
                   <Icon className="w-5 h-5 text-primary" />
                   <h4 className="font-semibold text-foreground">{element.title}</h4>
                 </div>
-                <p className="text-sm text-muted-foreground mt-2 ml-11">{element.subtitle}</p>
               </div>
 
               {/* Element Content */}
