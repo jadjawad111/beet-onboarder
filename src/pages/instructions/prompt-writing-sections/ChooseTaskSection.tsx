@@ -1,4 +1,5 @@
 import { Briefcase, CheckCircle, Star } from "lucide-react";
+import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
 
 const allTasks = [
@@ -89,7 +90,7 @@ const ChooseTaskSection = () => {
           <div>
             <h3 className="text-xl font-bold text-foreground mb-2">Step 1: Choose a Task Relevant to Your Professional Domain</h3>
             <p className="text-base text-foreground leading-relaxed">
-              From the available tasks, select one that is tied to a specific occupation and sector that you have expertise in.
+              From the available tasks in the <Link to="/claim-sheet" className="text-primary font-medium underline underline-offset-2 hover:text-primary/80 transition-colors">Claim Sheet</Link>, select one that is tied to a specific occupation and sector that you have expertise in.
             </p>
           </div>
         </div>
