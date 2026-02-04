@@ -165,23 +165,10 @@ const QualityGateSection = () => {
 
               {/* Element Content */}
               <div className="p-5 space-y-4">
-                <div>
-                  <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-2">
-                    Definition
-                  </p>
-                  <p className="text-foreground text-sm leading-relaxed">
-                    {element.definition}
-                  </p>
-                </div>
-
-                <div className="p-4 rounded-lg bg-amber-500/10 border border-amber-500/20">
-                  <p className="text-xs font-semibold text-amber-700 dark:text-amber-300 uppercase tracking-wider mb-2">
-                    Why It Matters
-                  </p>
-                  <p className="text-foreground text-sm leading-relaxed whitespace-pre-line">
-                    {element.whyItMatters}
-                  </p>
-                </div>
+                {/* Definition text (no label) */}
+                <p className="text-foreground text-sm leading-relaxed">
+                  {element.definition}
+                </p>
 
                 {/* Sub-points for Challenging */}
                 {element.subPoints && (
@@ -210,6 +197,16 @@ const QualityGateSection = () => {
                 )}
 
                 {element.example && <ExampleBlock example={element.example} />}
+
+                {/* Why It Matters - moved to bottom */}
+                <div className="p-4 rounded-lg bg-amber-500/10 border border-amber-500/20">
+                  <p className="text-xs font-semibold text-amber-700 dark:text-amber-300 uppercase tracking-wider mb-2">
+                    Why It Matters
+                  </p>
+                  <p className="text-foreground text-sm leading-relaxed whitespace-pre-line">
+                    {element.whyItMatters}
+                  </p>
+                </div>
               </div>
             </div>
           );
