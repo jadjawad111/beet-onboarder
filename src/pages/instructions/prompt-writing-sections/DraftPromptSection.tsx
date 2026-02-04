@@ -96,11 +96,11 @@ const DraftPromptSection = () => {
         text: "text-green-600 dark:text-green-400",
         iconBg: "bg-green-500/10",
       },
-      cyan: {
-        bg: "bg-cyan-500/5",
-        border: "border-cyan-500/20",
-        text: "text-cyan-600 dark:text-cyan-400",
-        iconBg: "bg-cyan-500/10",
+      pink: {
+        bg: "bg-pink-500/5",
+        border: "border-pink-500/20",
+        text: "text-pink-600 dark:text-pink-400",
+        iconBg: "bg-pink-500/10",
       },
     };
     return colors[color];
@@ -167,14 +167,14 @@ const DraftPromptSection = () => {
         })}
 
         {/* Element E: Input Files */}
-        <div className="rounded-xl border-2 border-cyan-500/20 bg-cyan-500/5 overflow-hidden">
+        <div className="rounded-xl border-2 border-pink-500/20 bg-pink-500/5 overflow-hidden">
           <div className="p-5">
             <div className="flex items-center gap-3 mb-4">
-              <div className="w-10 h-10 rounded-lg bg-cyan-500/10 flex items-center justify-center">
-                <FileInput className="w-5 h-5 text-cyan-600 dark:text-cyan-400" />
+              <div className="w-10 h-10 rounded-lg bg-pink-500/10 flex items-center justify-center">
+                <FileInput className="w-5 h-5 text-pink-600 dark:text-pink-400" />
               </div>
               <div className="flex items-center gap-2">
-                <span className="px-2 py-0.5 rounded text-xs font-bold text-cyan-600 dark:text-cyan-400 bg-cyan-500/10">
+                <span className="px-2 py-0.5 rounded text-xs font-bold text-pink-600 dark:text-pink-400 bg-pink-500/10">
                   E
                 </span>
                 <h4 className="font-semibold text-foreground">Input Files</h4>
@@ -188,11 +188,11 @@ const DraftPromptSection = () => {
             {/* Guidelines */}
             <div className="space-y-3 mb-5 ml-13">
               <h5 className="text-sm font-bold text-foreground">For Each Input File You Create</h5>
-              <div className="p-4 rounded-xl bg-background/50 border border-cyan-500/20">
+              <div className="p-4 rounded-xl bg-background/50 border border-pink-500/20">
                 <ul className="space-y-2">
                   {inputFileGuidelines.map((guideline, idx) => (
                     <li key={idx} className="flex items-start gap-3">
-                      <CheckCircle className="w-4 h-4 text-cyan-600 dark:text-cyan-400 flex-shrink-0 mt-0.5" />
+                      <CheckCircle className="w-4 h-4 text-pink-600 dark:text-pink-400 flex-shrink-0 mt-0.5" />
                       <span className="text-sm text-foreground">{guideline}</span>
                     </li>
                   ))}
@@ -201,10 +201,10 @@ const DraftPromptSection = () => {
             </div>
 
             {/* Example Input Files */}
-            <div className="rounded-xl border border-cyan-500/20 bg-background/50 overflow-hidden ml-13">
-              <div className="p-3 bg-cyan-500/10 border-b border-cyan-500/20">
+            <div className="rounded-xl border border-pink-500/20 bg-background/50 overflow-hidden ml-13">
+              <div className="p-3 bg-pink-500/10 border-b border-pink-500/20">
                 <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">
-                  Example Input Files for <span className="text-cyan-600 dark:text-cyan-400">Administrative Services Manager</span>
+                  Example Input Files for <span className="text-pink-600 dark:text-pink-400">Administrative Services Manager</span>
                 </p>
               </div>
               <div className="p-4">
