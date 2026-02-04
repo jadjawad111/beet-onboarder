@@ -1,4 +1,4 @@
-import { PenTool, User, MapPin, AlertTriangle, FileCheck } from "lucide-react";
+import { PenTool, User, MapPin, AlertTriangle, FileCheck, FileInput, FileType, CheckCircle, FileSpreadsheet, Image, FileText, Mail, ClipboardList, Users } from "lucide-react";
 
 const DraftPromptSection = () => {
   const elements = [
@@ -51,6 +51,25 @@ const DraftPromptSection = () => {
     },
   ];
 
+  const inputFileGuidelines = [
+    "Include only information a real professional would plausibly have",
+    "Keep it consistent with the scenario and constraints",
+    "Ensure the content enables the deliverables (not just background)",
+  ];
+
+  const exampleInputFiles = [
+    { label: "Spreadsheets/data extracts", icon: FileSpreadsheet },
+    { label: "Images", icon: Image },
+    { label: "Documents/PDFs", icon: FileText },
+    { label: "Emails", icon: Mail },
+    { label: "Meeting notes", icon: ClipboardList },
+    { label: "Inventory lists", icon: ClipboardList },
+    { label: "Staffing rosters", icon: Users },
+    { label: "Prior templates", icon: FileText },
+  ];
+
+  const allowedFileTypes = ["csv", "docx", "jpg", "pdf", "png", "pptx", "txt", "xlsx"];
+
   const getColorClasses = (color: string) => {
     const colors: Record<string, { bg: string; border: string; text: string; iconBg: string }> = {
       blue: {
@@ -77,6 +96,12 @@ const DraftPromptSection = () => {
         text: "text-green-600 dark:text-green-400",
         iconBg: "bg-green-500/10",
       },
+      cyan: {
+        bg: "bg-cyan-500/5",
+        border: "border-cyan-500/20",
+        text: "text-cyan-600 dark:text-cyan-400",
+        iconBg: "bg-cyan-500/10",
+      },
     };
     return colors[color];
   };
@@ -90,15 +115,15 @@ const DraftPromptSection = () => {
             <PenTool className="w-7 h-7 text-primary" />
           </div>
           <div>
-            <h3 className="text-xl font-bold text-foreground mb-2">Step 5: Draft the Prompt</h3>
+            <h3 className="text-xl font-bold text-foreground mb-2">Step 4: Prompt Requirements</h3>
             <p className="text-base text-foreground leading-relaxed">
-              Most prompts follow a guiding structure. Be creative in how you apply it, but include these four core elements.
+              Most prompts follow a guiding structure. Be creative in how you apply it, but include these core elements.
             </p>
           </div>
         </div>
       </div>
 
-      {/* Core Elements */}
+      {/* Core Elements A-D */}
       <div className="space-y-4">
         {elements.map((element) => {
           const Icon = element.icon;
@@ -140,6 +165,89 @@ const DraftPromptSection = () => {
             </div>
           );
         })}
+
+        {/* Element E: Input Files */}
+        <div className="rounded-xl border-2 border-cyan-500/20 bg-cyan-500/5 overflow-hidden">
+          <div className="p-5">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-10 h-10 rounded-lg bg-cyan-500/10 flex items-center justify-center">
+                <FileInput className="w-5 h-5 text-cyan-600 dark:text-cyan-400" />
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="px-2 py-0.5 rounded text-xs font-bold text-cyan-600 dark:text-cyan-400 bg-cyan-500/10">
+                  E
+                </span>
+                <h4 className="font-semibold text-foreground">Input Files</h4>
+              </div>
+            </div>
+            
+            <p className="text-muted-foreground text-sm mb-4 ml-13">
+              Files you will create to support the prompt
+            </p>
+
+            {/* Guidelines */}
+            <div className="space-y-3 mb-5 ml-13">
+              <h5 className="text-sm font-bold text-foreground">For Each Input File You Create</h5>
+              <div className="p-4 rounded-xl bg-background/50 border border-cyan-500/20">
+                <ul className="space-y-2">
+                  {inputFileGuidelines.map((guideline, idx) => (
+                    <li key={idx} className="flex items-start gap-3">
+                      <CheckCircle className="w-4 h-4 text-cyan-600 dark:text-cyan-400 flex-shrink-0 mt-0.5" />
+                      <span className="text-sm text-foreground">{guideline}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+
+            {/* Example Input Files */}
+            <div className="rounded-xl border border-cyan-500/20 bg-background/50 overflow-hidden ml-13">
+              <div className="p-3 bg-cyan-500/10 border-b border-cyan-500/20">
+                <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">
+                  Example Input Files for <span className="text-cyan-600 dark:text-cyan-400">Administrative Services Manager</span>
+                </p>
+              </div>
+              <div className="p-4">
+                <div className="grid gap-2 sm:grid-cols-2">
+                  {exampleInputFiles.map((input) => {
+                    const Icon = input.icon;
+                    return (
+                      <div
+                        key={input.label}
+                        className="flex items-center gap-2 p-2 rounded-lg bg-background border border-border"
+                      >
+                        <Icon className="w-3.5 h-3.5 text-muted-foreground" />
+                        <span className="text-xs text-foreground">{input.label}</span>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Allowed File Types */}
+      <div className="rounded-2xl border-2 border-border bg-card overflow-hidden shadow-md">
+        <div className="p-4 bg-muted/50 border-b border-border flex items-center gap-2">
+          <FileType className="w-4 h-4 text-muted-foreground" />
+          <p className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">
+            Allowed File Types
+          </p>
+        </div>
+        <div className="p-6">
+          <div className="flex flex-wrap gap-2">
+            {allowedFileTypes.map((type) => (
+              <code
+                key={type}
+                className="px-3 py-1.5 rounded-lg bg-muted text-foreground text-sm font-mono"
+              >
+                .{type}
+              </code>
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   );

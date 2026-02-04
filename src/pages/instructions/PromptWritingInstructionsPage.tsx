@@ -5,7 +5,6 @@ import {
   ChooseTaskSection,
   ReviewJobSection,
   SelectWorkflowSection,
-  PromptRequirementsSection,
   DraftPromptSection,
   QualityGateSection,
   ExampleBreakdownSection,
@@ -17,8 +16,7 @@ const sections = [
   { id: "select-workflow", label: "3. Select Workflow", component: SelectWorkflowSection },
   { id: "draft-prompt", label: "4. Prompt Requirements", component: DraftPromptSection },
   { id: "example", label: "Example Breakdown", component: ExampleBreakdownSection },
-  { id: "requirements", label: "5. Input Files", component: PromptRequirementsSection },
-  { id: "quality-gate", label: "6. Quality Checklist", component: QualityGateSection },
+  { id: "quality-gate", label: "5. Quality Checklist", component: QualityGateSection },
 ];
 
 const PromptWritingInstructionsPage = () => {
