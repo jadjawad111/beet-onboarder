@@ -73,7 +73,18 @@ const sectorColors: Record<string, string> = {
 const ChooseTaskSection = () => {
   return (
     <div className="space-y-8">
-      {/* Header - Step 1 */}
+      {/* What is a Prompt? */}
+      <div className="p-5 rounded-xl bg-gradient-to-br from-sky-500/10 to-cyan-500/10 border-2 border-sky-500/30 shadow-sm">
+        <h3 className="text-lg font-bold text-sky-700 dark:text-sky-300 mb-2 flex items-center gap-2">
+          <span className="px-2 py-0.5 rounded bg-sky-500/20 text-xs uppercase tracking-wider">Definition</span>
+          What is a Prompt?
+        </h3>
+        <p className="text-foreground leading-relaxed">
+          In Beet 2.0, a prompt is a request that mimics a real-world task or request that will be given to a professional in your respective domain.
+        </p>
+      </div>
+
+      {/* Header */}
       <div className="rounded-2xl border-2 border-primary/30 bg-gradient-to-br from-primary/10 via-primary/5 to-transparent p-6 shadow-lg">
         <div className="flex items-start gap-4">
           <div className="w-14 h-14 rounded-xl bg-primary/20 flex items-center justify-center flex-shrink-0">
