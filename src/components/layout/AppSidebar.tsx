@@ -32,9 +32,9 @@ const promptWritingSections = [
   { id: "choose-task", label: "1. Choose a Task", icon: Briefcase },
   { id: "review-job", label: "2. Review Job Description", icon: FileText },
   { id: "select-workflow", label: "3. Select Workflow", icon: GitBranch },
-  { id: "requirements", label: "4. Prompt Requirements", icon: ClipboardList },
-  { id: "draft-prompt", label: "5. Draft the Prompt", icon: PenTool },
+  { id: "draft-prompt", label: "4. Prompt Requirements", icon: PenTool },
   { id: "example", label: "Example Breakdown", icon: Layers },
+  { id: "requirements", label: "5. Input Files", icon: ClipboardList },
   { id: "quality-gate", label: "6. Quality Checklist", icon: Shield },
 ];
 
