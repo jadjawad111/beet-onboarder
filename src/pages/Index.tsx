@@ -70,7 +70,7 @@ const Index = () => {
           
           <div className="space-y-4">
             {/* Step 1: Prompt */}
-            <div className="p-5 rounded-2xl border border-border bg-card">
+            <div className="p-5 rounded-2xl border border-primary/20 bg-gradient-to-br from-primary/5 to-secondary/5">
               <div className="flex items-start gap-4">
                 <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
                   <span className="text-primary font-bold">1</span>
@@ -105,7 +105,7 @@ const Index = () => {
             </div>
 
             {/* Step 2: Ideal Deliverable */}
-            <div className="p-5 rounded-2xl border border-border bg-card">
+            <div className="p-5 rounded-2xl border border-primary/20 bg-gradient-to-br from-primary/5 to-secondary/5">
               <div className="flex items-start gap-4">
                 <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
                   <span className="text-primary font-bold">2</span>
@@ -125,7 +125,7 @@ const Index = () => {
             </div>
 
             {/* Step 3: Revised Rubric */}
-            <div className="p-5 rounded-2xl border border-border bg-card">
+            <div className="p-5 rounded-2xl border border-primary/20 bg-gradient-to-br from-primary/5 to-secondary/5">
               <div className="flex items-start gap-4">
                 <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
                   <span className="text-primary font-bold">3</span>
@@ -198,8 +198,7 @@ const Index = () => {
 
         {/* Incentives Section */}
         <section className="p-6 rounded-2xl border border-primary/30 bg-gradient-to-br from-primary/5 to-secondary/5">
-          <h2 className="text-2xl font-bold text-foreground mb-2">Earn up to $1,200 for getting started</h2>
-          <p className="text-muted-foreground mb-6">Bonuses are stackable. Complete onboarding fast and start earning immediately.</p>
+          <h2 className="text-2xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent mb-6">Earn up to $1,200 for getting started</h2>
           
           {/* Horizontal flow with arrows */}
           <div className="flex flex-col md:flex-row items-center justify-center gap-2 md:gap-0">
