@@ -16,7 +16,7 @@ const sections = [
   { id: "select-workflow", label: "3. Select Workflow", component: SelectWorkflowSection },
   { id: "draft-prompt", label: "4. Prompt Requirements", component: DraftPromptSection },
   { id: "example", label: "Example Breakdown", component: ExampleBreakdownSection },
-  { id: "quality-gate", label: "5. Quality Checklist", component: QualityGateSection },
+  { id: "quality-gate", label: "Quality Checklist", component: QualityGateSection },
 ];
 
 const PromptWritingInstructionsPage = () => {

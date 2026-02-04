@@ -2,12 +2,18 @@ import { useState, useEffect } from "react";
 import { Checkbox } from "@/components/ui/checkbox";
 
 const qualities = [
-  "Realistic to the actual job",
-  "Clear and direct in what deliverable is being asked for",
-  "Sufficiently complex and difficult so the model actually learns",
-  "Unambiguous, such that multiple professionals would agree on what a good output looks like",
-  "Timeless, with a clearly established current date of reference",
-  "Includes clear implicit or explicit constraints",
+  {
+    title: "Realistic",
+    description: "Professional role & context with clear constraints that reflect real-world limitations and organizational workflows",
+  },
+  {
+    title: "Unambiguous",
+    description: "Clear deliverable with explicit output format, structure, audience, and quality bar",
+  },
+  {
+    title: "Challenging",
+    description: "Sufficiently difficult to induce meaningful model learning—includes all 5 components: Role + Audience + Stakes, Scenario + Domain Specifics, Constraints + Challenges, Deliverables (Exact), and Input Files",
+  },
 ];
 
 interface PromptQualityChecklistProps {
@@ -32,18 +38,21 @@ const PromptQualityChecklist = ({ onAllChecked, onGateUnlock }: PromptQualityChe
   }, [allChecked, onAllChecked, onGateUnlock]);
 
   return (
-    <div className="space-y-3">
+    <div className="space-y-4">
       {qualities.map((quality, index) => (
         <label
           key={index}
-          className="flex items-center gap-3 p-3 rounded-lg border bg-card cursor-pointer hover:bg-accent/50 transition-colors min-h-[52px]"
+          className="flex items-start gap-3 p-4 rounded-lg border bg-card cursor-pointer hover:bg-accent/50 transition-colors"
         >
           <Checkbox
             checked={checked[index] || false}
             onCheckedChange={() => handleCheck(index)}
-            className="flex-shrink-0"
+            className="flex-shrink-0 mt-1"
           />
-          <span className="text-foreground">{quality}</span>
+          <div className="flex-1">
+            <span className="font-semibold text-foreground block">{quality.title}</span>
+            <span className="text-sm text-muted-foreground mt-1 block">{quality.description}</span>
+          </div>
         </label>
       ))}
       {allChecked && (
