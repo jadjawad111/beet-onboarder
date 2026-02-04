@@ -117,7 +117,7 @@ const DraftPromptSection = () => {
           <div>
             <h3 className="text-xl font-bold text-foreground mb-2">Step 4: Prompt Requirements</h3>
             <p className="text-base text-foreground leading-relaxed">
-              Most prompts follow a guiding structure. Be creative in how you apply it, but include these core elements.
+              This is a key step in writing a high-quality prompt. Be creative in how you apply it, but make sure the prompt includes the following core elements.
             </p>
           </div>
         </div>
