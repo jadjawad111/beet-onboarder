@@ -1,5 +1,4 @@
-import { Shield, CheckSquare, User, Target, Clock, FileOutput, Lock, X, Check } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { Shield, Target, FileOutput, Sparkles, User, MapPin, AlertTriangle, FileCheck, FileInput, X, Check } from "lucide-react";
 
 interface Example {
   weak: string;
@@ -11,9 +10,11 @@ interface Example {
 interface Element {
   number: number;
   title: string;
+  subtitle: string;
   icon: React.ElementType;
   definition: string;
   whyItMatters: string;
+  subPoints?: { label: string; icon: React.ElementType; description: string }[];
   example?: Example;
 }
 
@@ -21,80 +22,71 @@ const QualityGateSection = () => {
   const elements: Element[] = [
     {
       number: 1,
-      title: "Unambiguous",
-      icon: CheckSquare,
-      definition: "The prompt avoids vague terms and is clear about what needs to be done, while maintaining realism. The task is specific enough that the model does not need to guess what is being asked.",
-      whyItMatters: "In professional domains, \"interpret it how you want\" is a failure. We need to grade these models. If the prompt is vague, we cannot distinguish between:\n\n• A model failure (the model couldn't do the work)\n• A prompt failure (the ask was never clear)",
+      title: "Realistic",
+      subtitle: "Professional Role & Context; Clear Constraints",
+      icon: Target,
+      definition: "The prompt assigns a specific professional persona with skin in the game, defines the hierarchy, audience, and stakes. It includes real-world limitations and tradeoffs: resource constraints, competing priorities, business rules, and operational boundaries. The task reflects how work is actually done in organizations—not bypassing systems, approvals, or role boundaries.",
+      whyItMatters: "We are training models to perform real job tasks inside real organizations. The professional role tells the model what standard to meet (a Senior VP analyzes risk differently than a Junior Assistant). If a prompt ignores how work is actually done, the model may learn patterns that look correct but cannot transfer to real-world use. Constraints force the model to trade off between competing goals such as speed vs. accuracy or brevity vs. completeness.",
       example: {
-        weak: "Review the department's administrative processes and suggest improvements.",
-        whyFails: "The terms \"review\" and \"improvements\" are vague. There is no defined scope, no specified output, and no clear success criteria, so it is impossible to tell whether a failure is due to the model or the prompt.",
-        strong: "Create a two-page briefing memo identifying three specific inefficiencies in the department's records management process and propose one actionable improvement per inefficiency, using evidence from the provided inventory and staff workload files.",
-        whyWorks: "The task, scope, and outputs are explicit. The model does not need to guess what is being asked or what a complete answer looks like.",
+        weak: "You are an administrative manager. Redesign the agency's entire staffing model and provide the best possible solution with no limitations.",
+        whyFails: "The role is generic with no hierarchy or stakes. The task exceeds role authority, bypasses approval processes, and has no constraints or tradeoffs—encouraging generic or idealized responses.",
+        strong: "You are the Administrative Services Manager for a mid-sized state agency, reporting to the Deputy Director of Operations. Prepare a staffing recommendation memo outlining two reallocation options for review by Finance and final approval by the Deputy Director. Constraints: no additional headcount, compliance with state records retention policy, implementation within 90 days, and use of partial data from two legacy systems.",
+        whyWorks: "The role, hierarchy, audience, and stakes are explicit. The task aligns with realistic role boundaries, reflects real organizational workflows, and includes constraints that force meaningful tradeoffs.",
       },
     },
     {
       number: 2,
-      title: "Professional Role & Context",
-      icon: User,
-      definition: "The prompt assigns a specific professional persona with skin in the game. It defines the hierarchy, the audience, and the stakes of the task.",
-      whyItMatters: "The professional role tells the model what standard to meet (e.g., a Senior VP analyzes risk differently than a Junior Assistant). Context mirrors how real professional tasks are communicated. The model must demonstrate judgment by identifying what information is relevant and what can be ignored.",
+      title: "Unambiguous",
+      subtitle: "Clear Deliverable",
+      icon: FileOutput,
+      definition: "The prompt avoids vague terms and is clear about what needs to be done. It explicitly defines the output format, audience, structure, and quality bar. The model should not have to guess what is being asked or what a complete answer looks like.",
+      whyItMatters: "In professional domains, \"interpret it how you want\" is a failure. If the prompt is vague, we cannot distinguish between a model failure (the model couldn't do the work) and a prompt failure (the ask was never clear). The format is often part of the work—a Python script is useless to a CEO who asked for a PowerPoint.",
       example: {
-        weak: "You are an administrative manager preparing information for leadership.",
-        whyFails: "The role is generic, the audience is undefined, and there are no stated stakes or accountability.",
-        strong: "You are the Administrative Services Manager for a mid-sized state agency, reporting to the Deputy Director of Operations. This briefing will be reviewed in a weekly operations meeting and used to decide whether to reallocate administrative staff in the next quarter.",
-        whyWorks: "The role, hierarchy, audience, and stakes are explicit. The model must reason at the appropriate professional level.",
+        weak: "Review the department's processes and summarize your findings for leadership.",
+        whyFails: "The terms \"review\" and \"summarize\" are vague. There is no defined scope, no specified output format, structure, or quality bar, making it impossible to tell whether a failure is due to the model or the prompt.",
+        strong: "Create a two-page DOCX briefing memo identifying three specific inefficiencies in the department's records management process and propose one actionable improvement per inefficiency. Write in formal government memo style with an executive summary, findings, and recommendations. Do not produce slides or code.",
+        whyWorks: "The task, scope, output format, structure, and quality bar are all explicit. The model knows exactly what to produce and what a complete answer looks like.",
       },
     },
     {
       number: 3,
-      title: "Realistic & NOT Contrived",
-      icon: Target,
-      definition: "A realistic prompt asks the model to perform a task that a real professional in that role would plausibly be responsible for, using outputs they could actually produce within real workflows and constraints. A prompt is contrived when it asks for an outcome that bypasses systems, approvals, or role boundaries, even if it sounds professional.",
-      whyItMatters: "We are training models to perform real job tasks inside real organizations. If a prompt ignores how work is actually done, the model may learn patterns that look correct but cannot transfer to real-world use. This produces misleading training signals and weak generalization.",
+      title: "Challenging",
+      subtitle: "Sufficiently Difficult to Induce Meaningful Model Learning",
+      icon: Sparkles,
+      definition: "The prompt is complex enough that the model must demonstrate real professional judgment, not just pattern matching. It requires integrating multiple sources, making tradeoffs, and producing work that tests the boundaries of model capabilities.",
+      whyItMatters: "Easy tasks don't teach models anything new. We need prompts that push the model to reason, prioritize, and synthesize—the kinds of tasks where getting it right requires genuine understanding, not just surface-level responses.",
+      subPoints: [
+        {
+          label: "A. Role + Audience + Stakes",
+          icon: User,
+          description: "Defines the professional persona, who the deliverable is for, and consequences of failure",
+        },
+        {
+          label: "B. Scenario + Domain Specifics",
+          icon: MapPin,
+          description: "Operational setting, what's in scope vs. out of scope, situational details that drive judgment",
+        },
+        {
+          label: "C. Constraints + Challenges",
+          icon: AlertTriangle,
+          description: "Time, staffing, policies, compliance, partial data, competing priorities",
+        },
+        {
+          label: "D. Deliverables (Exact)",
+          icon: FileCheck,
+          description: "File formats, required content, tone, length, structure",
+        },
+        {
+          label: "E. Input Files",
+          icon: FileInput,
+          description: "Supporting materials that enable the task (spreadsheets, PDFs, emails, etc.)",
+        },
+      ],
       example: {
-        weak: "As an Administrative Services Manager, redesign the agency's entire staffing model and approve the final budget.",
-        whyFails: "The task exceeds the authority of the role, bypasses approval processes, and ignores how work is actually done in organizations.",
-        strong: "As the Administrative Services Manager, prepare a staffing recommendation memo outlining two reallocation options, including risks and tradeoffs, for review by Finance and final approval by the Deputy Director.",
-        whyWorks: "The task aligns with realistic role boundaries and reflects real organizational workflows.",
-      },
-    },
-    {
-      number: 4,
-      title: "Timelessness (Relative Dating)",
-      icon: Clock,
-      definition: "The prompt establishes a \"current date\" within the scenario logic rather than relying on real-world calendar dates or current events that will age out.",
-      whyItMatters: "If a prompt says \"Today is Tuesday,\" it may be false when the model is tested in the future.",
-      example: {
-        weak: "Today is March 12, 2024. Prepare a report for next Friday's meeting.",
-        whyFails: "The prompt relies on real-world calendar dates that will become invalid over time.",
-        strong: "Assume this task is being performed during Week 2 of the current quarterly planning cycle, with the deliverable due before the next scheduled operations review.",
-        whyWorks: "Time is anchored within the scenario logic, keeping the prompt valid over time.",
-      },
-    },
-    {
-      number: 5,
-      title: "Clear Deliverable",
-      icon: FileOutput,
-      definition: "Clear deliverable explicitly defines the output format, audience, and quality bar. The model should not have to guess whether the output is a PDF, CSV, or Python script.",
-      whyItMatters: "The format is often part of the work. A Python script is useless to a CEO who asked for a PowerPoint.",
-      example: {
-        weak: "Summarize your findings and present them to leadership.",
-        whyFails: "The output format, structure, and quality bar are undefined.",
-        strong: "Produce a two- to three-page DOCX briefing memo for senior leadership, written in formal government memo style, including an executive summary, findings, and recommendations. Do not produce slides or code.",
-        whyWorks: "The output format, audience, and expectations are explicitly defined.",
-      },
-    },
-    {
-      number: 6,
-      title: "Clear Constraints",
-      icon: Lock,
-      definition: "Clear constraints define real-world limitations and tradeoffs: resource constraints, competing priorities, business rules, and operational boundaries. These go beyond output formatting to include the guardrails that make professional tasks meaningfully difficult.",
-      whyItMatters: "Constraints force the model to trade off between competing goals such as speed vs. accuracy or brevity vs. completeness.",
-      example: {
-        weak: "Provide the best possible solution to improve administrative efficiency.",
-        whyFails: "There are no constraints or tradeoffs, encouraging generic or idealized responses.",
-        strong: "Constraints include no additional headcount or budget increases, compliance with existing state records retention policy, implementation within 90 days, and the use of partial and inconsistent data from two legacy systems.",
-        whyWorks: "The constraints reflect real-world limitations and force meaningful tradeoffs, making the task realistically difficult.",
+        weak: "Write a report about improving office efficiency.",
+        whyFails: "The task is trivially easy—no specific role, no scenario context, no constraints, no defined deliverable format, and no input files to synthesize. Any generic response could satisfy this.",
+        strong: "As the Administrative Services Manager, using the attached inventory spreadsheet and staff workload report, prepare a staffing recommendation memo that analyzes current allocation inefficiencies, proposes two reallocation options with risk assessments, and recommends one option with justification—all within the constraint of no additional headcount and 90-day implementation timeline.",
+        whyWorks: "The prompt requires integrating multiple input files, making tradeoffs between constraints, and producing a structured deliverable that demonstrates professional judgment. It includes all 5 components: role/audience/stakes, scenario specifics, constraints, exact deliverables, and input files.",
       },
     },
   ];
@@ -142,9 +134,9 @@ const QualityGateSection = () => {
             <Shield className="w-7 h-7 text-primary" />
           </div>
           <div>
-            <h3 className="text-xl font-bold text-foreground mb-2">Step 6: Run a Quality Checklist</h3>
+            <h3 className="text-xl font-bold text-foreground mb-2">Step 5: Quality Checklist</h3>
             <p className="text-base text-foreground leading-relaxed">
-              Use this checklist to verify your prompt meets all quality requirements.
+              Every prompt must pass these three quality gates before submission.
             </p>
           </div>
         </div>
@@ -161,12 +153,15 @@ const QualityGateSection = () => {
               className="rounded-xl border border-border bg-card overflow-hidden"
             >
               {/* Element Header */}
-              <div className="p-4 bg-muted/50 border-b border-border flex items-center gap-3">
-                <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
-                  <span className="text-sm font-bold text-primary">{element.number}</span>
+              <div className="p-4 bg-muted/50 border-b border-border">
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
+                    <span className="text-sm font-bold text-primary">{element.number}</span>
+                  </div>
+                  <Icon className="w-5 h-5 text-primary" />
+                  <h4 className="font-semibold text-foreground">{element.title}</h4>
                 </div>
-                <Icon className="w-5 h-5 text-primary" />
-                <h4 className="font-semibold text-foreground">{element.title}</h4>
+                <p className="text-sm text-muted-foreground mt-2 ml-11">{element.subtitle}</p>
               </div>
 
               {/* Element Content */}
@@ -188,6 +183,32 @@ const QualityGateSection = () => {
                     {element.whyItMatters}
                   </p>
                 </div>
+
+                {/* Sub-points for Challenging */}
+                {element.subPoints && (
+                  <div className="space-y-2">
+                    <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-3">
+                      Required Components
+                    </p>
+                    <div className="grid gap-2">
+                      {element.subPoints.map((point) => {
+                        const PointIcon = point.icon;
+                        return (
+                          <div
+                            key={point.label}
+                            className="flex items-start gap-3 p-3 rounded-lg bg-muted/50 border border-border"
+                          >
+                            <PointIcon className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
+                            <div>
+                              <p className="text-sm font-medium text-foreground">{point.label}</p>
+                              <p className="text-xs text-muted-foreground mt-0.5">{point.description}</p>
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                )}
 
                 {element.example && <ExampleBlock example={element.example} />}
               </div>
