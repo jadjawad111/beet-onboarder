@@ -17,7 +17,16 @@ import {
   GitBranch,
   Shield,
   Layers,
-  ClipboardCheck
+  ClipboardCheck,
+  BookOpen,
+  Brain,
+  ListChecks,
+  Target,
+  Layout,
+  Video,
+  AlertCircle,
+  CheckCircle2,
+  Trophy
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import beetIcon from "@/assets/beet-icon.png";
@@ -39,6 +48,19 @@ const promptWritingSections = [
   { id: "quality-gate", label: "5. Quality Checklist", icon: Shield },
 ];
 
+ // Rubric Writing sub-sections
+ const rubricWritingSections = [
+   { id: "introduction", label: "1. Introduction", icon: BookOpen },
+   { id: "understanding-rubrics", label: "2. Understanding AI Training", icon: Brain },
+   { id: "rubric-items", label: "3. Rubric Components", icon: ListChecks },
+   { id: "specificity", label: "4. General vs Specific", icon: Target },
+   { id: "formatting", label: "Formatting Examples", icon: Layout },
+   { id: "videos", label: "Video Rubrics Examples", icon: Video },
+   { id: "common-issues", label: "Common Issues", icon: AlertCircle },
+   { id: "all-components-complete", label: "Complete!", icon: CheckCircle2 },
+   { id: "complete", label: "Copy Code Here", icon: Trophy },
+ ];
+ 
 // Main section - Educational content
 const mainNav = [
   { 
@@ -69,6 +91,8 @@ const mainNav = [
     icon: FileText, 
     to: "/instructions/rubric-writing",
     locked: false,
+    hasSubNav: true,
+    subNavType: "rubric",
   },
   { 
     id: "interactive-examples",
@@ -118,6 +142,7 @@ const secondaryNav = [
 const AppSidebar = ({ collapsed, onToggle }: AppSidebarProps) => {
   const location = useLocation();
   const [promptWritingOpen, setPromptWritingOpen] = useState(true);
+  const [rubricWritingOpen, setRubricWritingOpen] = useState(true);
   
   const isActive = (path: string) => {
     if (path === "/home") return location.pathname === "/home";
@@ -127,6 +152,8 @@ const AppSidebar = ({ collapsed, onToggle }: AppSidebarProps) => {
   // Get current section from URL hash or default to first
   const currentSection = location.hash.replace("#", "") || "choose-task";
   const isPromptWritingPage = location.pathname === "/instructions/prompt-writing";
+  const isRubricWritingPage = location.pathname === "/instructions/rubric-writing";
+  const currentRubricSection = location.hash.replace("#", "") || "introduction";
 
   return (
     <aside 
@@ -251,10 +278,20 @@ const AppSidebar = ({ collapsed, onToggle }: AppSidebarProps) => {
           
           // Special handling for Prompt Writing Instructions with sub-nav
           if (item.hasSubNav) {
+            const isRubricNav = item.subNavType === "rubric";
+            const isOpen = isRubricNav ? rubricWritingOpen : promptWritingOpen;
+            const toggleOpen = isRubricNav 
+              ? () => setRubricWritingOpen(!rubricWritingOpen)
+              : () => setPromptWritingOpen(!promptWritingOpen);
+            const sections = isRubricNav ? rubricWritingSections : promptWritingSections;
+            const basePath = isRubricNav ? "/instructions/rubric-writing" : "/instructions/prompt-writing";
+            const isCurrentPage = isRubricNav ? isRubricWritingPage : isPromptWritingPage;
+            const activeSection = isRubricNav ? currentRubricSection : currentSection;
+            
             return (
               <div key={item.id}>
                 <button
-                  onClick={() => setPromptWritingOpen(!promptWritingOpen)}
+                  onClick={toggleOpen}
                   className={cn(
                     "w-full flex items-center gap-3 px-3 py-3 rounded-lg transition-colors relative group",
                     active 
@@ -271,7 +308,7 @@ const AppSidebar = ({ collapsed, onToggle }: AppSidebarProps) => {
                       <span className="font-medium text-sm flex-1 text-left">{item.label}</span>
                       <ChevronDown className={cn(
                         "w-4 h-4 transition-transform",
-                        promptWritingOpen && "rotate-180"
+                        isOpen && "rotate-180"
                       )} />
                     </>
                   )}
@@ -283,16 +320,16 @@ const AppSidebar = ({ collapsed, onToggle }: AppSidebarProps) => {
                 </button>
                 
                 {/* Sub-navigation dropdown */}
-                {!collapsed && promptWritingOpen && (
+                {!collapsed && isOpen && (
                   <div className="ml-4 mt-1 space-y-0.5 border-l-2 border-border pl-3">
-                    {promptWritingSections.map((section) => {
+                    {sections.map((section) => {
                       const SectionIcon = section.icon;
-                      const isActiveSection = isPromptWritingPage && currentSection === section.id;
+                      const isActiveSection = isCurrentPage && activeSection === section.id;
                       
                       return (
                         <Link
                           key={section.id}
-                          to={`/instructions/prompt-writing#${section.id}`}
+                          to={`${basePath}#${section.id}`}
                           className={cn(
                             "flex items-center gap-2 px-2 py-2 rounded-md text-xs font-medium transition-colors",
                             isActiveSection
