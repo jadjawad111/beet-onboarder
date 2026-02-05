@@ -53,17 +53,26 @@
       {/* The 6 Components */}
       <div className="grid gap-4 md:grid-cols-2">
         {/* Criterion */}
-        <div className="rounded-xl border-2 border-border bg-card p-5 hover:border-primary/30 transition-colors">
+        <button
+          onClick={() => onNavigate?.("criteria-rules")}
+          className={cn(
+            "rounded-xl border-2 border-border bg-card p-5 transition-colors text-left",
+            onNavigate ? "hover:border-primary/50 hover:bg-primary/5 cursor-pointer group" : "hover:border-primary/30"
+          )}
+        >
           <div className="flex items-center gap-3 mb-3">
             <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
               <ListChecks className="w-5 h-5 text-primary" />
             </div>
-            <h4 className="font-bold text-foreground">1. Criterion</h4>
+            <h4 className="font-bold text-foreground group-hover:text-primary transition-colors flex items-center gap-2">
+              1. Criterion
+              {onNavigate && <ExternalLink className="w-3.5 h-3.5 opacity-0 group-hover:opacity-100 transition-opacity" />}
+            </h4>
           </div>
           <p className="text-sm text-foreground leading-relaxed">
             A statement that asserts what a model response would do to earn points. It should be clear, concise, readable, and atomic. It should be evaluable (there should never be ambiguity in whether or not a model response has fulfilled the criteria). These statements should be binary – they can only be true or false, with no shades of grey.
           </p>
-        </div>
+        </button>
 
         {/* Rationale */}
         <div className="rounded-xl border-2 border-border bg-card p-5 hover:border-primary/30 transition-colors">
