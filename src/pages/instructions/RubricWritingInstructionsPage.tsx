@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { FileText, ChevronRight, BookOpen, ListChecks, Scale, Tag, FileCheck, Target, Layout, Video, AlertCircle, Brain, ClipboardCheck } from "lucide-react";
+import { FileText, ChevronRight, BookOpen, ListChecks, Scale, Tag, FileCheck, Target, Layout, Video, AlertCircle, Brain, ClipboardCheck, CheckCircle2, Trophy } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import {
@@ -13,7 +13,9 @@ import {
   VideoRubricsSection,
   CommonIssuesSection,
   RubricEducationSection,
-  InteractiveExamplesSection
+  InteractiveExamplesSection,
+  AllComponentsCompleteSection,
+  CompleteSection
 } from "./rubric-sections";
 
 const sections = [
@@ -28,6 +30,8 @@ const sections = [
    { id: "videos", label: "Video Rubrics Examples", icon: Video, component: VideoRubricsSection },
    { id: "common-issues", label: "Common Issues", icon: AlertCircle, component: CommonIssuesSection },
    { id: "interactive-examples", label: "Interactive Examples", icon: ClipboardCheck, component: InteractiveExamplesSection },
+   { id: "all-components-complete", label: "All Components Complete", icon: CheckCircle2, component: AllComponentsCompleteSection },
+   { id: "complete", label: "Complete!", icon: Trophy, component: CompleteSection },
 ];
 
 const RubricWritingInstructionsPage = () => {
