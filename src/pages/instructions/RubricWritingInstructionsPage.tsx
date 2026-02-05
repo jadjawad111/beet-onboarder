@@ -17,6 +17,7 @@ import {
 
 const sections = [
   { id: "introduction", label: "Introduction", icon: BookOpen, component: IntroductionSection },
+   { id: "understanding-rubrics", label: "Understanding AI Training", icon: Brain, component: RubricEducationSection },
    { id: "rubric-items", label: "Rubric Components", icon: ListChecks, component: RubricItemsSection },
   { id: "weighting", label: "Weighting", icon: Scale, component: WeightingSection },
   { id: "categories", label: "Categories", icon: Tag, component: CategoriesSection },
@@ -25,7 +26,6 @@ const sections = [
   { id: "formatting", label: "Formatting Examples", icon: Layout, component: FormattingExamplesSection },
    { id: "videos", label: "Video Rubrics Examples", icon: Video, component: VideoRubricsSection },
    { id: "common-issues", label: "Common Issues", icon: AlertCircle, component: CommonIssuesSection },
-   { id: "understanding-rubrics", label: "Understanding AI Training", icon: Brain, component: RubricEducationSection },
 ];
 
 const RubricWritingInstructionsPage = () => {
