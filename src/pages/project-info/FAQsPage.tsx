@@ -64,7 +64,7 @@ const FAQsPage = () => {
         <h2 className="text-xl font-bold text-foreground mb-4">Still Have Questions?</h2>
         <div className="grid md:grid-cols-2 gap-4">
           <a 
-            href="https://discord.gg/M57meSRXcH"
+            href="https://discord.com/invite/vzngq3UWcS"
             target="_blank"
             rel="noopener noreferrer"
             className="p-5 rounded-xl border border-border bg-card hover:border-primary/50 transition-colors block"
