@@ -32,6 +32,14 @@ const RubricWritingInstructionsPage = () => {
   const [activeSection, setActiveSection] = useState("introduction");
 
   const ActiveComponent = sections.find(s => s.id === activeSection)?.component || IntroductionSection;
+ 
+   // Special rendering for RubricItemsSection to pass navigation callback
+   const renderActiveComponent = () => {
+     if (activeSection === "rubric-items") {
+       return <RubricItemsSection onNavigate={setActiveSection} />;
+     }
+     return <ActiveComponent />;
+   };
 
   return (
     <div className="min-h-screen bg-background">
@@ -109,7 +117,7 @@ const RubricWritingInstructionsPage = () => {
 
           {/* Main Content */}
           <main className="flex-1 p-6 md:p-8 lg:p-10 overflow-auto">
-            <ActiveComponent />
+             {renderActiveComponent()}
             
             {/* Navigation Footer */}
             <div className="mt-10 pt-6 border-t border-border flex justify-between items-center">

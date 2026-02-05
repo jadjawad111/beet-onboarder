@@ -1,6 +1,11 @@
-import { ListChecks, MessageSquareQuote, Scale, Tag, Link, Hash, AlertCircle } from "lucide-react";
+ import { ListChecks, MessageSquareQuote, Scale, Tag, Link, Hash, AlertCircle, ExternalLink } from "lucide-react";
+ import { cn } from "@/lib/utils";
 
-const RubricItemsSection = () => {
+ interface RubricItemsSectionProps {
+   onNavigate?: (sectionId: string) => void;
+ }
+ 
+ const RubricItemsSection = ({ onNavigate }: RubricItemsSectionProps) => {
   const principles = [
     {
       name: "Atomicity",
@@ -74,30 +79,48 @@ const RubricItemsSection = () => {
         </div>
 
         {/* Weight */}
-        <div className="rounded-xl border-2 border-border bg-card p-5 hover:border-primary/30 transition-colors">
+         <button
+           onClick={() => onNavigate?.("weighting")}
+           className={cn(
+             "rounded-xl border-2 border-border bg-card p-5 transition-colors text-left",
+             onNavigate ? "hover:border-primary/50 hover:bg-primary/5 cursor-pointer group" : "hover:border-primary/30"
+           )}
+         >
           <div className="flex items-center gap-3 mb-3">
             <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
               <Scale className="w-5 h-5 text-primary" />
             </div>
-            <h4 className="font-bold text-foreground">3. Weight</h4>
+             <h4 className="font-bold text-foreground group-hover:text-primary transition-colors flex items-center gap-2">
+               3. Weight
+               {onNavigate && <ExternalLink className="w-3.5 h-3.5 opacity-0 group-hover:opacity-100 transition-opacity" />}
+             </h4>
           </div>
           <p className="text-sm text-foreground leading-relaxed">
             A score representing its relative importance compared to all other points in the rubric.
           </p>
-        </div>
+         </button>
 
         {/* Category */}
-        <div className="rounded-xl border-2 border-border bg-card p-5 hover:border-primary/30 transition-colors">
+         <button
+           onClick={() => onNavigate?.("categories")}
+           className={cn(
+             "rounded-xl border-2 border-border bg-card p-5 transition-colors text-left",
+             onNavigate ? "hover:border-primary/50 hover:bg-primary/5 cursor-pointer group" : "hover:border-primary/30"
+           )}
+         >
           <div className="flex items-center gap-3 mb-3">
             <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
               <Tag className="w-5 h-5 text-primary" />
             </div>
-            <h4 className="font-bold text-foreground">4. Category</h4>
+             <h4 className="font-bold text-foreground group-hover:text-primary transition-colors flex items-center gap-2">
+               4. Category
+               {onNavigate && <ExternalLink className="w-3.5 h-3.5 opacity-0 group-hover:opacity-100 transition-opacity" />}
+             </h4>
           </div>
           <p className="text-sm text-foreground leading-relaxed">
             Each criterion must fall under one of the designated categories: Instruction Following, Reasoning, Extraction, or Formatting.
           </p>
-        </div>
+         </button>
 
         {/* Citation */}
         <div className="rounded-xl border-2 border-border bg-card p-5 hover:border-primary/30 transition-colors">
