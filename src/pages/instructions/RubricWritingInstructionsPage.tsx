@@ -28,8 +28,8 @@ const sections = [
   { id: "formatting", label: "Formatting Examples", icon: Layout, component: FormattingExamplesSection },
    { id: "videos", label: "Video Rubrics Examples", icon: Video, component: VideoRubricsSection },
    { id: "common-issues", label: "Common Issues", icon: AlertCircle, component: CommonIssuesSection },
-   { id: "all-components-complete", label: "All Components Complete", icon: CheckCircle2, component: AllComponentsCompleteSection },
-   { id: "complete", label: "Complete!", icon: Trophy, component: CompleteSection },
+   { id: "all-components-complete", label: "Complete!", icon: CheckCircle2, component: AllComponentsCompleteSection },
+   { id: "complete", label: "Copy Code Here", icon: Trophy, component: CompleteSection },
 ];
 
 const RubricWritingInstructionsPage = () => {
