@@ -18,10 +18,10 @@ import {
 const sections = [
   { id: "introduction", label: "Introduction", icon: BookOpen, component: IntroductionSection },
    { id: "understanding-rubrics", label: "Understanding AI Training", icon: Brain, component: RubricEducationSection },
-   { id: "rubric-items", label: "Rubric Components", icon: ListChecks, component: RubricItemsSection },
-  { id: "weighting", label: "Weighting", icon: Scale, component: WeightingSection },
-  { id: "categories", label: "Categories", icon: Tag, component: CategoriesSection },
-  { id: "criteria-rules", label: "Criteria Rules", icon: FileCheck, component: CriteriaRulesSection },
+   { id: "rubric-items", label: "Rubric Components", icon: ListChecks, component: RubricItemsSection, isParent: true },
+  { id: "criteria-rules", label: "Criterion", icon: FileCheck, component: CriteriaRulesSection, parent: "rubric-items" },
+  { id: "weighting", label: "Weight", icon: Scale, component: WeightingSection, parent: "rubric-items" },
+  { id: "categories", label: "Category", icon: Tag, component: CategoriesSection, parent: "rubric-items" },
   { id: "specificity", label: "General vs Specific", icon: Target, component: SpecificitySection },
   { id: "formatting", label: "Formatting Examples", icon: Layout, component: FormattingExamplesSection },
    { id: "videos", label: "Video Rubrics Examples", icon: Video, component: VideoRubricsSection },
@@ -64,7 +64,7 @@ const RubricWritingInstructionsPage = () => {
             <div className="lg:hidden">
               <ScrollArea className="w-full">
                 <div className="flex gap-2 pb-4">
-                  {sections.map((section) => {
+                  {sections.filter(s => !('parent' in s)).map((section) => {
                     const Icon = section.icon;
                     const isActive = activeSection === section.id;
                     
@@ -94,19 +94,21 @@ const RubricWritingInstructionsPage = () => {
               {sections.map((section) => {
                 const Icon = section.icon;
                 const isActive = activeSection === section.id;
+                const isChild = 'parent' in section;
                 
                 return (
                   <button
                     key={section.id}
                     onClick={() => setActiveSection(section.id)}
                     className={cn(
-                      "flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-colors w-full text-left",
+                      "flex items-center gap-2 py-2 rounded-lg text-sm transition-colors w-full text-left",
+                      isChild ? "pl-8 pr-3 font-normal" : "px-3 font-medium",
                       isActive
                         ? "bg-primary/10 text-primary"
                         : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
                     )}
                   >
-                    <Icon className="w-4 h-4 flex-shrink-0" />
+                    <Icon className={cn("flex-shrink-0", isChild ? "w-3.5 h-3.5" : "w-4 h-4")} />
                     <span>{section.label}</span>
                     {isActive && <ChevronRight className="w-4 h-4 ml-auto" />}
                   </button>
