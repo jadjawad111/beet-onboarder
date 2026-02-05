@@ -1,7 +1,18 @@
-import { Award, Lightbulb, Target, TrendingUp, CheckCircle2, XCircle, Sparkles } from "lucide-react";
+import { useEffect } from "react";
+import { Award, Lightbulb, Target, TrendingUp, CheckCircle2 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
+import { useCourseProgress } from "@/hooks/useCourseProgress";
 
 const GoldenResponseInstructionsPage = () => {
+  const { markPart2Complete, isPart2Unlocked } = useCourseProgress();
+
+  // Mark Part 2 as complete when user views this page
+  useEffect(() => {
+    if (isPart2Unlocked) {
+      markPart2Complete();
+    }
+  }, [markPart2Complete, isPart2Unlocked]);
+
   return (
     <div className="min-h-screen bg-background p-6 md:p-8">
       <div className="max-w-4xl mx-auto space-y-8">
