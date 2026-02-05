@@ -281,7 +281,7 @@ const Index = () => {
               </div>
             </a>
             <a 
-              href="https://discord.gg/M57meSRXcH"
+              href="https://discord.com/invite/vzngq3UWcS"
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-3 p-4 rounded-xl border border-border bg-card hover:border-primary/30 hover:shadow-md transition-all group"
