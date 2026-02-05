@@ -1,5 +1,5 @@
 import { useState } from "react";
- import { FileText, ChevronRight, BookOpen, ListChecks, Scale, Tag, FileCheck, Target, Layout, Video, AlertCircle } from "lucide-react";
+ import { FileText, ChevronRight, BookOpen, ListChecks, Scale, Tag, FileCheck, Target, Layout, Video, AlertCircle, Brain } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import {
@@ -11,7 +11,8 @@ import {
   SpecificitySection,
   FormattingExamplesSection,
    VideoRubricsSection,
-   CommonIssuesSection
+   CommonIssuesSection,
+   RubricEducationSection
 } from "./rubric-sections";
 
 const sections = [
@@ -24,6 +25,7 @@ const sections = [
   { id: "formatting", label: "Formatting Examples", icon: Layout, component: FormattingExamplesSection },
    { id: "videos", label: "Video Rubrics Examples", icon: Video, component: VideoRubricsSection },
    { id: "common-issues", label: "Common Issues", icon: AlertCircle, component: CommonIssuesSection },
+   { id: "understanding-rubrics", label: "Understanding AI Training", icon: Brain, component: RubricEducationSection },
 ];
 
 const RubricWritingInstructionsPage = () => {
