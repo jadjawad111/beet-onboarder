@@ -16,7 +16,8 @@ import {
   FileText,
   GitBranch,
   Shield,
-  Layers
+  Layers,
+  ClipboardCheck
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import beetIcon from "@/assets/beet-icon.png";
@@ -67,6 +68,13 @@ const mainNav = [
     label: "Part 3: Rubrics", 
     icon: FileText, 
     to: "/instructions/rubric-writing",
+    locked: false,
+  },
+  { 
+    id: "interactive-examples",
+    label: "Interactive Examples", 
+    icon: ClipboardCheck, 
+    to: "/instructions/interactive-examples",
     locked: false,
   },
 ];
