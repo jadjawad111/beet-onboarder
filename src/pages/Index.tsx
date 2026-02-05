@@ -131,9 +131,9 @@ const Index = () => {
                   <span className="text-primary font-bold">3</span>
                 </div>
                 <div>
-                  <h3 className="text-lg font-semibold text-foreground">A Revised Rubric</h3>
+                  <h3 className="text-lg font-semibold text-foreground">A Rubric</h3>
                   <p className="text-muted-foreground text-sm">
-                    Edits to the AI-generated rubric to make the evaluation more accurate and reliable.
+                    Criteria that define what makes a good response
                   </p>
                 </div>
               </div>
