@@ -223,7 +223,7 @@ const Index = () => {
                 <CheckCircle2 className="w-5 h-5 text-primary" />
               </div>
               <p className="text-2xl font-bold text-foreground">$250</p>
-              <p className="text-xs text-muted-foreground text-center">Complete your first task</p>
+              <p className="text-xs text-muted-foreground text-center">Your First Task Is Approved</p>
             </div>
 
             {/* Arrow */}
@@ -240,7 +240,7 @@ const Index = () => {
                 <CheckCircle2 className="w-5 h-5 text-primary" />
               </div>
               <p className="text-2xl font-bold text-foreground">$250</p>
-              <p className="text-xs text-muted-foreground text-center">Complete your second task</p>
+              <p className="text-xs text-muted-foreground text-center">Your Second Task Is Approved</p>
             </div>
 
             {/* Arrow */}
@@ -326,7 +326,7 @@ const Index = () => {
               </div>
               <div>
                 <p className="font-semibold text-foreground">$250</p>
-                <p className="text-sm text-muted-foreground">Complete your first task</p>
+                <p className="text-sm text-muted-foreground">Your First Task Is Approved</p>
               </div>
             </div>
             
@@ -336,7 +336,7 @@ const Index = () => {
               </div>
               <div>
                 <p className="font-semibold text-foreground">$250</p>
-                <p className="text-sm text-muted-foreground">Complete your second task</p>
+                <p className="text-sm text-muted-foreground">Your Second Task Is Approved</p>
               </div>
             </div>
             
