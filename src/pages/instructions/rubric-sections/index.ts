@@ -12,3 +12,5 @@ export { default as VideoRubricsSection } from './VideoRubricsSection';
  export { default as CommonIssuesSection } from './CommonIssuesSection';
  export { default as RubricEducationSection } from './RubricEducationSection';
  export { default as InteractiveExamplesSection } from './InteractiveExamplesSection';
+ export { default as AllComponentsCompleteSection } from './AllComponentsCompleteSection';
+ export { default as CompleteSection } from './CompleteSection';
