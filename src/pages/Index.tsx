@@ -328,7 +328,7 @@ const Index = () => {
               </div>
               <div>
                 <p className="font-semibold text-foreground">$250</p>
-                <p className="text-sm text-muted-foreground">For your first task</p>
+                <p className="text-sm text-muted-foreground">Complete your first task</p>
               </div>
             </div>
             
@@ -338,7 +338,7 @@ const Index = () => {
               </div>
               <div>
                 <p className="font-semibold text-foreground">$250</p>
-                <p className="text-sm text-muted-foreground">For your second task</p>
+                <p className="text-sm text-muted-foreground">Complete your second task</p>
               </div>
             </div>
             
@@ -357,7 +357,7 @@ const Index = () => {
             onClick={handleCloseWelcome}
             className="w-full inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-primary to-primary/90 text-primary-foreground font-semibold hover:opacity-90 transition-opacity"
           >
-            Got It
+            Let's go!
           </button>
           
           <p className="text-xs text-center text-muted-foreground">
