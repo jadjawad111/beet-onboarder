@@ -146,7 +146,7 @@ const Index = () => {
           <h2 className="text-2xl font-bold text-foreground mb-6">What's Next?</h2>
           <div className="space-y-3">
             <Link 
-              to="/education/beet"
+              to="/instructions/prompt-writing"
               className="flex items-center gap-3 p-4 rounded-xl border border-border bg-card hover:border-primary/30 hover:shadow-md transition-all group"
             >
               <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
@@ -154,7 +154,7 @@ const Index = () => {
               </div>
               <div className="flex-1">
                 <p className="font-medium text-foreground group-hover:text-primary transition-colors">Complete this course</p>
-                <p className="text-sm text-muted-foreground">Learn how to create effective prompts and rubrics</p>
+                <p className="text-sm text-muted-foreground">Start with Part 1: Prompt</p>
               </div>
               <div className="flex items-center gap-1 px-2.5 py-1 rounded-full bg-gradient-to-r from-primary to-secondary/70 text-white text-xs font-bold">
                 <Star className="w-3 h-3 fill-current" />

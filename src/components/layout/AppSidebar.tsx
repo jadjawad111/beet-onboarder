@@ -48,13 +48,6 @@ const mainNav = [
     locked: false,
   },
   { 
-    id: "education",
-    label: "Educational Modules", 
-    icon: GraduationCap, 
-    to: "/education",
-    locked: false,
-  },
-  { 
     id: "prompt-instructions",
     label: "Part 1: Prompt", 
     icon: PenTool, 
@@ -105,6 +98,12 @@ const projectToolsNav = [
 ];
 
 const secondaryNav = [
+  { 
+    id: "education",
+    label: "Educational Modules", 
+    icon: GraduationCap, 
+    to: "/education",
+  },
   { label: "FAQs", icon: HelpCircle, to: "/faqs" },
 ];
 
@@ -170,7 +169,39 @@ const AppSidebar = ({ collapsed, onToggle }: AppSidebarProps) => {
 
       {/* Main Navigation */}
       <nav className="flex-1 py-4 px-2 space-y-1 overflow-y-auto">
-        {/* Main Section */}
+        {/* Home Link */}
+        {mainNav.filter(item => item.id === "home").map((item) => {
+          const Icon = item.icon;
+          const active = isActive(item.to);
+          
+          return (
+            <Link
+              key={item.id}
+              to={item.to}
+              className={cn(
+                "flex items-center gap-3 px-3 py-3 rounded-lg transition-colors relative group",
+                active 
+                  ? "bg-primary/10 text-primary" 
+                  : "text-muted-foreground hover:bg-muted hover:text-foreground"
+              )}
+            >
+              {active && (
+                <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-8 bg-primary rounded-r-full" />
+              )}
+              <Icon className={cn("w-5 h-5 flex-shrink-0", collapsed && "mx-auto")} />
+              {!collapsed && (
+                <span className="font-medium text-sm">{item.label}</span>
+              )}
+              {collapsed && (
+                <div className="absolute left-full ml-2 px-2 py-1 bg-foreground text-background text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
+                  {item.label}
+                </div>
+              )}
+            </Link>
+          );
+        })}
+
+        {/* Full Course Section */}
         <div className={cn("mb-2", collapsed ? "px-0" : "px-2")}>
           {!collapsed && (
             <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider">
@@ -179,7 +210,7 @@ const AppSidebar = ({ collapsed, onToggle }: AppSidebarProps) => {
           )}
         </div>
         
-        {mainNav.map((item) => {
+        {mainNav.filter(item => item.id !== "home").map((item) => {
           const Icon = item.icon;
           const active = isActive(item.to);
           const isLocked = item.locked;
