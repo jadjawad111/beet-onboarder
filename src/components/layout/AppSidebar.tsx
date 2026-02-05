@@ -71,7 +71,7 @@ const mainNav = [
   },
   { 
     id: "rubric-instructions",
-    label: "Part 3: Revised Rubrics", 
+    label: "Part 3: Rubrics", 
     icon: FileText, 
     to: "/instructions/rubric-writing",
     locked: false,
