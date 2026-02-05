@@ -22,7 +22,7 @@ const sections = [
   { id: "criteria-rules", label: "Criteria Rules", icon: FileCheck, component: CriteriaRulesSection },
   { id: "specificity", label: "General vs Specific", icon: Target, component: SpecificitySection },
   { id: "formatting", label: "Formatting Examples", icon: Layout, component: FormattingExamplesSection },
-  { id: "videos", label: "Video Rubrics", icon: Video, component: VideoRubricsSection },
+   { id: "videos", label: "Video Rubrics Examples", icon: Video, component: VideoRubricsSection },
    { id: "common-issues", label: "Common Issues", icon: AlertCircle, component: CommonIssuesSection },
 ];
 
