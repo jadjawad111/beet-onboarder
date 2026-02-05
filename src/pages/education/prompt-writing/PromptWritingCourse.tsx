@@ -2127,7 +2127,7 @@ This report will be used to brief the design team and guide future optimization 
   {
     id: "criterion-error-ambiguous",
     section: "Rubrics",
-    title: "Element #1 — Ambiguous",
+    title: "1. Ambiguous",
     parentId: "criterion-errors-overview",
     gated: true,
     content: (
@@ -2155,7 +2155,7 @@ This report will be used to brief the design team and guide future optimization 
   {
     id: "criterion-error-not-self-contained",
     section: "Rubrics",
-    title: "Element #2 — Not Self-contained",
+    title: "2. Not Self-contained",
     parentId: "criterion-errors-overview",
     gated: true,
     content: (
@@ -2183,7 +2183,7 @@ This report will be used to brief the design team and guide future optimization 
   {
     id: "criterion-error-stacked",
     section: "Rubrics",
-    title: "Element #3 — Stacked",
+    title: "3. Stacked",
     parentId: "criterion-errors-overview",
     gated: true,
     content: (
@@ -2211,7 +2211,7 @@ This report will be used to brief the design team and guide future optimization 
   {
     id: "criterion-error-convoluted",
     section: "Rubrics",
-    title: "Element #4 — Convoluted Phrasing",
+    title: "4. Convoluted Phrasing",
     parentId: "criterion-errors-overview",
     gated: true,
     content: (
@@ -2239,7 +2239,7 @@ This report will be used to brief the design team and guide future optimization 
   {
     id: "criterion-error-process-words",
     section: "Rubrics",
-    title: "Element #5 — Process Words",
+    title: "5. Process Words",
     parentId: "criterion-errors-overview",
     gated: true,
     content: (
@@ -2268,7 +2268,7 @@ This report will be used to brief the design team and guide future optimization 
   {
     id: "criterion-error-incorrect-label",
     section: "Rubrics",
-    title: "Element #6 — Incorrect Label",
+    title: "6. Incorrect Label",
     parentId: "criterion-errors-overview",
     gated: true,
     content: (
@@ -2296,7 +2296,7 @@ This report will be used to brief the design team and guide future optimization 
   {
     id: "criterion-error-inaccurate-weighting",
     section: "Rubrics",
-    title: "Element #7 — Inaccurate Weighting",
+    title: "7. Inaccurate Weighting",
     parentId: "criterion-errors-overview",
     gated: true,
     content: (
@@ -2325,7 +2325,7 @@ This report will be used to brief the design team and guide future optimization 
   {
     id: "criterion-error-restrictive",
     section: "Rubrics",
-    title: "Element #8 — Restrictive",
+    title: "8. Restrictive",
     parentId: "criterion-errors-overview",
     gated: true,
     content: (
@@ -2389,7 +2389,7 @@ This report will be used to brief the design team and guide future optimization 
   {
     id: "rubric-error-redundancy",
     section: "Rubrics",
-    title: "Issue #1 — Redundancy",
+    title: "1. Redundancy",
     parentId: "rubric-errors-overview",
     content: (
       <ContentSlide title="Issue #1 — Redundancy" layout="left">
@@ -2429,7 +2429,7 @@ This report will be used to brief the design team and guide future optimization 
   {
     id: "rubric-error-missing-criteria",
     section: "Rubrics",
-    title: "Issue #2 — Missing Criteria",
+    title: "2. Missing Criteria",
     parentId: "rubric-errors-overview",
     content: (
       <ContentSlide title="Issue #2 — Missing Criteria" layout="left">
@@ -2456,7 +2456,7 @@ This report will be used to brief the design team and guide future optimization 
   {
     id: "rubric-error-relative-weighting",
     section: "Rubrics",
-    title: "Issue #3 — Relative Weighting",
+    title: "3. Relative Weighting",
     parentId: "rubric-errors-overview",
     content: (
       <ContentSlide title="Issue #3 — Relative Weighting" layout="left">
