@@ -10,3 +10,4 @@ export { default as NegativeItemsSection } from './NegativeItemsSection';
 export { default as SpreadsheetRubricsSection } from './SpreadsheetRubricsSection';
 export { default as VideoRubricsSection } from './VideoRubricsSection';
  export { default as CommonIssuesSection } from './CommonIssuesSection';
+ export { default as RubricEducationSection } from './RubricEducationSection';
