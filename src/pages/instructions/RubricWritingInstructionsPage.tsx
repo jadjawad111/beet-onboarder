@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { FileText, ChevronRight, BookOpen, ListChecks, Scale, Tag, FileCheck, Target, Layout, Video, AlertCircle, Brain, CheckCircle2, Trophy } from "lucide-react";
-import { useCourseProgress } from "@/hooks/useCourseProgress";
 import {
   IntroductionSection,
   RubricItemsSection,
@@ -43,15 +42,6 @@ const RubricWritingInstructionsPage = () => {
       setActiveSection(hash);
     }
   }, [location.hash]);
-
-  // Track section completion
-  const { markPart3Section } = useCourseProgress();
-  
-  useEffect(() => {
-    if (activeSection) {
-      markPart3Section(activeSection);
-    }
-  }, [activeSection, markPart3Section]);
 
   const ActiveComponent = sections.find(s => s.id === activeSection)?.component || IntroductionSection;
  
