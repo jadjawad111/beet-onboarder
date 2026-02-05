@@ -32,6 +32,9 @@ import { cn } from "@/lib/utils";
 import beetIcon from "@/assets/beet-icon.png";
 import handshakeLogo from "@/assets/handshake-logo.png";
 
+// Check if editor mode is enabled (hidden feature for editors)
+const isEditorMode = () => localStorage.getItem("beet-editor-mode") === "true";
+
 interface AppSidebarProps {
   collapsed: boolean;
   onToggle: () => void;
@@ -453,7 +456,13 @@ const AppSidebar = ({ collapsed, onToggle }: AppSidebarProps) => {
           </div>
         )}
         
-        {secondaryNav.map((item) => {
+        {secondaryNav.filter((item) => {
+          // Hide Educational Modules from non-editors
+          if (item.id === "education" && !isEditorMode()) {
+            return false;
+          }
+          return true;
+        }).map((item) => {
           const Icon = item.icon;
           const active = isActive(item.to);
           
