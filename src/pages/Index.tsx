@@ -111,7 +111,7 @@ const Index = () => {
                   <span className="text-primary font-bold">2</span>
                 </div>
                 <div>
-                  <h3 className="text-lg font-semibold text-foreground">An Ideal Deliverable</h3>
+                  <h3 className="text-lg font-semibold text-foreground">A Golden Example Deliverable</h3>
                   <p className="text-muted-foreground text-sm">
                     The complete file or set of files (e.g., Excel, PowerPoint, Word) you would produce in real work.
                   </p>
