@@ -34,6 +34,7 @@ const promptWritingSections = [
   { id: "select-workflow", label: "3. Select Workflow", icon: GitBranch },
   { id: "draft-prompt", label: "4. Prompt Requirements", icon: PenTool },
   { id: "example", label: "Example Breakdown", icon: Layers },
+  { id: "input-files", label: "Input Files", icon: FileText },
   { id: "quality-gate", label: "5. Quality Checklist", icon: Shield },
 ];
 
