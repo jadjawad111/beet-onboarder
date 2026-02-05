@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { PenTool, ChevronRight } from "lucide-react";
+import { useCourseProgress } from "@/hooks/useCourseProgress";
 import {
   ChooseTaskSection,
   ReviewJobSection,
@@ -39,6 +40,15 @@ const PromptWritingInstructionsPage = () => {
       window.history.replaceState(null, "", `#${activeSection}`);
     }
   }, [activeSection]);
+
+  // Track section completion
+  const { markPart1Section } = useCourseProgress();
+  
+  useEffect(() => {
+    if (activeSection) {
+      markPart1Section(activeSection);
+    }
+  }, [activeSection, markPart1Section]);
 
   const ActiveComponent = sections.find(s => s.id === activeSection)?.component || ChooseTaskSection;
   const currentIndex = sections.findIndex(s => s.id === activeSection);

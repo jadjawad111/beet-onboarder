@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { 
   Home,
   Briefcase, 
@@ -31,6 +31,8 @@ import {
 import { cn } from "@/lib/utils";
 import beetIcon from "@/assets/beet-icon.png";
 import handshakeLogo from "@/assets/handshake-logo.png";
+import { useCourseProgress } from "@/hooks/useCourseProgress";
+import { toast } from "@/hooks/use-toast";
 
 interface AppSidebarProps {
   collapsed: boolean;
@@ -141,8 +143,20 @@ const secondaryNav = [
 
 const AppSidebar = ({ collapsed, onToggle }: AppSidebarProps) => {
   const location = useLocation();
+  const navigate = useNavigate();
   const [promptWritingOpen, setPromptWritingOpen] = useState(true);
   const [rubricWritingOpen, setRubricWritingOpen] = useState(true);
+  
+  const { 
+    isPart1Complete, 
+    isPart2Unlocked, 
+    isPart2Complete, 
+    isPart3Unlocked,
+    isPart3Complete,
+    isInteractiveExamplesUnlocked,
+    part1Progress,
+    part3Progress
+  } = useCourseProgress();
   
   const isActive = (path: string) => {
     if (path === "/home") return location.pathname === "/home";
@@ -155,6 +169,46 @@ const AppSidebar = ({ collapsed, onToggle }: AppSidebarProps) => {
   const isRubricWritingPage = location.pathname === "/instructions/rubric-writing";
   const currentRubricSection = location.hash.replace("#", "") || "introduction";
 
+  // Check if a nav item is locked
+  const isItemLocked = (itemId: string): boolean => {
+    if (itemId === "prompt-instructions") return false; // Part 1 is always unlocked
+    if (itemId === "golden-response-instructions") return !isPart2Unlocked;
+    if (itemId === "rubric-instructions") return !isPart3Unlocked;
+    if (itemId === "interactive-examples") return !isInteractiveExamplesUnlocked;
+    return false;
+  };
+
+  // Handle click on potentially locked items
+  const handleNavClick = (itemId: string, to: string, e: React.MouseEvent) => {
+    if (isItemLocked(itemId)) {
+      e.preventDefault();
+      let message = "";
+      if (itemId === "golden-response-instructions") {
+        message = "Complete all sections in Part 1: Prompt first";
+      } else if (itemId === "rubric-instructions") {
+        message = "Complete Parts 1 and 2 first";
+      } else if (itemId === "interactive-examples") {
+        message = "Complete Parts 1, 2, and 3 first";
+      }
+      toast({
+        title: "Section Locked",
+        description: message,
+        variant: "destructive",
+      });
+      return;
+    }
+  };
+
+  // Get progress indicator for nav items
+  const getProgressIndicator = (itemId: string): string | null => {
+    if (itemId === "prompt-instructions" && !isPart1Complete) {
+      return `${part1Progress}%`;
+    }
+    if (itemId === "rubric-instructions" && isPart3Unlocked && !isPart3Complete) {
+      return `${part3Progress}%`;
+    }
+    return null;
+  };
   return (
     <aside 
       className={cn(
@@ -248,14 +302,16 @@ const AppSidebar = ({ collapsed, onToggle }: AppSidebarProps) => {
         {mainNav.filter(item => item.id !== "home").map((item) => {
           const Icon = item.icon;
           const active = isActive(item.to);
-          const isLocked = item.locked;
+          const isLocked = item.locked || isItemLocked(item.id);
+          const progressIndicator = getProgressIndicator(item.id);
           
           if (isLocked) {
             return (
               <div
                 key={item.id}
+                onClick={(e) => handleNavClick(item.id, item.to, e)}
                 className={cn(
-                  "flex items-center gap-3 px-3 py-3 rounded-lg transition-colors relative group cursor-not-allowed",
+                  "flex items-center gap-3 px-3 py-3 rounded-lg transition-colors relative group cursor-pointer",
                   "text-muted-foreground/50 bg-muted/30"
                 )}
               >
@@ -279,6 +335,35 @@ const AppSidebar = ({ collapsed, onToggle }: AppSidebarProps) => {
           // Special handling for Prompt Writing Instructions with sub-nav
           if (item.hasSubNav) {
             const isRubricNav = item.subNavType === "rubric";
+            
+            // Check if this sub-nav's parent is locked
+            if (isRubricNav && !isPart3Unlocked) {
+              return (
+                <div
+                  key={item.id}
+                  onClick={(e) => handleNavClick(item.id, item.to, e)}
+                  className={cn(
+                    "flex items-center gap-3 px-3 py-3 rounded-lg transition-colors relative group cursor-pointer",
+                    "text-muted-foreground/50 bg-muted/30"
+                  )}
+                >
+                  <Icon className={cn("w-5 h-5 flex-shrink-0", collapsed && "mx-auto")} />
+                  {!collapsed && (
+                    <>
+                      <span className="font-medium text-sm flex-1">{item.label}</span>
+                      <Lock className="w-4 h-4 text-muted-foreground/50" />
+                    </>
+                  )}
+                  {collapsed && (
+                    <div className="absolute left-full ml-2 px-2 py-1 bg-foreground text-background text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none flex items-center gap-1">
+                      <Lock className="w-3 h-3" />
+                      {item.label} (Locked)
+                    </div>
+                  )}
+                </div>
+              );
+            }
+            
             const isOpen = isRubricNav ? rubricWritingOpen : promptWritingOpen;
             const toggleOpen = isRubricNav 
               ? () => setRubricWritingOpen(!rubricWritingOpen)
@@ -305,7 +390,12 @@ const AppSidebar = ({ collapsed, onToggle }: AppSidebarProps) => {
                   <Icon className={cn("w-5 h-5 flex-shrink-0", collapsed && "mx-auto")} />
                   {!collapsed && (
                     <>
-                      <span className="font-medium text-sm flex-1 text-left">{item.label}</span>
+                      <span className="font-medium text-sm flex-1 text-left">
+                        {item.label}
+                        {progressIndicator && (
+                          <span className="ml-2 text-xs text-muted-foreground">({progressIndicator})</span>
+                        )}
+                      </span>
                       <ChevronDown className={cn(
                         "w-4 h-4 transition-transform",
                         isOpen && "rotate-180"
