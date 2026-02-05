@@ -8,7 +8,8 @@ import {
   DraftPromptSection,
   QualityGateSection,
   ExampleBreakdownSection,
-   InputFilesSection,
+  InputFilesSection,
+  ImportanceOfDifficultySection,
 } from "./prompt-writing-sections";
 
 const sections = [
@@ -17,7 +18,8 @@ const sections = [
   { id: "select-workflow", label: "3. Select Workflow", component: SelectWorkflowSection },
   { id: "draft-prompt", label: "4. Prompt Requirements", component: DraftPromptSection },
   { id: "example", label: "Example Breakdown", component: ExampleBreakdownSection },
-   { id: "input-files", label: "Input Files", component: InputFilesSection },
+  { id: "input-files", label: "Input Files", component: InputFilesSection },
+  { id: "importance-of-difficulty", label: "Importance of Difficulty", component: ImportanceOfDifficultySection },
   { id: "quality-gate", label: "Quality Checklist", component: QualityGateSection },
 ];
 
