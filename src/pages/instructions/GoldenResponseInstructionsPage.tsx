@@ -11,8 +11,8 @@ const GoldenResponseInstructionsPage = () => {
             <Award className="h-6 w-6 text-primary" />
           </div>
           <div>
-            <h1 className="text-2xl font-bold text-foreground">Part 2: Golden Example Deliverable</h1>
-            <p className="text-muted-foreground">Your reference point for what "good" looks like</p>
+            <h1 className="text-2xl font-bold text-foreground">Part 2: Deliverable</h1>
+            <p className="text-muted-foreground">Create your reference point for what "good" looks like</p>
           </div>
         </div>
 
@@ -25,6 +25,13 @@ const GoldenResponseInstructionsPage = () => {
             <h2 className="text-xl font-semibold text-foreground">What Is a Golden Example Deliverable?</h2>
           </div>
 
+          {/* Main Explanation */}
+          <div className="bg-card border border-border rounded-xl p-6 space-y-4">
+            <p className="text-muted-foreground leading-relaxed">
+              A <span className="text-foreground font-medium">Golden Example Deliverable</span> is your own attempt at completing the task. Although the model will not train directly on your work, creating one helps you clarify what a strong response looks like, what truly matters in the task, and which elements should be reflected in the rubric.
+            </p>
+          </div>
+
           {/* Intern Analogy Card */}
           <Card className="border-primary/20 bg-gradient-to-br from-primary/5 to-secondary/5">
             <CardContent className="p-6">
@@ -35,23 +42,13 @@ const GoldenResponseInstructionsPage = () => {
                   </div>
                 </div>
                 <div className="space-y-3">
-                  <p className="text-foreground font-medium text-lg">
-                    Think of this as reviewing work your intern submitted.
-                  </p>
-                  <p className="text-muted-foreground">
-                    If you've done that before, you know exactly what high-quality output looks like, even when the work isn't perfect.
+                  <p className="text-muted-foreground leading-relaxed">
+                    You can think of this process as reviewing work submitted by an intern. If you have done this before, you already know that you can clearly identify high-quality output, even when the work is not perfect. Later, the Golden Example Deliverable will be used and is critical for informing the rubrics or grading criteria you use to evaluate your intern's work 🙂
                   </p>
                 </div>
               </div>
             </CardContent>
           </Card>
-
-          {/* Main Explanation */}
-          <div className="bg-card border border-border rounded-xl p-6 space-y-4">
-            <p className="text-muted-foreground leading-relaxed">
-              A <span className="text-foreground font-medium">Golden Example Deliverable</span> is your own attempt at completing the task. While the model won't train directly on your work, creating one forces you to clarify what "good" really means, what matters most, and which elements belong in your rubric.
-            </p>
-          </div>
 
           {/* Success Insight Card */}
           <Card className="border-green-500/30 bg-gradient-to-br from-green-500/5 to-emerald-500/5">
@@ -63,69 +60,30 @@ const GoldenResponseInstructionsPage = () => {
                   </div>
                 </div>
                 <div className="space-y-3">
-                  <p className="text-foreground font-medium">Based on thousands of tasks:</p>
+                  <p className="text-foreground font-medium">Based on our review of thousands of tasks:</p>
                   <p className="text-muted-foreground">
-                    Learners who produce thoughtful Golden Example Deliverables create <span className="text-foreground font-medium">significantly stronger rubrics and prompts</span>. When this step is skipped or rushed, critical evaluation criteria get missed.
+                    Fellows who produce thoughtful Golden Example Deliverables consistently create <span className="text-foreground font-medium">stronger prompts and more accurate rubrics</span>. When this step is skipped or rushed, important evaluation criteria are often missed, which makes it harder to assess model responses effectively.
                   </p>
-                  <div className="flex items-center gap-2 pt-2">
-                    <Sparkles className="h-4 w-4 text-green-600" />
-                    <span className="text-sm font-medium text-green-700 dark:text-green-400">
-                      Learners who invest effort here consistently score higher.
-                    </span>
-                  </div>
                 </div>
               </div>
             </CardContent>
           </Card>
         </section>
 
-        {/* What It Does NOT Need to Be */}
+        {/* Quality Standard */}
         <section className="space-y-6">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-lg bg-muted flex items-center justify-center">
-              <XCircle className="h-5 w-5 text-muted-foreground" />
+              <CheckCircle2 className="h-5 w-5 text-muted-foreground" />
             </div>
-            <h2 className="text-xl font-semibold text-foreground">What a Golden Example Deliverable Does Not Need to Be</h2>
+            <h2 className="text-xl font-semibold text-foreground">Quality Standard</h2>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-4">
-            {/* Does NOT need */}
-            <Card className="border-destructive/20 bg-destructive/5">
-              <CardContent className="p-5">
-                <div className="flex items-start gap-3">
-                  <XCircle className="h-5 w-5 text-destructive flex-shrink-0 mt-0.5" />
-                  <div>
-                    <p className="font-medium text-foreground">It doesn't need to be...</p>
-                    <p className="text-muted-foreground text-sm mt-1">
-                      Perfect or polished enough to send to your boss.
-                    </p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* DOES need */}
-            <Card className="border-green-500/20 bg-green-500/5">
-              <CardContent className="p-5">
-                <div className="flex items-start gap-3">
-                  <CheckCircle2 className="h-5 w-5 text-green-600 flex-shrink-0 mt-0.5" />
-                  <div>
-                    <p className="font-medium text-foreground">It does need to be...</p>
-                    <p className="text-muted-foreground text-sm mt-1">
-                      Thoughtful and detailed enough to give you a complete understanding of what a strong response should include.
-                    </p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-
-          {/* Goal Summary */}
-          <div className="bg-muted/50 rounded-xl p-5 border border-border">
+          <div className="bg-card border border-border rounded-xl p-6">
             <div className="flex items-center gap-3">
               <Target className="h-5 w-5 text-primary flex-shrink-0" />
-              <p className="text-foreground">
-                <span className="font-medium">The goal is clarity and evaluative insight</span>, not perfection.
+              <p className="text-muted-foreground leading-relaxed">
+                The Golden Example Deliverable does not need to be perfect, but it must be <span className="text-foreground font-medium">detailed and well considered enough</span> to give you a complete understanding of what a strong response should include. The goal is <span className="text-foreground font-medium">comprehension and evaluation</span>, not perfection.
               </p>
             </div>
           </div>
