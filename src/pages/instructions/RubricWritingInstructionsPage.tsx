@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { FileText, ChevronRight, BookOpen, ListChecks, Scale, Tag, FileCheck, Target, AlertOctagon, Layout, Table, Video, MinusCircle } from "lucide-react";
+ import { FileText, ChevronRight, BookOpen, ListChecks, Scale, Tag, FileCheck, Target, AlertOctagon, Layout, Table, Video, MinusCircle, AlertCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import {
@@ -13,7 +13,8 @@ import {
   FormattingExamplesSection,
   NegativeItemsSection,
   SpreadsheetRubricsSection,
-  VideoRubricsSection
+   VideoRubricsSection,
+   CommonIssuesSection
 } from "./rubric-sections";
 
 const sections = [
@@ -28,6 +29,7 @@ const sections = [
   { id: "negative-items", label: "Negative Items", icon: MinusCircle, component: NegativeItemsSection },
   { id: "spreadsheets", label: "Spreadsheet Rubrics", icon: Table, component: SpreadsheetRubricsSection },
   { id: "videos", label: "Video Rubrics", icon: Video, component: VideoRubricsSection },
+   { id: "common-issues", label: "Common Issues", icon: AlertCircle, component: CommonIssuesSection },
 ];
 
 const RubricWritingInstructionsPage = () => {
