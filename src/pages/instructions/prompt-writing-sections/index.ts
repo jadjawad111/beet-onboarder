@@ -6,3 +6,4 @@ export { default as DraftPromptSection } from "./DraftPromptSection";
 export { default as CreateInputFilesSection } from "./CreateInputFilesSection";
 export { default as QualityGateSection } from "./QualityGateSection";
 export { default as ExampleBreakdownSection } from "./ExampleBreakdownSection";
+ export { default as InputFilesSection } from "./InputFilesSection";
