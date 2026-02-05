@@ -44,7 +44,7 @@ import StandaloneFAQsPage from "./pages/faqs/StandaloneFAQsPage";
 import { FinalExercisePage } from "./pages/assessment";
 
 // Instructions pages
-import { PromptWritingInstructionsPage, InputFilesInstructionsPage, RubricWritingInstructionsPage, GoldenResponseInstructionsPage } from "./pages/instructions";
+import { PromptWritingInstructionsPage, InputFilesInstructionsPage, RubricWritingInstructionsPage, GoldenResponseInstructionsPage, InteractiveExamplesPage } from "./pages/instructions";
 
 const queryClient = new QueryClient();
 
@@ -82,6 +82,7 @@ const App = () => (
             <Route path="/instructions/input-files" element={<InputFilesInstructionsPage />} />
             <Route path="/instructions/golden-response" element={<GoldenResponseInstructionsPage />} />
             <Route path="/instructions/rubric-writing" element={<RubricWritingInstructionsPage />} />
+            <Route path="/instructions/interactive-examples" element={<InteractiveExamplesPage />} />
             
             {/* Project Information - Single scrollable page */}
             <Route path="/project-info" element={<ProjectInfoLayout />} />

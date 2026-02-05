@@ -2,3 +2,4 @@ export { default as PromptWritingInstructionsPage } from "./PromptWritingInstruc
 export { default as InputFilesInstructionsPage } from "./InputFilesInstructionsPage";
 export { default as RubricWritingInstructionsPage } from "./RubricWritingInstructionsPage";
 export { default as GoldenResponseInstructionsPage } from "./GoldenResponseInstructionsPage";
+ export { default as InteractiveExamplesPage } from "./InteractiveExamplesPage";

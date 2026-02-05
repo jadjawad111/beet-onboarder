@@ -13,7 +13,6 @@ import {
   VideoRubricsSection,
   CommonIssuesSection,
   RubricEducationSection,
-  InteractiveExamplesSection,
   AllComponentsCompleteSection,
   CompleteSection
 } from "./rubric-sections";
@@ -29,7 +28,6 @@ const sections = [
   { id: "formatting", label: "Formatting Examples", icon: Layout, component: FormattingExamplesSection },
    { id: "videos", label: "Video Rubrics Examples", icon: Video, component: VideoRubricsSection },
    { id: "common-issues", label: "Common Issues", icon: AlertCircle, component: CommonIssuesSection },
-   { id: "interactive-examples", label: "Interactive Examples", icon: ClipboardCheck, component: InteractiveExamplesSection },
    { id: "all-components-complete", label: "All Components Complete", icon: CheckCircle2, component: AllComponentsCompleteSection },
    { id: "complete", label: "Complete!", icon: Trophy, component: CompleteSection },
 ];
