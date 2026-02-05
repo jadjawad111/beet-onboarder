@@ -1,5 +1,5 @@
 import { useState } from "react";
- import { FileText, ChevronRight, BookOpen, ListChecks, Scale, Tag, FileCheck, Target, AlertOctagon, Layout, Table, Video, MinusCircle, AlertCircle } from "lucide-react";
+ import { FileText, ChevronRight, BookOpen, ListChecks, Scale, Tag, FileCheck, Target, Layout, Table, Video, MinusCircle, AlertCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import {
@@ -9,7 +9,6 @@ import {
   CategoriesSection,
   CriteriaRulesSection,
   SpecificitySection,
-  ErrorsSection,
   FormattingExamplesSection,
   NegativeItemsSection,
   SpreadsheetRubricsSection,
@@ -24,7 +23,6 @@ const sections = [
   { id: "categories", label: "Categories", icon: Tag, component: CategoriesSection },
   { id: "criteria-rules", label: "Criteria Rules", icon: FileCheck, component: CriteriaRulesSection },
   { id: "specificity", label: "General vs Specific", icon: Target, component: SpecificitySection },
-  { id: "errors", label: "Error Categories", icon: AlertOctagon, component: ErrorsSection },
   { id: "formatting", label: "Formatting Examples", icon: Layout, component: FormattingExamplesSection },
   { id: "negative-items", label: "Negative Items", icon: MinusCircle, component: NegativeItemsSection },
   { id: "spreadsheets", label: "Spreadsheet Rubrics", icon: Table, component: SpreadsheetRubricsSection },
