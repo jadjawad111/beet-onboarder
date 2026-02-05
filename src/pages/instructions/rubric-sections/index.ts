@@ -11,3 +11,4 @@ export { default as SpreadsheetRubricsSection } from './SpreadsheetRubricsSectio
 export { default as VideoRubricsSection } from './VideoRubricsSection';
  export { default as CommonIssuesSection } from './CommonIssuesSection';
  export { default as RubricEducationSection } from './RubricEducationSection';
+ export { default as InteractiveExamplesSection } from './InteractiveExamplesSection';
