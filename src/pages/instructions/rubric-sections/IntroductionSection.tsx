@@ -1,6 +1,10 @@
- import { BookOpen, HelpCircle, ListChecks } from "lucide-react";
+ import { useState } from "react";
+ import { BookOpen, HelpCircle, ListChecks, Eye, Lightbulb } from "lucide-react";
+ import { cn } from "@/lib/utils";
 
 const IntroductionSection = () => {
+   const [revealed, setRevealed] = useState(false);
+ 
   return (
     <div className="space-y-8">
       {/* What is a rubric? */}
@@ -61,6 +65,60 @@ const IntroductionSection = () => {
           </div>
         </div>
       </div>
+ 
+       {/* Why good rubrics matter */}
+       <div className="space-y-4">
+         <h3 className="text-2xl font-bold text-foreground">Why good rubrics matter</h3>
+         
+         <p className="text-foreground leading-relaxed">
+           Rubrics are necessary to evaluate tasks where there is <strong>not one black-and-white correct answer</strong>.
+         </p>
+         
+         <p className="text-foreground leading-relaxed">
+           In professional work, there is often more than one good way to produce an output. While in math there is often one right answer, in the real world there are multiple ways to build an LBO model, create a holiday itinerary, or design a farming schedule.
+         </p>
+         
+         <p className="text-foreground leading-relaxed">
+           In order to evaluate a model doing that work well, <strong>you need a rubric</strong>.
+         </p>
+ 
+         {/* Click to reveal */}
+         <button
+           onClick={() => setRevealed(true)}
+           className={cn(
+             "w-full text-left p-5 rounded-xl border-2 transition-all duration-300",
+             revealed 
+               ? "bg-primary/5 border-primary/30" 
+               : "bg-muted/30 border-dashed border-muted-foreground/30 hover:border-primary/50 hover:bg-muted/50"
+           )}
+         >
+           <div className="flex items-start gap-4">
+             <div className={cn(
+               "w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 transition-colors",
+               revealed ? "bg-primary/20" : "bg-muted"
+             )}>
+               {revealed ? (
+                 <Lightbulb className="w-5 h-5 text-primary" />
+               ) : (
+                 <Eye className="w-5 h-5 text-muted-foreground" />
+               )}
+             </div>
+             <div className="flex-1">
+               <p className="text-sm font-medium text-muted-foreground mb-1">
+                 {revealed ? "Key Insight" : "Click to reveal"}
+               </p>
+               <p className={cn(
+                 "text-foreground transition-all duration-300",
+                 !revealed && "blur-sm select-none"
+               )}>
+                 {revealed 
+                   ? "Without a good rubric, AI models cannot learn what 'good' means for complex professional tasks. The rubric is how we teach machines to recognize quality work — and poor rubrics lead to poor AI training." 
+                   : "Why models cannot improve without good rubrics..."}
+               </p>
+             </div>
+           </div>
+         </button>
+       </div>
     </div>
   );
 };
