@@ -19,7 +19,7 @@ import {
 
 const sections = [
   { id: "introduction", label: "Introduction", icon: BookOpen, component: IntroductionSection },
-  { id: "rubric-items", label: "Rubric Items", icon: ListChecks, component: RubricItemsSection },
+   { id: "rubric-items", label: "Rubric Components", icon: ListChecks, component: RubricItemsSection },
   { id: "weighting", label: "Weighting", icon: Scale, component: WeightingSection },
   { id: "categories", label: "Categories", icon: Tag, component: CategoriesSection },
   { id: "criteria-rules", label: "Criteria Rules", icon: FileCheck, component: CriteriaRulesSection },

@@ -37,7 +37,7 @@ const RubricItemsSection = () => {
             <ListChecks className="w-7 h-7 text-primary" />
           </div>
           <div>
-            <h3 className="text-xl font-bold text-foreground mb-2">Rubric Items</h3>
+             <h3 className="text-xl font-bold text-foreground mb-2">Rubric Components</h3>
             <p className="text-base text-foreground leading-relaxed">
               For this project, each criterion requires the following 6 pieces of supporting information.
             </p>
