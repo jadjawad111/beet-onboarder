@@ -1,7 +1,6 @@
-import { useState } from "react";
-import { FileText, ChevronRight, BookOpen, ListChecks, Scale, Tag, FileCheck, Target, Layout, Video, AlertCircle, Brain, ClipboardCheck, CheckCircle2, Trophy } from "lucide-react";
-import { cn } from "@/lib/utils";
-import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
+import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
+import { FileText, ChevronRight, BookOpen, ListChecks, Scale, Tag, FileCheck, Target, Layout, Video, AlertCircle, Brain, CheckCircle2, Trophy } from "lucide-react";
 import {
   IntroductionSection,
   RubricItemsSection,
@@ -33,7 +32,16 @@ const sections = [
 ];
 
 const RubricWritingInstructionsPage = () => {
+  const location = useLocation();
   const [activeSection, setActiveSection] = useState("introduction");
+
+  // Sync active section with URL hash
+  useEffect(() => {
+    const hash = location.hash.replace("#", "");
+    if (hash && sections.some(s => s.id === hash)) {
+      setActiveSection(hash);
+    }
+  }, [location.hash]);
 
   const ActiveComponent = sections.find(s => s.id === activeSection)?.component || IntroductionSection;
  
@@ -47,7 +55,7 @@ const RubricWritingInstructionsPage = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-5xl mx-auto">
         {/* Header */}
         <div className="p-6 md:p-8 border-b border-border">
           <div className="flex items-center gap-3">
@@ -61,68 +69,8 @@ const RubricWritingInstructionsPage = () => {
           </div>
         </div>
 
-        <div className="flex flex-col lg:flex-row">
-          {/* Sidebar Navigation */}
-          <nav className="w-full lg:w-64 border-b lg:border-b-0 lg:border-r border-border p-4 lg:p-6 flex-shrink-0">
-            {/* Mobile: Horizontal scroll with visible scrollbar */}
-            <div className="lg:hidden">
-              <ScrollArea className="w-full">
-                <div className="flex gap-2 pb-4">
-                  {sections.filter(s => !('parent' in s)).map((section) => {
-                    const Icon = section.icon;
-                    const isActive = activeSection === section.id;
-                    
-                    return (
-                      <button
-                        key={section.id}
-                        onClick={() => setActiveSection(section.id)}
-                        className={cn(
-                          "flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-colors whitespace-nowrap",
-                          isActive
-                            ? "bg-primary/10 text-primary"
-                            : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
-                        )}
-                      >
-                        <Icon className="w-4 h-4 flex-shrink-0" />
-                        <span>{section.label}</span>
-                      </button>
-                    );
-                  })}
-                </div>
-                <ScrollBar orientation="horizontal" className="h-2.5 bg-muted/50 rounded-full" />
-              </ScrollArea>
-            </div>
-            
-            {/* Desktop: Vertical list */}
-            <div className="hidden lg:flex lg:flex-col gap-2">
-              {sections.map((section) => {
-                const Icon = section.icon;
-                const isActive = activeSection === section.id;
-                const isChild = 'parent' in section;
-                
-                return (
-                  <button
-                    key={section.id}
-                    onClick={() => setActiveSection(section.id)}
-                    className={cn(
-                      "flex items-center gap-2 py-2 rounded-lg text-sm transition-colors w-full text-left",
-                      isChild ? "pl-8 pr-3 font-normal" : "px-3 font-medium",
-                      isActive
-                        ? "bg-primary/10 text-primary"
-                        : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
-                    )}
-                  >
-                    <Icon className={cn("flex-shrink-0", isChild ? "w-3.5 h-3.5" : "w-4 h-4")} />
-                    <span>{section.label}</span>
-                    {isActive && <ChevronRight className="w-4 h-4 ml-auto" />}
-                  </button>
-                );
-              })}
-            </div>
-          </nav>
-
-          {/* Main Content */}
-          <main className="flex-1 p-6 md:p-8 lg:p-10 overflow-auto">
+        {/* Main Content */}
+        <main className="p-6 md:p-8 lg:p-10">
              {renderActiveComponent()}
             
             {/* Navigation Footer */}
@@ -162,7 +110,6 @@ const RubricWritingInstructionsPage = () => {
               })()}
             </div>
           </main>
-        </div>
       </div>
     </div>
   );
