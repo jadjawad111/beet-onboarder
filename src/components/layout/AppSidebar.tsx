@@ -173,7 +173,7 @@ const AppSidebar = ({ collapsed, onToggle }: AppSidebarProps) => {
         <div className={cn("mb-2", collapsed ? "px-0" : "px-2")}>
           {!collapsed && (
             <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider">
-              Main
+             Full Course
             </span>
           )}
         </div>
