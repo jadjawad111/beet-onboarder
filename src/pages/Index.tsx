@@ -154,7 +154,7 @@ const Index = () => {
               </div>
               <div className="flex-1">
                 <p className="font-medium text-foreground group-hover:text-primary transition-colors">Complete this course</p>
-                <p className="text-sm text-muted-foreground">Start with Part 1: Prompt</p>
+                <p className="text-sm text-muted-foreground">You are required to complete the course. Upon completion, you will receive a code that unlocks your onboarding assessment.</p>
               </div>
               <div className="flex items-center gap-1 px-2.5 py-1 rounded-full bg-gradient-to-r from-primary to-secondary/70 text-white text-xs font-bold">
                 <Star className="w-3 h-3 fill-current" />
@@ -171,9 +171,8 @@ const Index = () => {
               <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
                 <ClipboardList className="w-5 h-5 text-primary" />
               </div>
-              <div className="flex-1">
+              <div className="flex-1 flex items-center">
                 <p className="font-medium text-foreground group-hover:text-primary transition-colors">Complete the Onboarding Assessment</p>
-                <p className="text-sm text-muted-foreground">Demonstrate your understanding</p>
               </div>
               <ExternalLink className="w-4 h-4 text-muted-foreground" />
             </a>
@@ -187,9 +186,8 @@ const Index = () => {
               <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
                 <File className="w-5 h-5 text-primary" />
               </div>
-              <div className="flex-1">
+              <div className="flex-1 flex items-center">
                 <p className="font-medium text-foreground group-hover:text-primary transition-colors">Start Your First Task at Handshake AI Platform</p>
-                <p className="text-sm text-muted-foreground">Begin contributing to the project</p>
               </div>
               <ExternalLink className="w-4 h-4 text-muted-foreground" />
             </a>
