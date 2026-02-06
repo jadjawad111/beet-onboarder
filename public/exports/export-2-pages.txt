@@ -1,0 +1,202 @@
+FULL SOURCE CODE EXPORT - PART 2: GOLDEN RESPONSE + RUBRIC WRITING PAGE
+========================================================================
+
+=== FILE: src/pages/instructions/GoldenResponseInstructionsPage.tsx ===
+import { Award, Lightbulb, Target, TrendingUp, CheckCircle2, XCircle, Sparkles } from "lucide-react";
+import { Card, CardContent } from "@/components/ui/card";
+
+const GoldenResponseInstructionsPage = () => {
+  return (
+    <div className="min-h-screen bg-background p-6 md:p-8">
+      <div className="max-w-4xl mx-auto space-y-8">
+        <div className="flex items-center gap-3 mb-6">
+          <div className="w-12 h-12 rounded-xl bg-primary/15 flex items-center justify-center">
+            <Award className="h-6 w-6 text-primary" />
+          </div>
+          <div>
+            <h1 className="text-2xl font-bold text-foreground">Part 2: Deliverable</h1>
+            <p className="text-muted-foreground">Create your reference point for what "good" looks like</p>
+          </div>
+        </div>
+        <section className="space-y-6">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-lg bg-secondary/50 flex items-center justify-center">
+              <Lightbulb className="h-5 w-5 text-secondary-foreground" />
+            </div>
+            <h2 className="text-xl font-semibold text-foreground">What Is a Golden Example Deliverable?</h2>
+          </div>
+          <div className="bg-card border border-border rounded-xl p-6 space-y-4">
+            <p className="text-muted-foreground leading-relaxed">
+              A <span className="text-foreground font-medium">Golden Example Deliverable</span> is your own attempt at completing the task. Although the model will not train directly on your work, creating one helps you clarify what a strong response looks like, what truly matters in the task, and which elements should be reflected in the rubric.
+            </p>
+          </div>
+          <Card className="border-primary/20 bg-gradient-to-br from-primary/5 to-secondary/5">
+            <CardContent className="p-6">
+              <div className="flex gap-4">
+                <div className="flex-shrink-0">
+                  <div className="w-12 h-12 rounded-full bg-primary/15 flex items-center justify-center">
+                    <Target className="h-6 w-6 text-primary" />
+                  </div>
+                </div>
+                <div className="space-y-3">
+                  <p className="text-muted-foreground leading-relaxed">
+                    You can think of this process as reviewing work submitted by an intern. If you have done this before, you already know that you can clearly identify high-quality output, even when the work is not perfect. Later, the Golden Example Deliverable will be used and is critical for informing the rubrics or grading criteria you use to evaluate your intern's work 🙂
+                  </p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+          <Card className="border-green-500/30 bg-gradient-to-br from-green-500/5 to-emerald-500/5">
+            <CardContent className="p-6">
+              <div className="flex gap-4">
+                <div className="flex-shrink-0">
+                  <div className="w-12 h-12 rounded-full bg-green-500/15 flex items-center justify-center">
+                    <TrendingUp className="h-6 w-6 text-green-600" />
+                  </div>
+                </div>
+                <div className="space-y-3">
+                  <p className="text-foreground font-medium">Based on our review of thousands of tasks:</p>
+                  <p className="text-muted-foreground">
+                    Fellows who produce thoughtful Golden Example Deliverables consistently create <span className="text-foreground font-medium">stronger prompts and more accurate rubrics</span>. When this step is skipped or rushed, important evaluation criteria are often missed, which makes it harder to assess model responses effectively.
+                  </p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </section>
+        <section className="space-y-6">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-lg bg-muted flex items-center justify-center">
+              <CheckCircle2 className="h-5 w-5 text-muted-foreground" />
+            </div>
+            <h2 className="text-xl font-semibold text-foreground">Quality Standard</h2>
+          </div>
+          <div className="bg-card border border-border rounded-xl p-6">
+            <div className="flex items-center gap-3">
+              <Target className="h-5 w-5 text-primary flex-shrink-0" />
+              <p className="text-muted-foreground leading-relaxed">
+                The Golden Example Deliverable does not need to be perfect, but it must be <span className="text-foreground font-medium">detailed and well considered enough</span> to give you a complete understanding of what a strong response should include. The goal is <span className="text-foreground font-medium">comprehension and evaluation</span>, not perfection.
+              </p>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  );
+};
+
+export default GoldenResponseInstructionsPage;
+
+=== FILE: src/pages/instructions/RubricWritingInstructionsPage.tsx ===
+import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
+import { FileText, ChevronRight, BookOpen, ListChecks, Scale, Tag, FileCheck, Target, Layout, Video, AlertCircle, Brain, CheckCircle2, Trophy } from "lucide-react";
+import {
+  IntroductionSection,
+  RubricItemsSection,
+  WeightingSection,
+  CategoriesSection,
+  CriteriaRulesSection,
+  SpecificitySection,
+  FormattingExamplesSection,
+  VideoRubricsSection,
+  CommonIssuesSection,
+  RubricEducationSection,
+  AllComponentsCompleteSection,
+  CompleteSection
+} from "./rubric-sections";
+
+const sections = [
+  { id: "introduction", label: "Introduction", icon: BookOpen, component: IntroductionSection },
+   { id: "understanding-rubrics", label: "Understanding AI Training", icon: Brain, component: RubricEducationSection },
+   { id: "rubric-items", label: "Rubric Components", icon: ListChecks, component: RubricItemsSection, isParent: true },
+  { id: "criteria-rules", label: "Criterion", icon: FileCheck, component: CriteriaRulesSection, parent: "rubric-items" },
+  { id: "weighting", label: "Weight", icon: Scale, component: WeightingSection, parent: "rubric-items" },
+  { id: "categories", label: "Category", icon: Tag, component: CategoriesSection, parent: "rubric-items" },
+  { id: "specificity", label: "General vs Specific", icon: Target, component: SpecificitySection },
+  { id: "formatting", label: "Formatting Examples", icon: Layout, component: FormattingExamplesSection },
+   { id: "videos", label: "Video Rubrics Examples", icon: Video, component: VideoRubricsSection },
+   { id: "common-issues", label: "Common Issues", icon: AlertCircle, component: CommonIssuesSection },
+   { id: "all-components-complete", label: "Complete!", icon: CheckCircle2, component: AllComponentsCompleteSection },
+   { id: "complete", label: "Copy Code Here", icon: Trophy, component: CompleteSection },
+];
+
+const RubricWritingInstructionsPage = () => {
+  const location = useLocation();
+  const [activeSection, setActiveSection] = useState("introduction");
+
+  useEffect(() => {
+    const hash = location.hash.replace("#", "");
+    if (hash && sections.some(s => s.id === hash)) {
+      setActiveSection(hash);
+    }
+  }, [location.hash]);
+
+  const ActiveComponent = sections.find(s => s.id === activeSection)?.component || IntroductionSection;
+ 
+   const renderActiveComponent = () => {
+     if (activeSection === "rubric-items") {
+       return <RubricItemsSection onNavigate={setActiveSection} />;
+     }
+     return <ActiveComponent />;
+   };
+
+  return (
+    <div className="min-h-screen bg-background">
+      <div className="max-w-5xl mx-auto">
+        <div className="p-6 md:p-8 border-b border-border">
+          <div className="flex items-center gap-3">
+            <div className="w-12 h-12 rounded-xl bg-primary/15 flex items-center justify-center">
+              <FileText className="h-6 w-6 text-primary" />
+            </div>
+            <div>
+              <h1 className="text-2xl font-bold text-foreground">Rubric Writing Instructions</h1>
+              <p className="text-muted-foreground">Guidelines and best practices for creating rubrics</p>
+            </div>
+          </div>
+        </div>
+        <main className="p-6 md:p-8 lg:p-10">
+             {renderActiveComponent()}
+            
+             <div className="mt-10 pt-6 border-t border-border flex justify-between items-center">
+               {(() => {
+                 const currentIndex = sections.findIndex(s => s.id === activeSection);
+                 const prevSection = sections[currentIndex - 1];
+                 const nextSection = sections[currentIndex + 1];
+                 
+                 return (
+                   <>
+                     {prevSection ? (
+                       <button
+                         onClick={() => setActiveSection(prevSection.id)}
+                         className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
+                       >
+                         <ChevronRight className="w-4 h-4 rotate-180" />
+                         <span>{prevSection.label}</span>
+                       </button>
+                     ) : (
+                       <div />
+                     )}
+                     
+                     {nextSection ? (
+                       <button
+                         onClick={() => setActiveSection(nextSection.id)}
+                         className="flex items-center gap-2 text-sm font-medium text-primary hover:text-primary/80 transition-colors"
+                       >
+                         <span>{nextSection.label}</span>
+                         <ChevronRight className="w-4 h-4" />
+                       </button>
+                     ) : (
+                       <div />
+                     )}
+                   </>
+                 );
+               })()}
+             </div>
+           </main>
+      </div>
+    </div>
+  );
+};
+
+export default RubricWritingInstructionsPage;
