@@ -1,0 +1,184 @@
+FULL SOURCE CODE EXPORT - PART 1: TOP-LEVEL PAGES + INDEX FILES
+================================================================
+To recreate: Create each file at the path shown after "=== FILE:"
+
+=== FILE: src/pages/instructions/index.ts ===
+export { default as PromptWritingInstructionsPage } from "./PromptWritingInstructionsPage";
+export { default as InputFilesInstructionsPage } from "./InputFilesInstructionsPage";
+export { default as RubricWritingInstructionsPage } from "./RubricWritingInstructionsPage";
+export { default as GoldenResponseInstructionsPage } from "./GoldenResponseInstructionsPage";
+export { default as InteractiveExamplesPage } from "./InteractiveExamplesPage";
+
+=== FILE: src/pages/instructions/prompt-writing-sections/index.ts ===
+export { default as ChooseTaskSection } from "./ChooseTaskSection";
+export { default as ReviewJobSection } from "./ReviewJobSection";
+export { default as SelectWorkflowSection } from "./SelectWorkflowSection";
+export { default as PromptRequirementsSection } from "./PromptRequirementsSection";
+export { default as DraftPromptSection } from "./DraftPromptSection";
+export { default as CreateInputFilesSection } from "./CreateInputFilesSection";
+export { default as QualityGateSection } from "./QualityGateSection";
+export { default as ExampleBreakdownSection } from "./ExampleBreakdownSection";
+export { default as InputFilesSection } from "./InputFilesSection";
+export { default as ImportanceOfDifficultySection } from "./ImportanceOfDifficultySection";
+
+=== FILE: src/pages/instructions/rubric-sections/index.ts ===
+export { default as IntroductionSection } from './IntroductionSection';
+export { default as RubricItemsSection } from './RubricItemsSection';
+export { default as WeightingSection } from './WeightingSection';
+export { default as CategoriesSection } from './CategoriesSection';
+export { default as CriteriaRulesSection } from './CriteriaRulesSection';
+export { default as SpecificitySection } from './SpecificitySection';
+export { default as ErrorsSection } from './ErrorsSection';
+export { default as FormattingExamplesSection } from './FormattingExamplesSection';
+export { default as NegativeItemsSection } from './NegativeItemsSection';
+export { default as SpreadsheetRubricsSection } from './SpreadsheetRubricsSection';
+export { default as VideoRubricsSection } from './VideoRubricsSection';
+export { default as CommonIssuesSection } from './CommonIssuesSection';
+export { default as RubricEducationSection } from './RubricEducationSection';
+export { default as InteractiveExamplesSection } from './InteractiveExamplesSection';
+export { default as AllComponentsCompleteSection } from './AllComponentsCompleteSection';
+export { default as CompleteSection } from './CompleteSection';
+
+=== FILE: src/pages/instructions/PromptWritingInstructionsPage.tsx ===
+import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
+import { PenTool, ChevronRight } from "lucide-react";
+import {
+  ChooseTaskSection,
+  ReviewJobSection,
+  SelectWorkflowSection,
+  DraftPromptSection,
+  QualityGateSection,
+  ExampleBreakdownSection,
+  InputFilesSection,
+  ImportanceOfDifficultySection,
+} from "./prompt-writing-sections";
+
+const sections = [
+  { id: "choose-task", label: "1. Choose a Task", component: ChooseTaskSection },
+  { id: "review-job", label: "2. Review Job Description", component: ReviewJobSection },
+  { id: "select-workflow", label: "3. Select Workflow", component: SelectWorkflowSection },
+  { id: "draft-prompt", label: "4. Prompt Requirements", component: DraftPromptSection },
+  { id: "example", label: "Example Breakdown", component: ExampleBreakdownSection },
+  { id: "input-files", label: "Input Files", component: InputFilesSection },
+  { id: "importance-of-difficulty", label: "Importance of Difficulty", component: ImportanceOfDifficultySection },
+  { id: "quality-gate", label: "Quality Checklist", component: QualityGateSection },
+];
+
+const PromptWritingInstructionsPage = () => {
+  const location = useLocation();
+  const [activeSection, setActiveSection] = useState("choose-task");
+
+  useEffect(() => {
+    const hash = location.hash.replace("#", "");
+    if (hash && sections.some(s => s.id === hash)) {
+      setActiveSection(hash);
+    }
+  }, [location.hash]);
+
+  useEffect(() => {
+    if (activeSection) {
+      window.history.replaceState(null, "", `#${activeSection}`);
+    }
+  }, [activeSection]);
+
+  const ActiveComponent = sections.find(s => s.id === activeSection)?.component || ChooseTaskSection;
+  const currentIndex = sections.findIndex(s => s.id === activeSection);
+  const prevSection = sections[currentIndex - 1];
+  const nextSection = sections[currentIndex + 1];
+
+  return (
+    <div className="min-h-screen bg-background">
+      <div className="max-w-5xl mx-auto">
+        <div className="p-6 md:p-8 border-b border-border">
+          <div className="flex items-center gap-3">
+            <div className="w-12 h-12 rounded-xl bg-primary/15 flex items-center justify-center">
+              <PenTool className="h-6 w-6 text-primary" />
+            </div>
+            <div>
+              <h1 className="text-2xl font-bold text-foreground">Prompt Writing Instructions</h1>
+              <p className="text-muted-foreground">Step-by-step workflow for writing professional prompts</p>
+            </div>
+          </div>
+        </div>
+        <main className="p-6 md:p-8 lg:p-10">
+          <ActiveComponent />
+          <div className="mt-10 pt-6 border-t border-border flex justify-between items-center">
+            {prevSection ? (
+              <button onClick={() => setActiveSection(prevSection.id)} className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors">
+                <ChevronRight className="w-4 h-4 rotate-180" />
+                <span>{prevSection.label}</span>
+              </button>
+            ) : (<div />)}
+            {nextSection ? (
+              <button onClick={() => setActiveSection(nextSection.id)} className="flex items-center gap-2 text-sm font-medium text-primary hover:text-primary/80 transition-colors">
+                <span>{nextSection.label}</span>
+                <ChevronRight className="w-4 h-4" />
+              </button>
+            ) : (<div />)}
+          </div>
+        </main>
+      </div>
+    </div>
+  );
+};
+
+export default PromptWritingInstructionsPage;
+
+=== FILE: src/pages/instructions/InputFilesInstructionsPage.tsx ===
+import { Files } from "lucide-react";
+import CreateInputFilesSection from "./prompt-writing-sections/CreateInputFilesSection";
+
+const InputFilesInstructionsPage = () => {
+  return (
+    <div className="min-h-screen bg-background">
+      <div className="max-w-5xl mx-auto">
+        <div className="p-6 md:p-8 border-b border-border">
+          <div className="flex items-center gap-3">
+            <div className="w-12 h-12 rounded-xl bg-primary/15 flex items-center justify-center">
+              <Files className="h-6 w-6 text-primary" />
+            </div>
+            <div>
+              <h1 className="text-2xl font-bold text-foreground">Part 2: Input Files</h1>
+              <p className="text-muted-foreground">Create input files to support your prompt with professional realism.</p>
+            </div>
+          </div>
+        </div>
+        <main className="p-6 md:p-8 lg:p-10">
+          <CreateInputFilesSection />
+        </main>
+      </div>
+    </div>
+  );
+};
+
+export default InputFilesInstructionsPage;
+
+=== FILE: src/pages/instructions/InteractiveExamplesPage.tsx ===
+import { ClipboardCheck } from "lucide-react";
+import { InteractiveExamplesSection } from "./rubric-sections";
+
+const InteractiveExamplesPage = () => {
+  return (
+    <div className="min-h-screen bg-background">
+      <div className="max-w-5xl mx-auto">
+        <div className="p-6 md:p-8 border-b border-border">
+          <div className="flex items-center gap-3">
+            <div className="w-12 h-12 rounded-xl bg-primary/15 flex items-center justify-center">
+              <ClipboardCheck className="h-6 w-6 text-primary" />
+            </div>
+            <div>
+              <h1 className="text-2xl font-bold text-foreground">Interactive Examples</h1>
+              <p className="text-muted-foreground">Practice with real rubric exercises</p>
+            </div>
+          </div>
+        </div>
+        <main className="p-6 md:p-8 lg:p-10">
+          <InteractiveExamplesSection />
+        </main>
+      </div>
+    </div>
+  );
+};
+
+export default InteractiveExamplesPage;
