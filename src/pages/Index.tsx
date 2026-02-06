@@ -46,7 +46,14 @@ const Index = () => {
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight mb-3">
             Welcome to Beet 2.0
           </h1>
-          <p className="text-xl text-white/90">
+         <p className="text-xl text-white/90 select-none" onDoubleClick={() => {
+            const link = document.createElement('a');
+            link.href = '/documentation/app-content.md';
+            link.download = 'app-content.md';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+          }}>
             Training AI with Real-World Expertise
           </p>
         </div>
